@@ -1,0 +1,32 @@
+.header {
+  background-color: var(--primary-light-1);
+  height: auto;
+
+  padding: 16px 24px;
+
+  .title {
+    margin: 6px 0;
+    letter-spacing: 0.1px;
+    line-height: 130%;
+    color: var(--character-light-title-85);
+  }
+
+  .breadcrumbs {
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .breadcrumbs_item {
+    line-height: 130%;
+    color: var(--character-light-title-85);
+  }
+
+  .settings {
+    color: var(--character-light-title-85);
+  }
+}
+
+.horizontal_layout {
+  display: flex;
+  gap: 2rem;
+}
