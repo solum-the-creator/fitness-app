@@ -1,4 +1,4 @@
-import { Button, Card, Col, Layout, Row, Typography } from 'antd';
+import { Button, Card, Layout, Row, Typography } from 'antd';
 import { AndroidFilled, AppleFilled } from '@ant-design/icons';
 
 import styles from './footer.module.scss';
