@@ -8,4 +8,52 @@
 
 .main_container {
   background-color: transparent;
+
+
+  .main_content {
+    padding: 24px 24px 42px;
+
+    .grid_container {
+      max-width: 752px;
+      background-color: transparent;
+
+      :global {
+        .ant-card {
+          border: none;
+
+          .ant-card-head {
+            margin-bottom: -4px;
+
+            .ant-card-head-title {
+              padding: 12px 0;
+              line-height: 130%;
+              color: var(--character-light-title-85);
+            }
+          }
+
+        }
+
+
+      }
+
+      .card_actions {
+        font-weight: 400;
+        color: var(--primary-light-9);
+        line-height: 150%;
+      }
+
+      .card_description {
+        font-weight: 500;
+        color: var(--character-light-title-85);
+        font-size: 20px;
+        line-height: 130%;
+      }
+
+      .card_button {
+        color: var(--primary-light-6);
+      }
+    }
+
+
+  }
 }
