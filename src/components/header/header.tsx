@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, Layout, Space } from 'antd';
+import { Breadcrumb, Button, Layout } from 'antd';
 
 import styles from './header.module.scss';
 import Title from 'antd/lib/typography/Title';
@@ -12,8 +12,8 @@ export const Header = () => {
             </Breadcrumb>
             <div className={styles.horizontal_layout}>
                 <Title level={1} className={styles.title}>
-                    Приветствуем тебя в CleverFit — приложении, которое поможет тебе добиться своей
-                    мечты!
+                    Приветствуем тебя в CleverFit — приложении,
+                    <br /> которое поможет тебе добиться своей мечты!
                 </Title>
 
                 <Button icon={<SettingOutlined />} type='text' className={styles.settings}>
