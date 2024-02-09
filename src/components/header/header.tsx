@@ -12,7 +12,7 @@ export const Header = () => {
             </Breadcrumb>
             <div className={styles.horizontal_layout}>
                 <Title level={1} className={styles.title}>
-                    Приветствуем тебя в CleverFit — приложении,
+                    Приветствуем тебя в&nbsp;CleverFit&nbsp;— приложении,
                     <br /> которое поможет тебе добиться своей мечты!
                 </Title>
 
