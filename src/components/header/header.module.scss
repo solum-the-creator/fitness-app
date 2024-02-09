@@ -9,6 +9,13 @@
     letter-spacing: 0.1px;
     line-height: 130%;
     color: var(--character-light-title-85);
+    font-weight: 700;
+
+    @media (width <=1024px) {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.1px;
+    }
   }
 
   .breadcrumbs {
@@ -22,7 +29,27 @@
   }
 
   .settings {
+    border: none;
     color: var(--character-light-title-85);
+    &:hover {
+      background-color: transparent;
+    }
+
+    &:active {
+      background-color: transparent;
+    }
+
+    &:focus {
+      background-color: transparent;
+    }
+
+    @media (width <=1024px) {
+      :global {
+        .anticon {
+          display: none;
+        }
+      }
+    }
   }
 }
 

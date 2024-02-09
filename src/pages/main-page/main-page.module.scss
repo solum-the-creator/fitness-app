@@ -1,7 +1,7 @@
 .image_container {
   background-image: url(/main_page_light.jpg);
   background-size: cover;
-  background-position-x: right;
+  background-position-x: center;
   background-position-y: bottom;
 
   min-height: 100vh;
@@ -29,11 +29,20 @@
 
           .ant-card-head {
             margin-bottom: -4px;
+            @media (width <= 1024px) {
+              margin-bottom: -2px;
+            }
 
             .ant-card-head-title {
               padding: 12px 0;
               line-height: 130%;
               color: var(--character-light-title-85);
+              overflow: auto;
+              white-space: normal;
+
+              @media (width <= 1024px) {
+                text-align: left;
+              }
             }
           }
 
