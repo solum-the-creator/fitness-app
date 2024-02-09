@@ -1,0 +1,49 @@
+.footer {
+  padding: 0;
+  background-color: transparent;
+
+  // .row_container {
+  //   flex-direction: column-reverse;
+  // }
+
+  :global {
+    .ant-card-head-title {
+      padding: 0;
+    }
+  }
+
+
+  .card_title {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+
+    .title_desc {
+      font-size: 14px;
+      line-height: 130%;
+      color: var(--character-light-secondary-45);
+      font-weight: 400;
+    }
+
+    .link_button_title {
+      color: var(--primary-light-6);
+      font-weight: 400;
+      line-height: 130%;
+    }
+  }
+
+  .link_app {
+    color: '#262626';
+
+    line-height: 140%;
+    padding: 6px 0;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}

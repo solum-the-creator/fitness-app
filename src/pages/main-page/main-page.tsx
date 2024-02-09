@@ -7,6 +7,7 @@ import { Header } from '@components/header';
 
 import styles from './main-page.module.scss';
 import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons';
+import { Footer } from './footer';
 
 const { Content } = Layout;
 
@@ -129,6 +130,7 @@ export const MainPage: React.FC = () => {
                             </Col>
                         </Row>
                     </Layout>
+                    <Footer />
                 </Content>
             </Layout>
         </Layout>
