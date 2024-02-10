@@ -4,6 +4,12 @@
   display: flex;
   padding-top: 14px;
   padding-left: 29px;
+
+  @media (width <= 768px) {
+    padding: 16px 17px;
+    height: 100%;
+  }
+
 }
 
 .logo_collapsed {
@@ -13,3 +19,4 @@
   padding-top: 20px;
   padding-left: 18px;
 }
+

@@ -1,6 +1,7 @@
 import { Logo } from '@components/logo';
 import { Button, Layout, Menu } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'usehooks-ts';
 
 import styles from './sidebar.module.scss';
 import {
@@ -17,6 +18,14 @@ const { Sider } = Layout;
 
 export const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
+
+    const matches = useMediaQuery(`(max-width: 768px)`);
+
+    useEffect(() => {
+        if (matches) {
+            setCollapsed(true);
+        }
+    }, [matches]);
 
     const menuItems = [
         {
@@ -60,23 +69,26 @@ export const Sidebar = () => {
 
     return (
         <Sider
-            width={208}
+            width={matches ? 106 : 208}
             collapsible
             trigger={null}
             collapsed={collapsed}
-            collapsedWidth={64}
+            collapsedWidth={matches ? 1 : 64}
             className={styles.sidebar}
         >
             <div className={styles.logo}>
-                <Logo collapsed={collapsed} />
+                <Logo collapsed={collapsed} matches={matches} />
             </div>
-            <Menu
-                defaultSelectedKeys={undefined}
-                items={menuItems}
-                mode='inline'
-                inlineIndent={16}
-                className={styles.menu}
-            />
+            {(!matches || !collapsed) && (
+                <Menu
+                    defaultSelectedKeys={undefined}
+                    items={menuItems}
+                    mode='inline'
+                    inlineIndent={matches ? 0 : 16}
+                    className={styles.menu}
+                />
+            )}
+
             <div className={styles.toggle_container}>
                 <div className={styles.trapezoid_container}>
                     <div className={styles.trapezoid} />
@@ -91,7 +103,7 @@ export const Sidebar = () => {
             </div>
 
             <Button type='text' className={styles.exit} size='large'>
-                <ExitIcon />
+                {!matches && <ExitIcon />}
                 {!collapsed && 'Выход'}
             </Button>
         </Sider>

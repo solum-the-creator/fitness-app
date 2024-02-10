@@ -37,7 +37,7 @@
               padding: 12px 0;
               line-height: 130%;
               color: var(--character-light-title-85);
-              overflow: auto;
+              overflow: hidden;
               white-space: normal;
 
               @media (width <= 1024px) {
