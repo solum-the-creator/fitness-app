@@ -2,9 +2,14 @@
   padding: 0;
   background-color: transparent;
 
-  // .row_container {
-  //   flex-direction: column-reverse;
-  // }
+  .row_container {
+    @media (width <=480px) {
+      flex-direction: column-reverse;
+      gap: 24px;
+    }
+
+  }
+
 
   :global {
     .ant-card-head-title {
@@ -19,6 +24,10 @@
     flex-direction: column;
     gap: 8px;
 
+    @media (width <= 480px) {
+      align-items: center;
+    }
+
 
     .title_desc {
       font-size: 14px;
@@ -26,6 +35,8 @@
       color: var(--character-light-secondary-45);
       font-weight: 400;
     }
+
+
 
     .link_button_title {
       color: var(--primary-light-6);

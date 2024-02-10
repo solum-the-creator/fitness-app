@@ -41,7 +41,7 @@ export const MainPage: React.FC = () => {
                             <Col span={24}>
                                 <Row gutter={[16, 16]}>
                                     <Col xs={24} span={24}>
-                                        <Card bordered={false}>
+                                        <Card bordered={false} className={styles.card_info}>
                                             <p className={styles.card_description}>
                                                 CleverFit&nbsp;— это не&nbsp;просто приложение,
                                                 а&nbsp;твой личный помощник в&nbsp;мире фитнеса.
@@ -50,81 +50,92 @@ export const MainPage: React.FC = () => {
                                             </p>
                                         </Card>
                                     </Col>
-                                    <Col xs={24} sm={8} span={8}>
-                                        <Card
-                                            title='Расписать тренировки'
-                                            bordered={false}
-                                            bodyStyle={{
-                                                padding: '12px 0',
-                                            }}
-                                            headStyle={{
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            <Button
-                                                type='link'
-                                                icon={<HeartFilled style={{ fontSize: '12px' }} />}
-                                                block
-                                                className={styles.card_button}
-                                            >
-                                                Тренировки
-                                            </Button>
-                                        </Card>
-                                    </Col>
-                                    <Col xs={24} sm={8} span={8}>
-                                        <Card
-                                            title='Назначить календарь'
-                                            bordered={false}
-                                            bodyStyle={{
-                                                padding: '12px 0',
-                                            }}
-                                            headStyle={{
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            <Button
-                                                type='link'
-                                                icon={
-                                                    <CalendarTwoTone
-                                                        twoToneColor={['#2F54EB', '#2F54EB']}
-                                                        style={{ fontSize: '12px' }}
-                                                    />
-                                                }
-                                                block
-                                                className={styles.card_button}
-                                            >
-                                                Календарь
-                                            </Button>
-                                        </Card>
-                                    </Col>
-                                    <Col xs={24} sm={8} span={8}>
-                                        <Card
-                                            title='Заполнить профиль'
-                                            bordered={false}
-                                            bodyStyle={{
-                                                padding: '12px 0',
-                                            }}
-                                            headStyle={{
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            <Button
-                                                type='link'
-                                                icon={
-                                                    <IdcardOutlined
-                                                        style={{
-                                                            color: '#2F54EB',
-                                                            fontSize: '12px',
-                                                            transform: 'scaleX(0.8)',
-                                                        }}
-                                                    />
-                                                }
-                                                block
-                                                className={styles.card_button}
-                                            >
-                                                Профиль
-                                            </Button>
-                                        </Card>
+                                    <Col span={24}>
+                                        <Row gutter={[16, 8]} justify={'space-between'}>
+                                            <Col xs={24} sm={8} span={8}>
+                                                <Card
+                                                    title='Расписать тренировки'
+                                                    bordered={false}
+                                                    bodyStyle={{
+                                                        padding: '12px 0',
+                                                    }}
+                                                    headStyle={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                >
+                                                    <Button
+                                                        type='link'
+                                                        icon={
+                                                            <HeartFilled
+                                                                style={{ fontSize: '12px' }}
+                                                            />
+                                                        }
+                                                        block
+                                                        className={styles.card_button}
+                                                    >
+                                                        Тренировки
+                                                    </Button>
+                                                </Card>
+                                            </Col>
+                                            <Col xs={24} sm={8} span={8}>
+                                                <Card
+                                                    title='Назначить календарь'
+                                                    bordered={false}
+                                                    bodyStyle={{
+                                                        padding: '12px 0',
+                                                    }}
+                                                    headStyle={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                >
+                                                    <Button
+                                                        type='link'
+                                                        icon={
+                                                            <CalendarTwoTone
+                                                                twoToneColor={[
+                                                                    '#2F54EB',
+                                                                    '#2F54EB',
+                                                                ]}
+                                                                style={{ fontSize: '12px' }}
+                                                            />
+                                                        }
+                                                        block
+                                                        className={styles.card_button}
+                                                    >
+                                                        Календарь
+                                                    </Button>
+                                                </Card>
+                                            </Col>
+                                            <Col xs={24} sm={8} span={8}>
+                                                <Card
+                                                    title='Заполнить профиль'
+                                                    bordered={false}
+                                                    bodyStyle={{
+                                                        padding: '12px 0',
+                                                    }}
+                                                    headStyle={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                >
+                                                    <Button
+                                                        type='link'
+                                                        icon={
+                                                            <IdcardOutlined
+                                                                style={{
+                                                                    color: '#2F54EB',
+                                                                    fontSize: '12px',
+                                                                    transform: 'scaleX(0.8)',
+                                                                }}
+                                                            />
+                                                        }
+                                                        block
+                                                        className={styles.card_button}
+                                                    >
+                                                        Профиль
+                                                    </Button>
+                                                </Card>
+                                            </Col>
+                                        </Row>
                                     </Col>
                                 </Row>
                             </Col>

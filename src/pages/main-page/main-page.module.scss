@@ -18,6 +18,10 @@
     flex-direction: column;
     justify-content: space-between;
 
+    @media (width <=480px) {
+      padding: 24px 16px 42px;
+    }
+
     .grid_container {
       max-width: 752px;
       background-color: transparent;
@@ -29,7 +33,8 @@
 
           .ant-card-head {
             margin-bottom: -4px;
-            @media (width <= 1024px) {
+
+            @media (width <=1024px) {
               margin-bottom: -2px;
             }
 
@@ -40,8 +45,12 @@
               overflow: hidden;
               white-space: normal;
 
-              @media (width <= 1024px) {
+              @media (width <=1024px) {
                 text-align: left;
+              }
+
+              @media (width <= 480px) {
+                text-align: center;
               }
             }
           }
@@ -55,6 +64,26 @@
         font-weight: 400;
         color: var(--primary-light-9);
         line-height: 150%;
+
+        :global {
+          .ant-card-body {
+            @media (width <=480px) {
+              padding: 16px;
+            }
+          }
+        }
+
+      }
+
+      .card_info {
+        :global {
+          .ant-card-body {
+            @media (width <=480px) {
+              padding: 16px;
+            }
+          }
+        }
+
       }
 
       .card_description {
