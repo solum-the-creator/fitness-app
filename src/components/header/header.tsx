@@ -3,8 +3,11 @@ import { Breadcrumb, Button, Layout } from 'antd';
 import styles from './header.module.scss';
 import Title from 'antd/lib/typography/Title';
 import { SettingOutlined } from '@ant-design/icons';
+import { useMediaQuery } from 'usehooks-ts';
 
 export const Header = () => {
+    const matchesMobile = useMediaQuery(`(max-width: 480px)`);
+
     return (
         <Layout.Header className={styles.header}>
             <Breadcrumb className={styles.breadcrumbs}>
@@ -16,8 +19,13 @@ export const Header = () => {
                     <br /> которое поможет тебе добиться своей мечты!
                 </Title>
 
-                <Button icon={<SettingOutlined />} type='text' className={styles.settings}>
-                    Настройки
+                <Button
+                    icon={<SettingOutlined />}
+                    type={matchesMobile ? 'default' : 'text'}
+                    shape={matchesMobile ? 'circle' : 'default'}
+                    className={styles.settings}
+                >
+                    {!matchesMobile && 'Настройки'}
                 </Button>
             </div>
         </Layout.Header>
