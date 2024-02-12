@@ -17,9 +17,8 @@ import { ExitIcon } from '@components/icons/exit-icon';
 const { Sider } = Layout;
 
 export const Sidebar = () => {
-    const [collapsed, setCollapsed] = useState(false);
-
     const matches = useMediaQuery(`(max-width: 768px)`);
+    const [collapsed, setCollapsed] = useState(matches);
 
     useEffect(() => {
         if (matches) {
@@ -89,11 +88,16 @@ export const Sidebar = () => {
                 />
             )}
 
-            <div className={styles.toggle_container}>
+            <div className={styles.toggle_container} data-test-id='sider-switch-mobile'>
                 <div className={styles.trapezoid_container}>
                     <div className={styles.trapezoid} />
                 </div>
-                <Button onClick={onClick} type='text' className={styles.toggle_button}>
+                <Button
+                    onClick={onClick}
+                    type='text'
+                    className={styles.toggle_button}
+                    data-test-id='sider-switch'
+                >
                     {collapsed ? (
                         <MenuUnfoldOutlined style={{ color: '#8C8C8C' }} />
                     ) : (
