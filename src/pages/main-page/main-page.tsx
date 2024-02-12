@@ -122,7 +122,6 @@ export const MainPage: React.FC = () => {
                                                         icon={
                                                             <IdcardOutlined
                                                                 style={{
-                                                                    color: '#2F54EB',
                                                                     fontSize: '12px',
                                                                     transform: 'scaleX(0.8)',
                                                                 }}
