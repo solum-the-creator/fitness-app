@@ -29,22 +29,17 @@ export const Sidebar = () => {
     const menuItems = [
         {
             key: '1',
-            icon: (
-                <CalendarTwoTone
-                    style={{ fontSize: '16px' }}
-                    twoToneColor={['#061178', '#061178']}
-                />
-            ),
+            icon: <CalendarTwoTone style={{ fontSize: '16px' }} />,
             label: 'Календарь',
         },
         {
             key: '2',
-            icon: <HeartFilled style={{ fontSize: '16px', color: '#061178' }} />,
+            icon: <HeartFilled style={{ fontSize: '16px' }} />,
             label: 'Тренировки',
         },
         {
             key: '3',
-            icon: <TrophyFilled style={{ color: '#061178', fontSize: '16px' }} />,
+            icon: <TrophyFilled style={{ fontSize: '16px' }} />,
             label: 'Достижения',
         },
         {
@@ -52,7 +47,6 @@ export const Sidebar = () => {
             icon: (
                 <IdcardOutlined
                     style={{
-                        color: '#061178',
                         fontSize: '16px',
                         transform: 'scaleX(0.8)',
                     }}
