@@ -26,6 +26,7 @@ export const Footer = () => {
                         display: 'flex',
                         justifyContent: 'space-between',
                     }}
+                    className={styles.card_app}
                 >
                     <Link href='/' className={styles.link_app} style={{ color: '#262626' }}>
                         <AndroidFilled />
