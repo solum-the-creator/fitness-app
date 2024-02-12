@@ -1,0 +1,111 @@
+.image_container {
+  background-image: url(/main_page_light.jpg);
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: bottom;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.main_container {
+  background-color: transparent;
+
+
+
+  .main_content {
+    padding: 24px 24px 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media (width <= 480px) {
+      padding: 24px 16px 42px;
+    }
+
+    .grid_container {
+      max-width: 752px;
+      background-color: transparent;
+      margin-bottom: 24px;
+
+      :global {
+        .ant-card {
+          border: none;
+
+          .ant-card-head {
+            margin-bottom: -4px;
+
+            @media (width <= 1024px) {
+              margin-bottom: -2px;
+            }
+
+            .ant-card-head-title {
+              padding: 12px 0;
+              line-height: 130%;
+              color: var(--character-light-title-85);
+              overflow: hidden;
+              white-space: normal;
+
+              @media (width <= 1024px) {
+                text-align: left;
+              }
+
+              @media (width <= 480px) {
+                text-align: center;
+              }
+            }
+          }
+
+        }
+
+
+      }
+
+      .card_actions {
+        font-weight: 400;
+        color: var(--primary-light-9);
+        line-height: 150%;
+
+        box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.04);
+
+        :global {
+          .ant-card-body {
+            @media (width <= 480px) {
+              padding: 16px;
+            }
+          }
+        }
+
+      }
+
+      .card_info {
+        box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.04);
+
+        :global {
+          .ant-card-body {
+            @media (width <= 480px) {
+              padding: 16px;
+            }
+          }
+        }
+
+      }
+
+      .card_description {
+        font-weight: 500;
+        color: var(--character-light-title-85);
+        font-size: 20px;
+        line-height: 130%;
+      }
+
+      .card_button {
+        color: var(--primary-light-6);
+
+        &:active {
+          color: var(--primary-light-7);
+        }
+      }
+    }
+
+
+  }
+}

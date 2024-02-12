@@ -1,0 +1,87 @@
+.footer {
+  padding: 0;
+  background-color: transparent;
+
+  .row_container {
+    @media (width <= 480px) {
+      flex-direction: column-reverse;
+      gap: 24px;
+    }
+
+  }
+
+
+  :global {
+    .ant-card-head-title {
+      padding: 0;
+    }
+  }
+
+
+  .card_title {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @media (width <= 480px) {
+      align-items: center;
+    }
+
+
+    .title_desc {
+      font-size: 14px;
+      line-height: 130%;
+      color: var(--character-light-secondary-45);
+      font-weight: 400;
+    }
+
+    .link_button_title {
+      color: var(--primary-light-6);
+      font-weight: 400;
+      line-height: 130%;
+
+      &:active {
+        color: var(--primary-light-7);
+      }
+    }
+  }
+
+  .link_button {
+      color: var(--primary-light-6);
+
+      &:active {
+        color: var(--primary-light-7);
+      }
+  }
+
+  .card_app {
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.02);
+  }
+
+  .link_app {
+    color: '#262626';
+
+    line-height: 140%;
+    padding: 6px 0;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    &:hover {
+      background-color: var(--neutral-gray-2);
+    }
+
+    &:active {
+      background-color: var(--neutral-gray-3);
+    }
+
+    &:disabled {
+      background-color: transparent;
+      color: var(--character-dark-disable-25);
+    }
+  }
+}
