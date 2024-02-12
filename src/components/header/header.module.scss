@@ -39,22 +39,23 @@
   }
 
   .settings {
-
     color: var(--character-light-title-85);
 
 
     @media (width > 480px) {
+
       border: none;
       &:hover {
-        background-color: transparent;
+        background-color: var(--neutral-gray-2);
       }
 
       &:active {
-        background-color: transparent;
+        background-color: var(--neutral-gray-3);
       }
 
-      &:focus {
+      &:disabled {
         background-color: transparent;
+        color: var(--character-dark-disable-25);
       }
     }
 
@@ -67,6 +68,20 @@
     }
 
     @media (width <=480px) {
+      &:hover {
+        color: var(--primary-light-5);
+        border-color: var(--primary-light-5);
+      }
+
+      &:active {
+        color: var(--primary-light-6);
+        border-color: var(--primary-light-6);
+      }
+
+      &:focus {
+        border-color: var(--primary-light-6);
+      }
+
       :global {
         .anticon {
           display: flex;
