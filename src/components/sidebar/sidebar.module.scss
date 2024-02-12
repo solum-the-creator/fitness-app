@@ -24,6 +24,29 @@
       background-color: var(--primary-light-1);
     }
 
+    .ant-menu-item-icon {
+      color: var(--primary-light-9);
+
+      svg {
+        path {
+          fill: var(--primary-light-9);
+        }
+      }
+    }
+
+    .ant-menu-item-selected {
+      color: var(--primary-light-6);
+
+      .ant-menu-item-icon {
+        color: var(--primary-light-6);
+
+        svg {
+          path {
+            fill: var(--primary-light-6);
+          }
+        }
+      }
+    }
 
 
     .ant-menu-inline-collapsed {
