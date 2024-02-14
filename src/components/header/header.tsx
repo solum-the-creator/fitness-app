@@ -3,10 +3,10 @@ import { Breadcrumb, Button, Layout } from 'antd';
 import styles from './header.module.scss';
 import Title from 'antd/lib/typography/Title';
 import { SettingOutlined } from '@ant-design/icons';
-import { useMediaQuery } from 'usehooks-ts';
+import { useMediaQuery } from 'react-responsive';
 
 export const Header = () => {
-    const matchesMobile = useMediaQuery(`(max-width: 480px)`);
+    const matchesMobile = useMediaQuery({ query: `(max-width: 480px)` });
 
     return (
         <Layout.Header className={styles.header}>

@@ -1,7 +1,7 @@
 import { Logo } from '@components/logo';
 import { Button, Layout, Menu } from 'antd';
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'usehooks-ts';
+import { useMediaQuery } from 'react-responsive';
 
 import styles from './sidebar.module.scss';
 import {
@@ -17,7 +17,7 @@ import { ExitIcon } from '@components/icons/exit-icon';
 const { Sider } = Layout;
 
 export const Sidebar = () => {
-    const matches = useMediaQuery(`(max-width: 768px)`);
+    const matches = useMediaQuery({ query: `(max-width: 768px)` });
     const [collapsed, setCollapsed] = useState(matches);
 
     useEffect(() => {
