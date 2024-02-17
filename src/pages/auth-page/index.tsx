@@ -1,3 +1,9 @@
+import { Layout } from 'antd';
+
 export const AuthPage = () => {
-    return <h2>Auth page</h2>;
+    return (
+        <Layout>
+            <h1>Auth page</h1>
+        </Layout>
+    );
 };

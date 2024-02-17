@@ -4,6 +4,7 @@ import styles from './layout-auth.module.scss';
 import { Content } from 'antd/lib/layout/layout';
 import { Outlet } from 'react-router-dom';
 import { Logo } from './_components/logo';
+import { Navbar } from './_components/navbar';
 
 export const LayoutAuth = () => {
     return (
@@ -13,7 +14,10 @@ export const LayoutAuth = () => {
                     <div className={styles.form_enter}>
                         <div className={styles.main_container}>
                             <Logo />
-                            <Outlet />
+                            <div className={styles.navbar_container}>
+                                <Navbar />
+                                <Outlet />
+                            </div>
                         </div>
                     </div>
                 </Layout>
