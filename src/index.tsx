@@ -8,6 +8,8 @@ import { store, history } from '@redux/configure-store';
 import './styles/normilize.css';
 import './styles/reset.css';
 
+import 'antd/dist/antd.less';
+
 import './index.css';
 import { routes } from './routes/routes';
 

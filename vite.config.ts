@@ -9,6 +9,20 @@ export default defineConfig({
         host: true,
         port: 3000,
     },
+    css: {
+        preprocessorOptions: {
+            less: {
+                modifyVars: {
+                    'primary-color': '#2f54eb',
+                    'primary-color-hover': '#597ef7',
+                    'heading-color': '#ff0000',
+                    'font-family': '"Inter", sans-serif',
+                    'text-color': '#262626',
+                },
+                javascriptEnabled: true,
+            },
+        },
+    },
     resolve: {
         alias: {
             '@public': path.resolve(__dirname, 'public'),
