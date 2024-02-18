@@ -18,6 +18,7 @@ export default defineConfig({
                     'heading-color': '#ff0000',
                     'font-family': '"Inter", sans-serif',
                     'text-color': '#262626',
+                    'text-color-secondary': '#8c8c8c',
                 },
                 javascriptEnabled: true,
             },

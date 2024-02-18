@@ -14,64 +14,38 @@
       .ant-input {
         height: 40px;
       }
+
+      .ant-input-group-addon {
+        padding: 0 12px;
+      }
     }
   }
 
   .form_item_password {
-    margin-bottom: 54px;
+    margin-bottom: 16px;
 
+    @media (max-width: 480px) {
+      margin-bottom: 12px;
+    }
     :global {
       .ant-input {
         font-size: 14px;
       }
-    }
-  }
 
-  .form_remember {
-    margin-bottom: 0;
-  }
-
-  .link_container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .link_forgot {
-    align-self: flex-end;
-    font-size: 16px;
-    line-height: 130%;
-    font-weight: 400;
-
-    @media (max-width: 640px) {
-      font-size: 14px;
-      margin-right: 7px;
-    }
-  }
-
-
-  .form_check_area {
-    margin-bottom: 26px;
-
-    @media (max-width: 640px) {
-      margin-bottom: 20px;
-    }
-
-    :global {
-      .ant-form-item-control-input {
-        min-height: auto;
-
-        .ant-form-item-control-input-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          height: auto;
-
-          .ant-form-item {
-            margin-bottom: 0;
-          }
-        }
+      .ant-form-item-extra {
+        margin-top: 2px;
+        font-size: 12px;
+        line-height: 130%;
+        min-height: 30px;
       }
+    }
+  }
+
+  .form_item_confirm_password {
+    margin-bottom: 60px;
+
+    @media (max-width: 480px) {
+      margin-bottom: 55px;
     }
   }
 
@@ -88,16 +62,15 @@
   }
 
   .form_button_google {
+    margin-bottom: 0;
     :global {
       .ant-btn {
         @media (max-width: 640px) {
           font-size: 14px;
-
         }
         .anticon {
           @media (max-width: 480px) {
             display: none;
-
           }
         }
 
@@ -110,6 +83,3 @@
     }
   }
 }
-
-
-

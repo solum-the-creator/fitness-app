@@ -17,7 +17,11 @@ export const AuthPage = () => {
             onFinish={onFinish}
             className={styles.form}
         >
-            <Form.Item name={'e-mail'} required={true} className={styles.form_item_email}>
+            <Form.Item
+                name={'e-mail'}
+                rules={[{ required: true }, { type: 'email' }]}
+                className={styles.form_item_email}
+            >
                 <Input addonBefore={'e-mail:'} placeholder='' />
             </Form.Item>
             <Form.Item name={'password'} required={true} className={styles.form_item_password}>
@@ -44,7 +48,12 @@ export const AuthPage = () => {
                 </Button>
             </Form.Item>
             <Form.Item className={styles.form_button_google}>
-                <Button type='default' icon={<GooglePlusOutlined />} htmlType='submit' block>
+                <Button
+                    type='default'
+                    icon={<GooglePlusOutlined style={{ fontSize: '14px' }} />}
+                    htmlType='submit'
+                    block
+                >
                     Войти через Google
                 </Button>
             </Form.Item>
