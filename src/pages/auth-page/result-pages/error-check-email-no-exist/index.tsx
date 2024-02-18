@@ -14,7 +14,7 @@ export const ErrorCheckEmailNoExist = () => {
                     </span>
                 }
                 extra={
-                    <Button type='primary' size='large' block>
+                    <Button type='primary' size='large'>
                         Попробовать снова
                     </Button>
                 }

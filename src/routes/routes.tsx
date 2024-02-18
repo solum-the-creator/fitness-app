@@ -8,6 +8,7 @@ import { LayoutResult } from '@pages/auth-page/result-pages/layout-result';
 import { Success } from '@pages/auth-page/result-pages/success';
 import { MainPage } from '@pages/main-page';
 import { ErrorCheckEmailNoExist } from '@pages/auth-page/result-pages/error-check-email-no-exist';
+import { ErrorCheckEmail } from '@pages/auth-page/result-pages/error-check-email';
 
 import { Route, Routes } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ export const routes = (
             <Route path='error-user-exist' element={<ErrorUserExist />} />
             <Route path='error' element={<Error />} />
             <Route path='error-check-email-no-exist' element={<ErrorCheckEmailNoExist />} />
+            <Route path='error-check-email' element={<ErrorCheckEmail />} />
         </Route>
         <Route path='/main' element={<MainPage />} />
     </Routes>
