@@ -1,16 +1,16 @@
 import { Wrapper } from '@pages/auth-page/_components/result/wrapper';
 import { Button, Result } from 'antd';
 
-export const ErrorLogin = () => {
+export const Success = () => {
     return (
         <Wrapper>
             <Result
-                status={'warning'}
-                title='Вход не выполнен'
-                subTitle='Что-то пошло не так. Попробуйте еще раз'
+                status={'success'}
+                title='Регистрация успешна'
+                subTitle='Регистрация прошла успешно. Зайдите в&nbsp;приложение, используя свои e-mail и пароль.'
                 extra={
                     <Button type='primary' size='large' block>
-                        Повторить
+                        Войти
                     </Button>
                 }
             />
