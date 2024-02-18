@@ -11,6 +11,7 @@ import { ErrorCheckEmailNoExist } from '@pages/auth-page/result-pages/error-chec
 import { ErrorCheckEmail } from '@pages/auth-page/result-pages/error-check-email';
 
 import { Route, Routes } from 'react-router-dom';
+import { ErrorChangePassword } from '@pages/auth-page/result-pages/error-change-password';
 
 export const routes = (
     <Routes>
@@ -25,6 +26,7 @@ export const routes = (
             <Route path='error' element={<Error />} />
             <Route path='error-check-email-no-exist' element={<ErrorCheckEmailNoExist />} />
             <Route path='error-check-email' element={<ErrorCheckEmail />} />
+            <Route path='error-change-password' element={<ErrorChangePassword />} />
         </Route>
         <Route path='/main' element={<MainPage />} />
     </Routes>
