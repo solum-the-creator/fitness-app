@@ -1,0 +1,75 @@
+.result_container {
+  background-color: var(--character-light-primary-inverse);
+  padding: 64px 85.5px;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+
+  max-width: 539px;
+  width: 100%;
+
+  @media (max-width: 640px) {
+    padding: 32px 16px;
+  }
+
+  .result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+
+    .icon_container {
+      width: 80px;
+      height: 80px;
+      padding: 9px 5px;
+
+      :global {
+        .anticon {
+          font-size: 70px;
+
+        }
+      }
+    }
+
+    .warning {
+      :global {
+        .anticon {
+          color: var(--character-light-warning);
+        }
+      }
+    }
+
+    .error {
+      :global {
+        .anticon {
+          color: var(--character-light-error);
+        }
+      }
+    }
+
+    .success {
+      :global {
+        .anticon {
+          color: var(--character-light-success);
+        }
+      }
+    }
+
+    .text_container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .text {
+        font-size: 14px;
+        line-height: 130%;
+        margin-bottom: 0;
+      }
+    }
+
+    .button {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+  }
+}
