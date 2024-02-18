@@ -3,9 +3,12 @@ import { LayoutAuth } from '@pages/auth-page/layout-auth';
 import { RegistrationPage } from '@pages/auth-page/registration-page';
 import { ErrorLogin } from '@pages/auth-page/result-pages/error-login';
 import { ErrorUserExist } from '@pages/auth-page/result-pages/error-user-exist';
+import { Error } from '@pages/auth-page/result-pages/error';
 import { LayoutResult } from '@pages/auth-page/result-pages/layout-result';
 import { Success } from '@pages/auth-page/result-pages/success';
 import { MainPage } from '@pages/main-page';
+import { ErrorCheckEmailNoExist } from '@pages/auth-page/result-pages/error-check-email-no-exist';
+
 import { Route, Routes } from 'react-router-dom';
 
 export const routes = (
@@ -18,6 +21,8 @@ export const routes = (
             <Route path='error-login' element={<ErrorLogin />} />
             <Route path='success' element={<Success />} />
             <Route path='error-user-exist' element={<ErrorUserExist />} />
+            <Route path='error' element={<Error />} />
+            <Route path='error-check-email-no-exist' element={<ErrorCheckEmailNoExist />} />
         </Route>
         <Route path='/main' element={<MainPage />} />
     </Routes>
