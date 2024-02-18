@@ -9,9 +9,10 @@ import { Success } from '@pages/auth-page/result-pages/success';
 import { MainPage } from '@pages/main-page';
 import { ErrorCheckEmailNoExist } from '@pages/auth-page/result-pages/error-check-email-no-exist';
 import { ErrorCheckEmail } from '@pages/auth-page/result-pages/error-check-email';
+import { SuccessChangePassword } from '@pages/auth-page/result-pages/success-change-password';
+import { ErrorChangePassword } from '@pages/auth-page/result-pages/error-change-password';
 
 import { Route, Routes } from 'react-router-dom';
-import { ErrorChangePassword } from '@pages/auth-page/result-pages/error-change-password';
 
 export const routes = (
     <Routes>
@@ -22,6 +23,7 @@ export const routes = (
         <Route path='/result' element={<LayoutResult />}>
             <Route path='error-login' element={<ErrorLogin />} />
             <Route path='success' element={<Success />} />
+            <Route path='success-change-password' element={<SuccessChangePassword />} />
             <Route path='error-user-exist' element={<ErrorUserExist />} />
             <Route path='error' element={<Error />} />
             <Route path='error-check-email-no-exist' element={<ErrorCheckEmailNoExist />} />
