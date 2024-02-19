@@ -11,7 +11,7 @@ import './styles/reset.css';
 import 'antd/dist/antd.less';
 
 import './index.css';
-import { routes } from './routes/routes';
+import { AppRoutes } from './routes/routes';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
@@ -19,7 +19,9 @@ const root = createRoot(domNode);
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <HistoryRouter history={history}>{routes}</HistoryRouter>
+            <HistoryRouter history={history}>
+                <AppRoutes />
+            </HistoryRouter>
         </Provider>
     </React.StrictMode>,
 );
