@@ -4,8 +4,10 @@ type AuthState = {
     accessToken: string | null;
 };
 
+const accessToken = localStorage.getItem('authToken');
+
 const initialState: AuthState = {
-    accessToken: null,
+    accessToken: accessToken,
 };
 
 const authSlice = createSlice({

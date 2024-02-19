@@ -21,9 +21,12 @@ export const AuthPage = () => {
         try {
             const loginData = await login(values).unwrap();
             dispatch(setCredentials(loginData));
+            if (values.remember) {
+                localStorage.setItem('authToken', loginData.accessToken);
+            }
             dispatch(push('/main'));
         } catch (error) {
-            console.error('Error:', error); // Обрабатываем ошибку, если возникла
+            console.error('Error:', error);
         }
     };
 
