@@ -1,12 +1,30 @@
 import { Link } from 'react-router-dom';
-import styles from './auth-page.module.scss';
+import styles from './styles/auth-page.module.scss';
 import { GooglePlusOutlined } from '@ant-design/icons';
 
 import { Button, Checkbox, Form, Input } from 'antd';
+import { useLoginMutation } from '@redux/api/apiSlice';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '@redux/auth/authSlice';
+import { push } from 'redux-first-history';
+
+type LoginFormValues = {
+    email: string;
+    password: string;
+    remember?: boolean;
+};
 
 export const AuthPage = () => {
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
+    const dispatch = useDispatch();
+    const [login, { isLoading }] = useLoginMutation();
+    const onFinish = async (values: LoginFormValues) => {
+        try {
+            const loginData = await login(values).unwrap();
+            dispatch(setCredentials(loginData));
+            dispatch(push('/main'));
+        } catch (error) {
+            console.error('Error:', error); // Обрабатываем ошибку, если возникла
+        }
     };
 
     return (
@@ -18,7 +36,7 @@ export const AuthPage = () => {
             className={styles.form}
         >
             <Form.Item
-                name={'e-mail'}
+                name={'email'}
                 rules={[{ required: true }, { type: 'email' }]}
                 className={styles.form_item_email}
             >
@@ -43,7 +61,7 @@ export const AuthPage = () => {
                 </div>
             </Form.Item>
             <Form.Item className={styles.form_button_submit}>
-                <Button type='primary' htmlType='submit' block>
+                <Button type='primary' htmlType='submit' block disabled={isLoading}>
                     Войти
                 </Button>
             </Form.Item>

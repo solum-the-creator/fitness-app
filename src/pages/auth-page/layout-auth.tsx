@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import styles from './layout-auth.module.scss';
+import styles from './styles/layout-auth.module.scss';
 
 import { Content } from 'antd/lib/layout/layout';
 import { Outlet, useLocation } from 'react-router-dom';
@@ -14,20 +14,18 @@ export const LayoutAuth = () => {
     const layout_class = path === '/auth' ? styles.layout_auth : styles.layout_registration;
 
     return (
-        <div className={styles.background}>
-            <Content className={`${layout_class} ${styles.content}`}>
-                <Layout className={styles.form_container}>
-                    <div className={styles.form_enter}>
-                        <div className={styles.main_container}>
-                            <Logo />
-                            <div className={styles.navbar_container}>
-                                <Navbar />
-                                <Outlet />
-                            </div>
+        <Content className={`${layout_class} ${styles.content}`}>
+            <Layout className={styles.form_container}>
+                <div className={styles.form_enter}>
+                    <div className={styles.main_container}>
+                        <Logo />
+                        <div className={styles.navbar_container}>
+                            <Navbar />
+                            <Outlet />
                         </div>
                     </div>
-                </Layout>
-            </Content>
-        </div>
+                </div>
+            </Layout>
+        </Content>
     );
 };

@@ -13,6 +13,7 @@ import {
     TrophyFilled,
 } from '@ant-design/icons';
 import { ExitIcon } from '@components/icons/exit-icon';
+import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
 
@@ -53,6 +54,11 @@ export const Sidebar = () => {
                 />
             ),
             label: 'Профиль',
+        },
+        {
+            key: '5',
+            icon: <TrophyFilled style={{ fontSize: '16px' }} />,
+            label: <Link to={'/result/test'}>Тест</Link>,
         },
     ];
 

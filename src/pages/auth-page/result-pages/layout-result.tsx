@@ -4,10 +4,8 @@ import { Content } from 'antd/lib/layout/layout';
 
 export const LayoutResult = () => {
     return (
-        <div className={styles.background}>
-            <Content className={styles.content}>
-                <Outlet />
-            </Content>
-        </div>
+        <Content className={styles.content}>
+            <Outlet />
+        </Content>
     );
 };

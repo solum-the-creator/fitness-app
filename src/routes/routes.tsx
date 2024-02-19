@@ -13,23 +13,40 @@ import { SuccessChangePassword } from '@pages/auth-page/result-pages/success-cha
 import { ErrorChangePassword } from '@pages/auth-page/result-pages/error-change-password';
 
 import { Route, Routes } from 'react-router-dom';
+import { TestPage } from '@pages/test';
+import { Layout } from '@pages/auth-page/layout';
+import { AuthRoutes } from '@components/auth-routes';
+import { UnauthRoutes } from '@components/unauth-routes';
 
-export const routes = (
-    <Routes>
-        <Route path='/auth' element={<LayoutAuth />}>
-            <Route index element={<AuthPage />} />
-            <Route path='registration' element={<RegistrationPage />} />
-        </Route>
-        <Route path='/result' element={<LayoutResult />}>
-            <Route path='error-login' element={<ErrorLogin />} />
-            <Route path='success' element={<Success />} />
-            <Route path='success-change-password' element={<SuccessChangePassword />} />
-            <Route path='error-user-exist' element={<ErrorUserExist />} />
-            <Route path='error' element={<Error />} />
-            <Route path='error-check-email-no-exist' element={<ErrorCheckEmailNoExist />} />
-            <Route path='error-check-email' element={<ErrorCheckEmail />} />
-            <Route path='error-change-password' element={<ErrorChangePassword />} />
-        </Route>
-        <Route path='/main' element={<MainPage />} />
-    </Routes>
-);
+export const AppRoutes = () => {
+    return (
+        <Routes>
+            <Route path='/' element={<AuthRoutes />}>
+                <Route path='/main' element={<MainPage />} />
+            </Route>
+            <Route element={<UnauthRoutes />}>
+                <Route element={<Layout />}>
+                    <Route path='/auth' element={<LayoutAuth />}>
+                        <Route index element={<AuthPage />} />
+                        <Route path='registration' element={<RegistrationPage />} />
+                    </Route>
+
+                    <Route path='/result' element={<LayoutResult />}>
+                        <Route path='error-login' element={<ErrorLogin />} />
+                        <Route path='success' element={<Success />} />
+                        <Route path='success-change-password' element={<SuccessChangePassword />} />
+                        <Route path='error-user-exist' element={<ErrorUserExist />} />
+                        <Route path='error' element={<Error />} />
+                        <Route
+                            path='error-check-email-no-exist'
+                            element={<ErrorCheckEmailNoExist />}
+                        />
+                        <Route path='error-check-email' element={<ErrorCheckEmail />} />
+                        <Route path='error-change-password' element={<ErrorChangePassword />} />
+                        <Route path='test' element={<TestPage />} />
+                    </Route>
+                </Route>
+            </Route>
+        </Routes>
+    );
+};
