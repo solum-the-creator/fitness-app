@@ -26,7 +26,7 @@ export const AuthPage = () => {
             }
             dispatch(push('/main'));
         } catch (error) {
-            console.error('Error:', error);
+            dispatch(push('/result/error-login', { fromError: true }));
         }
     };
 
@@ -40,12 +40,16 @@ export const AuthPage = () => {
         >
             <Form.Item
                 name={'email'}
-                rules={[{ required: true }, { type: 'email' }]}
+                rules={[{ required: true, message: '' }, { type: 'email' }]}
                 className={styles.form_item_email}
             >
                 <Input addonBefore={'e-mail:'} placeholder='' />
             </Form.Item>
-            <Form.Item name={'password'} required={true} className={styles.form_item_password}>
+            <Form.Item
+                name={'password'}
+                rules={[{ required: true, message: '' }]}
+                className={styles.form_item_password}
+            >
                 <Input.Password placeholder='Пароль'></Input.Password>
             </Form.Item>
             <Form.Item className={styles.form_check_area}>

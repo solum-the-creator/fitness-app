@@ -22,11 +22,11 @@ export const AppRoutes = () => {
     return (
         <Routes>
             <Route element={<AuthRoutes />}>
-                <Route path='/' element={<Navigate to='/main' />} />
+                <Route path='/' element={<Navigate to='/main' replace />} />
                 <Route path='/main' element={<MainPage />} />
             </Route>
             <Route element={<UnauthRoutes />}>
-                <Route path='/' element={<Navigate to='/auth' />} />
+                <Route path='/' element={<Navigate to='/auth' replace />} />
                 <Route element={<Layout />}>
                     <Route path='/auth' element={<LayoutAuth />}>
                         <Route index element={<AuthPage />} />
