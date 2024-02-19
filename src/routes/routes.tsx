@@ -12,7 +12,7 @@ import { ErrorCheckEmail } from '@pages/auth-page/result-pages/error-check-email
 import { SuccessChangePassword } from '@pages/auth-page/result-pages/success-change-password';
 import { ErrorChangePassword } from '@pages/auth-page/result-pages/error-change-password';
 
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { TestPage } from '@pages/test';
 import { Layout } from '@pages/auth-page/layout';
 import { AuthRoutes } from '@components/auth-routes';
@@ -21,10 +21,12 @@ import { UnauthRoutes } from '@components/unauth-routes';
 export const AppRoutes = () => {
     return (
         <Routes>
-            <Route path='/' element={<AuthRoutes />}>
+            <Route element={<AuthRoutes />}>
+                <Route path='/' element={<Navigate to='/main' />} />
                 <Route path='/main' element={<MainPage />} />
             </Route>
             <Route element={<UnauthRoutes />}>
+                <Route path='/' element={<Navigate to='/auth' />} />
                 <Route element={<Layout />}>
                     <Route path='/auth' element={<LayoutAuth />}>
                         <Route index element={<AuthPage />} />
