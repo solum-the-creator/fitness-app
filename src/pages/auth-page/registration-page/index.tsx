@@ -59,7 +59,7 @@ export const RegistrationPage = () => {
                 rules={[{ required: true }, { type: 'email' }]}
                 className={styles.form_item_email}
             >
-                <Input addonBefore={'e-mail:'} placeholder='' />
+                <Input addonBefore={'e-mail:'} placeholder='' data-test-id='registration-email' />
             </Form.Item>
             <Form.Item
                 name={'password'}
@@ -67,7 +67,7 @@ export const RegistrationPage = () => {
                 className={styles.form_item_password}
                 extra='Пароль не менее 8 символов, с заглавной буквой и цифрой'
             >
-                <Input.Password placeholder='Пароль'></Input.Password>
+                <Input.Password placeholder='Пароль' data-test-id='registration-password' />
             </Form.Item>
             <Form.Item
                 name={'confirm'}
@@ -75,11 +75,19 @@ export const RegistrationPage = () => {
                 rules={[{ required: true }]}
                 className={styles.form_item_confirm_password}
             >
-                <Input.Password placeholder='Повторите пароль'></Input.Password>
+                <Input.Password
+                    placeholder='Повторите пароль'
+                    data-test-id='registration-confirm-password'
+                />
             </Form.Item>
 
             <Form.Item className={styles.form_button_submit}>
-                <Button type='primary' htmlType='submit' block>
+                <Button
+                    type='primary'
+                    htmlType='submit'
+                    block
+                    data-test-id='registration-submit-button'
+                >
                     Войти
                 </Button>
             </Form.Item>

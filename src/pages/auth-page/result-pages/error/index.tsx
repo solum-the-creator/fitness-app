@@ -24,7 +24,13 @@ export const Error = () => {
                 title='Данные не сохранились'
                 subTitle='Что-то пошло не так и ваша регистрация не&nbsp;завершилась. Попробуйте ещё раз.'
                 extra={
-                    <Button type='primary' size='large' block onClick={onRepeat}>
+                    <Button
+                        type='primary'
+                        size='large'
+                        block
+                        onClick={onRepeat}
+                        data-test-id='registration-retry-button'
+                    >
                         Повторить
                     </Button>
                 }

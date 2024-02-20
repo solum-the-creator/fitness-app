@@ -18,6 +18,7 @@ export const Success = () => {
                         size='large'
                         block
                         onClick={() => dispatch(replace('/auth'))}
+                        data-test-id='registration-enter-button'
                     >
                         Войти
                     </Button>

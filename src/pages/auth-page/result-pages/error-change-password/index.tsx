@@ -9,7 +9,7 @@ export const ErrorChangePassword = () => {
                 title='Данные не сохранились'
                 subTitle='Что-то пошло не так. Попробуйте ещё раз'
                 extra={
-                    <Button type='primary' size='large' block>
+                    <Button type='primary' size='large' block data-test-id='change-retry-button'>
                         Повторить
                     </Button>
                 }

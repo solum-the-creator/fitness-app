@@ -43,14 +43,14 @@ export const AuthPage = () => {
                 rules={[{ required: true, message: '' }, { type: 'email' }]}
                 className={styles.form_item_email}
             >
-                <Input addonBefore={'e-mail:'} placeholder='' />
+                <Input addonBefore={'e-mail:'} placeholder='' data-test-id='login-email' />
             </Form.Item>
             <Form.Item
                 name={'password'}
                 rules={[{ required: true, message: '' }]}
                 className={styles.form_item_password}
             >
-                <Input.Password placeholder='Пароль'></Input.Password>
+                <Input.Password placeholder='Пароль' data-test-id='login-password' />
             </Form.Item>
             <Form.Item className={styles.form_check_area}>
                 <Form.Item
@@ -58,17 +58,27 @@ export const AuthPage = () => {
                     valuePropName='checked'
                     className={styles.form_remember}
                 >
-                    <Checkbox>Запомнить меня</Checkbox>
+                    <Checkbox data-test-id='login-remember'>Запомнить меня</Checkbox>
                 </Form.Item>
 
                 <div className={styles.link_container}>
-                    <Link to={'/auth/change-password'} className={styles.link_forgot}>
+                    <Link
+                        to={'/auth/change-password'}
+                        className={styles.link_forgot}
+                        data-test-id='login-forgot-button'
+                    >
                         Забыли пароль?
                     </Link>
                 </div>
             </Form.Item>
             <Form.Item className={styles.form_button_submit}>
-                <Button type='primary' htmlType='submit' block disabled={isLoading}>
+                <Button
+                    type='primary'
+                    htmlType='submit'
+                    block
+                    disabled={isLoading}
+                    data-test-id='login-submit-button'
+                >
                     Войти
                 </Button>
             </Form.Item>

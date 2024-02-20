@@ -9,7 +9,7 @@ export const ErrorCheckEmail = () => {
                 title='Что-то пошло не так'
                 subTitle='Произошла ошибка, попробуйте отправить форму ещё раз.'
                 extra={
-                    <Button type='primary' size='large'>
+                    <Button type='primary' size='large' data-test-id='check-back-button'>
                         Назад
                     </Button>
                 }

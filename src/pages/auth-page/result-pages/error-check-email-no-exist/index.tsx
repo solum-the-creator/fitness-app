@@ -14,7 +14,7 @@ export const ErrorCheckEmailNoExist = () => {
                     </span>
                 }
                 extra={
-                    <Button type='primary' size='large'>
+                    <Button type='primary' size='large' data-test-id='check-retry-button'>
                         Попробовать снова
                     </Button>
                 }

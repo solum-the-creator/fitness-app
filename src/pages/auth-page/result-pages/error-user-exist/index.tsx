@@ -17,6 +17,7 @@ export const ErrorUserExist = () => {
                         size='large'
                         block
                         onClick={() => dispatch(replace('/auth/registration'))}
+                        data-test-id='registration-back-button'
                     >
                         Назад к регистрации
                     </Button>

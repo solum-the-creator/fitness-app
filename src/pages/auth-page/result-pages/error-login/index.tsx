@@ -19,6 +19,7 @@ export const ErrorLogin = () => {
                         size='large'
                         onClick={() => dispatch(replace('/auth'))}
                         block
+                        data-test-id='login-retry-button'
                     >
                         Повторить
                     </Button>
