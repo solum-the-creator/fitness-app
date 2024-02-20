@@ -7,6 +7,7 @@ import { useLoginMutation } from '@redux/api/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '@redux/auth/authSlice';
 import { push } from 'redux-first-history';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
 
 type LoginFormValues = {
     email: string;
@@ -17,9 +18,12 @@ type LoginFormValues = {
 export const AuthPage = () => {
     const dispatch = useDispatch();
     const [login, { isLoading }] = useLoginMutation();
+    useLoaderLoading(isLoading);
+
     const onFinish = async (values: LoginFormValues) => {
         try {
             const loginData = await login(values).unwrap();
+
             dispatch(setCredentials(loginData));
             if (values.remember) {
                 localStorage.setItem('authToken', loginData.accessToken);

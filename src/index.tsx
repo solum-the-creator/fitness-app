@@ -12,6 +12,7 @@ import 'antd/dist/antd.less';
 
 import './index.css';
 import { AppRoutes } from './routes/routes';
+import { Loader } from '@components/loader';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
@@ -22,6 +23,7 @@ root.render(
             <HistoryRouter history={history}>
                 <AppRoutes />
             </HistoryRouter>
+            <Loader />
         </Provider>
     </React.StrictMode>,
 );
