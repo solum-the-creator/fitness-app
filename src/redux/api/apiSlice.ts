@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { LoginRequest, LoginResponse, User } from './interfaces';
+import { LoginRequest, LoginResponse, RegistrationRequest, User } from './interfaces';
 import { RootState } from '@redux/configure-store';
 
 const url = 'https://marathon-api.clevertec.ru/';
@@ -17,12 +17,6 @@ export const apiSlice = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getHealthmonitor: builder.query<void, void>({
-            query: () => ({
-                url: '/healthmonitor',
-                responseHandler: (response) => response.text(),
-            }),
-        }),
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
                 url: 'auth/login',
@@ -30,10 +24,24 @@ export const apiSlice = createApi({
                 body: credentials,
             }),
         }),
+        register: builder.mutation<void, RegistrationRequest>({
+            query: (credentials) => ({
+                url: 'auth/registration',
+                method: 'POST',
+                body: credentials,
+            }),
+        }),
         getMe: builder.query<User, void>({
             query: () => 'user/me',
+        }),
+        getHealthmonitor: builder.query<void, void>({
+            query: () => ({
+                url: '/healthmonitor',
+                responseHandler: (response) => response.text(),
+            }),
         }),
     }),
 });
 
-export const { useGetHealthmonitorQuery, useLoginMutation, useGetMeQuery } = apiSlice;
+export const { useGetHealthmonitorQuery, useLoginMutation, useGetMeQuery, useRegisterMutation } =
+    apiSlice;

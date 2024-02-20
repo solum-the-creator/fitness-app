@@ -26,7 +26,7 @@ export const AuthPage = () => {
             }
             dispatch(push('/main'));
         } catch (error) {
-            dispatch(push('/result/error-login', { fromError: true }));
+            dispatch(push('/result/error-login', { fromResult: true }));
         }
     };
 

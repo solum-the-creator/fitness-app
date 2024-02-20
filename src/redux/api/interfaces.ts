@@ -14,3 +14,8 @@ export interface User {
     imgSrc?: string;
     readyForJointTraining: boolean;
 }
+
+export interface RegistrationRequest {
+    email: string;
+    password: string;
+}

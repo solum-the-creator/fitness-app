@@ -5,9 +5,9 @@ import { Content } from 'antd/lib/layout/layout';
 export const LayoutResult = () => {
     const location = useLocation();
 
-    const fromError = location.state?.fromError;
+    const fromResult: boolean = location.state?.fromResult;
 
-    return fromError ? (
+    return fromResult ? (
         <Content className={styles.content}>
             <Outlet />
         </Content>
