@@ -7,6 +7,7 @@ import { push } from 'redux-first-history';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { useLocation } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
 
 type RegistrationFormValues = {
     email: string;
@@ -18,6 +19,7 @@ export const RegistrationPage = () => {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const [register, { isLoading }] = useRegisterMutation();
+    useLoaderLoading(isLoading);
 
     const isRepeat: boolean = location.state?.fromResult;
     const repeatValues = location.state?.formValues as RegistrationFormValues;
