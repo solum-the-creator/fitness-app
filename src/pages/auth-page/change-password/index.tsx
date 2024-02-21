@@ -3,17 +3,47 @@ import styles from './chage-password.module.scss';
 import { Button, Form, Input, Typography } from 'antd';
 import { Wrapper } from '../_components/result/wrapper';
 import { Rule } from 'antd/lib/form';
+import { useChangePasswordMutation } from '@redux/api/apiSlice';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { useAppDispatch } from '@redux/configure-store';
+import { push, replace } from 'redux-first-history';
+import { useLocation } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
 
 type ChangePasswordForm = {
     password: string;
-    repeatPassword: string;
+    confirmPassword: string;
 };
 
 export const ChangePasswordPage = () => {
+    const location = useLocation();
+    const dispatch = useAppDispatch();
     const [form] = Form.useForm();
-    const onFinish = (values: ChangePasswordForm) => {
-        console.log(values);
-    };
+    const [changePassword, { isLoading }] = useChangePasswordMutation();
+    useLoaderLoading(isLoading);
+
+    const isRepeat = location.state?.isRepeat as boolean;
+    const repeatValues = location.state?.formValues as ChangePasswordForm;
+
+    const onFinish = useCallback(
+        async (values: ChangePasswordForm) => {
+            try {
+                await changePassword(values).unwrap();
+                dispatch(replace('/result/success-change-password', { fromResult: true }));
+            } catch (error) {
+                dispatch(
+                    push('/result/error-change-password', { fromResult: true, formValues: values }),
+                );
+            }
+        },
+        [changePassword, dispatch],
+    );
+
+    useEffect(() => {
+        if (isRepeat) {
+            onFinish(repeatValues);
+        }
+    }, [isRepeat, onFinish, repeatValues]);
 
     const validatePassword: Rule = () => ({
         validator(_, value: string) {
@@ -57,7 +87,7 @@ export const ChangePasswordPage = () => {
                         <Input.Password placeholder='Пароль' />
                     </Form.Item>
                     <Form.Item
-                        name={'confirm'}
+                        name={'confirmPassword'}
                         dependencies={['password']}
                         rules={[{ required: true, message: '' }, validateConfirm]}
                         className={styles.form_item_confirm_password}

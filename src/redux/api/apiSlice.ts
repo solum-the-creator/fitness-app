@@ -7,6 +7,7 @@ import {
     LoginResponse,
     RegistrationRequest,
     User,
+    ChangePasswordRequest,
 } from './interfaces';
 import { RootState } from '@redux/configure-store';
 
@@ -55,6 +56,14 @@ export const apiSlice = createApi({
                 body: credentials,
             }),
         }),
+        changePassword: builder.mutation<{ message: string }, ChangePasswordRequest>({
+            query: (credentials) => ({
+                url: 'auth/change-password',
+                method: 'POST',
+                body: credentials,
+                credentials: 'include',
+            }),
+        }),
         getMe: builder.query<User, void>({
             query: () => 'user/me',
         }),
@@ -74,4 +83,5 @@ export const {
     useRegisterMutation,
     useCheckEmailMutation,
     useConfirmEmailMutation,
+    useChangePasswordMutation,
 } = apiSlice;

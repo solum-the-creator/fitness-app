@@ -2,7 +2,7 @@ import { Wrapper } from '@pages/auth-page/_components/result/wrapper';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
 import { useLocation } from 'react-router-dom';
-import { push } from 'redux-first-history';
+import { replace } from 'redux-first-history';
 
 export const Error = () => {
     const location = useLocation();
@@ -10,7 +10,7 @@ export const Error = () => {
 
     const onRepeat = () => {
         dispatch(
-            push('/auth/registration', {
+            replace('/auth/registration', {
                 fromResult: true,
                 formValues: location.state?.formValues,
             }),

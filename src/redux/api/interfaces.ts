@@ -33,3 +33,8 @@ export interface ConfrimEmailRequest {
 export interface ConfrimEmailResponse {
     message: string;
 }
+
+export interface ChangePasswordRequest {
+    password: string;
+    confirmPassword: string;
+}
