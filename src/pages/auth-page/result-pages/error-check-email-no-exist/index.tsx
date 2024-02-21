@@ -1,7 +1,10 @@
 import { WrapperWide } from '@pages/auth-page/_components/result/wrapper-wide';
+import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
+import { push } from 'redux-first-history';
 
 export const ErrorCheckEmailNoExist = () => {
+    const dispatch = useAppDispatch();
     return (
         <WrapperWide>
             <Result
@@ -14,7 +17,12 @@ export const ErrorCheckEmailNoExist = () => {
                     </span>
                 }
                 extra={
-                    <Button type='primary' size='large' data-test-id='check-retry-button'>
+                    <Button
+                        type='primary'
+                        size='large'
+                        data-test-id='check-retry-button'
+                        onClick={() => dispatch(push('/auth'))}
+                    >
                         Попробовать снова
                     </Button>
                 }

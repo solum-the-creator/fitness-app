@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom';
 import styles from './styles/auth-page.module.scss';
 import { GooglePlusOutlined } from '@ant-design/icons';
 
-import { Button, Checkbox, Form, Input } from 'antd';
-import { useLoginMutation } from '@redux/api/apiSlice';
+import { Button, Checkbox, Form, Input, InputRef } from 'antd';
+import { useCheckEmailMutation, useLoginMutation } from '@redux/api/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '@redux/auth/authSlice';
 import { push } from 'redux-first-history';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { Rule } from 'antd/lib/form';
+import { useCallback, useEffect, useRef } from 'react';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import { useLocation } from 'react-router-dom';
 
 type LoginFormValues = {
     email: string;
@@ -17,9 +19,19 @@ type LoginFormValues = {
 };
 
 export const AuthPage = () => {
+    const inputRef = useRef<InputRef>(null);
+    const [form] = Form.useForm<LoginFormValues>();
     const dispatch = useDispatch();
-    const [login, { isLoading }] = useLoginMutation();
+    const location = useLocation();
+
+    const [login, { isLoading: isLoadingAuth }] = useLoginMutation();
+    const [checkEmail, { isLoading: isLoadingCheckEmail }] = useCheckEmailMutation();
+
+    const isLoading = isLoadingAuth || isLoadingCheckEmail;
     useLoaderLoading(isLoading);
+
+    const isFromErrorCheckEmail = location.state?.fromErrorCheckEmail as boolean;
+    const repeatEmail = location.state?.email as string;
 
     const onFinish = async (values: LoginFormValues) => {
         try {
@@ -38,6 +50,36 @@ export const AuthPage = () => {
         }
     };
 
+    const onForgotPassword = useCallback(async () => {
+        const email = (form.getFieldValue('email') || repeatEmail) as string;
+        if (!email) {
+            inputRef.current?.focus();
+        } else {
+            try {
+                await checkEmail(email).unwrap();
+                dispatch(push('/auth/confirm-email', { fromResult: true }));
+            } catch (error) {
+                const checkEmailError = error as FetchBaseQueryError;
+                const errorData = checkEmailError.data as {
+                    message: string;
+                    error: string;
+                    statusCode: number;
+                };
+                if (checkEmailError.status === 404 && errorData.message === 'Email не найден') {
+                    dispatch(push('/result/error-check-email-no-exist', { fromResult: true }));
+                    return;
+                }
+                dispatch(push('/result/error-check-email', { fromResult: true, email: email }));
+            }
+        }
+    }, [checkEmail, dispatch, form, inputRef, repeatEmail]);
+
+    useEffect(() => {
+        if (isFromErrorCheckEmail) {
+            onForgotPassword();
+        }
+    }, [isFromErrorCheckEmail, onForgotPassword]);
+
     const validatePassword: Rule = () => ({
         validator(_, value: string) {
             if (value.length < 8 || !/(?=.*[A-Z])(?=.*[0-9])^[a-zA-Z0-9]+$/.test(value)) {
@@ -55,16 +97,22 @@ export const AuthPage = () => {
             initialValues={{ remember: true }}
             onFinish={onFinish}
             className={styles.form}
+            form={form}
         >
             <Form.Item
                 name={'email'}
                 rules={[
-                    { required: true, message: '' },
-                    { type: 'email', message: '' },
+                    { required: true, message: 'Обязательное поле' },
+                    { type: 'email', message: 'Неверный формат почты' },
                 ]}
                 className={styles.form_item_email}
             >
-                <Input addonBefore={'e-mail:'} placeholder='' data-test-id='login-email' />
+                <Input
+                    ref={inputRef}
+                    addonBefore={'e-mail:'}
+                    placeholder=''
+                    data-test-id='login-email'
+                />
             </Form.Item>
             <Form.Item
                 name={'password'}
@@ -83,13 +131,20 @@ export const AuthPage = () => {
                 </Form.Item>
 
                 <div className={styles.link_container}>
-                    <Link
-                        to={'/auth/change-password'}
-                        className={styles.link_forgot}
-                        data-test-id='login-forgot-button'
-                    >
-                        Забыли пароль?
-                    </Link>
+                    <Form.Item shouldUpdate>
+                        {() => (
+                            <Button
+                                type='link'
+                                size='small'
+                                className={styles.link_forgot}
+                                data-test-id='login-forgot-button'
+                                onClick={onForgotPassword}
+                                disabled={form.getFieldError('email').length > 0}
+                            >
+                                Забыли пароль?
+                            </Button>
+                        )}
+                    </Form.Item>
                 </div>
             </Form.Item>
             <Form.Item className={styles.form_button_submit}>

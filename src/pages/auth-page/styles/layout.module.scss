@@ -12,9 +12,13 @@
   :global {
     .ant-layout-content {
       height: 100%;
+    }
+  }
+
+  .blur_background {
+    height: 100%;
 
       backdrop-filter: blur(6px);
       background: rgba(121, 156, 212, 0.5);
-    }
   }
 }

@@ -17,6 +17,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from '@pages/auth-page/layout';
 import { AuthRoutes } from '@components/auth-routes';
 import { UnauthRoutes } from '@components/unauth-routes';
+import { ConfirmEmailPage } from '@pages/auth-page/confirm-email';
 
 export const AppRoutes = () => {
     return (
@@ -33,6 +34,9 @@ export const AppRoutes = () => {
                         <Route path='registration' element={<RegistrationPage />} />
                     </Route>
 
+                    <Route element={<LayoutResult />}>
+                        <Route path='/auth/confirm-email' element={<ConfirmEmailPage />} />
+                    </Route>
                     <Route path='/result' element={<LayoutResult />}>
                         <Route path='error-login' element={<ErrorLogin />} />
                         <Route path='success' element={<Success />} />

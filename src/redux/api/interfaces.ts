@@ -19,3 +19,8 @@ export interface RegistrationRequest {
     email: string;
     password: string;
 }
+
+export interface CheckEmailResponse {
+    email: string;
+    message: string;
+}

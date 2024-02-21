@@ -1,7 +1,22 @@
 import { WrapperWide } from '@pages/auth-page/_components/result/wrapper-wide';
+import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
+import { useLocation } from 'react-router-dom';
+import { push } from 'redux-first-history';
 
 export const ErrorCheckEmail = () => {
+    const location = useLocation();
+    const dispatch = useAppDispatch();
+
+    const onBack = () => {
+        dispatch(
+            push('/auth', {
+                fromErrorCheckEmail: true,
+                email: location.state?.email,
+            }),
+        );
+    };
+
     return (
         <WrapperWide>
             <Result
@@ -9,7 +24,12 @@ export const ErrorCheckEmail = () => {
                 title='Что-то пошло не так'
                 subTitle='Произошла ошибка, попробуйте отправить форму ещё раз.'
                 extra={
-                    <Button type='primary' size='large' data-test-id='check-back-button'>
+                    <Button
+                        type='primary'
+                        size='large'
+                        data-test-id='check-back-button'
+                        onClick={onBack}
+                    >
                         Назад
                     </Button>
                 }

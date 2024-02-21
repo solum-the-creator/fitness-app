@@ -4,7 +4,9 @@ import styles from './styles/layout.module.scss';
 export const Layout = () => {
     return (
         <div className={styles.background}>
-            <Outlet />
+            <div className={styles.blur_background}>
+                <Outlet />
+            </div>
         </div>
     );
 };

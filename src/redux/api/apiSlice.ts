@@ -1,5 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { LoginRequest, LoginResponse, RegistrationRequest, User } from './interfaces';
+import {
+    CheckEmailResponse,
+    LoginRequest,
+    LoginResponse,
+    RegistrationRequest,
+    User,
+} from './interfaces';
 import { RootState } from '@redux/configure-store';
 
 const url = 'https://marathon-api.clevertec.ru/';
@@ -31,6 +37,13 @@ export const apiSlice = createApi({
                 body: credentials,
             }),
         }),
+        checkEmail: builder.mutation<CheckEmailResponse, string>({
+            query: (email) => ({
+                url: 'auth/check-email',
+                method: 'POST',
+                body: { email },
+            }),
+        }),
         getMe: builder.query<User, void>({
             query: () => 'user/me',
         }),
@@ -43,5 +56,10 @@ export const apiSlice = createApi({
     }),
 });
 
-export const { useGetHealthmonitorQuery, useLoginMutation, useGetMeQuery, useRegisterMutation } =
-    apiSlice;
+export const {
+    useGetHealthmonitorQuery,
+    useLoginMutation,
+    useGetMeQuery,
+    useRegisterMutation,
+    useCheckEmailMutation,
+} = apiSlice;

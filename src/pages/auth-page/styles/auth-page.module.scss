@@ -14,6 +14,13 @@
       .ant-input {
         height: 40px;
       }
+
+      .ant-form-item-explain {
+        margin-top: 2px;
+        font-size: 12px;
+        line-height: 130%;
+        min-height: 30px;
+      }
     }
   }
 
@@ -47,12 +54,13 @@
   .link_forgot {
     align-self: flex-end;
     font-size: 16px;
-    line-height: 130%;
+
     font-weight: 400;
+    padding: 0;
 
     @media (max-width: 640px) {
       font-size: 14px;
-      margin-right: 7px;
+      padding: 0 7px;
     }
   }
 
