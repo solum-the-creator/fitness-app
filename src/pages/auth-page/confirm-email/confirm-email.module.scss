@@ -35,11 +35,24 @@
       font-size: 14px;
       line-height: 130%;
       color: var(--character-light-title-85);
+
+
+
+      &.error {
+        border-color: var(--character-light-error);
+      }
+
+      &.character_selected {
+        border-color: var(--primary-light-6);
+
+      }
     }
 
     .character_inactive {
       background-color: var(--character-light-primary-inverse);
     }
+
+
 
     .text {
       font-weight: 400;

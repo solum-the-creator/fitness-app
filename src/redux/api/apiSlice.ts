@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
     CheckEmailResponse,
+    ConfrimEmailRequest,
+    ConfrimEmailResponse,
     LoginRequest,
     LoginResponse,
     RegistrationRequest,
@@ -44,6 +46,13 @@ export const apiSlice = createApi({
                 body: { email },
             }),
         }),
+        confirmEmail: builder.mutation<ConfrimEmailResponse, ConfrimEmailRequest>({
+            query: (credentials) => ({
+                url: 'auth/confirm-email',
+                method: 'POST',
+                body: credentials,
+            }),
+        }),
         getMe: builder.query<User, void>({
             query: () => 'user/me',
         }),
@@ -62,4 +71,5 @@ export const {
     useGetMeQuery,
     useRegisterMutation,
     useCheckEmailMutation,
+    useConfirmEmailMutation,
 } = apiSlice;

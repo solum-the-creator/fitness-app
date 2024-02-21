@@ -18,6 +18,7 @@ import { Layout } from '@pages/auth-page/layout';
 import { AuthRoutes } from '@components/auth-routes';
 import { UnauthRoutes } from '@components/unauth-routes';
 import { ConfirmEmailPage } from '@pages/auth-page/confirm-email';
+import { ChangePasswordPage } from '@pages/auth-page/change-password';
 
 export const AppRoutes = () => {
     return (
@@ -36,6 +37,7 @@ export const AppRoutes = () => {
 
                     <Route element={<LayoutResult />}>
                         <Route path='/auth/confirm-email' element={<ConfirmEmailPage />} />
+                        <Route path='/auth/change-password' element={<ChangePasswordPage />} />
                     </Route>
                     <Route path='/result' element={<LayoutResult />}>
                         <Route path='error-login' element={<ErrorLogin />} />

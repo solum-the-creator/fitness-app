@@ -56,8 +56,10 @@ export const AuthPage = () => {
             inputRef.current?.focus();
         } else {
             try {
-                await checkEmail(email).unwrap();
-                dispatch(push('/auth/confirm-email', { fromResult: true }));
+                const checkEmailData = await checkEmail(email).unwrap();
+                dispatch(
+                    push('/auth/confirm-email', { fromResult: true, email: checkEmailData.email }),
+                );
             } catch (error) {
                 const checkEmailError = error as FetchBaseQueryError;
                 const errorData = checkEmailError.data as {

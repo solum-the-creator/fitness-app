@@ -24,3 +24,12 @@ export interface CheckEmailResponse {
     email: string;
     message: string;
 }
+
+export interface ConfrimEmailRequest {
+    email: string;
+    code: string;
+}
+
+export interface ConfrimEmailResponse {
+    message: string;
+}
