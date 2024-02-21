@@ -23,6 +23,8 @@ export const apiSlice = createApi({
             }
             return headers;
         },
+        credentials: 'include',
+        mode: 'cors',
     }),
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({

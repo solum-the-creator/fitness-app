@@ -26,7 +26,7 @@ export const ConfirmEmailPage = () => {
     const email = location.state.email as string;
     const handleComplete = async (code: string) => {
         try {
-            const data = await confirm({ email, code }).unwrap();
+            await confirm({ email, code }).unwrap();
             dispatch(replace('/auth/change-password', { fromResult: true }));
         } catch (error) {
             setCode('');
