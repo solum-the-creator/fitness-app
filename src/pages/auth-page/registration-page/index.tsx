@@ -8,6 +8,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { useLocation } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { Rule } from 'antd/lib/form';
 
 type RegistrationFormValues = {
     email: string;
@@ -16,6 +17,8 @@ type RegistrationFormValues = {
 };
 
 export const RegistrationPage = () => {
+    const [form] = Form.useForm<RegistrationFormValues>();
+
     const location = useLocation();
     const dispatch = useAppDispatch();
     const [register, { isLoading }] = useRegisterMutation();
@@ -48,6 +51,26 @@ export const RegistrationPage = () => {
         }
     }, [isRepeat, onFinish, repeatValues]);
 
+    const validatePassword: Rule = () => ({
+        validator(_, value: string) {
+            if (!/(?=.*[A-Z])(?=.*[0-9])^[a-zA-Z0-9]+$/.test(value)) {
+                return Promise.reject('');
+            } else {
+                return Promise.resolve();
+            }
+        },
+    });
+
+    const validateConfirm: Rule = ({ getFieldValue }) => ({
+        validator(_, value: string) {
+            if (value !== getFieldValue('password')) {
+                return Promise.reject('Пароли не совпадают');
+            } else {
+                return Promise.resolve();
+            }
+        },
+    });
+
     return (
         <Form
             name='registration'
@@ -55,26 +78,30 @@ export const RegistrationPage = () => {
             initialValues={{ remember: false }}
             onFinish={onFinish}
             className={styles.form}
+            form={form}
         >
             <Form.Item
                 name={'email'}
-                rules={[{ required: true }, { type: 'email' }]}
+                rules={[
+                    { required: true, message: '' },
+                    { type: 'email', message: '' },
+                ]}
                 className={styles.form_item_email}
             >
                 <Input addonBefore={'e-mail:'} placeholder='' data-test-id='registration-email' />
             </Form.Item>
             <Form.Item
                 name={'password'}
-                rules={[{ required: true }, { min: 8 }]}
+                rules={[{ required: true }, { min: 8, message: '' }, validatePassword]}
                 className={styles.form_item_password}
-                extra='Пароль не менее 8 символов, с заглавной буквой и цифрой'
+                help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
             >
                 <Input.Password placeholder='Пароль' data-test-id='registration-password' />
             </Form.Item>
             <Form.Item
                 name={'confirm'}
                 dependencies={['password']}
-                rules={[{ required: true }]}
+                rules={[{ required: true, message: '' }, validateConfirm]}
                 className={styles.form_item_confirm_password}
             >
                 <Input.Password
@@ -83,15 +110,20 @@ export const RegistrationPage = () => {
                 />
             </Form.Item>
 
-            <Form.Item className={styles.form_button_submit}>
-                <Button
-                    type='primary'
-                    htmlType='submit'
-                    block
-                    data-test-id='registration-submit-button'
-                >
-                    Войти
-                </Button>
+            <Form.Item shouldUpdate className={styles.form_button_submit}>
+                {() => (
+                    <Button
+                        type='primary'
+                        htmlType='submit'
+                        block
+                        data-test-id='registration-submit-button'
+                        disabled={
+                            form.getFieldsError().filter(({ errors }) => errors.length).length > 0
+                        }
+                    >
+                        Войти
+                    </Button>
+                )}
             </Form.Item>
             <Form.Item className={styles.form_button_google}>
                 <Button

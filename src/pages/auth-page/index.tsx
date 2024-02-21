@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setCredentials } from '@redux/auth/authSlice';
 import { push } from 'redux-first-history';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { Rule } from 'antd/lib/form';
 
 type LoginFormValues = {
     email: string;
@@ -22,7 +23,10 @@ export const AuthPage = () => {
 
     const onFinish = async (values: LoginFormValues) => {
         try {
-            const loginData = await login(values).unwrap();
+            const loginData = await login({
+                email: values.email,
+                password: values.password,
+            }).unwrap();
 
             dispatch(setCredentials(loginData));
             if (values.remember) {
@@ -34,6 +38,16 @@ export const AuthPage = () => {
         }
     };
 
+    const validatePassword: Rule = () => ({
+        validator(_, value: string) {
+            if (value.length < 8 || !/(?=.*[A-Z])(?=.*[0-9])^[a-zA-Z0-9]+$/.test(value)) {
+                return Promise.reject('Пароль не менее 8 символов, с заглавной буквой и цифрой');
+            } else {
+                return Promise.resolve();
+            }
+        },
+    });
+
     return (
         <Form
             name='auth'
@@ -44,14 +58,17 @@ export const AuthPage = () => {
         >
             <Form.Item
                 name={'email'}
-                rules={[{ required: true, message: '' }, { type: 'email' }]}
+                rules={[
+                    { required: true, message: '' },
+                    { type: 'email', message: '' },
+                ]}
                 className={styles.form_item_email}
             >
                 <Input addonBefore={'e-mail:'} placeholder='' data-test-id='login-email' />
             </Form.Item>
             <Form.Item
                 name={'password'}
-                rules={[{ required: true, message: '' }]}
+                rules={[{ required: true, message: '' }, validatePassword]}
                 className={styles.form_item_password}
             >
                 <Input.Password placeholder='Пароль' data-test-id='login-password' />
@@ -80,8 +97,8 @@ export const AuthPage = () => {
                     type='primary'
                     htmlType='submit'
                     block
-                    disabled={isLoading}
                     data-test-id='login-submit-button'
+                    disabled={isLoading}
                 >
                     Войти
                 </Button>

@@ -27,12 +27,13 @@
     @media (max-width: 480px) {
       margin-bottom: 12px;
     }
+
     :global {
       .ant-input {
         font-size: 14px;
       }
 
-      .ant-form-item-extra {
+      .ant-form-item-explain {
         margin-top: 2px;
         font-size: 12px;
         line-height: 130%;
@@ -46,6 +47,15 @@
 
     @media (max-width: 480px) {
       margin-bottom: 55px;
+    }
+
+    :global {
+      .ant-form-item-explain {
+        margin-top: 2px;
+        font-size: 12px;
+        line-height: 130%;
+        min-height: 30px;
+      }
     }
   }
 
@@ -63,11 +73,13 @@
 
   .form_button_google {
     margin-bottom: 0;
+
     :global {
       .ant-btn {
         @media (max-width: 640px) {
           font-size: 14px;
         }
+
         .anticon {
           @media (max-width: 480px) {
             display: none;
