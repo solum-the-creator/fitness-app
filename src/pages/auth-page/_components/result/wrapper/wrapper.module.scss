@@ -1,0 +1,39 @@
+.wrapper {
+  background-color: var(--character-light-primary-inverse);
+  padding: 64px 85.5px;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+
+  max-width: 539px;
+  width: 100%;
+
+  @media (max-width: 640px) {
+    padding: 32px 16px;
+  }
+
+  :global {
+    .ant-result {
+      padding: 0;
+
+      .ant-result-icon {
+        span {
+          font-size: 70px;
+          padding: 5px;
+        }
+      }
+
+      .ant-result-title {
+        line-height: 130%;
+        font-weight: 500;
+      }
+
+      .ant-result-subtitle {
+        line-height: 130%;
+      }
+
+      .ant-btn{
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { Logo } from '@components/logo';
 import { Button, Layout, Menu } from 'antd';
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'usehooks-ts';
+import { useMediaQuery } from 'react-responsive';
 
 import styles from './sidebar.module.scss';
 import {
@@ -13,11 +13,14 @@ import {
     TrophyFilled,
 } from '@ant-design/icons';
 import { ExitIcon } from '@components/icons/exit-icon';
+import { useAppDispatch } from '@redux/configure-store';
+import { logout } from '@redux/auth/authSlice';
 
 const { Sider } = Layout;
 
 export const Sidebar = () => {
-    const matches = useMediaQuery(`(max-width: 768px)`);
+    const dispatch = useAppDispatch();
+    const matches = useMediaQuery({ query: `(max-width: 768px)` });
     const [collapsed, setCollapsed] = useState(matches);
 
     useEffect(() => {
@@ -56,8 +59,12 @@ export const Sidebar = () => {
         },
     ];
 
-    const onClick = () => {
+    const onCollapse = () => {
         setCollapsed(!collapsed);
+    };
+
+    const onExit = () => {
+        dispatch(logout());
     };
 
     return (
@@ -87,7 +94,7 @@ export const Sidebar = () => {
                     <div className={styles.trapezoid} />
                 </div>
                 <Button
-                    onClick={onClick}
+                    onClick={onCollapse}
                     type='text'
                     className={styles.toggle_button}
                     data-test-id='sider-switch'
@@ -100,7 +107,7 @@ export const Sidebar = () => {
                 </Button>
             </div>
 
-            <Button type='text' className={styles.exit} size='large'>
+            <Button type='text' className={styles.exit} size='large' onClick={onExit}>
                 {!matches && <ExitIcon />}
                 {!collapsed && 'Выход'}
             </Button>

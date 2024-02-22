@@ -1,0 +1,67 @@
+.navbar_container {
+  :global {
+    .ant-menu-overflow {
+      width: 100%;
+      justify-content: space-between;
+
+      .ant-menu-overflow-item {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+
+      }
+
+      .ant-menu-item {
+        padding: 0;
+        font-size: 16px;
+        font-weight: 400;
+        font-family: var(--font-family);
+        color: var(--character-light-title-85);
+
+        @media (max-width: 640px) {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item {
+      padding: 0;
+    }
+
+    .ant-menu-horizontal > .ant-menu-item::after {
+      left: 0;
+      right: 0;
+    }
+
+    .ant-menu-horizontal > .ant-menu-item-selected a {
+      color: var(--primary-light-6);
+
+      &:hover {
+        color: var(--primary-light-6);
+      }
+    }
+
+    .ant-menu-horizontal > .ant-menu-item a {
+      &:hover {
+        color: var(--primary-light-6);
+      }
+    }
+
+    .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after {
+      border-color: var(--primary-light-6);
+    }
+
+    .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after {
+      border-color: var(--primary-light-6);
+
+      &:hover {
+        background-color: var(--primary-light-6);
+      }
+    }
+
+    .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after {
+      border-color: var(--primary-light-6);
+    }
+
+  }
+}

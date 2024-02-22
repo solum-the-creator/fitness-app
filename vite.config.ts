@@ -9,6 +9,25 @@ export default defineConfig({
         host: true,
         port: 3000,
     },
+    css: {
+        preprocessorOptions: {
+            less: {
+                modifyVars: {
+                    'primary-color': '#2f54eb',
+                    'primary-color-hover': '#597ef7',
+                    'heading-color': '#262626',
+                    'layout-body-background': '#ffffff',
+                    'font-family': '"Inter", sans-serif',
+                    'text-color': '#262626',
+                    'text-color-secondary': '#8c8c8c',
+                    'typography-title-margin-top': '0px',
+                    'typography-title-margin-bottom': '0px',
+                    'typography-title-font-weight': '500',
+                },
+                javascriptEnabled: true,
+            },
+        },
+    },
     resolve: {
         alias: {
             '@public': path.resolve(__dirname, 'public'),

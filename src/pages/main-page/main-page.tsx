@@ -1,4 +1,3 @@
-import 'antd/dist/antd.css';
 import React from 'react';
 
 import { Button, Card, Col, Layout, Row } from 'antd';
