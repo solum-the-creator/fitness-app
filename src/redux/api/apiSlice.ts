@@ -47,7 +47,6 @@ export const apiSlice = createApi({
                 url: 'auth/check-email',
                 method: 'POST',
                 body: { email },
-                credentials: 'include',
             }),
         }),
         confirmEmail: builder.mutation<ConfrimEmailResponse, ConfrimEmailRequest>({

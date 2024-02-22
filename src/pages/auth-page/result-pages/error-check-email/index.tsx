@@ -2,7 +2,7 @@ import { WrapperWide } from '@pages/auth-page/_components/result/wrapper-wide';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
 import { useLocation } from 'react-router-dom';
-import { push } from 'redux-first-history';
+import { replace } from 'redux-first-history';
 
 export const ErrorCheckEmail = () => {
     const location = useLocation();
@@ -10,7 +10,7 @@ export const ErrorCheckEmail = () => {
 
     const onBack = () => {
         dispatch(
-            push('/auth', {
+            replace('/auth', {
                 fromErrorCheckEmail: true,
                 email: location.state?.email,
             }),

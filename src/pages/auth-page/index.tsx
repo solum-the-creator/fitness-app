@@ -58,8 +58,10 @@ export const AuthPage = () => {
         } else {
             try {
                 await checkEmail(email).unwrap();
+
                 dispatch(push('/auth/confirm-email', { fromResult: true, email: email }));
             } catch (error) {
+                console.log(error);
                 const checkEmailError = error as FetchBaseQueryError;
                 const errorData = checkEmailError.data as {
                     message: string;
@@ -71,7 +73,6 @@ export const AuthPage = () => {
                     return;
                 }
                 dispatch(push('/result/error-check-email', { fromResult: true, email: email }));
-                return;
             }
         }
     }, [checkEmail, dispatch, form, inputRef, repeatEmail]);
