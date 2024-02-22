@@ -52,14 +52,13 @@ export const AuthPage = () => {
 
     const onForgotPassword = useCallback(async () => {
         const email = (form.getFieldValue('email') || repeatEmail) as string;
+
         if (!email) {
             inputRef.current?.focus();
         } else {
             try {
-                const checkEmailData = await checkEmail(email).unwrap();
-                dispatch(
-                    push('/auth/confirm-email', { fromResult: true, email: checkEmailData.email }),
-                );
+                await checkEmail(email).unwrap();
+                dispatch(push('/auth/confirm-email', { fromResult: true, email: email }));
             } catch (error) {
                 const checkEmailError = error as FetchBaseQueryError;
                 const errorData = checkEmailError.data as {
@@ -72,6 +71,7 @@ export const AuthPage = () => {
                     return;
                 }
                 dispatch(push('/result/error-check-email', { fromResult: true, email: email }));
+                return;
             }
         }
     }, [checkEmail, dispatch, form, inputRef, repeatEmail]);

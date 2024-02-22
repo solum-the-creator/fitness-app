@@ -65,6 +65,9 @@ export const ConfirmEmailPage = () => {
                                 characterInactive: styles.character_inactive,
                                 characterSelected: `${styles.character_selected} ${errorClass}`,
                             }}
+                            inputProps={{
+                                'data-test-id': 'verification-input',
+                            }}
                         />
                         <p className={styles.text}>Не пришло письмо? Проверьте папку&nbsp;Спам.</p>
                     </div>

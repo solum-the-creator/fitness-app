@@ -84,7 +84,7 @@ export const ChangePasswordPage = () => {
                         className={styles.form_item_password}
                         help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
                     >
-                        <Input.Password placeholder='Пароль' />
+                        <Input.Password placeholder='Пароль' data-test-id='change-password' />
                     </Form.Item>
                     <Form.Item
                         name={'confirmPassword'}
@@ -92,7 +92,10 @@ export const ChangePasswordPage = () => {
                         rules={[{ required: true, message: '' }, validateConfirm]}
                         className={styles.form_item_confirm_password}
                     >
-                        <Input.Password placeholder='Повторите пароль' />
+                        <Input.Password
+                            placeholder='Повторите пароль'
+                            data-test-id='change-confirm-password'
+                        />
                     </Form.Item>
                     <Form.Item shouldUpdate className={styles.form_button_submit}>
                         {() => (
@@ -100,6 +103,7 @@ export const ChangePasswordPage = () => {
                                 type='primary'
                                 htmlType='submit'
                                 block
+                                data-test-id='change-submit-button'
                                 disabled={
                                     form.getFieldsError().filter(({ errors }) => errors.length)
                                         .length > 0
