@@ -16,6 +16,8 @@ import { ExitIcon } from '@components/icons/exit-icon';
 import { useAppDispatch } from '@redux/configure-store';
 import { logout } from '@redux/auth/authSlice';
 
+import { setIsCollapsed } from '@redux/sider/siderSlice';
+
 const { Sider } = Layout;
 
 export const Sidebar = () => {
@@ -25,9 +27,10 @@ export const Sidebar = () => {
 
     useEffect(() => {
         if (matches) {
+            dispatch(setIsCollapsed(true));
             setCollapsed(true);
         }
-    }, [matches]);
+    }, [matches, dispatch]);
 
     const menuItems = [
         {
@@ -61,6 +64,7 @@ export const Sidebar = () => {
 
     const onCollapse = () => {
         setCollapsed(!collapsed);
+        dispatch(setIsCollapsed(!collapsed));
     };
 
     const onExit = () => {
