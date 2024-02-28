@@ -1,0 +1,11 @@
+.header {
+  background-color: var(--primary-light-1);
+  padding: 16px 24px;
+  height: auto;
+
+  :global {
+    .ant-breadcrumb {
+      line-height: 130%;
+    }
+  }
+}
