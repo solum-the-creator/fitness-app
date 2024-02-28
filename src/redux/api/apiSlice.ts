@@ -8,6 +8,7 @@ import {
     RegistrationRequest,
     User,
     ChangePasswordRequest,
+    Feedback,
 } from './interfaces';
 import { RootState } from '@redux/configure-store';
 
@@ -73,6 +74,11 @@ export const apiSlice = createApi({
                 responseHandler: (response) => response.text(),
             }),
         }),
+        getFeedback: builder.query<Feedback, void>({
+            query: () => ({
+                url: '/feedback',
+            }),
+        }),
     }),
 });
 
@@ -84,4 +90,5 @@ export const {
     useCheckEmailMutation,
     useConfirmEmailMutation,
     useChangePasswordMutation,
+    useGetFeedbackQuery,
 } = apiSlice;

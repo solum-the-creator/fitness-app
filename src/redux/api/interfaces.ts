@@ -1,3 +1,19 @@
+export interface User {
+    email: string;
+    firstName?: string;
+    lastName?: string;
+    imgSrc?: string;
+    readyForJointTraining: boolean;
+}
+
+export interface Feedback {
+    fullName: string | null;
+    imageSrc: string | null;
+    message: string | null;
+    rating: number;
+    createdAt: string;
+}
+
 export interface LoginRequest {
     email: string;
     password: string;
@@ -5,14 +21,6 @@ export interface LoginRequest {
 
 export interface LoginResponse {
     accessToken: string;
-}
-
-export interface User {
-    email: string;
-    firstName?: string;
-    lastName?: string;
-    imgSrc?: string;
-    readyForJointTraining: boolean;
 }
 
 export interface RegistrationRequest {

@@ -4,15 +4,30 @@ import { AndroidFilled, AppleFilled } from '@ant-design/icons';
 import styles from './footer.module.scss';
 import { useMediaQuery } from 'react-responsive';
 
+import { useAppDispatch } from '@redux/configure-store';
+import { push } from 'redux-first-history';
+
 const { Text, Link } = Typography;
 
 export const Footer = () => {
     const matches = useMediaQuery({ query: `(max-width: 768px)` });
 
+    const dispatch = useAppDispatch();
+
+    const onGetFeedback = async () => {
+        dispatch(push('/feedbacks'));
+    };
+
     return (
         <Layout.Footer className={styles.footer}>
             <Row justify={'space-between'} align={'bottom'} className={styles.row_container}>
-                <Button type='link' size='large' className={styles.link_button} block={matches}>
+                <Button
+                    type='link'
+                    size='large'
+                    className={styles.link_button}
+                    block={matches}
+                    onClick={onGetFeedback}
+                >
                     Смотреть отзывы
                 </Button>
 

@@ -19,13 +19,18 @@ import { AuthRoutes } from '@components/auth-routes';
 import { UnauthRoutes } from '@components/unauth-routes';
 import { ConfirmEmailPage } from '@pages/auth-page/confirm-email';
 import { ChangePasswordPage } from '@pages/auth-page/change-password';
+import { FeedbacksPage } from '@pages/feedbacks-page';
+import { LayoutMain } from '@pages/layout';
 
 export const AppRoutes = () => {
     return (
         <Routes>
             <Route element={<AuthRoutes />}>
-                <Route path='/' element={<Navigate to='/main' replace />} />
-                <Route path='/main' element={<MainPage />} />
+                <Route element={<LayoutMain />}>
+                    <Route path='/' element={<Navigate to='/main' replace />} />
+                    <Route path='/main' element={<MainPage />} />
+                    <Route path='/feedbacks' element={<FeedbacksPage />} />
+                </Route>
             </Route>
             <Route element={<UnauthRoutes />}>
                 <Route path='/' element={<Navigate to='/auth' replace />} />
