@@ -6,16 +6,26 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useAppDispatch } from '@redux/configure-store';
 import { push } from 'redux-first-history';
+import { useLazyGetFeedbackQuery } from '@redux/api/apiSlice';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
 
 const { Text, Link } = Typography;
 
 export const Footer = () => {
     const matches = useMediaQuery({ query: `(max-width: 768px)` });
 
+    const [getFeedback, { isLoading }] = useLazyGetFeedbackQuery();
+
     const dispatch = useAppDispatch();
 
+    useLoaderLoading(isLoading);
     const onGetFeedback = async () => {
-        dispatch(push('/feedbacks'));
+        try {
+            await getFeedback().unwrap();
+            dispatch(push('/feedbacks'));
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (

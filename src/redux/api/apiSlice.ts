@@ -74,7 +74,7 @@ export const apiSlice = createApi({
                 responseHandler: (response) => response.text(),
             }),
         }),
-        getFeedback: builder.query<Feedback, void>({
+        getFeedback: builder.query<Feedback[], void>({
             query: () => ({
                 url: '/feedback',
             }),
@@ -91,4 +91,5 @@ export const {
     useConfirmEmailMutation,
     useChangePasswordMutation,
     useGetFeedbackQuery,
+    useLazyGetFeedbackQuery,
 } = apiSlice;

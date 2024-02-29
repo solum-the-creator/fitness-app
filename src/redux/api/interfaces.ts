@@ -7,6 +7,7 @@ export interface User {
 }
 
 export interface Feedback {
+    id: string;
     fullName: string | null;
     imageSrc: string | null;
     message: string | null;
