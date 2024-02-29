@@ -9,16 +9,6 @@ import { useMediaQuery } from 'react-responsive';
 import { useGetFeedbackQuery } from '@redux/api/apiSlice';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { FeedbackCard } from './feedback-card';
-import { Feedback } from '@redux/api/interfaces';
-
-const mockFeedback: Feedback = {
-    id: '1',
-    fullName: 'Иванов Иван',
-    imageSrc: 'https://joeschmoe.io/api/v1/random',
-    message: 'Очень хороший сайт',
-    createdAt: new Date().toString(),
-    rating: 4,
-};
 
 export const FeedbacksPage = () => {
     // TODO: попробовать suspense или lazy loading
@@ -63,10 +53,24 @@ export const FeedbacksPage = () => {
                             </Button>
                         </div>
                     ) : (
-                        <div>
-                            {feedbacks.map((feedback) => (
-                                <FeedbackCard {...mockFeedback} key={feedback.id} />
-                            ))}
+                        <div className={styles.content_container}>
+                            <div className={styles.feedbacks_container}>
+                                {feedbacks.map((feedback) => (
+                                    <FeedbackCard {...feedback} key={feedback.id} />
+                                ))}
+                            </div>
+                            <div className={styles.button_container}>
+                                <Button
+                                    type='primary'
+                                    size='large'
+                                    className={styles.feedback_button}
+                                >
+                                    Написать отзыв
+                                </Button>
+                                <Button type='link' size='large' className={styles.show_button}>
+                                    Развернуть все отзывы
+                                </Button>
+                            </div>
                         </div>
                     ))}
             </Content>

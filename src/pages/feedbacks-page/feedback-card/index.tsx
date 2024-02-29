@@ -25,7 +25,7 @@ export const FeedbackCard = ({
                         size={42}
                     />
                 </div>
-                <p className={styles.name_author}>{fullName}</p>
+                <p className={styles.name_author}>{fullName || 'Пользователь'}</p>
             </div>
             <div className={styles.comment_content}>
                 <div className={styles.comment_header}>
@@ -38,7 +38,7 @@ export const FeedbackCard = ({
                     />
                     <span className={styles.date}>{format(new Date(createdAt), 'dd.MM.yyyy')}</span>
                 </div>
-                <p className={styles.comment_message}>{message}</p>
+                <p className={styles.comment_message}>{message || ''}</p>
             </div>
         </div>
     );
