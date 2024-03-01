@@ -6,41 +6,12 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useAppDispatch } from '@redux/configure-store';
 import { push } from 'redux-first-history';
-import { useLazyGetFeedbackQuery } from '@redux/api/apiSlice';
-import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { logout } from '@redux/auth/authSlice';
-import { ErrorModal } from '@components/modals/error-modal';
-import { useState } from 'react';
 
 const { Text, Link } = Typography;
 
 export const Footer = () => {
     const matches = useMediaQuery({ query: `(max-width: 768px)` });
-
-    const [getFeedback, { isLoading }] = useLazyGetFeedbackQuery();
-
     const dispatch = useAppDispatch();
-    const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
-
-    useLoaderLoading(isLoading);
-    const onGetFeedback = async () => {
-        try {
-            await getFeedback().unwrap();
-            dispatch(push('/feedbacks'));
-        } catch (error) {
-            const errorGetFeedback = error as {
-                status: number;
-                data: { message: string; error: string; statusCode: number };
-            };
-            if (errorGetFeedback.status === 403) {
-                dispatch(logout());
-                dispatch(push('/auth'));
-                return;
-            }
-
-            setIsOpenErrorModal(true);
-        }
-    };
 
     return (
         <Layout.Footer className={styles.footer}>
@@ -50,16 +21,11 @@ export const Footer = () => {
                     size='large'
                     className={styles.link_button}
                     block={matches}
-                    onClick={onGetFeedback}
+                    onClick={() => dispatch(push('/feedbacks'))}
                     data-test-id='see-reviews'
                 >
                     Смотреть отзывы
                 </Button>
-
-                <ErrorModal
-                    isModalOpen={isOpenErrorModal}
-                    onClose={() => setIsOpenErrorModal(false)}
-                />
 
                 <Card
                     title={<CardTitle />}
