@@ -97,7 +97,7 @@ export const AuthPage = () => {
         <Form
             name='auth'
             size='large'
-            initialValues={{ remember: true }}
+            initialValues={{ remember: false }}
             onFinish={onFinish}
             className={styles.form}
             form={form}
