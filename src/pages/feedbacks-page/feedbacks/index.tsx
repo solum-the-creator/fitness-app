@@ -8,9 +8,15 @@ type FeedbacksProps = {
     feedbacks: Feedback[];
     showAll: boolean;
     onShowAll: () => void;
+    onShowFeedbackModal: () => void;
 };
 
-export const Feedbacks = ({ feedbacks, showAll, onShowAll }: FeedbacksProps) => {
+export const Feedbacks = ({
+    feedbacks,
+    showAll,
+    onShowAll,
+    onShowFeedbackModal,
+}: FeedbacksProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -34,6 +40,7 @@ export const Feedbacks = ({ feedbacks, showAll, onShowAll }: FeedbacksProps) => 
                     size='large'
                     className={styles.feedback_button}
                     data-test-id='write-review'
+                    onClick={onShowFeedbackModal}
                 >
                     Написать отзыв
                 </Button>

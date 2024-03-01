@@ -4,7 +4,11 @@ import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/configure-store';
 
-export const EmptyFeedbacks = () => {
+type EmptyFeedbacksProps = {
+    onShowFeedbackModal: () => void;
+};
+
+export const EmptyFeedbacks = ({ onShowFeedbackModal }: EmptyFeedbacksProps) => {
     const matches = useMediaQuery({ query: `(max-width: 768px)` });
     const isSiderCollapsed = useSelector((state: RootState) => state.sider.isCollapsed);
     const extraPadding = isSiderCollapsed ? styles.extra_padding : styles.no_extra_padding;
@@ -22,7 +26,13 @@ export const EmptyFeedbacks = () => {
                     </p>
                 </div>
             </div>
-            <Button type='primary' size='large' className={styles.button} block={matches}>
+            <Button
+                type='primary'
+                size='large'
+                className={styles.button}
+                block={matches}
+                onClick={onShowFeedbackModal}
+            >
                 Написать отзыв
             </Button>
         </div>

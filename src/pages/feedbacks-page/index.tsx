@@ -13,6 +13,7 @@ import { ErrorModal } from '@components/modals/error-modal';
 import { useAppDispatch } from '@redux/configure-store';
 import { goBack, replace } from 'redux-first-history';
 import { logout } from '@redux/auth/authSlice';
+import { FeedbackModal } from './feedback-modal';
 
 type ErrorGetFeedbacks = {
     status: number;
@@ -30,6 +31,7 @@ export const FeedbacksPage = () => {
     const { data: feedbacks = [], isFetching, isError, isLoading, error } = useGetFeedbackQuery();
     useLoaderLoading(isFetching);
 
+    const [isOpenFeedbackModal, setIsOpenFeedbackModal] = useState(false);
     const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
     const [showAll, setShowAll] = useState(false);
     const canShow = !isError && !isLoading;
@@ -53,6 +55,10 @@ export const FeedbacksPage = () => {
         dispatch(goBack());
     };
 
+    const showFeedbackModal = () => {
+        setIsOpenFeedbackModal(true);
+    };
+
     useEffect(() => {
         if (isError) {
             const errorGetFeedbacks = error as ErrorGetFeedbacks;
@@ -71,15 +77,20 @@ export const FeedbacksPage = () => {
             <Content className={styles.content}>
                 {canShow &&
                     (isEmpty ? (
-                        <EmptyFeedbacks />
+                        <EmptyFeedbacks onShowFeedbackModal={showFeedbackModal} />
                     ) : (
                         <Feedbacks
                             showAll={showAll}
                             onShowAll={onShowAll}
+                            onShowFeedbackModal={showFeedbackModal}
                             feedbacks={limitedFeedbacks}
                         />
                     ))}
                 <ErrorModal isModalOpen={isOpenErrorModal} onClose={onBack} />
+                <FeedbackModal
+                    onClose={() => setIsOpenFeedbackModal(false)}
+                    isModalOpen={isOpenFeedbackModal}
+                />
             </Content>
         </Layout>
     );
