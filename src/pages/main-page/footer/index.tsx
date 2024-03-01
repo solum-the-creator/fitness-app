@@ -8,6 +8,9 @@ import { useAppDispatch } from '@redux/configure-store';
 import { push } from 'redux-first-history';
 import { useLazyGetFeedbackQuery } from '@redux/api/apiSlice';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { logout } from '@redux/auth/authSlice';
+import { ErrorModal } from '@components/modals/error-modal';
+import { useState } from 'react';
 
 const { Text, Link } = Typography;
 
@@ -17,6 +20,7 @@ export const Footer = () => {
     const [getFeedback, { isLoading }] = useLazyGetFeedbackQuery();
 
     const dispatch = useAppDispatch();
+    const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
 
     useLoaderLoading(isLoading);
     const onGetFeedback = async () => {
@@ -24,7 +28,17 @@ export const Footer = () => {
             await getFeedback().unwrap();
             dispatch(push('/feedbacks'));
         } catch (error) {
-            console.log(error);
+            const errorGetFeedback = error as {
+                status: number;
+                data: { message: string; error: string; statusCode: number };
+            };
+            if (errorGetFeedback.status === 403) {
+                dispatch(logout());
+                dispatch(push('/auth'));
+                return;
+            }
+
+            setIsOpenErrorModal(true);
         }
     };
 
@@ -37,9 +51,15 @@ export const Footer = () => {
                     className={styles.link_button}
                     block={matches}
                     onClick={onGetFeedback}
+                    data-test-id='see-reviews'
                 >
                     Смотреть отзывы
                 </Button>
+
+                <ErrorModal
+                    isModalOpen={isOpenErrorModal}
+                    onClose={() => setIsOpenErrorModal(false)}
+                />
 
                 <Card
                     title={<CardTitle />}
