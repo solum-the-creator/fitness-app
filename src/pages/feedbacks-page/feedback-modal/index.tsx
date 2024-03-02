@@ -2,7 +2,7 @@ import { Button, Form, Modal, Rate } from 'antd';
 import styles from './feedback-modal.module.scss';
 import TextArea from 'antd/lib/input/TextArea';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ErrorModal } from './error-modal';
 import { SuccessModal } from './success-modal';
 import { useCreateFeedbackMutation } from '@redux/api/apiSlice';
@@ -21,6 +21,7 @@ type FeedbackModalProps = {
 
 export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalProps) => {
     const [form] = Form.useForm<FeedbackFormValues>();
+    const ratingRef = useRef<HTMLUListElement>(null);
     const [isDisabled, setIsDisabled] = useState(true);
 
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
@@ -29,6 +30,12 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
     const [createFeedback, { isLoading }] = useCreateFeedbackMutation();
 
     useLoaderLoading(isLoading);
+
+    useEffect(() => {
+        if (!form.getFieldValue('rating') && isModalOpen) {
+            setIsDisabled(true);
+        }
+    }, [isModalOpen, form]);
 
     const resetForm = () => {
         form.resetFields();
@@ -61,7 +68,6 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
     };
 
     const onCloseErrorModal = () => {
-        resetForm();
         setIsErrorModalOpen(false);
     };
 
@@ -77,6 +83,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
     return (
         <>
             <Modal
+                forceRender
                 title='Ваш отзыв'
                 open={isModalOpen}
                 centered
@@ -104,6 +111,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
                 <Form name='feedback' className={styles.form} form={form}>
                     <Form.Item name='rating' rules={[{ required: true }]} noStyle>
                         <Rate
+                            ref={ratingRef}
                             onChange={handleOnChange}
                             character={({ value, index }) =>
                                 value && typeof index !== 'undefined' && index < value ? (
