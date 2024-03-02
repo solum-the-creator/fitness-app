@@ -1,7 +1,7 @@
 import { Button, Form, Modal, Rate } from 'antd';
 import styles from './feedback-modal.module.scss';
 import TextArea from 'antd/lib/input/TextArea';
-import { StarTwoTone } from '@ant-design/icons';
+import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { ErrorModal } from './error-modal';
 
@@ -91,7 +91,13 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow, onSend }: Feedback
                     <Form.Item name='rating' rules={[{ required: true }]} noStyle>
                         <Rate
                             onChange={handleOnChange}
-                            character={<StarTwoTone style={{ fontSize: '24px' }} />}
+                            character={({ value, index }) =>
+                                value && typeof index !== 'undefined' && index < value ? (
+                                    <StarFilled />
+                                ) : (
+                                    <StarOutlined />
+                                )
+                            }
                             style={{ fontSize: '24px' }}
                             className={styles.rating}
                         />

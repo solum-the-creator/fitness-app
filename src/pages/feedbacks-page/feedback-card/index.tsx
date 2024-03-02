@@ -1,7 +1,7 @@
 import { Avatar, Rate } from 'antd';
 import styles from './feedback-card.module.scss';
 import { Feedback } from '@redux/api/interfaces';
-import { StarTwoTone, UserOutlined } from '@ant-design/icons';
+import { StarFilled, StarOutlined, UserOutlined } from '@ant-design/icons';
 
 import { format } from 'date-fns';
 
@@ -32,7 +32,13 @@ export const FeedbackCard = ({
                     <Rate
                         disabled
                         defaultValue={rating}
-                        character={<StarTwoTone style={{ fontSize: '14px' }} />}
+                        character={({ value, index }) =>
+                            value && typeof index !== 'undefined' && index < value ? (
+                                <StarFilled />
+                            ) : (
+                                <StarOutlined />
+                            )
+                        }
                         style={{ fontSize: '14px' }}
                         className={styles.rating}
                     />
