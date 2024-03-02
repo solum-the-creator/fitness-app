@@ -79,6 +79,13 @@ export const apiSlice = createApi({
                 url: '/feedback',
             }),
         }),
+        createFeedback: builder.mutation<void, { message?: string; rating: number }>({
+            query: ({ message, rating }) => ({
+                url: '/feedback',
+                method: 'POST',
+                body: { message, rating },
+            }),
+        }),
     }),
 });
 
@@ -91,5 +98,5 @@ export const {
     useConfirmEmailMutation,
     useChangePasswordMutation,
     useGetFeedbackQuery,
-    useLazyGetFeedbackQuery,
+    useCreateFeedbackMutation,
 } = apiSlice;
