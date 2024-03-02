@@ -4,6 +4,9 @@ import TextArea from 'antd/lib/input/TextArea';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { ErrorModal } from './error-modal';
+import { SuccessModal } from './success-modal';
+import { useCreateFeedbackMutation } from '@redux/api/apiSlice';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
 
 type FeedbackFormValues = {
     rating: number;
@@ -13,15 +16,19 @@ type FeedbackFormValues = {
 type FeedbackModalProps = {
     isModalOpen: boolean;
     onClose: () => void;
-    onSend: (values: FeedbackFormValues) => void;
     onShow: () => void;
 };
 
-export const FeedbackModal = ({ isModalOpen, onClose, onShow, onSend }: FeedbackModalProps) => {
+export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalProps) => {
     const [form] = Form.useForm<FeedbackFormValues>();
     const [isDisabled, setIsDisabled] = useState(true);
 
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+    const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+    const [createFeedback, { isLoading }] = useCreateFeedbackMutation();
+
+    useLoaderLoading(isLoading);
 
     const resetForm = () => {
         form.resetFields();
@@ -43,8 +50,10 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow, onSend }: Feedback
     const onSubmit = async () => {
         try {
             const values = await form.validateFields();
+            await createFeedback(values).unwrap();
             resetForm();
-            onSend(values);
+            onClose();
+            setIsSuccessModalOpen(true);
         } catch (error) {
             onClose();
             setIsErrorModalOpen(true);
@@ -59,6 +68,10 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow, onSend }: Feedback
     const onRetry = () => {
         onShow();
         setIsErrorModalOpen(false);
+    };
+
+    const onCloseSuccessModal = () => {
+        setIsSuccessModalOpen(false);
     };
 
     return (
@@ -76,6 +89,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow, onSend }: Feedback
                         className={styles.button}
                         onClick={onSubmit}
                         disabled={isDisabled}
+                        data-test-id='new-review-submit-button'
                     >
                         Опубликовать
                     </Button>
@@ -116,6 +130,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow, onSend }: Feedback
                 onClose={onCloseErrorModal}
                 onRetry={onRetry}
             />
+            <SuccessModal onClose={onCloseSuccessModal} isModalOpen={isSuccessModalOpen} />
         </>
     );
 };

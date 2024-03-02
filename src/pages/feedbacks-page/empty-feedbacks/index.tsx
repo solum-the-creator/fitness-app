@@ -32,6 +32,7 @@ export const EmptyFeedbacks = ({ onShowFeedbackModal }: EmptyFeedbacksProps) => 
                 className={styles.button}
                 block={matches}
                 onClick={onShowFeedbackModal}
+                data-test-id='write-review'
             >
                 Написать отзыв
             </Button>

@@ -28,6 +28,7 @@ export const apiSlice = createApi({
         credentials: 'include',
         mode: 'cors',
     }),
+    tagTypes: ['Feedback'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -78,6 +79,13 @@ export const apiSlice = createApi({
             query: () => ({
                 url: '/feedback',
             }),
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.map(({ id }) => ({ type: 'Feedback' as const, id })),
+                          { type: 'Feedback', id: 'LIST' },
+                      ]
+                    : [{ type: 'Feedback', id: 'LIST' }],
         }),
         createFeedback: builder.mutation<void, { message?: string; rating: number }>({
             query: ({ message, rating }) => ({
@@ -85,6 +93,7 @@ export const apiSlice = createApi({
                 method: 'POST',
                 body: { message, rating },
             }),
+            invalidatesTags: [{ type: 'Feedback', id: 'LIST' }],
         }),
     }),
 });

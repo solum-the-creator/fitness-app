@@ -4,7 +4,7 @@ import { PlainHeader } from '@components/header/plain-header';
 import { Layout } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 
-import { useCreateFeedbackMutation, useGetFeedbackQuery } from '@redux/api/apiSlice';
+import { useGetFeedbackQuery } from '@redux/api/apiSlice';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useEffect, useMemo, useState } from 'react';
 import { EmptyFeedbacks } from './empty-feedbacks';
@@ -29,16 +29,9 @@ export const FeedbacksPage = () => {
     // TODO: add refetching after creating feedback
     const dispatch = useAppDispatch();
 
-    const {
-        data: feedbacks = [],
-        isFetching,
-        refetch,
-        isError,
-        isLoading,
-        error,
-    } = useGetFeedbackQuery();
-    const [createFeedback, { isLoading: isCreateLoading }] = useCreateFeedbackMutation();
-    useLoaderLoading(isFetching || isCreateLoading);
+    const { data: feedbacks = [], isFetching, isError, isLoading, error } = useGetFeedbackQuery();
+
+    useLoaderLoading(isFetching);
 
     const [isOpenFeedbackModal, setIsOpenFeedbackModal] = useState(false);
     const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
@@ -80,16 +73,6 @@ export const FeedbacksPage = () => {
         }
     }, [isError, error, dispatch]);
 
-    const handleOnSend = async (values: { rating: number; message?: string }) => {
-        try {
-            await createFeedback(values).unwrap();
-            refetch();
-            setIsOpenFeedbackModal(false);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     return (
         <Layout className={styles.main_container}>
             <PlainHeader breadCrumbs={['Главная', 'Отзывы пользователей']} />
@@ -108,7 +91,6 @@ export const FeedbacksPage = () => {
                 <ErrorModal isModalOpen={isOpenErrorModal} onClose={onBack} />
                 <FeedbackModal
                     onShow={showFeedbackModal}
-                    onSend={handleOnSend}
                     onClose={() => setIsOpenFeedbackModal(false)}
                     isModalOpen={isOpenFeedbackModal}
                 />

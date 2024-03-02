@@ -1,0 +1,40 @@
+.modal_wrap {
+  padding: 16px;
+}
+
+.modal {
+  max-width: 540px;
+
+  :global {
+    .ant-modal-body {
+      padding: 64px 85.5px;
+
+      @media (max-width: 768px) {
+        padding: 32px 16px;
+
+      }
+    }
+  }
+
+  .result {
+    padding: 0;
+
+    :global {
+      .ant-result-icon {
+        padding: 5px;
+      }
+
+      .ant-result-title {
+        font-weight: 500;
+        line-height: 130%;
+      }
+
+    }
+
+    .button {
+      font-size: 14px;
+      line-height: 130%;
+    }
+
+  }
+}

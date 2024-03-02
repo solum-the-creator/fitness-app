@@ -34,6 +34,7 @@ export const ErrorModal = ({ isModalOpen, onClose, onRetry }: ErrorModalProps) =
                             className={styles.button_feedback}
                             block
                             onClick={onRetry}
+                            data-test-id='write-review-not-saved-modal'
                         >
                             Написать отзыв
                         </Button>
