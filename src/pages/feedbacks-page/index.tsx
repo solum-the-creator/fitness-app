@@ -107,6 +107,7 @@ export const FeedbacksPage = () => {
                     ))}
                 <ErrorModal isModalOpen={isOpenErrorModal} onClose={onBack} />
                 <FeedbackModal
+                    onShow={showFeedbackModal}
                     onSend={handleOnSend}
                     onClose={() => setIsOpenFeedbackModal(false)}
                     isModalOpen={isOpenFeedbackModal}
