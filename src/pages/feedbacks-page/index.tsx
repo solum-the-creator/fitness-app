@@ -26,7 +26,6 @@ type ErrorGetFeedbacks = {
 
 export const FeedbacksPage = () => {
     // TODO: add skeletons
-    // TODO: add refetching after creating feedback
     const dispatch = useAppDispatch();
 
     const { data: feedbacks = [], isFetching, isError, isLoading, error } = useGetFeedbackQuery();
@@ -39,8 +38,10 @@ export const FeedbacksPage = () => {
     const canShow = !isError && !isLoading;
     const isEmpty = feedbacks.length === 0;
 
-    // TODO: add sorting
-    const sortedFeedbacks = useMemo(() => [...feedbacks], [feedbacks]);
+    const sortedFeedbacks = useMemo(
+        () => [...feedbacks].sort((a, b) => a.createdAt.localeCompare(b.createdAt)),
+        [feedbacks],
+    );
 
     const limitedFeedbacks = useMemo(() => {
         if (!showAll) {
