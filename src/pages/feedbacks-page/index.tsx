@@ -25,7 +25,6 @@ type ErrorGetFeedbacks = {
 };
 
 export const FeedbacksPage = () => {
-    // TODO: add skeletons
     const dispatch = useAppDispatch();
 
     const { data: feedbacks = [], isFetching, isError, isLoading, error } = useGetFeedbackQuery();
@@ -44,7 +43,7 @@ export const FeedbacksPage = () => {
     );
 
     const limitedFeedbacks = useMemo(() => {
-        if (!showAll) {
+        if (!showAll && sortedFeedbacks.length > 4) {
             return sortedFeedbacks.slice(sortedFeedbacks.length - 4);
         }
         return sortedFeedbacks;
