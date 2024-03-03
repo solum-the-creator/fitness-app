@@ -12,12 +12,12 @@ import {
 } from './interfaces';
 import { RootState } from '@redux/configure-store';
 
-const url = 'https://marathon-api.clevertec.ru/';
+export const BASE_API_URL = 'https://marathon-api.clevertec.ru/';
 
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: url,
+        baseUrl: BASE_API_URL,
         prepareHeaders: (headers, { getState }) => {
             const accessToken = (getState() as RootState).auth.accessToken;
             if (accessToken) {

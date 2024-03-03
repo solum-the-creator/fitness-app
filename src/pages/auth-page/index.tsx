@@ -2,7 +2,7 @@ import styles from './styles/auth-page.module.scss';
 import { GooglePlusOutlined } from '@ant-design/icons';
 
 import { Button, Checkbox, Form, Input, InputRef } from 'antd';
-import { useCheckEmailMutation, useLoginMutation } from '@redux/api/apiSlice';
+import { BASE_API_URL, useCheckEmailMutation, useLoginMutation } from '@redux/api/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '@redux/auth/authSlice';
 import { push } from 'redux-first-history';
@@ -76,6 +76,10 @@ export const AuthPage = () => {
             }
         }
     }, [checkEmail, dispatch, form, inputRef, repeatEmail]);
+
+    const onLoginGoogle = () => {
+        window.location.href = `${BASE_API_URL}auth/google`;
+    };
 
     useEffect(() => {
         if (isFromErrorCheckEmail) {
@@ -165,8 +169,9 @@ export const AuthPage = () => {
                 <Button
                     type='default'
                     icon={<GooglePlusOutlined style={{ fontSize: '14px' }} />}
-                    htmlType='submit'
+                    htmlType='button'
                     block
+                    onClick={onLoginGoogle}
                 >
                     Войти через Google
                 </Button>
