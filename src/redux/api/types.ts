@@ -1,49 +1,49 @@
-export interface User {
+export type User = {
     email: string;
     firstName?: string;
     lastName?: string;
     imgSrc?: string;
     readyForJointTraining: boolean;
-}
+};
 
-export interface Feedback {
+export type Feedback = {
     id: string;
     fullName: string | null;
     imageSrc: string | null;
     message: string | null;
     rating: number;
     createdAt: string;
-}
+};
 
-export interface LoginRequest {
+export type LoginRequest = {
     email: string;
     password: string;
-}
+};
 
-export interface LoginResponse {
+export type LoginResponse = {
     accessToken: string;
-}
+};
 
-export interface RegistrationRequest {
+export type RegistrationRequest = {
     email: string;
     password: string;
-}
+};
 
-export interface CheckEmailResponse {
+export type CheckEmailResponse = {
     email: string;
     message: string;
-}
+};
 
-export interface ConfrimEmailRequest {
+export type ConfrimEmailRequest = {
     email: string;
     code: string;
-}
+};
 
-export interface ConfrimEmailResponse {
+export type ConfrimEmailResponse = {
     message: string;
-}
+};
 
-export interface ChangePasswordRequest {
+export type ChangePasswordRequest = {
     password: string;
     confirmPassword: string;
-}
+};

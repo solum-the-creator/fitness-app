@@ -1,3 +1,4 @@
+import PATHS from '@constants/paths';
 import { WrapperWide } from '@pages/auth-page/_components/result/wrapper-wide';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
@@ -10,7 +11,7 @@ export const ErrorCheckEmail = () => {
 
     const onBack = () => {
         dispatch(
-            replace('/auth', {
+            replace(PATHS.AUTH, {
                 fromErrorCheckEmail: true,
                 email: location.state?.email,
             }),

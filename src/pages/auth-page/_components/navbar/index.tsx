@@ -2,6 +2,7 @@ import { Menu } from 'antd';
 import styles from './navbar.module.scss';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import PATHS from '@constants/paths';
 
 type MenuKey = '/auth' | '/auth/registration';
 
@@ -20,11 +21,11 @@ export const Navbar = () => {
 
     const items: MenuItem[] = [
         {
-            label: <Link to='/auth'>Вход</Link>,
+            label: <Link to={PATHS.AUTH}>Вход</Link>,
             key: '/auth',
         },
         {
-            label: <Link to='/auth/registration'>Регистрация</Link>,
+            label: <Link to={`${PATHS.AUTH}/registration`}>Регистрация</Link>,
             key: '/auth/registration',
         },
     ];

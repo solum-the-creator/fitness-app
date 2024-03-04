@@ -6,6 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useAppDispatch } from '@redux/configure-store';
 import { push } from 'redux-first-history';
+import PATHS from '@constants/paths';
 
 const { Text, Link } = Typography;
 
@@ -21,7 +22,7 @@ export const Footer = () => {
                     size='large'
                     className={styles.link_button}
                     block={matches}
-                    onClick={() => dispatch(push('/feedbacks'))}
+                    onClick={() => dispatch(push(PATHS.FEEDBACKS))}
                     data-test-id='see-reviews'
                 >
                     Смотреть отзывы

@@ -14,6 +14,8 @@ import { useAppDispatch } from '@redux/configure-store';
 import { goBack, replace } from 'redux-first-history';
 import { logout } from '@redux/auth/authSlice';
 import { FeedbackModal } from './feedback-modal';
+import PATHS from '@constants/paths';
+import { STATUS_CODE } from '@constants/constants';
 
 type ErrorGetFeedbacks = {
     status: number;
@@ -64,7 +66,7 @@ export const FeedbacksPage = () => {
     useEffect(() => {
         if (isError) {
             const errorGetFeedbacks = error as ErrorGetFeedbacks;
-            if (errorGetFeedbacks.status === 403) {
+            if (errorGetFeedbacks.status === STATUS_CODE.FORBIDDEN) {
                 dispatch(logout());
                 dispatch(replace('/auth'));
             } else {
@@ -75,7 +77,12 @@ export const FeedbacksPage = () => {
 
     return (
         <Layout className={styles.main_container}>
-            <PlainHeader breadCrumbs={['Главная', 'Отзывы пользователей']} />
+            <PlainHeader
+                breadCrumbs={[
+                    { title: 'Главная', link: PATHS.MAIN },
+                    { title: 'Отзывы пользователей', link: PATHS.FEEDBACKS },
+                ]}
+            />
             <Content className={styles.content}>
                 {canShow &&
                     (isEmpty ? (

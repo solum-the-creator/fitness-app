@@ -9,7 +9,7 @@ import {
     User,
     ChangePasswordRequest,
     Feedback,
-} from './interfaces';
+} from './types';
 import { RootState } from '@redux/configure-store';
 
 export const BASE_API_URL = 'https://marathon-api.clevertec.ru/';

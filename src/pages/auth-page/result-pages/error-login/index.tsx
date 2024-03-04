@@ -1,3 +1,4 @@
+import PATHS from '@constants/paths';
 import { Wrapper } from '@pages/auth-page/_components/result/wrapper';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
@@ -17,7 +18,7 @@ export const ErrorLogin = () => {
                     <Button
                         type='primary'
                         size='large'
-                        onClick={() => dispatch(replace('/auth'))}
+                        onClick={() => dispatch(replace(PATHS.AUTH))}
                         block
                         data-test-id='login-retry-button'
                     >

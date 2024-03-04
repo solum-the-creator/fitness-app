@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { Rule } from 'antd/lib/form';
+import { STATUS_CODE } from '@constants/constants';
 
 type RegistrationFormValues = {
     email: string;
@@ -34,7 +35,7 @@ export const RegistrationPage = () => {
                 dispatch(push('/result/success', { fromResult: true }));
             } catch (error) {
                 const registerError = error as FetchBaseQueryError;
-                if (registerError.status === 409) {
+                if (registerError.status === STATUS_CODE.CONFLICT) {
                     dispatch(push('/result/error-user-exist', { fromResult: true }));
                     return;
                 }

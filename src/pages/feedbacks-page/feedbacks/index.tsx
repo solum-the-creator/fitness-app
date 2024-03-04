@@ -1,4 +1,4 @@
-import { Feedback } from '@redux/api/interfaces';
+import { Feedback } from '@redux/api/types';
 import styles from './feedbacks.module.scss';
 import { FeedbackCard } from '../feedback-card';
 import { Button } from 'antd';

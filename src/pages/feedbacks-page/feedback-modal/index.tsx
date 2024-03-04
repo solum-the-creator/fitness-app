@@ -61,7 +61,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
             resetForm();
             onClose();
             setIsSuccessModalOpen(true);
-        } catch (error) {
+        } catch (e) {
             onClose();
             setIsErrorModalOpen(true);
         }
@@ -114,7 +114,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
                             ref={ratingRef}
                             onChange={handleOnChange}
                             character={({ value, index }) =>
-                                value && typeof index !== 'undefined' && index < value ? (
+                                value && index !== undefined && index < value ? (
                                     <StarFilled />
                                 ) : (
                                     <StarOutlined />
@@ -124,10 +124,10 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
                             className={styles.rating}
                         />
                     </Form.Item>
-                    <Form.Item name='message' className={styles.message_item}>
+                    <Form.Item name='message' className={styles.message_item} noStyle>
                         <TextArea
-                            placeholder='Расскажите, почему Вам понравилось наше приложение'
                             autoSize={{ minRows: 2 }}
+                            placeholder='Расскажите, почему Вам понравилось наше приложение'
                             className={styles.textarea}
                         />
                     </Form.Item>

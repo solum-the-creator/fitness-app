@@ -1,3 +1,4 @@
+import PATHS from '@constants/paths';
 import { setCredentials } from '@redux/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@redux/configure-store';
 import { useEffect } from 'react';
@@ -20,5 +21,5 @@ export const AuthRoutes = () => {
 
     const accessToken = authToken || localStorage.getItem('authToken');
 
-    return accessToken ? <Outlet /> : <Navigate to={'/auth'} replace />;
+    return accessToken ? <Outlet /> : <Navigate to={PATHS.AUTH} replace />;
 };

@@ -1,3 +1,4 @@
+import PATHS from '@constants/paths';
 import { Wrapper } from '@pages/auth-page/_components/result/wrapper';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
@@ -12,7 +13,7 @@ export const ErrorChangePassword = () => {
 
     const onReapeat = () => {
         dispatch(
-            replace('/auth/change-password', {
+            replace(`${PATHS.AUTH}/change-password`, {
                 isRepeat: true,
                 formValues: formValues,
                 fromResult: true,

@@ -98,6 +98,8 @@
       line-height: 130%;
       box-sizing: border-box;
 
+      resize: vertical !important;
+
       overflow-y: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;

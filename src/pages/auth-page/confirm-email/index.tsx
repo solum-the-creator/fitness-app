@@ -9,6 +9,7 @@ import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useState } from 'react';
 import { useAppDispatch } from '@redux/configure-store';
 import { replace } from 'redux-first-history';
+import PATHS from '@constants/paths';
 
 export const ConfirmEmailPage = () => {
     const location = useLocation();
@@ -27,7 +28,7 @@ export const ConfirmEmailPage = () => {
     const handleComplete = async (code: string) => {
         try {
             await confirm({ email, code }).unwrap();
-            dispatch(replace('/auth/change-password', { fromResult: true }));
+            dispatch(replace(`${PATHS.AUTH}/change-password`, { fromResult: true }));
         } catch (error) {
             setCode('');
             setIsError(true);

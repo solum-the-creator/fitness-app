@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit/react';
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit/react';
 
 type SiderState = {
     isCollapsed: boolean;
@@ -8,7 +8,7 @@ const initialState: SiderState = {
     isCollapsed: false,
 };
 
-const loaderSlice = createSlice({
+const siderSlice = createSlice({
     name: 'sider',
     initialState,
     reducers: {
@@ -18,6 +18,11 @@ const loaderSlice = createSlice({
     },
 });
 
-export const { setIsCollapsed } = loaderSlice.actions;
+export const { setIsCollapsed } = siderSlice.actions;
 
-export default loaderSlice.reducer;
+export const isCollapsedSelecctor = createSelector(
+    (state) => state.sider,
+    (sider) => sider.isCollapsed,
+);
+
+export default siderSlice.reducer;
