@@ -1,4 +1,4 @@
-import { Avatar, Rate } from 'antd';
+import { Avatar, Rate, Typography } from 'antd';
 import styles from './feedback-card.module.scss';
 import { Feedback } from '@redux/api/types';
 import { StarFilled, StarOutlined, UserOutlined } from '@ant-design/icons';
@@ -43,7 +43,9 @@ export const FeedbackCard = ({
                 />
                 <span className={styles.date}>{format(new Date(createdAt), 'dd.MM.yyyy')}</span>
             </div>
-            <p className={styles.comment_message}>{message || ''}</p>
+            <Typography.Paragraph className={styles.comment_message}>
+                {message || ''}
+            </Typography.Paragraph>
         </div>
     </div>
 );
