@@ -1,3 +1,4 @@
+import PATHS from '@constants/paths';
 import { WrapperWide } from '@pages/auth-page/_components/result/wrapper-wide';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
@@ -21,7 +22,7 @@ export const ErrorCheckEmailNoExist = () => {
                         type='primary'
                         size='large'
                         data-test-id='check-retry-button'
-                        onClick={() => dispatch(push('/auth'))}
+                        onClick={() => dispatch(push(PATHS.AUTH))}
                     >
                         Попробовать снова
                     </Button>

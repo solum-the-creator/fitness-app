@@ -5,13 +5,14 @@ import { Content } from 'antd/lib/layout/layout';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Logo } from './_components/logo';
 import { Navbar } from './_components/navbar';
+import PATHS from '@constants/paths';
 
 type PathType = '/auth' | '/auth/registration';
 
 export const LayoutAuth = () => {
     const location = useLocation();
     const path = location.pathname as PathType;
-    const layout_class = path === '/auth' ? styles.layout_auth : styles.layout_registration;
+    const layout_class = path === PATHS.AUTH ? styles.layout_auth : styles.layout_registration;
 
     return (
         <Content className={`${layout_class} ${styles.content}`}>

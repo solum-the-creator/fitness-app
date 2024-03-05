@@ -19,25 +19,31 @@ import { AuthRoutes } from '@components/auth-routes';
 import { UnauthRoutes } from '@components/unauth-routes';
 import { ConfirmEmailPage } from '@pages/auth-page/confirm-email';
 import { ChangePasswordPage } from '@pages/auth-page/change-password';
+import { FeedbacksPage } from '@pages/feedbacks-page';
+import { LayoutMain } from '@pages/layout';
+import PATHS from '@constants/paths';
 
 export const AppRoutes = () => {
     return (
         <Routes>
             <Route element={<AuthRoutes />}>
-                <Route path='/' element={<Navigate to='/main' replace />} />
-                <Route path='/main' element={<MainPage />} />
+                <Route element={<LayoutMain />}>
+                    <Route path={PATHS.ROOT} element={<Navigate to={PATHS.MAIN} replace />} />
+                    <Route path={PATHS.MAIN} element={<MainPage />} />
+                    <Route path={PATHS.FEEDBACKS} element={<FeedbacksPage />} />
+                </Route>
             </Route>
             <Route element={<UnauthRoutes />}>
-                <Route path='/' element={<Navigate to='/auth' replace />} />
+                <Route path={PATHS.ROOT} element={<Navigate to={PATHS.AUTH} replace />} />
                 <Route element={<Layout />}>
-                    <Route path='/auth' element={<LayoutAuth />}>
+                    <Route path={PATHS.AUTH} element={<LayoutAuth />}>
                         <Route index element={<AuthPage />} />
                         <Route path='registration' element={<RegistrationPage />} />
                     </Route>
 
-                    <Route element={<LayoutResult />}>
-                        <Route path='/auth/confirm-email' element={<ConfirmEmailPage />} />
-                        <Route path='/auth/change-password' element={<ChangePasswordPage />} />
+                    <Route path={PATHS.AUTH} element={<LayoutResult />}>
+                        <Route path='confirm-email' element={<ConfirmEmailPage />} />
+                        <Route path='change-password' element={<ChangePasswordPage />} />
                     </Route>
                     <Route path='/result' element={<LayoutResult />}>
                         <Route path='error-login' element={<ErrorLogin />} />

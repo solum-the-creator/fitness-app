@@ -6,6 +6,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { apiSlice } from './api/apiSlice';
 import authReducer from '@redux/auth/authSlice';
 import loaderReducer from '@redux/loader/loaderSlice';
+import siderReducer from '@redux/sider/siderSlice';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
@@ -18,6 +19,7 @@ export const store = configureStore({
         router: routerReducer,
         auth: authReducer,
         loader: loaderReducer,
+        sider: siderReducer,
     }),
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiSlice.middleware, routerMiddleware),

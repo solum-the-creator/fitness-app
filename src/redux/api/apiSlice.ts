@@ -8,15 +8,16 @@ import {
     RegistrationRequest,
     User,
     ChangePasswordRequest,
-} from './interfaces';
+    Feedback,
+} from './types';
 import { RootState } from '@redux/configure-store';
 
-const url = 'https://marathon-api.clevertec.ru/';
+export const BASE_API_URL = 'https://marathon-api.clevertec.ru/';
 
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: url,
+        baseUrl: BASE_API_URL,
         prepareHeaders: (headers, { getState }) => {
             const accessToken = (getState() as RootState).auth.accessToken;
             if (accessToken) {
@@ -27,6 +28,7 @@ export const apiSlice = createApi({
         credentials: 'include',
         mode: 'cors',
     }),
+    tagTypes: ['Feedback'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -73,6 +75,26 @@ export const apiSlice = createApi({
                 responseHandler: (response) => response.text(),
             }),
         }),
+        getFeedback: builder.query<Feedback[], void>({
+            query: () => ({
+                url: '/feedback',
+            }),
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.map(({ id }) => ({ type: 'Feedback' as const, id })),
+                          { type: 'Feedback', id: 'LIST' },
+                      ]
+                    : [{ type: 'Feedback', id: 'LIST' }],
+        }),
+        createFeedback: builder.mutation<void, { message?: string; rating: number }>({
+            query: ({ message, rating }) => ({
+                url: '/feedback',
+                method: 'POST',
+                body: { message, rating },
+            }),
+            invalidatesTags: [{ type: 'Feedback', id: 'LIST' }],
+        }),
     }),
 });
 
@@ -84,4 +106,6 @@ export const {
     useCheckEmailMutation,
     useConfirmEmailMutation,
     useChangePasswordMutation,
+    useGetFeedbackQuery,
+    useCreateFeedbackMutation,
 } = apiSlice;

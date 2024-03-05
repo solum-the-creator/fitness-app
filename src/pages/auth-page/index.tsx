@@ -2,7 +2,7 @@ import styles from './styles/auth-page.module.scss';
 import { GooglePlusOutlined } from '@ant-design/icons';
 
 import { Button, Checkbox, Form, Input, InputRef } from 'antd';
-import { useCheckEmailMutation, useLoginMutation } from '@redux/api/apiSlice';
+import { BASE_API_URL, useCheckEmailMutation, useLoginMutation } from '@redux/api/apiSlice';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '@redux/auth/authSlice';
 import { push } from 'redux-first-history';
@@ -11,6 +11,8 @@ import { Rule } from 'antd/lib/form';
 import { useCallback, useEffect, useRef } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { useLocation } from 'react-router-dom';
+import PATHS from '@constants/paths';
+import { STATUS_CODE } from '@constants/constants';
 
 type LoginFormValues = {
     email: string;
@@ -44,7 +46,7 @@ export const AuthPage = () => {
             if (values.remember) {
                 localStorage.setItem('authToken', loginData.accessToken);
             }
-            dispatch(push('/main'));
+            dispatch(push(PATHS.MAIN));
         } catch (error) {
             dispatch(push('/result/error-login', { fromResult: true }));
         }
@@ -59,7 +61,7 @@ export const AuthPage = () => {
             try {
                 await checkEmail(email).unwrap();
 
-                dispatch(push('/auth/confirm-email', { fromResult: true, email: email }));
+                dispatch(push(`${PATHS.AUTH}/confirm-email`, { fromResult: true, email: email }));
             } catch (error) {
                 console.log(error);
                 const checkEmailError = error as FetchBaseQueryError;
@@ -68,7 +70,10 @@ export const AuthPage = () => {
                     error: string;
                     statusCode: number;
                 };
-                if (checkEmailError.status === 404 && errorData.message === 'Email не найден') {
+                if (
+                    checkEmailError.status === STATUS_CODE.NOT_FOUND &&
+                    errorData.message === 'Email не найден'
+                ) {
                     dispatch(push('/result/error-check-email-no-exist', { fromResult: true }));
                     return;
                 }
@@ -76,6 +81,10 @@ export const AuthPage = () => {
             }
         }
     }, [checkEmail, dispatch, form, inputRef, repeatEmail]);
+
+    const onLoginGoogle = () => {
+        window.location.href = `${BASE_API_URL}auth/google`;
+    };
 
     useEffect(() => {
         if (isFromErrorCheckEmail) {
@@ -97,7 +106,7 @@ export const AuthPage = () => {
         <Form
             name='auth'
             size='large'
-            initialValues={{ remember: true }}
+            initialValues={{ remember: false }}
             onFinish={onFinish}
             className={styles.form}
             form={form}
@@ -165,8 +174,9 @@ export const AuthPage = () => {
                 <Button
                     type='default'
                     icon={<GooglePlusOutlined style={{ fontSize: '14px' }} />}
-                    htmlType='submit'
+                    htmlType='button'
                     block
+                    onClick={onLoginGoogle}
                 >
                     Войти через Google
                 </Button>

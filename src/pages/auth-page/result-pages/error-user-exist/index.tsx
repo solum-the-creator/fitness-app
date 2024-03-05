@@ -1,3 +1,4 @@
+import PATHS from '@constants/paths';
 import { Wrapper } from '@pages/auth-page/_components/result/wrapper';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
@@ -16,7 +17,7 @@ export const ErrorUserExist = () => {
                         type='primary'
                         size='large'
                         block
-                        onClick={() => dispatch(replace('/auth/registration'))}
+                        onClick={() => dispatch(replace(`${PATHS.AUTH}/registration`))}
                         data-test-id='registration-back-button'
                     >
                         Назад к регистрации

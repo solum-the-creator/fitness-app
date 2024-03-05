@@ -5,10 +5,10 @@ import logoCollapsed from '/fitLogo.svg';
 
 import styles from './logo.module.scss';
 
-interface LogoProps {
+type LogoProps = {
     collapsed: boolean;
     matches?: boolean;
-}
+};
 
 export const Logo = ({ collapsed, matches }: LogoProps) => {
     const logoUrl = collapsed && !matches ? logoCollapsed : logo;

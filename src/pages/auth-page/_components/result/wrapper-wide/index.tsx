@@ -1,10 +1,10 @@
 import styles from './wrapper-wide.module.scss';
 
-interface WrapperWideProps {
+type WrapperWideProps = {
     children: React.ReactNode;
     className?: string;
-}
-
-export const WrapperWide = ({ children, className }: WrapperWideProps) => {
-    return <div className={`${styles.wrapper} ${className}`}>{children}</div>;
 };
+
+export const WrapperWide = ({ children, className }: WrapperWideProps) => (
+    <div className={`${styles.wrapper} ${className}`}>{children}</div>
+);
