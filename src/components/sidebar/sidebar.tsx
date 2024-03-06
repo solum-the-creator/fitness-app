@@ -17,11 +17,14 @@ import { useAppDispatch } from '@redux/configure-store';
 import { logout } from '@redux/auth/authSlice';
 
 import { setIsCollapsed } from '@redux/sider/siderSlice';
+import { NavLink, useLocation } from 'react-router-dom';
+import PATHS from '@constants/paths';
 
 const { Sider } = Layout;
 
 export const Sidebar = () => {
     const dispatch = useAppDispatch();
+    const location = useLocation();
     const matches = useMediaQuery({ query: `(max-width: 768px)` });
     const [collapsed, setCollapsed] = useState(matches);
 
@@ -34,14 +37,14 @@ export const Sidebar = () => {
 
     const menuItems = [
         {
-            key: '1',
+            key: PATHS.CALENDAR,
             icon: <CalendarTwoTone style={{ fontSize: '16px' }} />,
-            label: 'Календарь',
+            label: <NavLink to={PATHS.CALENDAR}>Календарь</NavLink>,
         },
         {
             key: '2',
             icon: <HeartFilled style={{ fontSize: '16px' }} />,
-            label: 'Тренировки',
+            label: <NavLink to={PATHS.CALENDAR}>Тренировки</NavLink>,
         },
         {
             key: '3',
@@ -85,6 +88,7 @@ export const Sidebar = () => {
             </div>
             {(!matches || !collapsed) && (
                 <Menu
+                    selectedKeys={[location.pathname]}
                     defaultSelectedKeys={undefined}
                     items={menuItems}
                     mode='inline'
