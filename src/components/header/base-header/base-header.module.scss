@@ -1,0 +1,15 @@
+.header {
+  background-color: var(--primary-light-1);
+  height: auto;
+
+  :global {
+    .ant-breadcrumb {
+      line-height: 130%;
+    }
+  }
+
+  .horizontal_layout {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

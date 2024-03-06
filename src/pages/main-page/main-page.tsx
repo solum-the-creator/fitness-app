@@ -6,12 +6,21 @@ import { Header } from '@components/header';
 import styles from './main-page.module.scss';
 import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons';
 import { Footer } from './footer';
+import PATHS from '@constants/paths';
 
 const { Content } = Layout;
 
 export const MainPage: React.FC = () => (
     <Layout className={styles.main_container}>
-        <Header />
+        <Header
+            title={
+                <>
+                    Приветствуем тебя в&nbsp;CleverFit&nbsp;— приложении,
+                    <br /> которое поможет тебе добиться своей мечты!
+                </>
+            }
+            breadCrumbs={[{ title: 'Главная', link: PATHS.MAIN }]}
+        />
         <Content className={styles.main_content}>
             <Layout className={styles.grid_container}>
                 <Row gutter={[16, 24]}>
