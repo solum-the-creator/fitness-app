@@ -71,3 +71,8 @@ export type GetTrainingResponse = {
     };
     exercises: Exercise[];
 };
+
+export type GetTrainingListResponse = {
+    name: string;
+    key: string;
+}[];

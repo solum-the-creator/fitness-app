@@ -129,3 +129,42 @@
     }
   }
 }
+
+
+.error_modal_wrapper {
+  padding: 16px;
+  .error_modal {
+    max-width: 384px;
+
+
+    :global {
+      .ant-modal-body {
+        padding: 16px 24px 16px;
+
+        .ant-modal-confirm-title {
+          max-width: 250px;
+          font-weight: 400;
+          line-height: 130%;
+        }
+        .ant-modal-confirm-content {
+          color: var(--character-light-secondary-45);
+          line-height: 130%;
+        }
+
+        .ant-modal-confirm-btns {
+          margin-top: 16px;
+          button {
+            height: 28px;
+            line-height: 130%;
+          }
+
+        }
+
+        .anticon-close-circle {
+          color: var(--primary-light-6);
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}

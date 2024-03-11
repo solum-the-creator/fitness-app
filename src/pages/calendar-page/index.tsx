@@ -6,19 +6,64 @@ import PATHS from '@constants/paths';
 import { Content } from 'antd/lib/layout/layout';
 import { useMediaQuery } from 'react-responsive';
 
-import { Calendar } from 'antd';
+import { Calendar, Modal } from 'antd';
 
 import { RU_CALENDAR_LOCALE } from '@constants/constants';
-import { useGetTrainingQuery } from '@redux/api/apiSlice';
+import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/apiSlice';
 
 import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { useCallback, useEffect } from 'react';
+import { CloseOutlined } from '@ant-design/icons';
 
 export const CalendarPage = () => {
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
 
-    const { data, isFetching } = useGetTrainingQuery('');
-    useLoaderLoading(isFetching);
-    console.log(data);
+    const { data: trainings, isFetching } = useGetTrainingQuery('');
+    const {
+        data: trainingList,
+        isFetching: isFetchingTrainingList,
+        isError,
+        refetch,
+    } = useGetTrainingListQuery();
+    useLoaderLoading(isFetching || isFetchingTrainingList);
+
+    console.log(trainings);
+    console.log(trainingList);
+
+    const showErrorModal = useCallback(() => {
+        return Modal.error({
+            title: (
+                <span data-test-id='modal-error-user-training-title'>
+                    При открытии данных произошла ошибка
+                </span>
+            ),
+            content: (
+                <span data-test-id='modal-error-user-training-subtitle'>Попробуйте ещё раз.</span>
+            ),
+            closable: true,
+            centered: true,
+            okText: <span data-test-id='modal-error-user-training-button'>Обновить</span>,
+            closeIcon: <CloseOutlined data-test-id='modal-error-user-training-button-close' />,
+            width: '100%',
+            maskStyle: { backdropFilter: 'blur(6px)', background: 'rgba(121, 156, 212, 0.1)' },
+            className: styles.error_modal,
+            wrapClassName: styles.error_modal_wrapper,
+            onOk: () => refetch(),
+        });
+    }, [refetch]);
+
+    useEffect(() => {
+        let errorModal: ReturnType<typeof Modal.error> | null = null;
+        if (isError) {
+            errorModal = showErrorModal();
+        }
+
+        return () => {
+            if (errorModal) {
+                errorModal.destroy();
+            }
+        };
+    }, [isError, showErrorModal]);
 
     return (
         <div className={styles.main_container}>

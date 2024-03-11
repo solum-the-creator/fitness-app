@@ -10,6 +10,7 @@ import {
     ChangePasswordRequest,
     Feedback,
     GetTrainingResponse,
+    GetTrainingListResponse,
 } from './types';
 import { RootState } from '@redux/configure-store';
 
@@ -99,9 +100,16 @@ export const apiSlice = createApi({
         getTraining: builder.query<GetTrainingResponse, string>({
             query: (name = '') => ({
                 url: '/training',
+                method: 'GET',
                 params: { name },
             }),
             providesTags: [{ type: 'Training', id: 'LIST' }],
+        }),
+        getTrainingList: builder.query<GetTrainingListResponse, void>({
+            query: () => ({
+                url: '/catalogs/training-list',
+                method: 'GET',
+            }),
         }),
     }),
 });
@@ -118,4 +126,5 @@ export const {
     useCreateFeedbackMutation,
     useGetTrainingQuery,
     useLazyGetTrainingQuery,
+    useGetTrainingListQuery,
 } = apiSlice;
