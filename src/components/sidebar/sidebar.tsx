@@ -19,6 +19,7 @@ import { logout } from '@redux/auth/authSlice';
 import { setIsCollapsed } from '@redux/sider/siderSlice';
 import { NavLink, useLocation } from 'react-router-dom';
 import PATHS from '@constants/paths';
+import { useGetLazyTraining } from '@hooks/use-get-training';
 
 const { Sider } = Layout;
 
@@ -27,6 +28,8 @@ export const Sidebar = () => {
     const location = useLocation();
     const matches = useMediaQuery({ query: `(max-width: 768px)` });
     const [collapsed, setCollapsed] = useState(matches);
+
+    const { onGetTraining } = useGetLazyTraining();
 
     useEffect(() => {
         if (matches) {
@@ -39,7 +42,8 @@ export const Sidebar = () => {
         {
             key: PATHS.CALENDAR,
             icon: <CalendarTwoTone style={{ fontSize: '16px' }} />,
-            label: <NavLink to={PATHS.CALENDAR}>Календарь</NavLink>,
+            label: 'Календарь',
+            onClick: () => onGetTraining(),
         },
         {
             key: '2',

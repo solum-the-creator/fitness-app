@@ -9,9 +9,16 @@ import { useMediaQuery } from 'react-responsive';
 import { Calendar } from 'antd';
 
 import { RU_CALENDAR_LOCALE } from '@constants/constants';
+import { useGetTrainingQuery } from '@redux/api/apiSlice';
+
+import { useLoaderLoading } from '@hooks/use-loader-loading';
 
 export const CalendarPage = () => {
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
+
+    const { data, isFetching } = useGetTrainingQuery('');
+    useLoaderLoading(isFetching);
+    console.log(data);
 
     return (
         <div className={styles.main_container}>

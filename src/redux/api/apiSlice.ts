@@ -9,6 +9,7 @@ import {
     User,
     ChangePasswordRequest,
     Feedback,
+    GetTrainingResponse,
 } from './types';
 import { RootState } from '@redux/configure-store';
 
@@ -28,7 +29,7 @@ export const apiSlice = createApi({
         credentials: 'include',
         mode: 'cors',
     }),
-    tagTypes: ['Feedback'],
+    tagTypes: ['Feedback', 'Training'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -95,6 +96,13 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: [{ type: 'Feedback', id: 'LIST' }],
         }),
+        getTraining: builder.query<GetTrainingResponse, string>({
+            query: (name = '') => ({
+                url: '/training',
+                params: { name },
+            }),
+            providesTags: [{ type: 'Training', id: 'LIST' }],
+        }),
     }),
 });
 
@@ -108,4 +116,6 @@ export const {
     useChangePasswordMutation,
     useGetFeedbackQuery,
     useCreateFeedbackMutation,
+    useGetTrainingQuery,
+    useLazyGetTrainingQuery,
 } = apiSlice;
