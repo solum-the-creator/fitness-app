@@ -120,6 +120,39 @@
         }
       }
     }
+
+    .ant-menu.ant-menu-inline-collapsed {
+      .ant-menu-item {
+        color: var(--primary-light-9);
+
+        svg {
+          path {
+            fill: var(--primary-light-9);
+          }
+        }
+
+        &.ant-menu-item-selected {
+          color: var(--primary-light-6);
+
+          svg {
+            path {
+              fill: var(--primary-light-6);
+            }
+          }
+        }
+
+        &.ant-menu-item-active {
+          color: var(--primary-light-6);
+
+          svg {
+            path {
+              fill: var(--primary-light-6);
+            }
+          }
+        }
+      }
+
+    }
   }
 
   .menu {

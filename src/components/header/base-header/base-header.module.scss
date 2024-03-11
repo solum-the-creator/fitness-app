@@ -1,6 +1,7 @@
 .header {
   background-color: var(--primary-light-1);
   height: auto;
+  padding: 0;
 
   :global {
     .ant-breadcrumb {
@@ -9,6 +10,7 @@
   }
 
   .horizontal_layout {
+    padding: 8px 0 6px;
     display: flex;
     justify-content: flex-end;
   }

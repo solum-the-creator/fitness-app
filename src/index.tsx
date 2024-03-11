@@ -14,6 +14,15 @@ import './index.css';
 import { AppRoutes } from './routes/routes';
 import { Loader } from '@components/loader';
 
+import 'moment/locale/ru';
+import moment from 'moment';
+
+moment.locale('ru', {
+    week: {
+        dow: 1,
+    },
+});
+
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
