@@ -3,23 +3,31 @@ import { useLoaderLoading } from './use-loader-loading';
 import PATHS from '@constants/paths';
 import { push } from 'redux-first-history';
 import { useAppDispatch } from '@redux/configure-store';
+import { useState } from 'react';
 
 export const useGetLazyTraining = () => {
     const dispatch = useAppDispatch();
     const [getTraining, { isFetching }] = useLazyGetTrainingQuery();
     useLoaderLoading(isFetching);
 
-    const onGetTraining = async (name = '') => {
+    const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+
+    const onGetTraining = async () => {
         try {
-            await getTraining(name).unwrap();
+            await getTraining({}).unwrap();
             dispatch(push(PATHS.CALENDAR));
         } catch (error) {
-            // TODO: add error handling
-            console.log(error);
+            setIsErrorModalOpen(true);
         }
+    };
+
+    const closeErrorModal = () => {
+        setIsErrorModalOpen(false);
     };
 
     return {
         onGetTraining,
+        closeErrorModal,
+        isErrorModalOpen,
     };
 };

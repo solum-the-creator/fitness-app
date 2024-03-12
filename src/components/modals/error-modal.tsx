@@ -19,6 +19,7 @@ export const ErrorModal = ({ isModalOpen, onClose }: ErrorModalProps) => (
         transitionName=''
         maskTransitionName=''
         maskStyle={{ backdropFilter: 'blur(6px)', background: 'rgba(121, 156, 212, 0.5)' }}
+        data-test-id='modal-no-review'
     >
         <Result
             status={'500'}

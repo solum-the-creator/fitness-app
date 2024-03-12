@@ -18,7 +18,7 @@ import { CloseOutlined } from '@ant-design/icons';
 export const CalendarPage = () => {
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
 
-    const { data: trainings, isFetching } = useGetTrainingQuery('');
+    const { data: trainings, isFetching } = useGetTrainingQuery({});
     const {
         data: trainingList,
         isFetching: isFetchingTrainingList,

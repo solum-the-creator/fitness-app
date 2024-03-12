@@ -97,11 +97,11 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: [{ type: 'Feedback', id: 'LIST' }],
         }),
-        getTraining: builder.query<GetTrainingResponse, string>({
-            query: (name = '') => ({
+        getTraining: builder.query<GetTrainingResponse, { name?: string }>({
+            query: ({ name }) => ({
                 url: '/training',
                 method: 'GET',
-                params: { name },
+                params: name ? { name } : undefined,
             }),
             providesTags: [{ type: 'Training', id: 'LIST' }],
         }),

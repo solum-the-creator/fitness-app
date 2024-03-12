@@ -8,11 +8,12 @@ import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons'
 import { Footer } from './footer';
 import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
+import { ErrorModal } from '@components/modals/error-modal';
 
 const { Content } = Layout;
 
 export const MainPage: React.FC = () => {
-    const { onGetTraining } = useGetLazyTraining();
+    const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
 
     return (
         <Layout className={styles.main_container}>
@@ -103,9 +104,15 @@ export const MainPage: React.FC = () => {
                                                     block
                                                     className={styles.card_button}
                                                     onClick={() => onGetTraining()}
+                                                    data-test-id='menu-button-calendar'
                                                 >
                                                     Календарь
                                                 </Button>
+
+                                                <ErrorModal
+                                                    isModalOpen={isErrorModalOpen}
+                                                    onClose={closeErrorModal}
+                                                />
                                             </Card>
                                         </Col>
                                         <Col xs={24} sm={8} span={8}>

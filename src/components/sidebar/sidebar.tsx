@@ -20,6 +20,7 @@ import { setIsCollapsed } from '@redux/sider/siderSlice';
 import { NavLink, useLocation } from 'react-router-dom';
 import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
+import { ErrorModal } from '@components/modals/error-modal';
 
 const { Sider } = Layout;
 
@@ -29,7 +30,7 @@ export const Sidebar = () => {
     const matches = useMediaQuery({ query: `(max-width: 768px)` });
     const [collapsed, setCollapsed] = useState(matches);
 
-    const { onGetTraining } = useGetLazyTraining();
+    const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
 
     useEffect(() => {
         if (matches) {
@@ -123,6 +124,8 @@ export const Sidebar = () => {
                 {!matches && <ExitIcon />}
                 {!collapsed && 'Выход'}
             </Button>
+
+            <ErrorModal isModalOpen={isErrorModalOpen} onClose={closeErrorModal} />
         </Sider>
     );
 };
