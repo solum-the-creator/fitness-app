@@ -12,8 +12,10 @@ import { RU_CALENDAR_LOCALE } from '@constants/constants';
 import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/apiSlice';
 
 import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
+import { Moment } from 'moment';
+import { TrainingModal } from './training-modal';
 
 export const CalendarPage = () => {
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
@@ -27,8 +29,37 @@ export const CalendarPage = () => {
     } = useGetTrainingListQuery();
     useLoaderLoading(isFetching || isFetchingTrainingList);
 
-    console.log(trainings);
-    console.log(trainingList);
+    // console.log(trainings);
+    // console.log(trainingList);
+
+    const [selectedDate, setSelectedDate] = useState<Moment | undefined>(undefined);
+    const [isModalTrainingVisible, setIsModalTrainingVisible] = useState(false);
+
+    const handleDateSelect = (value: Moment) => {
+        setSelectedDate(value);
+        setIsModalTrainingVisible(true);
+    };
+
+    const handleModalClose = () => {
+        setSelectedDate(undefined);
+        setIsModalTrainingVisible(false);
+    };
+
+    const dateCellRender = (value: Moment) => {
+        const showModal = isModalTrainingVisible && value.isSame(selectedDate, 'day');
+
+        return (
+            <>
+                {showModal && (
+                    <TrainingModal
+                        fullscreen={true}
+                        weekDay={value.day()}
+                        onClose={handleModalClose}
+                    />
+                )}
+            </>
+        );
+    };
 
     const showErrorModal = useCallback(() => {
         return Modal.error({
@@ -79,6 +110,9 @@ export const CalendarPage = () => {
                         className={styles.calendar}
                         locale={RU_CALENDAR_LOCALE}
                         fullscreen={!matches}
+                        value={selectedDate}
+                        dateCellRender={dateCellRender}
+                        onSelect={handleDateSelect}
                     />
                 </div>
             </Content>

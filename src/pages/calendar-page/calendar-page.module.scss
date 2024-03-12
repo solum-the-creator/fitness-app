@@ -126,6 +126,10 @@
         background: var(--neutral-gray-1);
       }
 
+      .ant-picker-cell-selected {
+        z-index: 100;
+      }
+
     }
   }
 }
