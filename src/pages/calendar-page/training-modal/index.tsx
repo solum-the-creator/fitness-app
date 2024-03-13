@@ -9,13 +9,16 @@ type TrainingModalProps = {
     onClose: () => void;
     fullscreen: boolean;
     weekDay: number;
+    position: { top: number; left: number; right: number; bottom: number };
 };
 
-export const TrainingModal = ({ onClose, fullscreen, weekDay }: TrainingModalProps) => {
+export const TrainingModal = ({ onClose, fullscreen, weekDay, position }: TrainingModalProps) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const [isLeftSide, setIsLeftSide] = useState(weekDay % 7 !== 0);
 
-    const position = isLeftSide ? { top: 0, left: 0 } : { top: 0, right: 0 };
+    const positionFullscreen = isLeftSide ? { top: 0, left: 0 } : { top: 0, right: 0 };
+    const positionMobile = { top: position.bottom };
+    const positionModal = fullscreen ? positionFullscreen : positionMobile;
 
     const modalClass = fullscreen ? styles.fullscreen_modal : styles.mobile_modal;
 
@@ -50,7 +53,7 @@ export const TrainingModal = ({ onClose, fullscreen, weekDay }: TrainingModalPro
     return (
         <div
             className={`${modalClass} ${styles.modal}`}
-            style={{ ...position, position: 'absolute' }}
+            style={{ ...positionModal, position: fullscreen ? 'absolute' : 'fixed' }}
             ref={modalRef}
         >
             <div className={styles.modal_header}>

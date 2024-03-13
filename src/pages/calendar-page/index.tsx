@@ -34,6 +34,7 @@ export const CalendarPage = () => {
 
     const [selectedDate, setSelectedDate] = useState<Moment | undefined>(undefined);
     const [isModalTrainingVisible, setIsModalTrainingVisible] = useState(false);
+    const [modalPostion, setModalPosition] = useState({ top: 0, left: 0, right: 0, bottom: 0 });
 
     const handleDateSelect = (value: Moment) => {
         setSelectedDate(value);
@@ -45,16 +46,36 @@ export const CalendarPage = () => {
         setIsModalTrainingVisible(false);
     };
 
+    useEffect(() => {
+        if (matches) {
+            if (selectedDate) {
+                const cellId = `calendar_cell_${selectedDate.format('YYYY-MM-DD')}`;
+                const cellElement = document.querySelector(`#${cellId}`);
+                if (cellElement) {
+                    const closestCellInner = cellElement.closest('.ant-picker-cell-inner');
+                    if (closestCellInner) {
+                        const { top, left, right, bottom } =
+                            closestCellInner.getBoundingClientRect();
+                        setModalPosition({ top, left, right, bottom });
+                    }
+                }
+            }
+        }
+    }, [matches, selectedDate]);
+
     const dateCellRender = (value: Moment) => {
+        const cellId = `calendar_cell_${value.format('YYYY-MM-DD')}`;
         const showModal = isModalTrainingVisible && value.isSame(selectedDate, 'day');
 
         return (
             <>
+                <div id={cellId}></div>
                 {showModal && (
                     <TrainingModal
-                        fullscreen={true}
+                        fullscreen={!matches}
                         weekDay={value.day()}
                         onClose={handleModalClose}
+                        position={modalPostion}
                     />
                 )}
             </>

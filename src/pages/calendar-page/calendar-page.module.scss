@@ -32,7 +32,9 @@
     .ant-picker-calendar-mini {
       background-color: var(--neutral-gray-1);
 
-
+      .ant-picker-cell-selected {
+        z-index: 10;
+      }
 
       .ant-picker-calendar-header {
         display: flex;
