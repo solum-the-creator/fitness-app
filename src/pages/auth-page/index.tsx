@@ -63,7 +63,6 @@ export const AuthPage = () => {
 
                 dispatch(push(`${PATHS.AUTH}/confirm-email`, { fromResult: true, email: email }));
             } catch (error) {
-                console.log(error);
                 const checkEmailError = error as FetchBaseQueryError;
                 const errorData = checkEmailError.data as {
                     message: string;

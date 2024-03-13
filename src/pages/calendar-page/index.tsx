@@ -22,7 +22,7 @@ export const CalendarPage = () => {
 
     const { data: trainings, isFetching } = useGetTrainingQuery({});
     const {
-        data: trainingList,
+        data: trainingList = [],
         isFetching: isFetchingTrainingList,
         isError,
         refetch,
@@ -72,10 +72,12 @@ export const CalendarPage = () => {
                 <div id={cellId}></div>
                 {showModal && (
                     <TrainingModal
+                        trainingList={trainingList}
                         fullscreen={!matches}
                         weekDay={value.day()}
                         onClose={handleModalClose}
                         position={modalPostion}
+                        selectedDate={value}
                     />
                 )}
             </>

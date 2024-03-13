@@ -57,7 +57,7 @@ export type Exercise = {
     isImplementation: boolean;
 };
 
-export type GetTrainingResponse = {
+export type Training = {
     _id: string;
     name: string;
     date: string;
@@ -72,7 +72,4 @@ export type GetTrainingResponse = {
     exercises: Exercise[];
 };
 
-export type GetTrainingListResponse = {
-    name: string;
-    key: string;
-}[];
+export type TrainingList = { name: string; key: string }[];

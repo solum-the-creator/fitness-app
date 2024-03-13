@@ -1,20 +1,32 @@
 import styles from './training-modal.module.scss';
 
-import { Button, Empty } from 'antd';
-import emptyImage from '/empty-image-fit.svg';
-import { CloseOutlined } from '@ant-design/icons';
 import { useEffect, useRef, useState } from 'react';
+import { Moment } from 'moment';
+import { TrainingDisplay } from './training-display';
+import { TrainingCreate } from './training-create';
+import { TrainingList } from '@redux/api/types';
 
 type TrainingModalProps = {
     onClose: () => void;
     fullscreen: boolean;
     weekDay: number;
     position: { top: number; left: number; right: number; bottom: number };
+    selectedDate: Moment;
+    trainingList: TrainingList;
 };
 
-export const TrainingModal = ({ onClose, fullscreen, weekDay, position }: TrainingModalProps) => {
+export const TrainingModal = ({
+    onClose,
+    fullscreen,
+    weekDay,
+    position,
+    selectedDate,
+    trainingList,
+}: TrainingModalProps) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const [isLeftSide, setIsLeftSide] = useState(weekDay % 7 !== 0);
+
+    const [isTrainingCreateVisible, setIsTrainingCreateVisible] = useState(false);
 
     const positionFullscreen = isLeftSide ? { top: 0, left: 0 } : { top: 0, right: 0 };
     const positionMobile = { top: position.bottom };
@@ -22,9 +34,12 @@ export const TrainingModal = ({ onClose, fullscreen, weekDay, position }: Traini
 
     const modalClass = fullscreen ? styles.fullscreen_modal : styles.mobile_modal;
 
-    const handleModalClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
-        onClose();
+    };
+
+    const handleCreateTraining = () => {
+        setIsTrainingCreateVisible(true);
     };
 
     useEffect(() => {
@@ -32,7 +47,6 @@ export const TrainingModal = ({ onClose, fullscreen, weekDay, position }: Traini
             if (modalRef.current) {
                 const { right } = modalRef.current.getBoundingClientRect();
                 const windowWidth = window.innerWidth;
-
                 if (isLeftSide) {
                     if (right + 20 > windowWidth) {
                         setIsLeftSide(false);
@@ -40,9 +54,7 @@ export const TrainingModal = ({ onClose, fullscreen, weekDay, position }: Traini
                 }
             }
         };
-
         handleResize();
-
         window.addEventListener('resize', handleResize);
 
         return () => {
@@ -55,32 +67,20 @@ export const TrainingModal = ({ onClose, fullscreen, weekDay, position }: Traini
             className={`${modalClass} ${styles.modal}`}
             style={{ ...positionModal, position: fullscreen ? 'absolute' : 'fixed' }}
             ref={modalRef}
+            onClick={handleModalClick}
         >
-            <div className={styles.modal_header}>
-                <div className={styles.header_content}>
-                    <h4 className={styles.modal_title}>Тренировки на 09.01.2024</h4>
-                    <p className={styles.modal_subtitle}>Нет активных тренировок</p>
-                </div>
-                <Button
-                    type='text'
-                    icon={<CloseOutlined style={{ fontSize: '12px', color: '#262626' }} />}
-                    onClick={handleModalClose}
-                    className={styles.button_close}
+            {isTrainingCreateVisible ? (
+                <TrainingCreate
+                    trainingList={trainingList}
+                    onCancel={() => setIsTrainingCreateVisible(false)}
                 />
-            </div>
-            <div className={styles.modal_main}>
-                <Empty
-                    image={emptyImage}
-                    description=''
-                    imageStyle={{ height: 32, margin: '0' }}
-                    className={styles.empty}
+            ) : (
+                <TrainingDisplay
+                    onClose={onClose}
+                    onCreate={handleCreateTraining}
+                    selectedDate={selectedDate}
                 />
-            </div>
-            <div className={styles.modal_footer}>
-                <Button type='primary' size='large' block>
-                    Создать тренировку
-                </Button>
-            </div>
+            )}
         </div>
     );
 };
