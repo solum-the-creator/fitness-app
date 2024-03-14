@@ -3,6 +3,8 @@ import styles from './training-create.module.scss';
 import { TrainingList } from '@redux/api/types';
 import { Button, Empty, Select } from 'antd';
 import emptyImage from '/empty-image-fit.svg';
+import { useState } from 'react';
+import { ExerciseEditor } from './exercise-editor';
 
 type TrainingCreateProps = {
     onCancel: () => void;
@@ -10,7 +12,7 @@ type TrainingCreateProps = {
 };
 
 export const TrainingCreate = ({ onCancel, trainingList }: TrainingCreateProps) => {
-    console.log(trainingList);
+    const [isExerciseOpen, setIsExerciseOpen] = useState(false);
 
     const options = trainingList.map((item) => ({ value: item.key, label: item.name }));
 
@@ -44,11 +46,14 @@ export const TrainingCreate = ({ onCancel, trainingList }: TrainingCreateProps) 
                 />
             </div>
             <div className={styles.modal_footer}>
-                <Button block>Добавить упражнения</Button>
+                <Button block onClick={() => setIsExerciseOpen(true)}>
+                    Добавить упражнения
+                </Button>
                 <Button type='link' block>
                     Сохранить
                 </Button>
             </div>
+            <ExerciseEditor isOpen={isExerciseOpen} onClose={() => setIsExerciseOpen(false)} />
         </>
     );
 };
