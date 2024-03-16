@@ -16,11 +16,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { Moment } from 'moment';
 import { TrainingModal } from './training-modal';
+import { TrainingTypeBadge } from '@components/training-type-badge';
+import moment from 'moment';
 
 export const CalendarPage = () => {
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
 
     const { data: trainings, isFetching } = useGetTrainingQuery({});
+
+    // TODO: replace traininglist to redux ???
     const {
         data: trainingList = [],
         isFetching: isFetchingTrainingList,
@@ -29,8 +33,8 @@ export const CalendarPage = () => {
     } = useGetTrainingListQuery();
     useLoaderLoading(isFetching || isFetchingTrainingList);
 
-    // console.log(trainings);
-    // console.log(trainingList);
+    console.log(trainings);
+    console.log(trainingList);
 
     const [selectedDate, setSelectedDate] = useState<Moment | undefined>(undefined);
     const [isModalTrainingVisible, setIsModalTrainingVisible] = useState(false);
@@ -67,17 +71,41 @@ export const CalendarPage = () => {
         const cellId = `calendar_cell_${value.format('YYYY-MM-DD')}`;
         const showModal = isModalTrainingVisible && value.isSame(selectedDate, 'day');
 
+        const selectedTrainings =
+            trainings?.filter((training) => {
+                const trainingDate = moment(training.date);
+                return value.isSame(trainingDate, 'day');
+            }) || [];
+
         return (
             <>
-                <div id={cellId}></div>
+                <div id={cellId} className={styles.calendar_cell}>
+                    {selectedTrainings.map((training) => {
+                        return matches ? (
+                            <div key={training._id} className='mobile_cell'></div>
+                        ) : (
+                            <TrainingTypeBadge
+                                key={training._id}
+                                type={
+                                    trainingList.find((item) => item.name === training.name)?.key ||
+                                    'default'
+                                }
+                                text={training.name}
+                                size='small'
+                            />
+                        );
+                    })}
+                </div>
                 {showModal && (
                     <TrainingModal
                         trainingList={trainingList}
+                        trainings={selectedTrainings}
                         fullscreen={!matches}
                         weekDay={value.day()}
                         onClose={handleModalClose}
                         position={modalPostion}
                         selectedDate={value}
+                        data-test-id='modal-create-training'
                     />
                 )}
             </>
@@ -99,7 +127,11 @@ export const CalendarPage = () => {
             okText: <span data-test-id='modal-error-user-training-button'>Обновить</span>,
             closeIcon: <CloseOutlined data-test-id='modal-error-user-training-button-close' />,
             width: '100%',
-            maskStyle: { backdropFilter: 'blur(6px)', background: 'rgba(121, 156, 212, 0.1)' },
+            maskStyle: {
+                backdropFilter: 'blur(6px)',
+                background: 'rgba(121, 156, 212, 0.1)',
+                zIndex: 2100,
+            },
             className: styles.error_modal,
             wrapClassName: styles.error_modal_wrapper,
             onOk: () => refetch(),
@@ -134,7 +166,7 @@ export const CalendarPage = () => {
                         locale={RU_CALENDAR_LOCALE}
                         fullscreen={!matches}
                         value={selectedDate}
-                        dateCellRender={dateCellRender}
+                        dateCellRender={trainingList.length > 0 ? dateCellRender : undefined}
                         onSelect={handleDateSelect}
                     />
                 </div>

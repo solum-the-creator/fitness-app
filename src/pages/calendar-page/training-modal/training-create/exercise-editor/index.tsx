@@ -5,25 +5,40 @@ import { TrainingTypeBadge } from '@components/training-type-badge';
 import { ExerciseItem } from './exercise-item';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { Exercise } from '@redux/api/types';
 
 type ExerciseEditorProps = {
     isOpen: boolean;
     onClose: () => void;
 };
 
+const emptyExercise: Partial<Exercise> = {
+    name: '',
+    replays: undefined,
+    approaches: undefined,
+    weight: undefined,
+    isImplementation: false,
+};
+
 export const ExerciseEditor = ({ isOpen, onClose }: ExerciseEditorProps) => {
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
     const drawerClass = matches ? styles.drawer_mobile : styles.drawer_fullscreen;
 
-    const [exerciseList, setExerciseList] = useState([
-        { name: '', approach: undefined, weight: undefined, count: undefined },
-    ]);
+    const [exerciseList, setExerciseList] = useState<Partial<Exercise>[]>([emptyExercise]);
 
     const handleAddExerciseClick = () => {
-        setExerciseList([
-            ...exerciseList,
-            { name: '', approach: undefined, weight: undefined, count: undefined },
-        ]);
+        setExerciseList([...exerciseList, emptyExercise]);
+    };
+
+    const updateExerciseList = (exercise: Partial<Exercise>, index: number) => {
+        const newExerciseList = [...exerciseList];
+        newExerciseList[index] = exercise;
+        setExerciseList(newExerciseList);
+    };
+
+    const onCloseEditor = () => {
+        console.log(exerciseList);
+        onClose();
     };
 
     return (
@@ -33,7 +48,7 @@ export const ExerciseEditor = ({ isOpen, onClose }: ExerciseEditorProps) => {
             placement={matches ? 'bottom' : 'right'}
             open={isOpen}
             closable={false}
-            onClose={onClose}
+            onClose={onCloseEditor}
             maskStyle={{ backgroundColor: 'transparent' }}
             className={`${styles.drawer} ${drawerClass}`}
         >
@@ -51,14 +66,19 @@ export const ExerciseEditor = ({ isOpen, onClose }: ExerciseEditorProps) => {
                     />
                 </div>
                 <div className={styles.drawer_info}>
-                    <TrainingTypeBadge type='strength' text='Силовая' />
+                    <TrainingTypeBadge type='strength' text='Силовая' color='#8c8c8c' />
 
                     <div className={styles.date}>19.01.2024</div>
                 </div>
                 <div className={styles.drawer_body}>
                     <div className={styles.exercise_list}>
-                        {exerciseList.map((_, index) => (
-                            <ExerciseItem key={index} />
+                        {exerciseList.map((item, index) => (
+                            <ExerciseItem
+                                key={index}
+                                item={item}
+                                index={index}
+                                onUpdate={updateExerciseList}
+                            />
                         ))}
                     </div>
                     <div className={styles.buttons}>

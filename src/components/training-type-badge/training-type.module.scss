@@ -1,10 +1,35 @@
 .badge {
   line-height: 130%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+
+
   :global {
     .ant-badge-status-text {
       color: var(--character-light-secondary-45);
       font-weight: 500;
       line-height: 130%;
+    }
+  }
+}
+
+.small {
+  font-size: 12px;
+
+  :global {
+    .ant-badge-status-text {
+      font-size: 12px;
+    }
+  }
+
+}
+
+.default {
+  :global {
+    .ant-badge-status-text {
+      font-size: 14px;
     }
   }
 }

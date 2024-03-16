@@ -2,8 +2,10 @@ import { Badge } from 'antd';
 import styles from './training-type.module.scss';
 
 type TrainingTypeProps = {
-    type: 'legs' | 'strength' | 'hands' | 'chest' | 'back' | 'default';
+    type: string;
     text?: string;
+    size?: 'small' | 'default';
+    color?: string;
 };
 
 const trainingColors: Record<TrainingTypeProps['type'], string> = {
@@ -15,6 +17,14 @@ const trainingColors: Record<TrainingTypeProps['type'], string> = {
     default: '#d9d9d9',
 };
 
-export const TrainingTypeBadge = ({ type, text }: TrainingTypeProps) => (
-    <Badge color={trainingColors[type]} text={text} className={styles.badge} />
-);
+export const TrainingTypeBadge = ({ type, text, size, color }: TrainingTypeProps) => {
+    const sizeClass = size === 'small' ? styles.small : styles.default;
+    return (
+        <Badge
+            color={trainingColors[type] || trainingColors.default}
+            text={text || type}
+            className={`${styles.badge} ${sizeClass}`}
+            style={{ color: color ? color : '#262626' }}
+        />
+    );
+};

@@ -1,0 +1,18 @@
+.exercise_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .exercise_name {
+    color: var(--character-light-secondary-45);
+    line-height: 130%;
+  }
+
+  .button {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

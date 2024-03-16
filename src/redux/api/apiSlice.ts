@@ -10,7 +10,7 @@ import {
     ChangePasswordRequest,
     Feedback,
     TrainingList,
-    Training,
+    TrainingResponse,
 } from './types';
 import { RootState } from '@redux/configure-store';
 
@@ -97,7 +97,7 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: [{ type: 'Feedback', id: 'LIST' }],
         }),
-        getTraining: builder.query<Training, { name?: string }>({
+        getTraining: builder.query<TrainingResponse, { name?: string }>({
             query: ({ name }) => ({
                 url: '/training',
                 method: 'GET',

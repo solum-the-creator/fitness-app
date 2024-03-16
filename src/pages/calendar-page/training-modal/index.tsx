@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Moment } from 'moment';
 import { TrainingDisplay } from './training-display';
 import { TrainingCreate } from './training-create';
-import { TrainingList } from '@redux/api/types';
+import { TrainingList, TrainingResponse } from '@redux/api/types';
 
 type TrainingModalProps = {
     onClose: () => void;
@@ -13,6 +13,7 @@ type TrainingModalProps = {
     position: { top: number; left: number; right: number; bottom: number };
     selectedDate: Moment;
     trainingList: TrainingList;
+    trainings: TrainingResponse;
 };
 
 export const TrainingModal = ({
@@ -22,6 +23,7 @@ export const TrainingModal = ({
     position,
     selectedDate,
     trainingList,
+    trainings,
 }: TrainingModalProps) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const [isLeftSide, setIsLeftSide] = useState(weekDay % 7 !== 0);
@@ -73,12 +75,15 @@ export const TrainingModal = ({
                 <TrainingCreate
                     trainingList={trainingList}
                     onCancel={() => setIsTrainingCreateVisible(false)}
+                    data-test-id='modal-create-exercise'
                 />
             ) : (
                 <TrainingDisplay
                     onClose={onClose}
                     onCreate={handleCreateTraining}
                     selectedDate={selectedDate}
+                    trainings={trainings}
+                    trainingList={trainingList}
                 />
             )}
         </div>

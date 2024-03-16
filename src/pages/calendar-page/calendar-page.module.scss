@@ -116,6 +116,11 @@
               max-width: 48px;
             }
 
+            .ant-picker-cell-inner:has(.mobile_cell) {
+              color: var(--character-light-title-85);
+              background-color: var(--primary-light-1);
+            }
+
           }
         }
       }
@@ -135,10 +140,16 @@
 
     }
   }
+
+  .calendar_cell {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 
 .error_modal_wrapper {
+  z-index: 2200;
   padding: 16px;
   .error_modal {
     max-width: 384px;

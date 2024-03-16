@@ -49,7 +49,6 @@ export type ChangePasswordRequest = {
 };
 
 export type Exercise = {
-    _id: string;
     name: string;
     replays: number;
     weight: number;
@@ -57,8 +56,9 @@ export type Exercise = {
     isImplementation: boolean;
 };
 
+export type ExerciseResponse = Exercise & { _id: string };
+
 export type Training = {
-    _id: string;
     name: string;
     date: string;
     isImplementation: boolean;
@@ -71,5 +71,7 @@ export type Training = {
     };
     exercises: Exercise[];
 };
+
+export type TrainingResponse = (Training & { _id: string; exercises: ExerciseResponse[] })[];
 
 export type TrainingList = { name: string; key: string }[];
