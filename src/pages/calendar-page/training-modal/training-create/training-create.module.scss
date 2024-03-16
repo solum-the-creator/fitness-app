@@ -1,29 +1,30 @@
+.cancel_button {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  z-index: 30;
+  top: 12px;
+  left: 3px;
+}
+
 .modal_header {
   position: relative;
   padding: 13px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
 
-  .cancel {
-    position: absolute;
-    top: 18px;
-    left: 8px;
-    line-height: 16px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .button {
-      width: 16px;
-      height: 16px;
-      padding: 0;
-      line-height: 130%;
-    }
-  }
 
   .select {
-    padding-left: 16px;
+
     width: 100%;
     display: flex;
+    margin-left: 14px;
 
     :global {
       .ant-select.ant-select-single {
@@ -83,4 +84,39 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.error_modal_wrapper {
+  z-index: 2200;
+  padding: 16px;
+  .error_modal {
+    max-width: 416px;
+
+
+    :global {
+      .ant-modal-body {
+        padding: 32px 32px 24px;
+
+        .ant-modal-confirm-title {
+          font-weight: 500;
+          line-height: 130%;
+        }
+        .ant-modal-confirm-content {
+          line-height: 130%;
+        }
+
+        .ant-modal-confirm-btns {
+          margin-top: 24px;
+          button {
+            height: 40px;
+            line-height: 130%;
+          }
+        }
+
+        .anticon-close-circle {
+          font-size: 24px;
+        }
+      }
+    }
+  }
 }

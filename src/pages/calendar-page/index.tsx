@@ -33,9 +33,6 @@ export const CalendarPage = () => {
     } = useGetTrainingListQuery();
     useLoaderLoading(isFetching || isFetchingTrainingList);
 
-    console.log(trainings);
-    console.log(trainingList);
-
     const [selectedDate, setSelectedDate] = useState<Moment | undefined>(undefined);
     const [isModalTrainingVisible, setIsModalTrainingVisible] = useState(false);
     const [modalPostion, setModalPosition] = useState({ top: 0, left: 0, right: 0, bottom: 0 });
@@ -105,7 +102,6 @@ export const CalendarPage = () => {
                         onClose={handleModalClose}
                         position={modalPostion}
                         selectedDate={value}
-                        data-test-id='modal-create-training'
                     />
                 )}
             </>

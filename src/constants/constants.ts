@@ -23,7 +23,7 @@ export const RU_CALENDAR_LOCALE = {
     },
 };
 
-export const DATE_FORMAT = 'dd.MM.yyyy';
+export const DATE_FORMAT = 'DD.MM.YYYY';
 
 export const STATUS_CODE = {
     SUCCESS: 200,

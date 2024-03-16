@@ -6,6 +6,7 @@ import { Button, Empty } from 'antd';
 import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { TrainingTypeBadge } from '@components/training-type-badge';
+import { isPastDate } from '@utils/date-utils';
 
 type TrainingDisplayProps = {
     onClose: () => void;
@@ -23,6 +24,10 @@ export const TrainingDisplay = ({
     onCreate,
 }: TrainingDisplayProps) => {
     const isEmpty = trainings.length === 0;
+    const isPast = isPastDate(selectedDate);
+    const isFull = trainings.length === trainingList.length;
+
+    const isDisabled = isPast || isFull;
 
     const handleModalClose = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -83,7 +88,13 @@ export const TrainingDisplay = ({
                 )}
             </div>
             <div className={styles.modal_footer}>
-                <Button type='primary' size='large' block onClick={handleCreate}>
+                <Button
+                    type='primary'
+                    size='large'
+                    block
+                    onClick={handleCreate}
+                    disabled={isDisabled}
+                >
                     Создать тренировку
                 </Button>
             </div>

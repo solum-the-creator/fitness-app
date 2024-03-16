@@ -11,6 +11,7 @@ import {
     Feedback,
     TrainingList,
     TrainingResponse,
+    Training,
 } from './types';
 import { RootState } from '@redux/configure-store';
 
@@ -105,6 +106,18 @@ export const apiSlice = createApi({
             }),
             providesTags: [{ type: 'Training', id: 'LIST' }],
         }),
+        addTraining: builder.mutation<TrainingResponse, Training>({
+            query: (training) => ({
+                url: '/training',
+                method: 'POST',
+                body: {
+                    name: training.name,
+                    date: training.date,
+                    exercises: training.exercises,
+                },
+            }),
+            invalidatesTags: [{ type: 'Training', id: 'LIST' }],
+        }),
         getTrainingList: builder.query<TrainingList, void>({
             query: () => ({
                 url: '/catalogs/training-list',
@@ -127,4 +140,5 @@ export const {
     useGetTrainingQuery,
     useLazyGetTrainingQuery,
     useGetTrainingListQuery,
+    useAddTrainingMutation,
 } = apiSlice;

@@ -5,11 +5,17 @@ import { TrainingTypeBadge } from '@components/training-type-badge';
 import { ExerciseItem } from './exercise-item';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Exercise } from '@redux/api/types';
+import { Exercise, TrainingList } from '@redux/api/types';
+import { Moment } from 'moment';
+import { DATE_FORMAT } from '@constants/constants';
+import { nanoid } from 'nanoid';
 
 type ExerciseEditorProps = {
     isOpen: boolean;
-    onClose: () => void;
+    trainingType: TrainingList[number];
+    exerciseList: Exercise[];
+    date: Moment;
+    onClose: (exerciseList: Exercise[]) => void;
 };
 
 const emptyExercise: Partial<Exercise> = {
@@ -20,25 +26,67 @@ const emptyExercise: Partial<Exercise> = {
     isImplementation: false,
 };
 
-export const ExerciseEditor = ({ isOpen, onClose }: ExerciseEditorProps) => {
+export const ExerciseEditor = ({
+    trainingType,
+    exerciseList: currentExerciseList,
+    date,
+    isOpen,
+    onClose,
+}: ExerciseEditorProps) => {
+    //TODO: change height exercise list when is many exercises
+
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
     const drawerClass = matches ? styles.drawer_mobile : styles.drawer_fullscreen;
 
-    const [exerciseList, setExerciseList] = useState<Partial<Exercise>[]>([emptyExercise]);
+    const isEmpty = currentExerciseList.length === 0;
+    const initialExerciseList = isEmpty ? [emptyExercise] : currentExerciseList;
+
+    const [exerciseList, setExerciseList] = useState<Partial<Exercise>[]>(
+        initialExerciseList.map((item) => ({
+            ...item,
+            tempId: nanoid(),
+        })),
+    );
 
     const handleAddExerciseClick = () => {
-        setExerciseList([...exerciseList, emptyExercise]);
+        const newExercise = {
+            ...emptyExercise,
+            tempId: nanoid(),
+        };
+        setExerciseList([...exerciseList, newExercise]);
     };
 
-    const updateExerciseList = (exercise: Partial<Exercise>, index: number) => {
-        const newExerciseList = [...exerciseList];
-        newExerciseList[index] = exercise;
-        setExerciseList(newExerciseList);
+    const updateExerciseList = (exercise: Partial<Exercise>) => {
+        const updatedExerciseList = exerciseList.map((item) => {
+            if (item.tempId === exercise.tempId) {
+                return {
+                    ...item,
+                    ...exercise,
+                };
+            }
+            return item;
+        });
+        setExerciseList(updatedExerciseList);
+    };
+
+    const filterExerciseList = (exerciseList: Partial<Exercise>[]) => {
+        const filteredList = exerciseList
+            .filter((item) => item.name?.trim() !== '')
+            .map((item) => ({
+                ...item,
+                replays: item.replays === undefined ? 1 : item.replays,
+                approaches: item.approaches === undefined ? 1 : item.approaches,
+                weight: item.weight === undefined ? 0 : item.weight,
+            }));
+
+        setExerciseList(filteredList);
+        return filteredList;
     };
 
     const onCloseEditor = () => {
-        console.log(exerciseList);
-        onClose();
+        const filteredExerciseList = filterExerciseList(exerciseList) as Exercise[];
+
+        onClose(filteredExerciseList);
     };
 
     return (
@@ -51,6 +99,7 @@ export const ExerciseEditor = ({ isOpen, onClose }: ExerciseEditorProps) => {
             onClose={onCloseEditor}
             maskStyle={{ backgroundColor: 'transparent' }}
             className={`${styles.drawer} ${drawerClass}`}
+            data-test-id='modal-drawer-right'
         >
             <div className={styles.drawer_wrapper}>
                 <div className={styles.drawer_header}>
@@ -61,20 +110,25 @@ export const ExerciseEditor = ({ isOpen, onClose }: ExerciseEditorProps) => {
                     <Button
                         type='text'
                         icon={<CloseOutlined style={{ fontSize: '14px' }} />}
-                        onClick={onClose}
+                        onClick={onCloseEditor}
                         className={styles.button_close}
+                        data-test-id='modal-drawer-right-button-close'
                     />
                 </div>
                 <div className={styles.drawer_info}>
-                    <TrainingTypeBadge type='strength' text='Силовая' color='#8c8c8c' />
+                    <TrainingTypeBadge
+                        type={trainingType.key}
+                        text={trainingType.name}
+                        color='#8c8c8c'
+                    />
 
-                    <div className={styles.date}>19.01.2024</div>
+                    <div className={styles.date}>{date.format(DATE_FORMAT)}</div>
                 </div>
                 <div className={styles.drawer_body}>
                     <div className={styles.exercise_list}>
                         {exerciseList.map((item, index) => (
                             <ExerciseItem
-                                key={index}
+                                key={item.tempId}
                                 item={item}
                                 index={index}
                                 onUpdate={updateExerciseList}

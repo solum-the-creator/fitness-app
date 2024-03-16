@@ -1,40 +1,100 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import styles from './training-create.module.scss';
-import { Exercise, TrainingList } from '@redux/api/types';
-import { Button, Empty, Select } from 'antd';
+import { Exercise, Training, TrainingList } from '@redux/api/types';
+import { Button, Empty, Modal, Select } from 'antd';
 import emptyImage from '/empty-image-fit.svg';
 import { useState } from 'react';
 import { ExerciseEditor } from './exercise-editor';
 import { ExerciseNameList } from './exercise-name-list';
+import { Moment } from 'moment';
+import { useAddTrainingMutation } from '@redux/api/apiSlice';
 
 type TrainingCreateProps = {
-    onCancel: () => void;
     trainingList: TrainingList;
+    date: Moment;
+    onCancel: () => void;
+    onClose: () => void;
 };
 
-export const TrainingCreate = ({ onCancel, trainingList }: TrainingCreateProps) => {
+export const TrainingCreate = ({ trainingList, date, onCancel, onClose }: TrainingCreateProps) => {
+    const [selectedTrainingType, setSelectedTrainingType] = useState<TrainingList[number] | null>(
+        null,
+    );
     const [isExerciseOpen, setIsExerciseOpen] = useState(false);
-    const [exerciseList, setExerciseList] = useState<Exercise[]>([
-        { name: 'Скручивания', replays: 1, approaches: 1, weight: 0, isImplementation: false },
-        { name: 'Отжимания', replays: 1, approaches: 1, weight: 0, isImplementation: false },
-        { name: 'Отжимания', replays: 1, approaches: 1, weight: 0, isImplementation: false },
-    ]);
+    const [exerciseList, setExerciseList] = useState<Exercise[]>([]);
     const isEmpty = exerciseList.length === 0;
+
+    const [addTraining, { isLoading }] = useAddTrainingMutation();
 
     const options = trainingList.map((item) => ({ value: item.key, label: item.name }));
 
+    const handleChangeSelect = (value: string) => {
+        const trainingType = trainingList.find((item) => item.key === value);
+        if (trainingType) {
+            setSelectedTrainingType(trainingType);
+        }
+    };
+
+    const handleOnClose = (newExerciseList: Exercise[]) => {
+        setExerciseList(newExerciseList);
+        setIsExerciseOpen(false);
+    };
+
+    const showErrorModal = () => {
+        return Modal.error({
+            title: (
+                <span data-test-id='modal-error-user-training-title'>
+                    При сохранении данных произошла&nbsp;ошибка
+                </span>
+            ),
+            content: (
+                <span data-test-id='modal-error-user-training-subtitle'>
+                    Придётся попробовать ещё раз
+                </span>
+            ),
+            closable: false,
+            centered: true,
+            okText: <span data-test-id='modal-error-user-training-button'>Закрыть</span>,
+            width: '100%',
+            maskStyle: {
+                backdropFilter: 'blur(6px)',
+                background: 'rgba(121, 156, 212, 0.1)',
+                zIndex: 2100,
+            },
+            className: styles.error_modal,
+            wrapClassName: styles.error_modal_wrapper,
+            onOk: onClose,
+        });
+    };
+
+    const handleSave = async () => {
+        if (selectedTrainingType && !isEmpty) {
+            const training: Training = {
+                name: selectedTrainingType.name,
+                date: date.toISOString(),
+                exercises: exerciseList,
+            };
+            try {
+                await addTraining(training).unwrap();
+                onCancel();
+            } catch {
+                showErrorModal();
+            }
+        }
+    };
+
     return (
         <>
+            <Button
+                icon={<ArrowLeftOutlined style={{ fontSize: '14px' }} />}
+                type='text'
+                className={styles.cancel_button}
+                onClick={onCancel}
+                size='small'
+                data-test-id='modal-exercise-training-button-close'
+            />
+
             <div className={styles.modal_header}>
-                <div className={styles.cancel}>
-                    <Button
-                        icon={<ArrowLeftOutlined />}
-                        type='text'
-                        className={styles.button}
-                        onClick={onCancel}
-                        data-test-id='modal-exercise-training-button-close'
-                    />
-                </div>
                 <div className={styles.select}>
                     <Select
                         style={{ width: '100%' }}
@@ -42,6 +102,8 @@ export const TrainingCreate = ({ onCancel, trainingList }: TrainingCreateProps) 
                         placeholder='Выбор типа тренировки'
                         popupClassName={styles.select_popup}
                         options={options}
+                        value={selectedTrainingType?.key}
+                        onChange={handleChangeSelect}
                         data-test-id='modal-create-exercise-select'
                     />
                 </div>
@@ -55,18 +117,36 @@ export const TrainingCreate = ({ onCancel, trainingList }: TrainingCreateProps) 
                         className={styles.empty}
                     />
                 ) : (
-                    <ExerciseNameList items={exerciseList} />
+                    <ExerciseNameList onEdit={() => setIsExerciseOpen(true)} items={exerciseList} />
                 )}
             </div>
             <div className={styles.modal_footer}>
-                <Button block onClick={() => setIsExerciseOpen(true)}>
+                <Button
+                    block
+                    onClick={() => setIsExerciseOpen(true)}
+                    disabled={selectedTrainingType === null}
+                >
                     Добавить упражнения
                 </Button>
-                <Button type='link' block>
+                <Button
+                    type='link'
+                    block
+                    onClick={handleSave}
+                    disabled={isEmpty}
+                    loading={isLoading}
+                >
                     Сохранить
                 </Button>
             </div>
-            <ExerciseEditor isOpen={isExerciseOpen} onClose={() => setIsExerciseOpen(false)} />
+            {isExerciseOpen && (
+                <ExerciseEditor
+                    isOpen={isExerciseOpen}
+                    trainingType={selectedTrainingType || { name: '', key: '' }}
+                    date={date}
+                    exerciseList={exerciseList}
+                    onClose={handleOnClose}
+                />
+            )}
         </>
     );
 };

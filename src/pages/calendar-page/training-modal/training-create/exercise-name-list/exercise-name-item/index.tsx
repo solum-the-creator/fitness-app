@@ -4,13 +4,20 @@ import { EditOutlined } from '@ant-design/icons';
 
 type ExerciseNameItemProps = {
     name: string;
+    onEdit: () => void;
 };
 
-export const ExerciseNameItem = ({ name }: ExerciseNameItemProps) => {
+export const ExerciseNameItem = ({ name, onEdit }: ExerciseNameItemProps) => {
     return (
         <div className={styles.exercise_item}>
             <span className={styles.exercise_name}>{name}</span>
-            <Button type='link' icon={<EditOutlined />} size='small' className={styles.button} />
+            <Button
+                type='link'
+                icon={<EditOutlined />}
+                size='small'
+                onClick={onEdit}
+                className={styles.button}
+            />
         </div>
     );
 };

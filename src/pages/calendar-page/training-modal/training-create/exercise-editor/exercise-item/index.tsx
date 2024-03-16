@@ -6,7 +6,7 @@ import { useState } from 'react';
 type ExerciseItemProps = {
     item: Partial<Exercise>;
     index: number;
-    onUpdate: (exercise: Partial<Exercise>, index: number) => void;
+    onUpdate: (exercise: Partial<Exercise>) => void;
 };
 
 export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
@@ -15,40 +15,43 @@ export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
     const [replays, setReplays] = useState(item.replays);
     const [weight, setWeight] = useState(item.weight);
 
-    const handleUpdate = () => {
-        onUpdate({ name, approaches, replays, weight }, index);
+    const handleUpdate = (updatedExercise: Partial<Exercise> = {}) => {
+        onUpdate({ ...item, ...updatedExercise });
     };
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
-        handleUpdate();
+        handleUpdate({ name: e.target.value });
     };
 
     const handleApproachesChange = (value: number | null) => {
         if (value !== null && value >= 1) {
             setApproaches(value);
+            handleUpdate({ approaches: value });
         } else if (value === null) {
             setApproaches(1);
+            handleUpdate({ approaches: 1 });
         }
-        handleUpdate();
     };
 
     const handleWeightChange = (value: number | null) => {
         if (value !== null) {
             setWeight(value);
+            handleUpdate({ weight: value });
         } else {
             setWeight(0);
+            handleUpdate({ approaches: 0 });
         }
-        handleUpdate();
     };
 
     const handleReplaysChange = (value: number | null) => {
         if (value !== null && value >= 1) {
             setReplays(value);
+            handleUpdate({ replays: value });
         } else if (value === null) {
             setReplays(1);
+            handleUpdate({ replays: 1 });
         }
-        handleUpdate();
     };
 
     return (
@@ -56,9 +59,11 @@ export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
             <Input
                 placeholder='Упражнение'
                 size='small'
+                type='text'
                 value={name}
                 onChange={handleNameChange}
                 maxLength={32}
+                data-test-id={`modal-drawer-right-input-exercise${index}`}
             />
             <div className={styles.columns}>
                 <div className={styles.approach}>
@@ -72,6 +77,7 @@ export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
                             size='small'
                             value={approaches}
                             onChange={handleApproachesChange}
+                            data-test-id={`modal-drawer-right-input-approach${index}`}
                         />
                     </div>
                 </div>
@@ -86,6 +92,7 @@ export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
                                 size='small'
                                 value={weight}
                                 onChange={handleWeightChange}
+                                data-test-id={`modal-drawer-right-input-weight${index}`}
                             />
                         </div>
                     </div>
@@ -99,6 +106,7 @@ export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
                                 size='small'
                                 value={replays}
                                 onChange={handleReplaysChange}
+                                data-test-id={`modal-drawer-right-input-quantity${index}`}
                             />
                         </div>
                     </div>

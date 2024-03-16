@@ -5,6 +5,7 @@ import { Moment } from 'moment';
 import { TrainingDisplay } from './training-display';
 import { TrainingCreate } from './training-create';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
+import { missingTrainings } from '@utils/missing-trainings';
 
 type TrainingModalProps = {
     onClose: () => void;
@@ -70,22 +71,26 @@ export const TrainingModal = ({
             style={{ ...positionModal, position: fullscreen ? 'absolute' : 'fixed' }}
             ref={modalRef}
             onClick={handleModalClick}
+            data-test-id='modal-create-training'
         >
-            {isTrainingCreateVisible ? (
-                <TrainingCreate
-                    trainingList={trainingList}
-                    onCancel={() => setIsTrainingCreateVisible(false)}
-                    data-test-id='modal-create-exercise'
-                />
-            ) : (
-                <TrainingDisplay
-                    onClose={onClose}
-                    onCreate={handleCreateTraining}
-                    selectedDate={selectedDate}
-                    trainings={trainings}
-                    trainingList={trainingList}
-                />
-            )}
+            <div data-test-id='modal-create-exercise'>
+                {isTrainingCreateVisible ? (
+                    <TrainingCreate
+                        trainingList={missingTrainings(trainingList, trainings)}
+                        onCancel={() => setIsTrainingCreateVisible(false)}
+                        onClose={onClose}
+                        date={selectedDate}
+                    />
+                ) : (
+                    <TrainingDisplay
+                        onClose={onClose}
+                        onCreate={handleCreateTraining}
+                        selectedDate={selectedDate}
+                        trainings={trainings}
+                        trainingList={trainingList}
+                    />
+                )}
+            </div>
         </div>
     );
 };

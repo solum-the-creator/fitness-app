@@ -61,7 +61,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
             resetForm();
             onClose();
             setIsSuccessModalOpen(true);
-        } catch (e) {
+        } catch {
             onClose();
             setIsErrorModalOpen(true);
         }

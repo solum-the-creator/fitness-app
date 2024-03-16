@@ -5,13 +5,14 @@ import { ExerciseNameItem } from './exercise-name-item';
 
 type ExerciseNameListProps = {
     items: Exercise[];
+    onEdit: () => void;
 };
 
-export const ExerciseNameList = ({ items }: ExerciseNameListProps) => {
+export const ExerciseNameList = ({ items, onEdit }: ExerciseNameListProps) => {
     return (
         <div className={styles.exercise_list}>
             {items.map((item, index) => (
-                <ExerciseNameItem key={index} name={item.name} />
+                <ExerciseNameItem key={index} name={item.name} onEdit={onEdit} />
             ))}
         </div>
     );
