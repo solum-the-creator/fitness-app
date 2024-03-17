@@ -1,36 +1,67 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import styles from './training-create.module.scss';
-import { Exercise, Training, TrainingList } from '@redux/api/types';
+import {
+    Exercise,
+    ExerciseResponse,
+    Training,
+    TrainingList,
+    TrainingResponse,
+} from '@redux/api/types';
 import { Button, Empty, Modal, Select } from 'antd';
 import emptyImage from '/empty-image-fit.svg';
 import { useState } from 'react';
 import { ExerciseEditor } from './exercise-editor';
 import { ExerciseNameList } from './exercise-name-list';
 import { Moment } from 'moment';
-import { useAddTrainingMutation } from '@redux/api/apiSlice';
+import {
+    useAddTrainingMutation,
+    useGetTrainingListQuery,
+    useUpdateTrainingMutation,
+} from '@redux/api/apiSlice';
 
 type TrainingCreateProps = {
     trainingList: TrainingList;
     date: Moment;
+    editableTraining?: TrainingResponse;
     onCancel: () => void;
     onClose: () => void;
 };
 
-export const TrainingCreate = ({ trainingList, date, onCancel, onClose }: TrainingCreateProps) => {
-    const [selectedTrainingType, setSelectedTrainingType] = useState<TrainingList[number] | null>(
-        null,
-    );
-    const [isExerciseOpen, setIsExerciseOpen] = useState(false);
-    const [exerciseList, setExerciseList] = useState<Exercise[]>([]);
-    const isEmpty = exerciseList.length === 0;
+export const TrainingCreate = ({
+    trainingList,
+    date,
+    editableTraining,
+    onCancel,
+    onClose,
+}: TrainingCreateProps) => {
+    const { data: initialTrainingList = [] } = useGetTrainingListQuery();
+    const [addTraining, { isLoading: isLoadingAdd }] = useAddTrainingMutation();
+    const [updateTraining, { isLoading: isLoadingUpdate }] = useUpdateTrainingMutation();
 
-    const [addTraining, { isLoading }] = useAddTrainingMutation();
+    const isLoading = isLoadingAdd || isLoadingUpdate;
+
+    const [selectedTrainingType, setSelectedTrainingType] = useState<
+        TrainingList[number] | undefined
+    >(
+        editableTraining
+            ? initialTrainingList.find((item) => item.name === editableTraining.name)
+            : undefined,
+    );
+
+    const isEditable = !!(editableTraining && selectedTrainingType?.name === editableTraining.name);
+
+    const [isExerciseOpen, setIsExerciseOpen] = useState(false);
+    const [exerciseList, setExerciseList] = useState<Exercise[] | ExerciseResponse[]>(
+        isEditable ? editableTraining.exercises : [],
+    );
+    const isEmpty = exerciseList.length === 0;
 
     const options = trainingList.map((item) => ({ value: item.key, label: item.name }));
 
     const handleChangeSelect = (value: string) => {
         const trainingType = trainingList.find((item) => item.key === value);
         if (trainingType) {
+            setExerciseList([]);
             setSelectedTrainingType(trainingType);
         }
     };
@@ -68,17 +99,30 @@ export const TrainingCreate = ({ trainingList, date, onCancel, onClose }: Traini
     };
 
     const handleSave = async () => {
-        if (selectedTrainingType && !isEmpty) {
-            const training: Training = {
-                name: selectedTrainingType.name,
-                date: date.toISOString(),
-                exercises: exerciseList,
+        if (editableTraining) {
+            const training: TrainingResponse = {
+                ...editableTraining,
+                exercises: exerciseList as ExerciseResponse[],
             };
             try {
-                await addTraining(training).unwrap();
+                await updateTraining(training).unwrap();
                 onCancel();
             } catch {
                 showErrorModal();
+            }
+        } else {
+            if (selectedTrainingType && !isEmpty) {
+                const training: Training = {
+                    name: selectedTrainingType.name,
+                    date: date.toISOString(),
+                    exercises: exerciseList,
+                };
+                try {
+                    await addTraining(training).unwrap();
+                    onCancel();
+                } catch {
+                    showErrorModal();
+                }
             }
         }
     };
@@ -101,11 +145,36 @@ export const TrainingCreate = ({ trainingList, date, onCancel, onClose }: Traini
                         size='small'
                         placeholder='Выбор типа тренировки'
                         popupClassName={styles.select_popup}
-                        options={options}
                         value={selectedTrainingType?.key}
                         onChange={handleChangeSelect}
                         data-test-id='modal-create-exercise-select'
-                    />
+                    >
+                        {options.map((option) => (
+                            <Select.Option key={option.value} value={option.value}>
+                                {option.label}
+                            </Select.Option>
+                        ))}
+                        {isEditable && (
+                            <Select.Option
+                                key={
+                                    initialTrainingList.find(
+                                        (item) => item.name === editableTraining?.name,
+                                    )?.key
+                                }
+                                value={
+                                    initialTrainingList.find(
+                                        (item) => item.name === editableTraining?.name,
+                                    )?.key
+                                }
+                            >
+                                {
+                                    initialTrainingList.find(
+                                        (item) => item.name === editableTraining?.name,
+                                    )?.name
+                                }
+                            </Select.Option>
+                        )}
+                    </Select>
                 </div>
             </div>
             <div className={styles.modal_content}>
@@ -124,7 +193,7 @@ export const TrainingCreate = ({ trainingList, date, onCancel, onClose }: Traini
                 <Button
                     block
                     onClick={() => setIsExerciseOpen(true)}
-                    disabled={selectedTrainingType === null}
+                    disabled={!selectedTrainingType}
                 >
                     Добавить упражнения
                 </Button>
@@ -132,7 +201,7 @@ export const TrainingCreate = ({ trainingList, date, onCancel, onClose }: Traini
                     type='link'
                     block
                     onClick={handleSave}
-                    disabled={isEmpty}
+                    disabled={isEmpty || !selectedTrainingType}
                     loading={isLoading}
                 >
                     Сохранить
@@ -140,6 +209,7 @@ export const TrainingCreate = ({ trainingList, date, onCancel, onClose }: Traini
             </div>
             {isExerciseOpen && (
                 <ExerciseEditor
+                    isEditable={isEditable}
                     isOpen={isExerciseOpen}
                     trainingType={selectedTrainingType || { name: '', key: '' }}
                     date={date}

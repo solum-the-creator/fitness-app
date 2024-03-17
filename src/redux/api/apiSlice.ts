@@ -98,7 +98,7 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: [{ type: 'Feedback', id: 'LIST' }],
         }),
-        getTraining: builder.query<TrainingResponse, { name?: string }>({
+        getTraining: builder.query<TrainingResponse[], { name?: string }>({
             query: ({ name }) => ({
                 url: '/training',
                 method: 'GET',
@@ -113,6 +113,17 @@ export const apiSlice = createApi({
                 body: {
                     name: training.name,
                     date: training.date,
+                    exercises: training.exercises,
+                },
+            }),
+            invalidatesTags: [{ type: 'Training', id: 'LIST' }],
+        }),
+        updateTraining: builder.mutation<TrainingResponse, TrainingResponse>({
+            query: (training) => ({
+                url: `/training/${training._id}`,
+                method: 'PUT',
+                body: {
+                    ...training,
                     exercises: training.exercises,
                 },
             }),
@@ -141,4 +152,5 @@ export const {
     useLazyGetTrainingQuery,
     useGetTrainingListQuery,
     useAddTrainingMutation,
+    useUpdateTrainingMutation,
 } = apiSlice;

@@ -44,6 +44,7 @@
       padding: 2px 12px;
       display: flex;
       justify-content: space-between;
+      gap: 4px;
       text-align: left;
 
       &:hover {
@@ -51,8 +52,9 @@
       }
 
       .button {
-        width: 16px;
-        height: 16px;
+        // width: 16px;
+        // height: 16px;
+
         display: flex;
         align-items: center;
         justify-content: center;

@@ -20,7 +20,7 @@ const siderSlice = createSlice({
 
 export const { setIsCollapsed } = siderSlice.actions;
 
-export const isCollapsedSelecctor = createSelector(
+export const isCollapsedSelector = createSelector(
     (state) => state.sider,
     (sider) => sider.isCollapsed,
 );

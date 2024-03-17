@@ -72,10 +72,10 @@ export type Training = {
     exercises: Exercise[];
 };
 
-export type TrainingResponse = (Training & {
+export type TrainingResponse = Training & {
     _id: string;
     userId: string;
     exercises: ExerciseResponse[];
-})[];
+};
 
 export type TrainingList = { name: string; key: string }[];

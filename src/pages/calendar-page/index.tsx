@@ -24,7 +24,6 @@ export const CalendarPage = () => {
 
     const { data: trainings, isFetching } = useGetTrainingQuery({});
 
-    // TODO: replace traininglist to redux ???
     const {
         data: trainingList = [],
         isFetching: isFetchingTrainingList,

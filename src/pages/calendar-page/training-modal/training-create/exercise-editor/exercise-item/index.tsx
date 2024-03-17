@@ -1,15 +1,23 @@
-import { Input, InputNumber } from 'antd';
+import { Checkbox, Input, InputNumber } from 'antd';
 import styles from './exercise-item.module.scss';
-import { Exercise } from '@redux/api/types';
+import { Exercise, ExerciseResponse } from '@redux/api/types';
 import { useState } from 'react';
 
 type ExerciseItemProps = {
-    item: Partial<Exercise>;
+    item: Partial<Exercise> | ExerciseResponse;
     index: number;
+    isEditable: boolean;
     onUpdate: (exercise: Partial<Exercise>) => void;
+    onCheckChange: (id: string) => void;
 };
 
-export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
+export const ExerciseItem = ({
+    item,
+    index,
+    isEditable,
+    onUpdate,
+    onCheckChange,
+}: ExerciseItemProps) => {
     const [name, setName] = useState(item.name);
     const [approaches, setApproaches] = useState(item.approaches);
     const [replays, setReplays] = useState(item.replays);
@@ -17,6 +25,10 @@ export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
 
     const handleUpdate = (updatedExercise: Partial<Exercise> = {}) => {
         onUpdate({ ...item, ...updatedExercise });
+    };
+
+    const handleCheckChange = () => {
+        onCheckChange(item.tempId as string);
     };
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +75,14 @@ export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
                 value={name}
                 onChange={handleNameChange}
                 maxLength={32}
+                addonAfter={
+                    isEditable && (
+                        <Checkbox
+                            onChange={handleCheckChange}
+                            data-test-id={`modal-drawer-right-checkbox-exercise${index}`}
+                        />
+                    )
+                }
                 data-test-id={`modal-drawer-right-input-exercise${index}`}
             />
             <div className={styles.columns}>

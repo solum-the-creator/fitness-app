@@ -12,7 +12,7 @@ export const ExerciseNameList = ({ items, onEdit }: ExerciseNameListProps) => {
     return (
         <div className={styles.exercise_list}>
             {items.map((item, index) => (
-                <ExerciseNameItem key={index} name={item.name} onEdit={onEdit} />
+                <ExerciseNameItem key={index} index={index} name={item.name} onEdit={onEdit} />
             ))}
         </div>
     );

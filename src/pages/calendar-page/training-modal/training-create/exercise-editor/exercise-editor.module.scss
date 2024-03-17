@@ -107,8 +107,6 @@
         flex-direction: column;
         gap: 24px;
 
-
-
         max-height: 400px;
         overflow-y: auto;
 
@@ -136,7 +134,7 @@
         }
 
         @media (min-height: 1024px) {
-          max-height: 820px
+          max-height: 920px
         }
 
         @media (min-height: 1124px) {
@@ -158,13 +156,22 @@
         display: flex;
 
         .add_button {
-          text-align: start;
+          text-align: center;
           background-color: var(--neutral-gray-4);
           border: none;
           padding: 7px 12px;
           font-size: 14px;
           line-height: 130%;
           color: var(--primary-light-6);
+        }
+
+        .delete_button {
+          text-align: center;
+          background-color: var(--neutral-gray-4);
+          border: none;
+          padding: 7px 12px;
+          font-size: 14px;
+          line-height: 130%;
         }
       }
 

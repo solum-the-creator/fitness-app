@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import styles from './empty-feedbacks.module.scss';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
-import { isCollapsedSelecctor } from '@redux/sider/siderSlice';
+import { isCollapsedSelector } from '@redux/sider/siderSlice';
 
 type EmptyFeedbacksProps = {
     onShowFeedbackModal: () => void;
@@ -10,7 +10,7 @@ type EmptyFeedbacksProps = {
 
 export const EmptyFeedbacks = ({ onShowFeedbackModal }: EmptyFeedbacksProps) => {
     const matches = useMediaQuery({ query: `(max-width: 768px)` });
-    const isSiderCollapsed = useSelector(isCollapsedSelecctor);
+    const isSiderCollapsed = useSelector(isCollapsedSelector);
     const extraPadding = isSiderCollapsed ? styles.extra_padding : styles.no_extra_padding;
 
     return (

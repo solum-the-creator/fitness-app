@@ -9,11 +9,12 @@ import { TrainingTypeBadge } from '@components/training-type-badge';
 import { isPastDate } from '@utils/date-utils';
 
 type TrainingDisplayProps = {
-    onClose: () => void;
-    onCreate: () => void;
     selectedDate: Moment;
-    trainings: TrainingResponse;
+    trainings: TrainingResponse[];
     trainingList: TrainingList;
+    onCreate: () => void;
+    onEdit: (training: TrainingResponse) => void;
+    onClose: () => void;
 };
 
 export const TrainingDisplay = ({
@@ -22,6 +23,7 @@ export const TrainingDisplay = ({
     trainingList,
     onClose,
     onCreate,
+    onEdit,
 }: TrainingDisplayProps) => {
     const isEmpty = trainings.length === 0;
     const isPast = isPastDate(selectedDate);
@@ -68,18 +70,22 @@ export const TrainingDisplay = ({
                     <div className={styles.trainings}>
                         {trainings.map((training, index) => (
                             <div key={training._id} className={styles.training_item}>
-                                <TrainingTypeBadge
-                                    type={
-                                        trainingList.find((item) => item.name === training.name)
-                                            ?.key || 'default'
-                                    }
-                                    text={training.name}
-                                />
+                                <div>
+                                    <TrainingTypeBadge
+                                        type={
+                                            trainingList.find((item) => item.name === training.name)
+                                                ?.key || 'default'
+                                        }
+                                        text={training.name}
+                                    />
+                                </div>
+
                                 <Button
                                     type='link'
                                     icon={<EditOutlined />}
                                     size='small'
                                     className={styles.button}
+                                    onClick={() => onEdit(training)}
                                     data-test-id={`modal-update-training-edit-button${index}`}
                                 />
                             </div>

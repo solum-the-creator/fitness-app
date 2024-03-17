@@ -14,7 +14,7 @@ type TrainingModalProps = {
     position: { top: number; left: number; right: number; bottom: number };
     selectedDate: Moment;
     trainingList: TrainingList;
-    trainings: TrainingResponse;
+    trainings: TrainingResponse[];
 };
 
 export const TrainingModal = ({
@@ -30,6 +30,9 @@ export const TrainingModal = ({
     const [isLeftSide, setIsLeftSide] = useState(weekDay % 7 !== 0);
 
     const [isTrainingCreateVisible, setIsTrainingCreateVisible] = useState(false);
+    const [editableTraining, setEditableTraining] = useState<TrainingResponse | undefined>(
+        undefined,
+    );
 
     const positionFullscreen = isLeftSide ? { top: 0, left: 0 } : { top: 0, right: 0 };
     const positionMobile = { top: position.bottom };
@@ -42,6 +45,12 @@ export const TrainingModal = ({
     };
 
     const handleCreateTraining = () => {
+        setEditableTraining(undefined);
+        setIsTrainingCreateVisible(true);
+    };
+
+    const handleEditTraining = (training: TrainingResponse) => {
+        setEditableTraining(training);
         setIsTrainingCreateVisible(true);
     };
 
@@ -80,11 +89,13 @@ export const TrainingModal = ({
                         onCancel={() => setIsTrainingCreateVisible(false)}
                         onClose={onClose}
                         date={selectedDate}
+                        editableTraining={editableTraining}
                     />
                 ) : (
                     <TrainingDisplay
                         onClose={onClose}
                         onCreate={handleCreateTraining}
+                        onEdit={handleEditTraining}
                         selectedDate={selectedDate}
                         trainings={trainings}
                         trainingList={trainingList}

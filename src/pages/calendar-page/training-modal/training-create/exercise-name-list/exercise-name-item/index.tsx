@@ -4,10 +4,11 @@ import { EditOutlined } from '@ant-design/icons';
 
 type ExerciseNameItemProps = {
     name: string;
+    index: number;
     onEdit: () => void;
 };
 
-export const ExerciseNameItem = ({ name, onEdit }: ExerciseNameItemProps) => {
+export const ExerciseNameItem = ({ name, index, onEdit }: ExerciseNameItemProps) => {
     return (
         <div className={styles.exercise_item}>
             <span className={styles.exercise_name}>{name}</span>
@@ -17,6 +18,7 @@ export const ExerciseNameItem = ({ name, onEdit }: ExerciseNameItemProps) => {
                 size='small'
                 onClick={onEdit}
                 className={styles.button}
+                data-test-id={`modal-update-training-edit-button${index}`}
             />
         </div>
     );

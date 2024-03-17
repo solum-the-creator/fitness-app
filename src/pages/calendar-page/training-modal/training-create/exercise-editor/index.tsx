@@ -1,6 +1,6 @@
 import { Button, Drawer } from 'antd';
 import styles from './exercise-editor.module.scss';
-import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { TrainingTypeBadge } from '@components/training-type-badge';
 import { ExerciseItem } from './exercise-item';
 import { useState } from 'react';
@@ -15,6 +15,7 @@ type ExerciseEditorProps = {
     trainingType: TrainingList[number];
     exerciseList: Exercise[];
     date: Moment;
+    isEditable: boolean;
     onClose: (exerciseList: Exercise[]) => void;
 };
 
@@ -28,13 +29,12 @@ const emptyExercise: Partial<Exercise> = {
 
 export const ExerciseEditor = ({
     trainingType,
+    isEditable,
     exerciseList: currentExerciseList,
     date,
     isOpen,
     onClose,
 }: ExerciseEditorProps) => {
-    //TODO: change height exercise list when is many exercises
-
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
     const drawerClass = matches ? styles.drawer_mobile : styles.drawer_fullscreen;
 
@@ -47,6 +47,7 @@ export const ExerciseEditor = ({
             tempId: nanoid(),
         })),
     );
+    const [checkedExerciseList, setCheckedExerciseList] = useState<string[]>([]);
 
     const handleAddExerciseClick = () => {
         const newExercise = {
@@ -54,6 +55,14 @@ export const ExerciseEditor = ({
             tempId: nanoid(),
         };
         setExerciseList([...exerciseList, newExercise]);
+    };
+
+    const handleCheckChange = (id: string) => {
+        if (checkedExerciseList.includes(id)) {
+            setCheckedExerciseList(checkedExerciseList.filter((item) => item !== id));
+        } else {
+            setCheckedExerciseList([...checkedExerciseList, id]);
+        }
     };
 
     const updateExerciseList = (exercise: Partial<Exercise>) => {
@@ -67,6 +76,13 @@ export const ExerciseEditor = ({
             return item;
         });
         setExerciseList(updatedExerciseList);
+    };
+
+    const onDeleteExercise = () => {
+        setExerciseList(
+            exerciseList.filter((item) => !checkedExerciseList.includes(item.tempId as string)),
+        );
+        setCheckedExerciseList([]);
     };
 
     const filterExerciseList = (exerciseList: Partial<Exercise>[]) => {
@@ -106,7 +122,9 @@ export const ExerciseEditor = ({
                     <span className={styles.drawer_icon}>
                         <PlusOutlined />
                     </span>
-                    <h4 className={styles.drawer_title}>Добавление&nbsp;упражнений</h4>
+                    <h4 className={styles.drawer_title}>
+                        {isEditable ? 'Редактирование' : <>Добавление&nbsp;упражнений</>}
+                    </h4>
                     <Button
                         type='text'
                         icon={<CloseOutlined style={{ fontSize: '14px' }} />}
@@ -128,9 +146,11 @@ export const ExerciseEditor = ({
                     <div className={styles.exercise_list}>
                         {exerciseList.map((item, index) => (
                             <ExerciseItem
+                                isEditable={isEditable}
                                 key={item.tempId}
                                 item={item}
                                 index={index}
+                                onCheckChange={handleCheckChange}
                                 onUpdate={updateExerciseList}
                             />
                         ))}
@@ -141,10 +161,24 @@ export const ExerciseEditor = ({
                             icon={<PlusOutlined />}
                             size='large'
                             className={styles.add_button}
+                            style={isEditable ? { textAlign: 'center' } : { textAlign: 'start' }}
                             onClick={handleAddExerciseClick}
                         >
                             Добавить ещё
                         </Button>
+                        {isEditable && (
+                            <Button
+                                block
+                                icon={<MinusOutlined />}
+                                size='large'
+                                type='text'
+                                disabled={checkedExerciseList.length === 0}
+                                className={styles.delete_button}
+                                onClick={onDeleteExercise}
+                            >
+                                Удалить
+                            </Button>
+                        )}
                     </div>
                 </div>
             </div>
