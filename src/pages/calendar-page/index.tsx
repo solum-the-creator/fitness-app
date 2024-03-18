@@ -88,6 +88,7 @@ export const CalendarPage = () => {
                                 }
                                 text={training.name}
                                 size='small'
+                                disabled={training.isImplementation}
                             />
                         );
                     })}

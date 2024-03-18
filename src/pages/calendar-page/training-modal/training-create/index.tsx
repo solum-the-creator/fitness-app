@@ -18,9 +18,12 @@ import {
     useGetTrainingListQuery,
     useUpdateTrainingMutation,
 } from '@redux/api/apiSlice';
+import { isPastDate } from '@utils/date-utils';
+import { availableTrainings } from '@utils/missing-trainings';
 
 type TrainingCreateProps = {
     trainingList: TrainingList;
+    trainings: TrainingResponse[];
     date: Moment;
     editableTraining?: TrainingResponse;
     onCancel: () => void;
@@ -29,8 +32,9 @@ type TrainingCreateProps = {
 
 export const TrainingCreate = ({
     trainingList,
+    trainings,
     date,
-    editableTraining,
+    editableTraining: initialEditableTraining,
     onCancel,
     onClose,
 }: TrainingCreateProps) => {
@@ -40,6 +44,9 @@ export const TrainingCreate = ({
 
     const isLoading = isLoadingAdd || isLoadingUpdate;
 
+    const [editableTraining, setEditableTraining] = useState<TrainingResponse | undefined>(
+        initialEditableTraining,
+    );
     const [selectedTrainingType, setSelectedTrainingType] = useState<
         TrainingList[number] | undefined
     >(
@@ -47,6 +54,14 @@ export const TrainingCreate = ({
             ? initialTrainingList.find((item) => item.name === editableTraining.name)
             : undefined,
     );
+
+    const isPast = isPastDate(date);
+    const options = isPast
+        ? availableTrainings(initialTrainingList, trainings).map((item) => ({
+              value: item.key,
+              label: item.name,
+          }))
+        : trainingList.map((item) => ({ value: item.key, label: item.name }));
 
     const isEditable = !!(editableTraining && selectedTrainingType?.name === editableTraining.name);
 
@@ -56,12 +71,17 @@ export const TrainingCreate = ({
     );
     const isEmpty = exerciseList.length === 0;
 
-    const options = trainingList.map((item) => ({ value: item.key, label: item.name }));
-
     const handleChangeSelect = (value: string) => {
-        const trainingType = trainingList.find((item) => item.key === value);
+        const trainingType = initialTrainingList.find((item) => item.key === value);
         if (trainingType) {
-            setExerciseList([]);
+            const existTraining = trainings.find((item) => item.name === trainingType.name);
+            if (existTraining) {
+                setEditableTraining(existTraining);
+                setExerciseList(existTraining.exercises);
+            } else {
+                setEditableTraining(undefined);
+                setExerciseList([]);
+            }
             setSelectedTrainingType(trainingType);
         }
     };
@@ -103,7 +123,9 @@ export const TrainingCreate = ({
             const training: TrainingResponse = {
                 ...editableTraining,
                 exercises: exerciseList as ExerciseResponse[],
+                isImplementation: isPast,
             };
+
             try {
                 await updateTraining(training).unwrap();
                 onCancel();
@@ -154,7 +176,7 @@ export const TrainingCreate = ({
                                 {option.label}
                             </Select.Option>
                         ))}
-                        {isEditable && (
+                        {isEditable && !isPast && (
                             <Select.Option
                                 key={
                                     initialTrainingList.find(
@@ -204,7 +226,7 @@ export const TrainingCreate = ({
                     disabled={isEmpty || !selectedTrainingType}
                     loading={isLoading}
                 >
-                    Сохранить
+                    {isPast ? 'Сохранить изменения' : 'Сохранить'}
                 </Button>
             </div>
             {isExerciseOpen && (

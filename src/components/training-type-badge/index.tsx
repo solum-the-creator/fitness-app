@@ -6,6 +6,7 @@ type TrainingTypeProps = {
     text?: string;
     size?: 'small' | 'default';
     color?: string;
+    disabled?: boolean;
 };
 
 const trainingColors: Record<TrainingTypeProps['type'], string> = {
@@ -17,14 +18,16 @@ const trainingColors: Record<TrainingTypeProps['type'], string> = {
     default: '#d9d9d9',
 };
 
-export const TrainingTypeBadge = ({ type, text, size, color }: TrainingTypeProps) => {
+export const TrainingTypeBadge = ({ type, text, size, color, disabled }: TrainingTypeProps) => {
     const sizeClass = size === 'small' ? styles.small : styles.default;
+
+    const badgeColor = disabled ? '#bfbfbf' : color;
     return (
         <Badge
             color={trainingColors[type] || trainingColors.default}
             text={text || type}
             className={`${styles.badge} ${sizeClass}`}
-            style={{ color: color ? color : '#262626' }}
+            style={{ color: badgeColor ? badgeColor : '#262626' }}
         />
     );
 };

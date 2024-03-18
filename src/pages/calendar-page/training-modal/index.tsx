@@ -86,6 +86,7 @@ export const TrainingModal = ({
                 {isTrainingCreateVisible ? (
                     <TrainingCreate
                         trainingList={missingTrainings(trainingList, trainings)}
+                        trainings={trainings}
                         onCancel={() => setIsTrainingCreateVisible(false)}
                         onClose={onClose}
                         date={selectedDate}

@@ -77,6 +77,7 @@ export const TrainingDisplay = ({
                                                 ?.key || 'default'
                                         }
                                         text={training.name}
+                                        disabled={training.isImplementation}
                                     />
                                 </div>
 
@@ -86,6 +87,7 @@ export const TrainingDisplay = ({
                                     size='small'
                                     className={styles.button}
                                     onClick={() => onEdit(training)}
+                                    disabled={training.isImplementation}
                                     data-test-id={`modal-update-training-edit-button${index}`}
                                 />
                             </div>
