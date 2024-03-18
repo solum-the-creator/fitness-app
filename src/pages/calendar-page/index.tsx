@@ -15,9 +15,8 @@ import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useCallback, useEffect, useState } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { Moment } from 'moment';
-import { TrainingModal } from './training-modal';
-import { TrainingTypeBadge } from '@components/training-type-badge';
 import moment from 'moment';
+import { CellItem } from './cell-item';
 
 export const CalendarPage = () => {
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
@@ -33,12 +32,42 @@ export const CalendarPage = () => {
     useLoaderLoading(isFetching || isFetchingTrainingList);
 
     const [selectedDate, setSelectedDate] = useState<Moment | undefined>(undefined);
+    const [selectedCalendarDate, setSelectedCalendarDate] = useState<Moment>(moment());
+    const [currentMonth, setCurrentMonth] = useState<number>(moment().month());
     const [isModalTrainingVisible, setIsModalTrainingVisible] = useState(false);
+    const [selectedCell, setSelectedCell] = useState<HTMLDivElement | null>(null);
     const [modalPostion, setModalPosition] = useState({ top: 0, left: 0, right: 0, bottom: 0 });
 
     const handleDateSelect = (value: Moment) => {
+        if (matches) {
+            if (value.month() !== currentMonth) {
+                setCurrentMonth(value.month());
+                setSelectedCalendarDate(value);
+                handleModalClose();
+                return;
+            }
+        }
+
         setSelectedDate(value);
         setIsModalTrainingVisible(true);
+    };
+
+    const onChange = (value: Moment) => {
+        setSelectedCalendarDate(value);
+        handleModalClose();
+    };
+
+    const onCellClick = (e: React.MouseEvent<HTMLDivElement>, value: Moment) => {
+        e.stopPropagation();
+        if (selectedCell) {
+            selectedCell.classList.remove('selected');
+        }
+
+        const currentCell = e.currentTarget.closest('.ant-picker-cell') as HTMLDivElement | null;
+        setSelectedCell(currentCell);
+
+        currentCell?.classList.add('selected');
+        handleDateSelect(value);
     };
 
     const handleModalClose = () => {
@@ -47,25 +76,26 @@ export const CalendarPage = () => {
     };
 
     useEffect(() => {
+        let timeoutId: NodeJS.Timeout;
         if (matches) {
             if (selectedDate) {
-                const cellId = `calendar_cell_${selectedDate.format('YYYY-MM-DD')}`;
-                const cellElement = document.querySelector(`#${cellId}`);
-                if (cellElement) {
-                    const closestCellInner = cellElement.closest('.ant-picker-cell-inner');
-                    if (closestCellInner) {
-                        const { top, left, right, bottom } =
-                            closestCellInner.getBoundingClientRect();
+                if (selectedCell) {
+                    timeoutId = setTimeout(() => {
+                        const { top, left, right, bottom } = selectedCell.getBoundingClientRect();
                         setModalPosition({ top, left, right, bottom });
-                    }
+                    }, 100);
                 }
             }
         }
-    }, [matches, selectedDate]);
 
-    const dateCellRender = (value: Moment) => {
+        return () => clearTimeout(timeoutId);
+    }, [matches, selectedDate, selectedCell]);
+
+    const dateFullCellRender = (value: Moment) => {
         const cellId = `calendar_cell_${value.format('YYYY-MM-DD')}`;
         const showModal = isModalTrainingVisible && value.isSame(selectedDate, 'day');
+
+        const todayClass = value.isSame(moment(), 'day') ? 'ant-picker-calendar-date-today' : '';
 
         const selectedTrainings =
             trainings?.filter((training) => {
@@ -74,37 +104,26 @@ export const CalendarPage = () => {
             }) || [];
 
         return (
-            <>
-                <div id={cellId} className={styles.calendar_cell}>
-                    {selectedTrainings.map((training) => {
-                        return matches ? (
-                            <div key={training._id} className='mobile_cell'></div>
-                        ) : (
-                            <TrainingTypeBadge
-                                key={training._id}
-                                type={
-                                    trainingList.find((item) => item.name === training.name)?.key ||
-                                    'default'
-                                }
-                                text={training.name}
-                                size='small'
-                                disabled={training.isImplementation}
-                            />
-                        );
-                    })}
+            <div
+                className={`ant-picker-cell-inner ant-picker-calendar-date ${todayClass}`}
+                onClick={(e) => onCellClick(e, value)}
+            >
+                <div>
+                    <div className='ant-picker-calendar-date-value'>{value.date()}</div>
+                    <div className='ant-picker-calendar-date-content'>
+                        <CellItem
+                            key={cellId}
+                            cellId={cellId}
+                            selectedTrainings={selectedTrainings}
+                            showModal={showModal}
+                            date={value}
+                            handleModalClose={handleModalClose}
+                            modalPostion={modalPostion}
+                            trainingList={trainingList}
+                        />
+                    </div>
                 </div>
-                {showModal && (
-                    <TrainingModal
-                        trainingList={trainingList}
-                        trainings={selectedTrainings}
-                        fullscreen={!matches}
-                        weekDay={value.day()}
-                        onClose={handleModalClose}
-                        position={modalPostion}
-                        selectedDate={value}
-                    />
-                )}
-            </>
+            </div>
         );
     };
 
@@ -161,9 +180,9 @@ export const CalendarPage = () => {
                         className={styles.calendar}
                         locale={RU_CALENDAR_LOCALE}
                         fullscreen={!matches}
-                        value={selectedDate}
-                        dateCellRender={trainingList.length > 0 ? dateCellRender : undefined}
-                        onSelect={handleDateSelect}
+                        value={selectedCalendarDate}
+                        onChange={onChange}
+                        dateFullCellRender={dateFullCellRender}
                     />
                 </div>
             </Content>

@@ -31,13 +31,11 @@ export const TrainingDisplay = ({
 
     const isDisabled = isPast || isFull;
 
-    const handleModalClose = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation();
+    const handleModalClose = () => {
         onClose();
     };
 
-    const handleCreate = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation();
+    const handleCreate = () => {
         onCreate();
     };
 

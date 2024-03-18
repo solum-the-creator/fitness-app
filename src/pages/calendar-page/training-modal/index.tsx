@@ -1,6 +1,6 @@
 import styles from './training-modal.module.scss';
 
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { Moment } from 'moment';
 import { TrainingDisplay } from './training-display';
 import { TrainingCreate } from './training-create';
@@ -54,7 +54,7 @@ export const TrainingModal = ({
         setIsTrainingCreateVisible(true);
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const handleResize = () => {
             if (modalRef.current) {
                 const { right } = modalRef.current.getBoundingClientRect();
