@@ -145,7 +145,9 @@ export const CalendarPage = () => {
                         fullscreen={!matches}
                         value={selectedCalendarDate}
                         onChange={onChange}
-                        dateFullCellRender={dateFullCellRender}
+                        dateFullCellRender={
+                            trainingList.length === 0 ? undefined : dateFullCellRender
+                        }
                     />
                 </div>
             </Content>
