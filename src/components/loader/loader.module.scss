@@ -6,7 +6,7 @@
   height: 100vh;
   backdrop-filter: blur(6px);
   background: #799cd450;
-  z-index: 9999;
+  z-index: 10;
 
   &.loader_hidden {
     display: none;

@@ -12,7 +12,7 @@
       }
 
       .ant-menu-item {
-        padding: 0;
+        padding: var(--padding-clear);
         font-size: 16px;
         font-weight: 400;
         font-family: var(--font-family);
@@ -25,7 +25,7 @@
     }
 
     .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item {
-      padding: 0;
+      padding: var(--padding-clear);
     }
 
     .ant-menu-horizontal > .ant-menu-item::after {

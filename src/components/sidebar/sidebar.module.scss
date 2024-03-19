@@ -9,7 +9,7 @@
     position: fixed;
     left: 0;
     height: 100%;
-    z-index: 50;
+    z-index: 8;
   }
 
 
@@ -20,39 +20,8 @@
 
     }
 
-    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-      background-color: var(--primary-light-1);
-    }
-
-    .ant-menu-item-icon {
-      color: var(--primary-light-9);
-
-      svg {
-        path {
-          fill: var(--primary-light-9);
-        }
-      }
-    }
-
-    .ant-menu-item-selected {
-      color: var(--primary-light-6);
-
-      .ant-menu-item-icon {
-        color: var(--primary-light-6);
-
-        svg {
-          path {
-            fill: var(--primary-light-6);
-          }
-        }
-      }
-    }
-
-
     .ant-menu-inline-collapsed {
       border: none;
-
-
 
       .ant-menu-item {
 
@@ -98,7 +67,7 @@
         }
 
         @media (max-width: 768px) {
-          padding: 0;
+          padding: var(--padding-clear);
         }
 
         .ant-menu-title-content {
@@ -136,6 +105,53 @@
           }
         }
       }
+
+      .ant-menu-item-active {
+        color: var(--primary-light-6);
+
+        .ant-menu-item-icon {
+          color: var(--primary-light-6);
+
+          svg {
+            path {
+              fill: var(--primary-light-6);
+            }
+          }
+        }
+      }
+    }
+
+    .ant-menu.ant-menu-inline-collapsed {
+      .ant-menu-item {
+        color: var(--primary-light-9);
+
+        svg {
+          path {
+            fill: var(--primary-light-9);
+          }
+        }
+
+        &.ant-menu-item-selected {
+          color: var(--primary-light-6);
+
+          svg {
+            path {
+              fill: var(--primary-light-6);
+            }
+          }
+        }
+
+        &.ant-menu-item-active {
+          color: var(--primary-light-6);
+
+          svg {
+            path {
+              fill: var(--primary-light-6);
+            }
+          }
+        }
+      }
+
     }
   }
 
@@ -185,7 +201,7 @@
 
   .toggle_container {
     position: absolute;
-    z-index: 10;
+    z-index: 6;
     top: 50%;
     right: 0;
     transform: translateY(-50%) translateX(100%);
@@ -206,7 +222,7 @@
     justify-content: center;
 
     .toggle_button {
-      padding: 0;
+      padding: var(--padding-clear);
       border: none;
       width: 100%;
       height: 100%;

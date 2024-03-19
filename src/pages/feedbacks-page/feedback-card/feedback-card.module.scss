@@ -2,7 +2,7 @@
   display: flex;
   gap: 12px;
 
-  padding: 16px;
+  padding: var(--padding-modal-wrapper);
   border-radius: 2px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
   background: var(--character-light-primary-inverse);

@@ -22,6 +22,7 @@ import { ChangePasswordPage } from '@pages/auth-page/change-password';
 import { FeedbacksPage } from '@pages/feedbacks-page';
 import { LayoutMain } from '@pages/layout';
 import PATHS from '@constants/paths';
+import { CalendarPage } from '@pages/calendar-page';
 
 export const AppRoutes = () => {
     return (
@@ -31,6 +32,7 @@ export const AppRoutes = () => {
                     <Route path={PATHS.ROOT} element={<Navigate to={PATHS.MAIN} replace />} />
                     <Route path={PATHS.MAIN} element={<MainPage />} />
                     <Route path={PATHS.FEEDBACKS} element={<FeedbacksPage />} />
+                    <Route path={PATHS.CALENDAR} element={<CalendarPage />} />
                 </Route>
             </Route>
             <Route element={<UnauthRoutes />}>

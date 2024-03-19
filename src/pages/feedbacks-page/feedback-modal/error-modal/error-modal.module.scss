@@ -1,5 +1,5 @@
 .modal_wrap {
-  padding: 16px;
+  padding: var(--padding-modal-wrapper);
 }
 
 .modal {
@@ -10,14 +10,14 @@
       padding: 64px 85.5px;
 
       @media (max-width: 768px) {
-        padding: 32px 16px;
+        padding: var(--padding-mobile-wrapper);
 
       }
     }
   }
 
   .result {
-    padding: 0;
+    padding: var(--padding-clear);
 
     :global {
       .ant-result-icon {

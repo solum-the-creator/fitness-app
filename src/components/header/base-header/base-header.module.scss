@@ -1,0 +1,22 @@
+.header {
+  background-color: var(--primary-light-1);
+  height: auto;
+  padding: var(--padding-clear);
+
+  :global {
+    .ant-breadcrumb {
+      line-height: 130%;
+    }
+  }
+
+  .horizontal_layout {
+    padding: 8px 0 6px;
+    display: flex;
+    justify-content: flex-end;
+
+    @media (max-width: 680px) {
+      padding: var(--padding-clear);
+
+    }
+  }
+}

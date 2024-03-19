@@ -1,0 +1,22 @@
+.modal {
+  background-color: var(--neutral-gray-1);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+
+  display: flex;
+  flex-direction: column;
+  cursor: auto;
+}
+
+
+.fullscreen_modal {
+  max-width: 264px;
+  width: 264px;
+}
+
+.mobile_modal {
+  color: var(--character-light-title-85);
+  position: fixed;
+  left: 24px;
+  right: 24px;
+}

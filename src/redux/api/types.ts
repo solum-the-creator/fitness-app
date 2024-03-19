@@ -47,3 +47,35 @@ export type ChangePasswordRequest = {
     password: string;
     confirmPassword: string;
 };
+
+export type Exercise = {
+    tempId?: string;
+    name: string;
+    replays: number;
+    weight: number;
+    approaches: number;
+    isImplementation: boolean;
+};
+
+export type ExerciseResponse = Exercise & { _id: string };
+
+export type Training = {
+    name: string;
+    date: string;
+    isImplementation?: boolean;
+    parameters?: {
+        repeat?: boolean;
+        period?: number;
+        jointTraining?: boolean;
+        participants?: string[];
+    };
+    exercises: Exercise[];
+};
+
+export type TrainingResponse = Training & {
+    _id: string;
+    userId: string;
+    exercises: ExerciseResponse[];
+};
+
+export type TrainingList = { name: string; key: string }[];

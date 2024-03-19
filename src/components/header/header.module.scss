@@ -2,7 +2,7 @@
   background-color: var(--primary-light-1);
   height: auto;
 
-  padding: 16px 24px;
+  padding: var(--padding-header);
   z-index: 6;
 
   .title {
@@ -38,57 +38,6 @@
     color: var(--character-light-title-85);
   }
 
-  .settings {
-    color: var(--character-light-title-85);
-
-
-    @media (min-width: 481px) {
-
-      border: none;
-      &:hover {
-        background-color: var(--neutral-gray-2);
-      }
-
-      &:active {
-        background-color: var(--neutral-gray-3);
-      }
-
-      &:disabled {
-        background-color: transparent;
-        color: var(--character-dark-disable-25);
-      }
-    }
-
-    @media (max-width: 1024px) {
-      :global {
-        .anticon {
-          display: none;
-        }
-      }
-    }
-
-    @media (max-width: 480px) {
-      &:hover {
-        color: var(--primary-light-5);
-        border-color: var(--primary-light-5);
-      }
-
-      &:active {
-        color: var(--primary-light-6);
-        border-color: var(--primary-light-6);
-      }
-
-      &:focus {
-        border-color: var(--primary-light-6);
-      }
-
-      :global {
-        .anticon {
-          display: flex;
-        }
-      }
-    }
-  }
 }
 
 .horizontal_layout {

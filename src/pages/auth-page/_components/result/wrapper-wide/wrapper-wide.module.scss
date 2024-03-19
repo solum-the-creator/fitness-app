@@ -9,7 +9,7 @@
 
   :global {
     .ant-result {
-      padding: 0;
+      padding: var(--padding-clear);
 
       .ant-result-icon {
         span {

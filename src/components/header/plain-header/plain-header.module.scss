@@ -1,6 +1,6 @@
 .header {
   background-color: var(--primary-light-1);
-  padding: 16px 24px;
+  padding: var(--padding-header);
   height: auto;
 
   :global {

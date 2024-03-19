@@ -1,5 +1,5 @@
 .modal_wrap {
-  padding: 36px 16px;
+  padding: var(--padding-mobile-wrapper);
 
 }
 
@@ -8,7 +8,7 @@
 
   .result {
     width: 100%;
-    padding: 0;
+    padding: var(--padding-clear);
 
     :global {
       .ant-result-title {
