@@ -40,7 +40,7 @@ export const ExerciseItem = ({
         if (value !== null && value >= 1) {
             setApproaches(value);
             handleUpdate({ approaches: value });
-        } else if (value === null) {
+        } else {
             setApproaches(1);
             handleUpdate({ approaches: 1 });
         }
@@ -60,7 +60,7 @@ export const ExerciseItem = ({
         if (value !== null && value >= 1) {
             setReplays(value);
             handleUpdate({ replays: value });
-        } else if (value === null) {
+        } else {
             setReplays(1);
             handleUpdate({ replays: 1 });
         }

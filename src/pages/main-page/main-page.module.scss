@@ -70,7 +70,7 @@
         :global {
           .ant-card-body {
             @media (max-width: 480px) {
-              padding: 16px;
+              padding: var(--padding-modal-wrapper);
             }
           }
         }
@@ -83,7 +83,7 @@
         :global {
           .ant-card-body {
             @media (max-width: 480px) {
-              padding: 16px;
+              padding: var(--padding-modal-wrapper);
             }
           }
         }

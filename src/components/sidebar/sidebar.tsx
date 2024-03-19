@@ -17,7 +17,7 @@ import { useAppDispatch } from '@redux/configure-store';
 import { logout } from '@redux/auth/authSlice';
 
 import { setIsCollapsed } from '@redux/sider/siderSlice';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { ErrorModal } from '@components/modals/error-modal';
@@ -47,17 +47,17 @@ export const Sidebar = () => {
             onClick: () => onGetTraining(),
         },
         {
-            key: '2',
+            key: PATHS.TRAININGS,
             icon: <HeartFilled style={{ fontSize: '16px' }} />,
-            label: <NavLink to={PATHS.CALENDAR}>Тренировки</NavLink>,
+            label: 'Тренировки',
         },
         {
-            key: '3',
+            key: PATHS.ACHIEVEMENTS,
             icon: <TrophyFilled style={{ fontSize: '16px' }} />,
             label: 'Достижения',
         },
         {
-            key: '4',
+            key: PATHS.PROFILE,
             icon: (
                 <IdcardOutlined
                     style={{

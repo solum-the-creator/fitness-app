@@ -16,7 +16,7 @@
     padding: 19.5px 0;
 
     @media (max-width: 768px) {
-      padding: 0;
+      padding: var(--padding-clear);
     }
   }
 

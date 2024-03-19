@@ -9,7 +9,7 @@
     position: fixed;
     left: 0;
     height: 100%;
-    z-index: 50;
+    z-index: 8;
   }
 
 
@@ -67,7 +67,7 @@
         }
 
         @media (max-width: 768px) {
-          padding: 0;
+          padding: var(--padding-clear);
         }
 
         .ant-menu-title-content {
@@ -201,7 +201,7 @@
 
   .toggle_container {
     position: absolute;
-    z-index: 10;
+    z-index: 6;
     top: 50%;
     right: 0;
     transform: translateY(-50%) translateX(100%);
@@ -222,7 +222,7 @@
     justify-content: center;
 
     .toggle_button {
-      padding: 0;
+      padding: var(--padding-clear);
       border: none;
       width: 100%;
       height: 100%;

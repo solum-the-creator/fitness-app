@@ -6,12 +6,20 @@ import { TrainingDisplay } from './training-display';
 import { TrainingCreate } from './training-create';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { missingTrainings } from '@utils/missing-trainings';
+import { useHandleModalResize } from '@hooks/use-handle-modal-resize';
+
+export type ModalPosition = {
+    top: number;
+    left: number;
+    right: number;
+    bottom: number;
+};
 
 type TrainingModalProps = {
     onClose: () => void;
     fullscreen: boolean;
     weekDay: number;
-    position: { top: number; left: number; right: number; bottom: number };
+    position: ModalPosition;
     selectedDate: Moment;
     trainingList: TrainingList;
     trainings: TrainingResponse[];
@@ -27,7 +35,8 @@ export const TrainingModal = ({
     trainings,
 }: TrainingModalProps) => {
     const modalRef = useRef<HTMLDivElement>(null);
-    const [isLeftSide, setIsLeftSide] = useState(weekDay % 7 !== 0);
+
+    const { isLeftSide } = useHandleModalResize(weekDay, modalRef);
 
     const [isTrainingCreateVisible, setIsTrainingCreateVisible] = useState(false);
     const [editableTraining, setEditableTraining] = useState<TrainingResponse | undefined>(
@@ -53,26 +62,6 @@ export const TrainingModal = ({
         setEditableTraining(training);
         setIsTrainingCreateVisible(true);
     };
-
-    useLayoutEffect(() => {
-        const handleResize = () => {
-            if (modalRef.current) {
-                const { right } = modalRef.current.getBoundingClientRect();
-                const windowWidth = window.innerWidth;
-                if (isLeftSide) {
-                    if (right + 20 > windowWidth) {
-                        setIsLeftSide(false);
-                    }
-                }
-            }
-        };
-        handleResize();
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [isLeftSide]);
 
     return (
         <div

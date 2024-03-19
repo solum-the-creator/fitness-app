@@ -14,9 +14,9 @@ export const useGetLazyTraining = () => {
 
     const onGetTraining = async () => {
         try {
-            await getTraining({}).unwrap();
+            await getTraining().unwrap();
             dispatch(push(PATHS.CALENDAR));
-        } catch (error) {
+        } catch {
             setIsErrorModalOpen(true);
         }
     };

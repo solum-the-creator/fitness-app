@@ -4,7 +4,7 @@
   flex-direction: column;
 
   margin: 0 0 48px;
-  padding: 16px 24px;
+  padding: var(--padding-header);
   background-color: var(--primary-light-1);
 
   @media (max-width: 960px) {
@@ -33,7 +33,7 @@
       background-color: var(--neutral-gray-1);
 
       .ant-picker-cell.selected {
-        z-index: 100;
+        z-index: 8;
       }
 
       .ant-picker-cell-inner {
@@ -152,50 +152,11 @@
       }
 
       .ant-picker-cell.selected {
-        z-index: 100;
+        z-index: 8;
       }
 
     }
   }
 
 
-}
-
-.error_modal_wrapper {
-  z-index: 2200;
-  padding: 16px;
-  .error_modal {
-    max-width: 384px;
-
-
-    :global {
-      .ant-modal-body {
-        padding: 16px 24px 16px;
-
-        .ant-modal-confirm-title {
-          max-width: 250px;
-          font-weight: 400;
-          line-height: 130%;
-        }
-        .ant-modal-confirm-content {
-          color: var(--character-light-secondary-45);
-          line-height: 130%;
-        }
-
-        .ant-modal-confirm-btns {
-          margin-top: 16px;
-          button {
-            height: 28px;
-            line-height: 130%;
-          }
-
-        }
-
-        .anticon-close-circle {
-          color: var(--primary-light-6);
-          font-size: 24px;
-        }
-      }
-    }
-  }
 }

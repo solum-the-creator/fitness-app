@@ -8,12 +8,12 @@
   width: 100%;
 
   @media (max-width: 640px) {
-    padding: 32px 16px;
+    padding: var(--padding-mobile-wrapper);
   }
 
   :global {
     .ant-result {
-      padding: 0;
+      padding: var(--padding-clear);
 
       .ant-result-icon {
         span {

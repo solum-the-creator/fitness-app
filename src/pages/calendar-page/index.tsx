@@ -6,22 +6,23 @@ import PATHS from '@constants/paths';
 import { Content } from 'antd/lib/layout/layout';
 import { useMediaQuery } from 'react-responsive';
 
-import { Calendar, Modal } from 'antd';
+import { Calendar } from 'antd';
 
 import { RU_CALENDAR_LOCALE } from '@constants/constants';
 import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/apiSlice';
 
 import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useCallback, useEffect, useState } from 'react';
-import { CloseOutlined } from '@ant-design/icons';
+import { useEffect, useState } from 'react';
 import { Moment } from 'moment';
 import moment from 'moment';
 import { CellItem } from './cell-item';
+import { ModalPosition } from './training-modal';
+import { ErrorModal } from './error-modal';
 
 export const CalendarPage = () => {
     const matches = useMediaQuery({ query: `(max-width: 680px)` });
 
-    const { data: trainings, isFetching } = useGetTrainingQuery({});
+    const { data: trainings, isFetching } = useGetTrainingQuery();
 
     const {
         data: trainingList = [],
@@ -36,7 +37,12 @@ export const CalendarPage = () => {
     const [currentMonth, setCurrentMonth] = useState<number>(moment().month());
     const [isModalTrainingVisible, setIsModalTrainingVisible] = useState(false);
     const [selectedCell, setSelectedCell] = useState<HTMLDivElement | null>(null);
-    const [modalPostion, setModalPosition] = useState({ top: 0, left: 0, right: 0, bottom: 0 });
+    const [modalPostion, setModalPosition] = useState<ModalPosition>({
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    });
 
     const handleDateSelect = (value: Moment) => {
         if (matches) {
@@ -77,15 +83,11 @@ export const CalendarPage = () => {
 
     useEffect(() => {
         let timeoutId: NodeJS.Timeout;
-        if (matches) {
-            if (selectedDate) {
-                if (selectedCell) {
-                    timeoutId = setTimeout(() => {
-                        const { top, left, right, bottom } = selectedCell.getBoundingClientRect();
-                        setModalPosition({ top, left, right, bottom });
-                    }, 100);
-                }
-            }
+        if (matches && selectedDate && selectedCell) {
+            timeoutId = setTimeout(() => {
+                const { top, left, right, bottom } = selectedCell.getBoundingClientRect();
+                setModalPosition({ top, left, right, bottom });
+            }, 100);
         }
 
         return () => clearTimeout(timeoutId);
@@ -127,45 +129,6 @@ export const CalendarPage = () => {
         );
     };
 
-    const showErrorModal = useCallback(() => {
-        return Modal.error({
-            title: (
-                <span data-test-id='modal-error-user-training-title'>
-                    При открытии данных произошла ошибка
-                </span>
-            ),
-            content: (
-                <span data-test-id='modal-error-user-training-subtitle'>Попробуйте ещё раз.</span>
-            ),
-            closable: true,
-            centered: true,
-            okText: <span data-test-id='modal-error-user-training-button'>Обновить</span>,
-            closeIcon: <CloseOutlined data-test-id='modal-error-user-training-button-close' />,
-            width: '100%',
-            maskStyle: {
-                backdropFilter: 'blur(6px)',
-                background: 'rgba(121, 156, 212, 0.1)',
-                zIndex: 2100,
-            },
-            className: styles.error_modal,
-            wrapClassName: styles.error_modal_wrapper,
-            onOk: () => refetch(),
-        });
-    }, [refetch]);
-
-    useEffect(() => {
-        let errorModal: ReturnType<typeof Modal.error> | null = null;
-        if (isError) {
-            errorModal = showErrorModal();
-        }
-
-        return () => {
-            if (errorModal) {
-                errorModal.destroy();
-            }
-        };
-    }, [isError, showErrorModal]);
-
     return (
         <div className={styles.main_container}>
             <BaseHeader
@@ -186,6 +149,7 @@ export const CalendarPage = () => {
                     />
                 </div>
             </Content>
+            <ErrorModal isError={isError} refetch={refetch} />
         </div>
     );
 };
