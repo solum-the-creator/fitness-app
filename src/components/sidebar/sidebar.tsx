@@ -17,7 +17,7 @@ import { useAppDispatch } from '@redux/configure-store';
 import { logout } from '@redux/auth/authSlice';
 
 import { setIsCollapsed } from '@redux/sider/siderSlice';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { ErrorModal } from '@components/modals/error-modal';
@@ -66,7 +66,7 @@ export const Sidebar = () => {
                     }}
                 />
             ),
-            label: 'Профиль',
+            label: <NavLink to={PATHS.PROFILE}>Профиль</NavLink>,
         },
     ];
 

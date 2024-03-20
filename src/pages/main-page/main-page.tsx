@@ -9,10 +9,13 @@ import { Footer } from './footer';
 import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { ErrorModal } from '@components/modals/error-modal';
+import { useAppDispatch } from '@redux/configure-store';
+import { push } from 'redux-first-history';
 
 const { Content } = Layout;
 
 export const MainPage: React.FC = () => {
+    const dispatch = useAppDispatch();
     const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
 
     return (
@@ -138,6 +141,7 @@ export const MainPage: React.FC = () => {
                                                     }
                                                     block
                                                     className={styles.card_button}
+                                                    onClick={() => dispatch(push(PATHS.PROFILE))}
                                                 >
                                                     Профиль
                                                 </Button>

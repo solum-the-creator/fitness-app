@@ -23,6 +23,7 @@ import { FeedbacksPage } from '@pages/feedbacks-page';
 import { LayoutMain } from '@pages/layout';
 import PATHS from '@constants/paths';
 import { CalendarPage } from '@pages/calendar-page';
+import { ProfilePage } from '@pages/profile-page';
 
 export const AppRoutes = () => {
     return (
@@ -33,6 +34,7 @@ export const AppRoutes = () => {
                     <Route path={PATHS.MAIN} element={<MainPage />} />
                     <Route path={PATHS.FEEDBACKS} element={<FeedbacksPage />} />
                     <Route path={PATHS.CALENDAR} element={<CalendarPage />} />
+                    <Route path={PATHS.PROFILE} element={<ProfilePage />} />
                 </Route>
             </Route>
             <Route element={<UnauthRoutes />}>
