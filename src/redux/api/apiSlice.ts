@@ -31,7 +31,7 @@ export const apiSlice = createApi({
         credentials: 'include',
         mode: 'cors',
     }),
-    tagTypes: ['Feedback', 'Training'],
+    tagTypes: ['Feedback', 'Training', 'User'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -70,7 +70,12 @@ export const apiSlice = createApi({
             }),
         }),
         getMe: builder.query<User, void>({
-            query: () => 'user/me',
+            query: () => ({
+                url: 'user/me',
+                method: 'GET',
+                credentials: 'include',
+            }),
+            providesTags: [{ type: 'User', id: 'LIST' }],
         }),
         getHealthmonitor: builder.query<void, void>({
             query: () => ({

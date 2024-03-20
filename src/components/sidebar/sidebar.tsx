@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import styles from './sidebar.module.scss';
+import PATHS from '@constants/paths';
 import {
     CalendarTwoTone,
     HeartFilled,
@@ -14,13 +15,12 @@ import {
 } from '@ant-design/icons';
 import { ExitIcon } from '@components/icons/exit-icon';
 import { useAppDispatch } from '@redux/configure-store';
-import { logout } from '@redux/auth/authSlice';
 
 import { setIsCollapsed } from '@redux/sider/siderSlice';
 import { NavLink, useLocation } from 'react-router-dom';
-import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { ErrorModal } from '@components/modals/error-modal';
+import { useLogout } from '@hooks/use-logout';
 
 const { Sider } = Layout;
 
@@ -31,6 +31,7 @@ export const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(matches);
 
     const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
+    const logout = useLogout();
 
     useEffect(() => {
         if (matches) {
@@ -76,7 +77,7 @@ export const Sidebar = () => {
     };
 
     const onExit = () => {
-        dispatch(logout());
+        logout();
     };
 
     return (

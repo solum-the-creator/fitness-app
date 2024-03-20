@@ -2,8 +2,16 @@ export type User = {
     email: string;
     firstName?: string;
     lastName?: string;
+    birthday?: string;
     imgSrc?: string;
     readyForJointTraining: boolean;
+    sendNotification: boolean;
+    tariff?: Tariff;
+};
+
+export type Tariff = {
+    tariffId: string;
+    expired: string;
 };
 
 export type Feedback = {
