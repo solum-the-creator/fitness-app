@@ -1,5 +1,5 @@
-import { apiSlice } from '@redux/api/apiSlice';
-import { logout } from '@redux/auth/authSlice';
+import { apiSlice } from '@redux/api/api-slice';
+import { logout } from '@redux/auth/auth-slice';
 import { useAppDispatch } from '@redux/configure-store';
 
 export const useLogout = () => {

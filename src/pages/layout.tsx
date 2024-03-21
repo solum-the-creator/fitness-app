@@ -1,8 +1,8 @@
 import styles from './main-page/main-page.module.scss';
 import { Sidebar } from '@components/sidebar';
 import { STATUS_CODE } from '@constants/constants';
-import { useGetMeQuery } from '@redux/api/apiSlice';
-import { logout } from '@redux/auth/authSlice';
+import { useGetMeQuery } from '@redux/api/api-slice';
+import { logout } from '@redux/auth/auth-slice';
 import { useAppDispatch } from '@redux/configure-store';
 import { setUser } from '@redux/user/user-slice';
 import { Layout } from 'antd';

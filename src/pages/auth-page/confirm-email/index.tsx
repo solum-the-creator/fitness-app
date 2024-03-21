@@ -4,7 +4,7 @@ import VerificationInput from 'react-verification-input';
 import { replace } from 'redux-first-history';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useConfirmEmailMutation } from '@redux/api/apiSlice';
+import { useConfirmEmailMutation } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
 import { Result } from 'antd';
 

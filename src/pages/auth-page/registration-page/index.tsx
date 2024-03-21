@@ -4,7 +4,7 @@ import { push } from 'redux-first-history';
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { STATUS_CODE } from '@constants/constants';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useRegisterMutation } from '@redux/api/apiSlice';
+import { useRegisterMutation } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { Button, Form, Input } from 'antd';

@@ -16,7 +16,7 @@ import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { useLogout } from '@hooks/use-logout';
 import { useAppDispatch } from '@redux/configure-store';
-import { setIsCollapsed } from '@redux/sider/siderSlice';
+import { setIsCollapsed } from '@redux/sider/sider-slice';
 import { Button, Layout, Menu } from 'antd';
 
 import styles from './sidebar.module.scss';

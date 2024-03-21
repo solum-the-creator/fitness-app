@@ -4,7 +4,7 @@ import {
     useAddTrainingMutation,
     useGetTrainingListQuery,
     useUpdateTrainingMutation,
-} from '@redux/api/apiSlice';
+} from '@redux/api/api-slice';
 import {
     Exercise,
     ExerciseResponse,

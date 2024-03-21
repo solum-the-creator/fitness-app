@@ -6,7 +6,7 @@ import { STATUS_CODE } from '@constants/constants';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useLogout } from '@hooks/use-logout';
-import { useGetFeedbackQuery } from '@redux/api/apiSlice';
+import { useGetFeedbackQuery } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
 import { Layout } from 'antd';
 import { Content } from 'antd/lib/layout/layout';

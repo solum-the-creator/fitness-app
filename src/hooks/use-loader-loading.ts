@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { setIsLoading } from '@redux/loader/loaderSlice';
+import { setIsLoading } from '@redux/loader/loader-slice';
 
 import { useAppDispatch } from '.';
 

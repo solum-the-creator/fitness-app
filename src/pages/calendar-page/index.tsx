@@ -4,7 +4,7 @@ import { BaseHeader } from '@components/header/base-header';
 import { RU_CALENDAR_LOCALE } from '@constants/constants';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/apiSlice';
+import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/api-slice';
 import { Calendar } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import moment, { Moment } from 'moment';

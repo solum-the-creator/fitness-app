@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import PATHS from '@constants/paths';
-import { setCredentials } from '@redux/auth/authSlice';
+import { setCredentials } from '@redux/auth/auth-slice';
 import { useAppDispatch, useAppSelector } from '@redux/configure-store';
 
 export const AuthRoutes = () => {

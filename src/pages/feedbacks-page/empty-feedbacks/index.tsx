@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import { isCollapsedSelector } from '@redux/sider/siderSlice';
+import { isCollapsedSelector } from '@redux/sider/sider-slice';
 import { Button } from 'antd';
 
 import styles from './empty-feedbacks.module.scss';

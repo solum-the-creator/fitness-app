@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { push, replace } from 'redux-first-history';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useChangePasswordMutation } from '@redux/api/apiSlice';
+import { useChangePasswordMutation } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Form, Input, Typography } from 'antd';
 import { Rule } from 'antd/lib/form';
