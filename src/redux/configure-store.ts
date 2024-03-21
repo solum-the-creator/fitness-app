@@ -1,14 +1,15 @@
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { combineReducers } from 'redux';
-import { configureStore } from '@reduxjs/toolkit';
 import { createReduxHistoryContext } from 'redux-first-history';
-import { createBrowserHistory } from 'history';
-import { setupListeners } from '@reduxjs/toolkit/query';
-import { apiSlice } from './api/apiSlice';
 import authReducer from '@redux/auth/authSlice';
 import loaderReducer from '@redux/loader/loaderSlice';
 import siderReducer from '@redux/sider/siderSlice';
 import userReducer from '@redux/user/user-slice';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { createBrowserHistory } from 'history';
+
+import { apiSlice } from './api/apiSlice';
 
 const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
     history: createBrowserHistory(),

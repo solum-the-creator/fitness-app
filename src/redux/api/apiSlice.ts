@@ -1,19 +1,21 @@
+/* eslint-disable no-underscore-dangle */
+import { RootState } from '@redux/configure-store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import {
+    ChangePasswordRequest,
     CheckEmailResponse,
     ConfrimEmailRequest,
     ConfrimEmailResponse,
+    Feedback,
     LoginRequest,
     LoginResponse,
     RegistrationRequest,
-    User,
-    ChangePasswordRequest,
-    Feedback,
+    Training,
     TrainingList,
     TrainingResponse,
-    Training,
+    User,
 } from './types';
-import { RootState } from '@redux/configure-store';
 
 export const BASE_API_URL = 'https://marathon-api.clevertec.ru/';
 
@@ -22,10 +24,12 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_API_URL,
         prepareHeaders: (headers, { getState }) => {
-            const accessToken = (getState() as RootState).auth.accessToken;
+            const { accessToken } = (getState() as RootState).auth;
+
             if (accessToken) {
                 headers.set('authorization', `Bearer ${accessToken}`);
             }
+
             return headers;
         },
         credentials: 'include',

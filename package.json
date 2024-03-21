@@ -40,6 +40,7 @@
     "react-router-dom": "^6.22.0",
     "react-verification-input": "^4.1.0",
     "react-window": "^1.8.10",
+    "redux": "^5.0.1",
     "redux-first-history": "^5.2.0"
   },
   "devDependencies": {
@@ -82,6 +83,27 @@
     "vite": "^5.0.6"
   },
   "prettier": "arui-presets-lint/prettier",
+  "commitlint": {
+    "extends": [
+      "./node_modules/arui-presets-lint/commitlint"
+    ],
+    "rules": {
+      "subject-case": [
+        2,
+        "never",
+        [
+          "start-case",
+          "pascal-case",
+          "upper-case"
+        ]
+      ],
+      "header-max-length": [
+        2,
+        "always",
+        120
+      ]
+    }
+  },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "prettier --write",

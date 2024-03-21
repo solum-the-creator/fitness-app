@@ -86,4 +86,4 @@ export type TrainingResponse = Training & {
     exercises: ExerciseResponse[];
 };
 
-export type TrainingList = { name: string; key: string }[];
+export type TrainingList = Array<{ name: string; key: string }>;

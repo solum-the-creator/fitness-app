@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit/react';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit/react';
 
 type LoaderState = {
     isLoading: boolean;

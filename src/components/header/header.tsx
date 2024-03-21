@@ -1,9 +1,9 @@
-import styles from './header.module.scss';
-
-import { Breadcrumb, Layout } from 'antd';
-import Title from 'antd/lib/typography/Title';
 import { Link } from 'react-router-dom';
 import { SettingsButton } from '@components/buttons/settings-button';
+import { Breadcrumb, Layout } from 'antd';
+import Title from 'antd/lib/typography/Title';
+
+import styles from './header.module.scss';
 
 type HeaderProps = {
     title?: React.ReactNode | string;
@@ -25,7 +25,7 @@ export const Header = ({ breadCrumbs, title }: HeaderProps) => (
                     {title}
                 </Title>
             )}
-            <Title level={1} className={styles.title}></Title>
+            <Title level={1} className={styles.title} />
 
             <SettingsButton />
         </div>

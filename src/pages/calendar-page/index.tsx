@@ -1,26 +1,22 @@
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { BaseHeader } from '@components/header/base-header';
+import { RU_CALENDAR_LOCALE } from '@constants/constants';
+import PATHS from '@constants/paths';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/apiSlice';
+import { Calendar } from 'antd';
+import { Content } from 'antd/lib/layout/layout';
+import moment, { Moment } from 'moment';
+
+import { CellItem } from './cell-item';
+import { ErrorModal } from './error-modal';
+import { ModalPosition } from './training-modal';
+
 import styles from './calendar-page.module.scss';
 
-import { BaseHeader } from '@components/header/base-header';
-import PATHS from '@constants/paths';
-
-import { Content } from 'antd/lib/layout/layout';
-import { useMediaQuery } from 'react-responsive';
-
-import { Calendar } from 'antd';
-
-import { RU_CALENDAR_LOCALE } from '@constants/constants';
-import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/apiSlice';
-
-import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useEffect, useState } from 'react';
-import { Moment } from 'moment';
-import moment from 'moment';
-import { CellItem } from './cell-item';
-import { ModalPosition } from './training-modal';
-import { ErrorModal } from './error-modal';
-
 export const CalendarPage = () => {
-    const matches = useMediaQuery({ query: `(max-width: 680px)` });
+    const matches = useMediaQuery({ query: '(max-width: 680px)' });
 
     const { data: trainings, isFetching } = useGetTrainingQuery();
 
@@ -30,6 +26,7 @@ export const CalendarPage = () => {
         isError,
         refetch,
     } = useGetTrainingListQuery();
+
     useLoaderLoading(isFetching || isFetchingTrainingList);
 
     const [selectedDate, setSelectedDate] = useState<Moment | undefined>(undefined);
@@ -44,12 +41,18 @@ export const CalendarPage = () => {
         bottom: 0,
     });
 
+    const handleModalClose = () => {
+        setSelectedDate(undefined);
+        setIsModalTrainingVisible(false);
+    };
+
     const handleDateSelect = (value: Moment) => {
         if (matches) {
             if (value.month() !== currentMonth) {
                 setCurrentMonth(value.month());
                 setSelectedCalendarDate(value);
                 handleModalClose();
+
                 return;
             }
         }
@@ -63,29 +66,30 @@ export const CalendarPage = () => {
         handleModalClose();
     };
 
-    const onCellClick = (e: React.MouseEvent<HTMLDivElement>, value: Moment) => {
+    const onCellClick = (
+        e: React.KeyboardEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>,
+        value: Moment,
+    ) => {
         e.stopPropagation();
         if (selectedCell) {
             selectedCell.classList.remove('selected');
         }
 
         const currentCell = e.currentTarget.closest('.ant-picker-cell') as HTMLDivElement | null;
+
         setSelectedCell(currentCell);
 
         currentCell?.classList.add('selected');
         handleDateSelect(value);
     };
 
-    const handleModalClose = () => {
-        setSelectedDate(undefined);
-        setIsModalTrainingVisible(false);
-    };
-
     useEffect(() => {
         let timeoutId: NodeJS.Timeout;
+
         if (matches && selectedDate && selectedCell) {
             timeoutId = setTimeout(() => {
                 const { top, left, right, bottom } = selectedCell.getBoundingClientRect();
+
                 setModalPosition({ top, left, right, bottom });
             }, 100);
         }
@@ -102,6 +106,7 @@ export const CalendarPage = () => {
         const selectedTrainings =
             trainings?.filter((training) => {
                 const trainingDate = moment(training.date);
+
                 return value.isSame(trainingDate, 'day');
             }) || [];
 
@@ -109,6 +114,9 @@ export const CalendarPage = () => {
             <div
                 className={`ant-picker-cell-inner ant-picker-calendar-date ${todayClass}`}
                 onClick={(e) => onCellClick(e, value)}
+                onKeyDown={(e) => onCellClick(e, value)}
+                role='button'
+                tabIndex={0}
             >
                 <div>
                     <div className='ant-picker-calendar-date-value'>{value.date()}</div>

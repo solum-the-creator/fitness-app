@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import PATHS from '@constants/paths';
 import { setCredentials } from '@redux/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@redux/configure-store';
-import { useEffect } from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 export const AuthRoutes = () => {
     const dispatch = useAppDispatch();
@@ -21,5 +21,5 @@ export const AuthRoutes = () => {
 
     const accessToken = authToken || localStorage.getItem('authToken');
 
-    return accessToken ? <Outlet /> : <Navigate to={PATHS.AUTH} replace />;
+    return accessToken ? <Outlet /> : <Navigate to={PATHS.AUTH} replace={true} />;
 };

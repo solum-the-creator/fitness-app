@@ -1,8 +1,9 @@
-import styles from './profile-page.module.scss';
-
 import { useAppSelector } from '@redux/configure-store';
 import { userSelector } from '@redux/user/user-slice';
+
 import { Header } from './header';
+
+import styles from './profile-page.module.scss';
 
 export const ProfilePage = () => {
     const user = useAppSelector(userSelector);

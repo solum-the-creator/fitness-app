@@ -1,8 +1,10 @@
-import { Feedback } from '@redux/api/types';
-import styles from './feedbacks.module.scss';
-import { FeedbackCard } from '../feedback-card';
-import { Button } from 'antd';
 import { useEffect, useRef } from 'react';
+import { Feedback } from '@redux/api/types';
+import { Button } from 'antd';
+
+import { FeedbackCard } from '../feedback-card';
+
+import styles from './feedbacks.module.scss';
 
 type FeedbacksProps = {
     feedbacks: Feedback[];

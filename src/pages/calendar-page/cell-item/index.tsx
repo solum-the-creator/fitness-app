@@ -1,9 +1,13 @@
-import { TrainingList, TrainingResponse } from '@redux/api/types';
-import styles from './cell-item.module.scss';
+/* eslint-disable no-underscore-dangle */
+import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { TrainingTypeBadge } from '@components/training-type-badge';
-import { ModalPosition, TrainingModal } from '../training-modal';
+import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { Moment } from 'moment';
+
+import { ModalPosition, TrainingModal } from '../training-modal';
+
+import styles from './cell-item.module.scss';
 
 type CellItemProps = {
     cellId: string;
@@ -24,14 +28,14 @@ export const CellItem = ({
     modalPostion,
     handleModalClose,
 }: CellItemProps) => {
-    const matches = useMediaQuery({ query: `(max-width: 680px)` });
+    const matches = useMediaQuery({ query: '(max-width: 680px)' });
 
     return (
-        <>
+        <React.Fragment>
             <div id={cellId} className={styles.calendar_cell}>
-                {selectedTrainings.map((training) => {
-                    return matches ? (
-                        <div key={training._id} className='mobile_cell'></div>
+                {selectedTrainings.map((training) =>
+                    matches ? (
+                        <div key={training._id} className='mobile_cell' />
                     ) : (
                         <TrainingTypeBadge
                             key={training._id}
@@ -43,8 +47,8 @@ export const CellItem = ({
                             size='small'
                             disabled={training.isImplementation}
                         />
-                    );
-                })}
+                    ),
+                )}
             </div>
             {showModal && (
                 <TrainingModal
@@ -57,6 +61,6 @@ export const CellItem = ({
                     selectedDate={date}
                 />
             )}
-        </>
+        </React.Fragment>
     );
 };

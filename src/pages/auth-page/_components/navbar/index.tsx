@@ -1,8 +1,9 @@
-import { Menu } from 'antd';
-import styles from './navbar.module.scss';
-import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import PATHS from '@constants/paths';
+import { Menu } from 'antd';
+
+import styles from './navbar.module.scss';
 
 type MenuKey = '/auth' | '/auth/registration';
 

@@ -1,14 +1,16 @@
-import { Button, Drawer } from 'antd';
-import styles from './exercise-editor.module.scss';
+import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { TrainingTypeBadge } from '@components/training-type-badge';
-import { ExerciseItem } from './exercise-item';
-import { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import { Exercise, TrainingList } from '@redux/api/types';
-import { Moment } from 'moment';
 import { DATE_FORMAT } from '@constants/constants';
+import { Exercise, TrainingList } from '@redux/api/types';
+import { Button, Drawer } from 'antd';
+import { Moment } from 'moment';
 import { nanoid } from 'nanoid';
+
+import { ExerciseItem } from './exercise-item';
+
+import styles from './exercise-editor.module.scss';
 
 type ExerciseEditorProps = {
     isOpen: boolean;
@@ -35,13 +37,13 @@ export const ExerciseEditor = ({
     isOpen,
     onClose,
 }: ExerciseEditorProps) => {
-    const matches = useMediaQuery({ query: `(max-width: 680px)` });
+    const matches = useMediaQuery({ query: '(max-width: 680px)' });
     const drawerClass = matches ? styles.drawer_mobile : styles.drawer_fullscreen;
 
     const isEmpty = currentExerciseList.length === 0;
     const initialExerciseList = isEmpty ? [emptyExercise] : currentExerciseList;
 
-    const [exerciseList, setExerciseList] = useState<Partial<Exercise>[]>(
+    const [exerciseList, setExerciseList] = useState<Array<Partial<Exercise>>>(
         initialExerciseList.map((item) => ({
             ...item,
             tempId: nanoid(),
@@ -54,6 +56,7 @@ export const ExerciseEditor = ({
             ...emptyExercise,
             tempId: nanoid(),
         };
+
         setExerciseList([...exerciseList, newExercise]);
     };
 
@@ -73,8 +76,10 @@ export const ExerciseEditor = ({
                     ...exercise,
                 };
             }
+
             return item;
         });
+
         setExerciseList(updatedExerciseList);
     };
 
@@ -85,8 +90,8 @@ export const ExerciseEditor = ({
         setCheckedExerciseList([]);
     };
 
-    const filterExerciseList = (exerciseList: Partial<Exercise>[]) => {
-        const filteredList = exerciseList
+    const filterExerciseList = (filteringExerciseList: Array<Partial<Exercise>>) => {
+        const filteredList = filteringExerciseList
             .filter((item) => item.name?.trim() !== '')
             .map((item) => ({
                 ...item,
@@ -96,6 +101,7 @@ export const ExerciseEditor = ({
             }));
 
         setExerciseList(filteredList);
+
         return filteredList;
     };
 
@@ -123,7 +129,11 @@ export const ExerciseEditor = ({
                         <PlusOutlined />
                     </span>
                     <h4 className={styles.drawer_title}>
-                        {isEditable ? 'Редактирование' : <>Добавление&nbsp;упражнений</>}
+                        {isEditable ? (
+                            'Редактирование'
+                        ) : (
+                            <React.Fragment>Добавление&nbsp;упражнений</React.Fragment>
+                        )}
                     </h4>
                     <Button
                         type='text'
@@ -157,7 +167,7 @@ export const ExerciseEditor = ({
                     </div>
                     <div className={styles.buttons}>
                         <Button
-                            block
+                            block={true}
                             icon={<PlusOutlined />}
                             size='large'
                             className={styles.add_button}
@@ -168,7 +178,7 @@ export const ExerciseEditor = ({
                         </Button>
                         {isEditable && (
                             <Button
-                                block
+                                block={true}
                                 icon={<MinusOutlined />}
                                 size='large'
                                 type='text'

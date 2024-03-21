@@ -11,6 +11,7 @@ export const useHandleModalResize = (
             if (modalRef.current) {
                 const { right } = modalRef.current.getBoundingClientRect();
                 const windowWidth = window.innerWidth;
+
                 if (isLeftSide) {
                     if (right + 20 > windowWidth) {
                         setIsLeftSide(false);
@@ -18,6 +19,7 @@ export const useHandleModalResize = (
                 }
             }
         };
+
         handleResize();
         window.addEventListener('resize', handleResize);
 

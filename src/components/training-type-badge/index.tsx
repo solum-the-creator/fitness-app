@@ -1,4 +1,5 @@
 import { Badge } from 'antd';
+
 import styles from './training-type.module.scss';
 
 type TrainingTypeProps = {
@@ -22,12 +23,13 @@ export const TrainingTypeBadge = ({ type, text, size, color, disabled }: Trainin
     const sizeClass = size === 'small' ? styles.small : styles.default;
 
     const badgeColor = disabled ? '#bfbfbf' : color;
+
     return (
         <Badge
             color={trainingColors[type] || trainingColors.default}
             text={text || type}
             className={`${styles.badge} ${sizeClass}`}
-            style={{ color: badgeColor ? badgeColor : '#262626' }}
+            style={{ color: badgeColor || '#262626' }}
         />
     );
 };

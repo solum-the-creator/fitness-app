@@ -1,13 +1,11 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type AuthState = {
     accessToken: string | null;
 };
 
-const accessToken = localStorage.getItem('authToken');
-
 const initialState: AuthState = {
-    accessToken: accessToken,
+    accessToken: localStorage.getItem('authToken'),
 };
 
 const authSlice = createSlice({
@@ -22,6 +20,7 @@ const authSlice = createSlice({
         },
         logout: () => {
             localStorage.removeItem('authToken');
+
             return { accessToken: null };
         },
     },
