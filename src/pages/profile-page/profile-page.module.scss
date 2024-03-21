@@ -30,6 +30,14 @@
 }
 
 .form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @media (max-width: 480px) {
+    gap: 20px;
+  }
+
   .form_section {
     display: flex;
     flex-direction: column;
@@ -51,12 +59,56 @@
       display: flex;
       gap: 24px;
 
+      @media (max-width: 480px) {
+        flex-direction: column-reverse;
+        gap: 16px;
+      }
+
       .inputs {
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap: 16px;
       }
     }
+
+    .form_input {
+      height: 40px;
+      font-size: 14px;
+      line-height: 130%;
+      input {
+        line-height: 130%;
+      }
+    }
+
+    :global {
+      .ant-form-item-explain {
+        font-size: 12px;
+      }
+    }
+
+    .private_info {
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .form_item_password, .form_item_confirm_password {
+        margin-bottom: 30px;
+      }
+
+      .form_item_email {
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+  .private_info_section {
+    margin-top: 16px;
+  }
+
+  .form_button_submit {
+    font-size: 16px;
   }
 
 
@@ -87,6 +139,27 @@
     .upload_icon {
       width: 14px;
       height: 14px;
+    }
+  }
+
+  .upload {
+    width: 100%;
+    display: block;
+
+    .upload_label {
+      display: block;
+      width: 100%;
+      font-size: 12px;
+    }
+
+    :global {
+      .ant-upload {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+      }
     }
   }
 }
