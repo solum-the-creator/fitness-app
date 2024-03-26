@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { RootState } from '@redux/configure-store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RcFile } from 'antd/lib/upload';
 
 import {
     ChangePasswordRequest,
@@ -16,7 +15,6 @@ import {
     TrainingList,
     TrainingResponse,
     UpdateUserRequest,
-    UploadImage,
     User,
 } from './types';
 
@@ -155,23 +153,6 @@ export const apiSlice = createApi({
                 method: 'GET',
             }),
         }),
-        uploadImage: builder.mutation<UploadImage, { image: RcFile }>({
-            query: ({ image }) => {
-                const formData = new FormData();
-
-                formData.append('file', image);
-
-                return {
-                    url: 'upload-image',
-                    method: 'POST',
-                    body: formData,
-                };
-            },
-            transformResponse: (response: UploadImage) => ({
-                ...response,
-                url: `https://training-api.clevertec.ru/${response.url}`,
-            }),
-        }),
     }),
 });
 
@@ -191,5 +172,4 @@ export const {
     useGetTrainingListQuery,
     useAddTrainingMutation,
     useUpdateTrainingMutation,
-    useUploadImageMutation,
 } = apiSlice;
