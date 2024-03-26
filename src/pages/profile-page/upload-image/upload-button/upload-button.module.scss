@@ -1,0 +1,15 @@
+.upload_mobile {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+
+  .label {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    line-height: 130%;
+    white-space: nowrap;
+  }
+
+}
+

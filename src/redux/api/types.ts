@@ -9,6 +9,8 @@ export type User = {
     tariff?: Tariff;
 };
 
+export type UpdateUserRequest = Partial<User> & { password?: string };
+
 export type Tariff = {
     tariffId: string;
     expired: string;
@@ -87,3 +89,8 @@ export type TrainingResponse = Training & {
 };
 
 export type TrainingList = Array<{ name: string; key: string }>;
+
+export type UploadImage = {
+    name: string;
+    url: string;
+};

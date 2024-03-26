@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useCreateFeedbackMutation } from '@redux/api/api-slice';
@@ -116,6 +116,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
                         <Rate
                             ref={ratingRef}
                             onChange={handleOnChange}
+                            // eslint-disable-next-line react/no-unstable-nested-components
                             character={({ value, index }) =>
                                 value && index !== undefined && index < value ? (
                                     <StarFilled />

@@ -142,6 +142,7 @@ export const MainPage: React.FC = () => {
                                                     block={true}
                                                     className={styles.card_button}
                                                     onClick={() => dispatch(push(PATHS.PROFILE))}
+                                                    data-test-id='menu-button-profile'
                                                 >
                                                     Профиль
                                                 </Button>

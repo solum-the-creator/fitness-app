@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { RootState } from '@redux/configure-store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RcFile } from 'antd/lib/upload';
 
 import {
     ChangePasswordRequest,
@@ -14,6 +15,8 @@ import {
     Training,
     TrainingList,
     TrainingResponse,
+    UpdateUserRequest,
+    UploadImage,
     User,
 } from './types';
 
@@ -81,6 +84,14 @@ export const apiSlice = createApi({
             }),
             providesTags: [{ type: 'User', id: 'LIST' }],
         }),
+        updateUser: builder.mutation<User, UpdateUserRequest>({
+            query: (data) => ({
+                url: 'user',
+                method: 'PUT',
+                body: data,
+            }),
+            invalidatesTags: [{ type: 'User', id: 'LIST' }],
+        }),
         getHealthmonitor: builder.query<void, void>({
             query: () => ({
                 url: '/healthmonitor',
@@ -144,6 +155,23 @@ export const apiSlice = createApi({
                 method: 'GET',
             }),
         }),
+        uploadImage: builder.mutation<UploadImage, { image: RcFile }>({
+            query: ({ image }) => {
+                const formData = new FormData();
+
+                formData.append('file', image);
+
+                return {
+                    url: 'upload-image',
+                    method: 'POST',
+                    body: formData,
+                };
+            },
+            transformResponse: (response: UploadImage) => ({
+                ...response,
+                url: `https://training-api.clevertec.ru/${response.url}`,
+            }),
+        }),
     }),
 });
 
@@ -151,6 +179,7 @@ export const {
     useGetHealthmonitorQuery,
     useLoginMutation,
     useGetMeQuery,
+    useUpdateUserMutation,
     useRegisterMutation,
     useCheckEmailMutation,
     useConfirmEmailMutation,
@@ -162,4 +191,5 @@ export const {
     useGetTrainingListQuery,
     useAddTrainingMutation,
     useUpdateTrainingMutation,
+    useUploadImageMutation,
 } = apiSlice;

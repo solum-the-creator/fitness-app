@@ -27,6 +27,20 @@
       }
     }
   }
+
+  .alert {
+    z-index: 10;
+    position: absolute;
+    bottom: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 395px;
+
+    @media (max-width: 480px) {
+      bottom: 90px;
+    }
+  }
 }
 
 .form {
@@ -111,55 +125,4 @@
     font-size: 16px;
   }
 
-
-  .upload_dragger {
-    width: 104px;
-    height: 104px;
-    padding: 14px;
-
-    :global {
-      .ant-upload {
-        padding: 0;
-      }
-
-      .upload-drag-icon {
-        line-height: 100%;
-        font-size: 14px;
-      }
-
-      p.ant-upload-text {
-        margin: 8px 0 0;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 130%;
-        color: var(--character-light-secondary-45);
-      }
-    }
-
-    .upload_icon {
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  .upload {
-    width: 100%;
-    display: block;
-
-    .upload_label {
-      display: block;
-      width: 100%;
-      font-size: 12px;
-    }
-
-    :global {
-      .ant-upload {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-      }
-    }
-  }
 }

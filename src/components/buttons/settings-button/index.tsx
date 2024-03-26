@@ -10,6 +10,7 @@ export const SettingsButton = () => {
             icon={<SettingOutlined />}
             type={matchesMobile ? 'default' : 'text'}
             shape={matchesMobile ? 'circle' : 'default'}
+            data-test-id='header-settings'
         >
             {!matchesMobile && 'Настройки'}
         </Button>

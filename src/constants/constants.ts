@@ -35,3 +35,5 @@ export const STATUS_CODE = {
     CONFLICT: 409,
     INTERNAL_SERVER_ERROR: 500,
 };
+
+export const BASE_IMAGE_URL = 'https://training-api.clevertec.ru';
