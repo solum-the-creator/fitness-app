@@ -11,6 +11,7 @@ import {
     LoginRequest,
     LoginResponse,
     RegistrationRequest,
+    TariffList,
     Training,
     TrainingList,
     TrainingResponse,
@@ -153,6 +154,12 @@ export const apiSlice = createApi({
                 method: 'GET',
             }),
         }),
+        getTariffList: builder.query<TariffList, void>({
+            query: () => ({
+                url: '/catalogs/tariff-list',
+                method: 'GET',
+            }),
+        }),
     }),
 });
 
@@ -172,4 +179,5 @@ export const {
     useGetTrainingListQuery,
     useAddTrainingMutation,
     useUpdateTrainingMutation,
+    useGetTariffListQuery,
 } = apiSlice;
