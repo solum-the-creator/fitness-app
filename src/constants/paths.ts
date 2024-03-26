@@ -7,6 +7,7 @@ const PATHS = {
     TRAININGS: '/trainings',
     ACHIEVEMENTS: '/achievements',
     PROFILE: '/profile',
+    SETTINGS: '/settings',
 };
 
 export default PATHS;
