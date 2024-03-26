@@ -91,7 +91,7 @@ export type TrainingResponse = Training & {
 export type TrainingList = Array<{ name: string; key: string }>;
 
 export type TariffList = Array<{
-    _id: string;
+    _id?: string;
     name: string;
     periods: Array<{
         text: string;
