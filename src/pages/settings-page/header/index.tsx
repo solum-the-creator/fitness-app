@@ -19,6 +19,7 @@ export const Header = () => {
                 className={styles.button_back}
                 icon={<ArrowLeftOutlined />}
                 onClick={onClick}
+                data-test-id='settings-back'
             >
                 Настроики
             </Button>

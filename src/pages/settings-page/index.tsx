@@ -1,5 +1,6 @@
+/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
-import { useGetTariffListQuery } from '@redux/api/api-slice';
+import { useGetTariffListQuery, useUpdateUserMutation } from '@redux/api/api-slice';
 import { useAppSelector } from '@redux/configure-store';
 import { userSelector } from '@redux/user/user-slice';
 import { Button } from 'antd';
@@ -18,13 +19,40 @@ import disabledProTariffImg from '/pro_disable_tariff.jpg';
 
 export const SettingsPage = () => {
     const user = useAppSelector(userSelector);
+    const [updateUser] = useUpdateUserMutation();
+
     const { data: tariffList } = useGetTariffListQuery();
     const proTariff = tariffList && tariffList[0];
+    const currentTariff = user.tariff?.tariffId === proTariff?._id ? user.tariff : undefined;
 
     const [isTariffDrawerOpen, setIsTariffDrawerOpen] = useState(false);
+    const [isLoadingReadyForJointTraining, setIsLoadingReadyForJointTraining] = useState(false);
+    const [isLoadingSendNotification, setIsLoadingSendNotification] = useState(false);
 
     const handleMoreClick = () => {
         setIsTariffDrawerOpen(true);
+    };
+
+    const onChangeReadyForJointTraining = async (checked: boolean) => {
+        try {
+            setIsLoadingReadyForJointTraining(true);
+            await updateUser({ readyForJointTraining: checked }).unwrap();
+
+            setIsLoadingReadyForJointTraining(false);
+        } catch {
+            setIsLoadingReadyForJointTraining(false);
+        }
+    };
+
+    const onChangeSendNotification = async (checked: boolean) => {
+        try {
+            setIsLoadingSendNotification(true);
+            await updateUser({ sendNotification: checked }).unwrap();
+
+            setIsLoadingSendNotification(false);
+        } catch {
+            setIsLoadingSendNotification(false);
+        }
     };
 
     return (
@@ -47,16 +75,21 @@ export const SettingsPage = () => {
                                 imageSrc={proTariffImg}
                                 disabledImageSrc={disabledProTariffImg}
                                 onMoreClick={handleMoreClick}
+                                testId='pro-tariff-card'
                             />
                             <TariffDrawer
                                 onClose={() => setIsTariffDrawerOpen(false)}
                                 tariff={proTariff}
+                                currentTariff={currentTariff}
                                 open={isTariffDrawerOpen}
                             />
                         </div>
                     </div>
                     <div className={styles.switch_block}>
                         <SwitchItem
+                            checked={user.readyForJointTraining}
+                            onChange={onChangeReadyForJointTraining}
+                            loading={isLoadingReadyForJointTraining}
                             text='Открыт для совместных тренировок'
                             tooltipText={
                                 <span>
@@ -65,17 +98,26 @@ export const SettingsPage = () => {
                                 </span>
                             }
                             tooltipWidth={205}
+                            testId='tariff-trainings'
+                            tooltipTestId='tariff-theme-icon'
                         />
                         <SwitchItem
+                            checked={user.sendNotification}
+                            onChange={onChangeSendNotification}
+                            loading={isLoadingSendNotification}
                             text='Уведомления'
                             tooltipText='включеная функция позволит получать уведомления об активностях'
                             tooltipWidth={219}
+                            testId='tariff-notifications'
+                            tooltipTestId='tariff-notifications-icon'
                         />
                         <SwitchItem
                             text='Тёмная тема'
                             tooltipText='темная тема доступна для PRO tarif'
                             tooltipWidth={115}
-                            disabled={true}
+                            disabled={!currentTariff}
+                            testId='tariff-theme'
+                            tooltipTestId='tariff-theme-icon'
                         />
                     </div>
                     <div className={styles.feedback_buttons_block}>
