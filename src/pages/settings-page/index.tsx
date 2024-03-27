@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useGetTariffListQuery } from '@redux/api/api-slice';
 import { useAppSelector } from '@redux/configure-store';
 import { userSelector } from '@redux/user/user-slice';
@@ -7,6 +8,7 @@ import { Content } from 'antd/lib/layout/layout';
 import { Header } from './header';
 import { SwitchItem } from './switch-item';
 import { TariffCard } from './tariff-card';
+import { TariffDrawer } from './tariff-drawer';
 
 import styles from './settings-page.module.scss';
 
@@ -16,11 +18,14 @@ import disabledProTariffImg from '/pro_disable_tariff.jpg';
 
 export const SettingsPage = () => {
     const user = useAppSelector(userSelector);
-    const { data: tariffList = [] } = useGetTariffListQuery();
+    const { data: tariffList } = useGetTariffListQuery();
+    const proTariff = tariffList && tariffList[0];
 
-    const proTariff = tariffList[0];
+    const [isTariffDrawerOpen, setIsTariffDrawerOpen] = useState(false);
 
-    console.log(proTariff);
+    const handleMoreClick = () => {
+        setIsTariffDrawerOpen(true);
+    };
 
     return (
         <div className={styles.wrapper}>
@@ -34,12 +39,19 @@ export const SettingsPage = () => {
                                 title='FREE tariff'
                                 isActive={true}
                                 imageSrc={freeTariffImg}
+                                onMoreClick={handleMoreClick}
                             />
                             <TariffCard
                                 title={`${proTariff?.name.toUpperCase()} tariff`}
                                 isActive={false}
                                 imageSrc={proTariffImg}
                                 disabledImageSrc={disabledProTariffImg}
+                                onMoreClick={handleMoreClick}
+                            />
+                            <TariffDrawer
+                                onClose={() => setIsTariffDrawerOpen(false)}
+                                tariff={proTariff}
+                                open={isTariffDrawerOpen}
                             />
                         </div>
                     </div>

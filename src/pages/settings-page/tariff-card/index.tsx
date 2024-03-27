@@ -10,6 +10,7 @@ type TariffCardProps = {
     activeDate?: string;
     imageSrc: string;
     disabledImageSrc?: string;
+    onMoreClick: () => void;
 };
 
 export const TariffCard = ({
@@ -18,6 +19,7 @@ export const TariffCard = ({
     activeDate,
     imageSrc,
     disabledImageSrc,
+    onMoreClick,
 }: TariffCardProps) => {
     const matches = useMediaQuery({ query: '(max-width: 600px)' });
 
@@ -35,7 +37,12 @@ export const TariffCard = ({
             style={{ width: matches ? '100%' : '240px' }}
             cover={<img alt={title} src={isActive ? imageSrc : disabledImageSrc} />}
             extra={
-                <Button type='link' size='small' className={styles.button_more}>
+                <Button
+                    type='link'
+                    size='small'
+                    className={styles.button_more}
+                    onClick={onMoreClick}
+                >
                     Подробнее
                 </Button>
             }
