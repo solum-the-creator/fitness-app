@@ -44,8 +44,6 @@ export const ProfilePage = () => {
     const user = useAppSelector(userSelector);
     const [updateUser, { isLoading }] = useUpdateUserMutation();
 
-    console.log(user.imgSrc);
-
     useLoaderLoading(isLoading);
 
     const [userImgUrl, setUserImgUrl] = useState<string | undefined>(user.imgSrc);
