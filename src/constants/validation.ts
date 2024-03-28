@@ -24,7 +24,7 @@ export const validatePasswordLength: Rule = () => ({
 
 export const validateConfirm: Rule = ({ getFieldValue }) => ({
     validator(_, value: string) {
-        if (value !== getFieldValue('password')) {
+        if (value === getFieldValue('password')) {
             return Promise.resolve();
         }
 
