@@ -1,5 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
+import { push } from 'redux-first-history';
+import PATHS from '@constants/paths';
+import { FeedbackModal } from '@pages/feedbacks-page/feedback-modal';
 import { useGetTariffListQuery, useUpdateUserMutation } from '@redux/api/api-slice';
 import { useAppDispatch, useAppSelector } from '@redux/configure-store';
 import { setUser, userSelector } from '@redux/user/user-slice';
@@ -29,6 +32,7 @@ export const SettingsPage = () => {
 
     const [isTariffDrawerOpen, setIsTariffDrawerOpen] = useState(false);
     const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
+    const [isOpenFeedbackModal, setIsOpenFeedbackModal] = useState(false);
 
     const handleMoreClick = () => {
         setIsTariffDrawerOpen(true);
@@ -50,6 +54,10 @@ export const SettingsPage = () => {
         } catch {
             dispatch(setUser({ ...user, readyForJointTraining: checked }));
         }
+    };
+
+    const showFeedbackModal = () => {
+        setIsOpenFeedbackModal(true);
     };
 
     return (
@@ -119,12 +127,21 @@ export const SettingsPage = () => {
                         />
                     </div>
                     <div className={styles.feedback_buttons_block}>
-                        <Button type='primary' size='large'>
+                        <Button type='primary' size='large' onClick={showFeedbackModal}>
                             Написать отзыв
                         </Button>
-                        <Button type='link' size='large'>
+                        <Button
+                            type='link'
+                            size='large'
+                            onClick={() => dispatch(push(PATHS.FEEDBACKS))}
+                        >
                             Смотреть все отзывы
                         </Button>
+                        <FeedbackModal
+                            onShow={showFeedbackModal}
+                            onClose={() => setIsOpenFeedbackModal(false)}
+                            isModalOpen={isOpenFeedbackModal}
+                        />
                     </div>
                 </div>
             </Content>
