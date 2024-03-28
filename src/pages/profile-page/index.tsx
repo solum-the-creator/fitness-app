@@ -44,7 +44,11 @@ export const ProfilePage = () => {
     const user = useAppSelector(userSelector);
     const [updateUser, { isLoading }] = useUpdateUserMutation();
 
+    console.log(user.imgSrc);
+
     useLoaderLoading(isLoading);
+
+    const [userImgUrl, setUserImgUrl] = useState<string | undefined>(user.imgSrc);
 
     const [isDisabledSubmit, setIsDisabledSubmit] = useState(true);
     const [isPasswordRequired, setIsPasswordRequired] = useState(false);
@@ -56,6 +60,7 @@ export const ProfilePage = () => {
             ...user,
             birthday: user.birthday ? moment(user.birthday) : undefined,
         });
+        setUserImgUrl(user.imgSrc);
     }, [form, user]);
 
     const onFieldsChange = (changedFields: FieldData[]) => {
@@ -139,7 +144,7 @@ export const ProfilePage = () => {
                         <div className={styles.form_section}>
                             <h2 className={styles.form_subtitle}>Личная информация</h2>
                             <div className={styles.personal_info}>
-                                <UploadImage onGetValue={getFile} imageUrl={user.imgSrc} />
+                                <UploadImage onGetValue={getFile} imageUrl={userImgUrl} />
                                 <div className={styles.inputs}>
                                     <Form.Item name='firstName' noStyle={true}>
                                         <Input
