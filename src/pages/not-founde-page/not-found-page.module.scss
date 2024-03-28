@@ -1,0 +1,35 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 24px 24px 42px;
+
+  @media (max-width: 480px) {
+    padding: 24px 0 42px;
+  }
+
+  .main {
+    height: 100%;
+    padding: 24px;
+    background-color: var(--neutral-gray-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    :global {
+      .ant-result {
+        padding: 0;
+      }
+
+      .ant-result-title {
+        font-weight: 500;
+        line-height: 130%;
+      }
+
+      .ant-result-subtitle {
+        line-height: 130%;
+      }
+    }
+  }
+}

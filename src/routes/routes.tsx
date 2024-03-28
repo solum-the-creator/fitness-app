@@ -21,6 +21,7 @@ import { CalendarPage } from '@pages/calendar-page';
 import { FeedbacksPage } from '@pages/feedbacks-page';
 import { LayoutMain } from '@pages/layout';
 import { MainPage } from '@pages/main-page';
+import { NotFoundPage } from '@pages/not-founde-page';
 import { ProfilePage } from '@pages/profile-page';
 import { SettingsPage } from '@pages/settings-page';
 
@@ -34,6 +35,7 @@ export const AppRoutes = () => (
                 <Route path={PATHS.CALENDAR} element={<CalendarPage />} />
                 <Route path={PATHS.PROFILE} element={<ProfilePage />} />
                 <Route path={PATHS.SETTINGS} element={<SettingsPage />} />
+                <Route path='*' element={<NotFoundPage />} />
             </Route>
         </Route>
         <Route element={<UnauthRoutes />}>
@@ -59,6 +61,7 @@ export const AppRoutes = () => (
                     <Route path='error-change-password' element={<ErrorChangePassword />} />
                 </Route>
             </Route>
+            <Route path='*' element={<Navigate to={PATHS.AUTH} replace={true} />} />
         </Route>
     </Routes>
 );
