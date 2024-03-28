@@ -1,12 +1,13 @@
-import styles from './training-modal.module.scss';
-
-import { useLayoutEffect, useRef, useState } from 'react';
-import { Moment } from 'moment';
-import { TrainingDisplay } from './training-display';
-import { TrainingCreate } from './training-create';
+import { useRef, useState } from 'react';
+import { useHandleModalResize } from '@hooks/use-handle-modal-resize';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { missingTrainings } from '@utils/missing-trainings';
-import { useHandleModalResize } from '@hooks/use-handle-modal-resize';
+import { Moment } from 'moment';
+
+import { TrainingCreate } from './training-create';
+import { TrainingDisplay } from './training-display';
+
+import styles from './training-modal.module.scss';
 
 export type ModalPosition = {
     top: number;
@@ -64,6 +65,7 @@ export const TrainingModal = ({
     };
 
     return (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
             className={`${modalClass} ${styles.modal}`}
             style={{ ...positionModal, position: fullscreen ? 'absolute' : 'fixed' }}

@@ -1,4 +1,5 @@
 import { Button, Modal, Result } from 'antd';
+
 import styles from './error-modal.module.scss';
 
 type ErrorModalProps = {
@@ -10,19 +11,19 @@ type ErrorModalProps = {
 export const ErrorModal = ({ isModalOpen, onClose, onRetry }: ErrorModalProps) => (
     <Modal
         open={isModalOpen}
-        centered
+        centered={true}
         footer={null}
         closable={false}
         wrapClassName={styles.modal_wrap}
         className={styles.modal}
-        width={'100%'}
+        width='100%'
         transitionName=''
         maskTransitionName=''
         maskStyle={{ backdropFilter: 'blur(6px)', background: 'rgba(121, 156, 212, 0.5)' }}
     >
         <Result
             className={styles.result}
-            status={'error'}
+            status='error'
             title='Данные не сохранились'
             subTitle='Что-то пошло не так. Попробуйте ещё раз.'
             extra={
@@ -31,7 +32,7 @@ export const ErrorModal = ({ isModalOpen, onClose, onRetry }: ErrorModalProps) =
                         type='primary'
                         size='large'
                         className={styles.button_feedback}
-                        block
+                        block={true}
                         onClick={onRetry}
                         data-test-id='write-review-not-saved-modal'
                     >
@@ -41,7 +42,7 @@ export const ErrorModal = ({ isModalOpen, onClose, onRetry }: ErrorModalProps) =
                         type='default'
                         size='large'
                         className={styles.button_close}
-                        block
+                        block={true}
                         onClick={onClose}
                     >
                         Закрыть

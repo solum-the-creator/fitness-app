@@ -3,7 +3,8 @@ import path from 'path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+    base: command === 'build' ? '/solum-the-creator/' : '/',
     plugins: [react()],
     server: {
         host: true,
@@ -23,6 +24,10 @@ export default defineConfig({
                     'typography-title-margin-top': '0px',
                     'typography-title-margin-bottom': '0px',
                     'typography-title-font-weight': '500',
+                    'input-padding-horizontal': '12px',
+                    'input-padding-vertical-lg': '10px',
+                    'font-size-lg': '14px',
+                    'line-height-bas': '1.3',
                 },
                 javascriptEnabled: true,
             },
@@ -40,4 +45,4 @@ export default defineConfig({
             '@utils': path.resolve(__dirname, 'src/utils'),
         },
     },
-});
+}));

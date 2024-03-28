@@ -1,5 +1,10 @@
+import React, { useState } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import styles from './training-create.module.scss';
+import {
+    useAddTrainingMutation,
+    useGetTrainingListQuery,
+    useUpdateTrainingMutation,
+} from '@redux/api/api-slice';
 import {
     Exercise,
     ExerciseResponse,
@@ -7,19 +12,17 @@ import {
     TrainingList,
     TrainingResponse,
 } from '@redux/api/types';
-import { Button, Empty, Modal, Select } from 'antd';
-import emptyImage from '/empty-image-fit.svg';
-import { useState } from 'react';
-import { ExerciseEditor } from './exercise-editor';
-import { ExerciseNameList } from './exercise-name-list';
-import { Moment } from 'moment';
-import {
-    useAddTrainingMutation,
-    useGetTrainingListQuery,
-    useUpdateTrainingMutation,
-} from '@redux/api/apiSlice';
 import { isPastDate } from '@utils/date-utils';
 import { availableTrainings } from '@utils/missing-trainings';
+import { Button, Empty, Modal, Select } from 'antd';
+import { Moment } from 'moment';
+
+import { ExerciseEditor } from './exercise-editor';
+import { ExerciseNameList } from './exercise-name-list';
+
+import styles from './training-create.module.scss';
+
+import emptyImage from '/empty-image-fit.svg';
 
 type TrainingCreateProps = {
     trainingList: TrainingList;
@@ -73,8 +76,10 @@ export const TrainingCreate = ({
 
     const handleChangeSelect = (value: string) => {
         const trainingType = initialTrainingList.find((item) => item.key === value);
+
         if (trainingType) {
             const existTraining = trainings.find((item) => item.name === trainingType.name);
+
             if (existTraining) {
                 setEditableTraining(existTraining);
                 setExerciseList(existTraining.exercises);
@@ -91,8 +96,8 @@ export const TrainingCreate = ({
         setIsExerciseOpen(false);
     };
 
-    const showErrorModal = () => {
-        return Modal.error({
+    const showErrorModal = () =>
+        Modal.error({
             title: (
                 <span data-test-id='modal-error-user-training-title'>
                     При сохранении данных произошла&nbsp;ошибка
@@ -116,7 +121,6 @@ export const TrainingCreate = ({
             wrapClassName: styles.error_modal_wrapper,
             onOk: onClose,
         });
-    };
 
     const handleSave = async () => {
         if (editableTraining) {
@@ -132,25 +136,26 @@ export const TrainingCreate = ({
             } catch {
                 showErrorModal();
             }
-        } else {
-            if (selectedTrainingType && !isEmpty) {
-                const training: Training = {
-                    name: selectedTrainingType.name,
-                    date: date.toISOString(),
-                    exercises: exerciseList,
-                };
-                try {
-                    await addTraining(training).unwrap();
-                    onCancel();
-                } catch {
-                    showErrorModal();
-                }
+        }
+
+        if (selectedTrainingType && !isEmpty) {
+            const training: Training = {
+                name: selectedTrainingType.name,
+                date: date.toISOString(),
+                exercises: exerciseList,
+            };
+
+            try {
+                await addTraining(training).unwrap();
+                onCancel();
+            } catch {
+                showErrorModal();
             }
         }
     };
 
     return (
-        <>
+        <React.Fragment>
             <Button
                 icon={<ArrowLeftOutlined style={{ fontSize: '14px' }} />}
                 type='text'
@@ -213,7 +218,7 @@ export const TrainingCreate = ({
             </div>
             <div className={styles.modal_footer}>
                 <Button
-                    block
+                    block={true}
                     onClick={() => setIsExerciseOpen(true)}
                     disabled={!selectedTrainingType}
                 >
@@ -221,7 +226,7 @@ export const TrainingCreate = ({
                 </Button>
                 <Button
                     type='link'
-                    block
+                    block={true}
                     onClick={handleSave}
                     disabled={isEmpty || !selectedTrainingType}
                     loading={isLoading}
@@ -239,6 +244,6 @@ export const TrainingCreate = ({
                     onClose={handleOnClose}
                 />
             )}
-        </>
+        </React.Fragment>
     );
 };

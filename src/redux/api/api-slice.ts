@@ -1,19 +1,24 @@
+/* eslint-disable no-underscore-dangle */
+import { RootState } from '@redux/configure-store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import {
+    AddTariffRequest,
+    ChangePasswordRequest,
     CheckEmailResponse,
     ConfrimEmailRequest,
     ConfrimEmailResponse,
+    Feedback,
     LoginRequest,
     LoginResponse,
     RegistrationRequest,
-    User,
-    ChangePasswordRequest,
-    Feedback,
+    TariffList,
+    Training,
     TrainingList,
     TrainingResponse,
-    Training,
+    UpdateUserRequest,
+    User,
 } from './types';
-import { RootState } from '@redux/configure-store';
 
 export const BASE_API_URL = 'https://marathon-api.clevertec.ru/';
 
@@ -22,16 +27,18 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: BASE_API_URL,
         prepareHeaders: (headers, { getState }) => {
-            const accessToken = (getState() as RootState).auth.accessToken;
+            const { accessToken } = (getState() as RootState).auth;
+
             if (accessToken) {
                 headers.set('authorization', `Bearer ${accessToken}`);
             }
+
             return headers;
         },
         credentials: 'include',
         mode: 'cors',
     }),
-    tagTypes: ['Feedback', 'Training'],
+    tagTypes: ['Feedback', 'Training', 'User'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -70,7 +77,20 @@ export const apiSlice = createApi({
             }),
         }),
         getMe: builder.query<User, void>({
-            query: () => 'user/me',
+            query: () => ({
+                url: 'user/me',
+                method: 'GET',
+                credentials: 'include',
+            }),
+            providesTags: [{ type: 'User', id: 'LIST' }],
+        }),
+        updateUser: builder.mutation<User, UpdateUserRequest>({
+            query: (data) => ({
+                url: 'user',
+                method: 'PUT',
+                body: data,
+            }),
+            invalidatesTags: [{ type: 'User', id: 'LIST' }],
         }),
         getHealthmonitor: builder.query<void, void>({
             query: () => ({
@@ -135,6 +155,19 @@ export const apiSlice = createApi({
                 method: 'GET',
             }),
         }),
+        getTariffList: builder.query<TariffList, void>({
+            query: () => ({
+                url: '/catalogs/tariff-list',
+                method: 'GET',
+            }),
+        }),
+        addTariff: builder.mutation<void, AddTariffRequest>({
+            query: (tariff) => ({
+                url: '/tariff',
+                method: 'POST',
+                body: tariff,
+            }),
+        }),
     }),
 });
 
@@ -142,6 +175,7 @@ export const {
     useGetHealthmonitorQuery,
     useLoginMutation,
     useGetMeQuery,
+    useUpdateUserMutation,
     useRegisterMutation,
     useCheckEmailMutation,
     useConfirmEmailMutation,
@@ -153,4 +187,6 @@ export const {
     useGetTrainingListQuery,
     useAddTrainingMutation,
     useUpdateTrainingMutation,
+    useGetTariffListQuery,
+    useAddTariffMutation,
 } = apiSlice;

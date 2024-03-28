@@ -1,13 +1,15 @@
-import { useLazyGetTrainingQuery } from '@redux/api/apiSlice';
-import { useLoaderLoading } from './use-loader-loading';
-import PATHS from '@constants/paths';
-import { push } from 'redux-first-history';
-import { useAppDispatch } from '@redux/configure-store';
 import { useState } from 'react';
+import { push } from 'redux-first-history';
+import PATHS from '@constants/paths';
+import { useLazyGetTrainingQuery } from '@redux/api/api-slice';
+import { useAppDispatch } from '@redux/configure-store';
+
+import { useLoaderLoading } from './use-loader-loading';
 
 export const useGetLazyTraining = () => {
     const dispatch = useAppDispatch();
     const [getTraining, { isFetching }] = useLazyGetTrainingQuery();
+
     useLoaderLoading(isFetching);
 
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);

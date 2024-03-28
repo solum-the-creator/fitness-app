@@ -1,9 +1,6 @@
-import { Logo } from '@components/logo';
-import { Button, Layout, Menu } from 'antd';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-
-import styles from './sidebar.module.scss';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
     CalendarTwoTone,
     HeartFilled,
@@ -13,24 +10,27 @@ import {
     TrophyFilled,
 } from '@ant-design/icons';
 import { ExitIcon } from '@components/icons/exit-icon';
-import { useAppDispatch } from '@redux/configure-store';
-import { logout } from '@redux/auth/authSlice';
-
-import { setIsCollapsed } from '@redux/sider/siderSlice';
-import { useLocation } from 'react-router-dom';
+import { Logo } from '@components/logo';
+import { ErrorModal } from '@components/modals/error-modal';
 import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
-import { ErrorModal } from '@components/modals/error-modal';
+import { useLogout } from '@hooks/use-logout';
+import { useAppDispatch } from '@redux/configure-store';
+import { setIsCollapsed } from '@redux/sider/sider-slice';
+import { Button, Layout, Menu } from 'antd';
+
+import styles from './sidebar.module.scss';
 
 const { Sider } = Layout;
 
 export const Sidebar = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
-    const matches = useMediaQuery({ query: `(max-width: 768px)` });
+    const matches = useMediaQuery({ query: '(max-width: 768px)' });
     const [collapsed, setCollapsed] = useState(matches);
 
     const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
+    const logout = useLogout();
 
     useEffect(() => {
         if (matches) {
@@ -66,7 +66,7 @@ export const Sidebar = () => {
                     }}
                 />
             ),
-            label: 'Профиль',
+            label: <NavLink to={PATHS.PROFILE}>Профиль</NavLink>,
         },
     ];
 
@@ -76,13 +76,13 @@ export const Sidebar = () => {
     };
 
     const onExit = () => {
-        dispatch(logout());
+        logout();
     };
 
     return (
         <Sider
             width={matches ? 106 : 208}
-            collapsible
+            collapsible={true}
             trigger={null}
             collapsed={collapsed}
             collapsedWidth={matches ? 1 : 64}

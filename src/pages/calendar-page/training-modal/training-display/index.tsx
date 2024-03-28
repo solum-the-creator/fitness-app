@@ -1,12 +1,16 @@
+/* eslint-disable no-underscore-dangle */
+import React from 'react';
+import { CloseOutlined, EditOutlined } from '@ant-design/icons';
+import { TrainingTypeBadge } from '@components/training-type-badge';
+import { DATE_FORMAT } from '@constants/constants';
+import { TrainingList, TrainingResponse } from '@redux/api/types';
+import { isPastDate } from '@utils/date-utils';
+import { Button, Empty } from 'antd';
+import { Moment } from 'moment';
+
 import styles from './training-display.module.scss';
 
 import emptyImage from '/empty-image-fit.svg';
-import { Moment } from 'moment';
-import { Button, Empty } from 'antd';
-import { CloseOutlined, EditOutlined } from '@ant-design/icons';
-import { TrainingList, TrainingResponse } from '@redux/api/types';
-import { TrainingTypeBadge } from '@components/training-type-badge';
-import { isPastDate } from '@utils/date-utils';
 
 type TrainingDisplayProps = {
     selectedDate: Moment;
@@ -40,11 +44,11 @@ export const TrainingDisplay = ({
     };
 
     return (
-        <>
+        <React.Fragment>
             <div className={styles.modal_header}>
                 <div className={styles.header_content}>
                     <h4 className={styles.modal_title}>
-                        Тренировки на {selectedDate.format('DD.MM.YYYY')}
+                        Тренировки на {selectedDate.format(DATE_FORMAT)}
                     </h4>
                     {isEmpty && <p className={styles.modal_subtitle}>Нет активных тренировок</p>}
                 </div>
@@ -97,13 +101,13 @@ export const TrainingDisplay = ({
                 <Button
                     type='primary'
                     size='large'
-                    block
+                    block={true}
                     onClick={handleCreate}
                     disabled={isDisabled}
                 >
                     Создать тренировку
                 </Button>
             </div>
-        </>
+        </React.Fragment>
     );
 };

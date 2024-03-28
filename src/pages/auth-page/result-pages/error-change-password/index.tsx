@@ -1,9 +1,9 @@
+import { useLocation } from 'react-router-dom';
+import { replace } from 'redux-first-history';
 import PATHS from '@constants/paths';
 import { Wrapper } from '@pages/auth-page/_components/result/wrapper';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
-import { useLocation } from 'react-router-dom';
-import { replace } from 'redux-first-history';
 
 export const ErrorChangePassword = () => {
     const location = useLocation();
@@ -13,9 +13,9 @@ export const ErrorChangePassword = () => {
 
     const onReapeat = () => {
         dispatch(
-            replace(`${PATHS.AUTH}/change-password`, {
+            replace(PATHS.CHANGE_PASSWORD, {
                 isRepeat: true,
-                formValues: formValues,
+                formValues,
                 fromResult: true,
             }),
         );
@@ -24,14 +24,14 @@ export const ErrorChangePassword = () => {
     return (
         <Wrapper>
             <Result
-                status={'error'}
+                status='error'
                 title='Данные не сохранились'
                 subTitle='Что-то пошло не так. Попробуйте ещё раз'
                 extra={
                     <Button
                         type='primary'
                         size='large'
-                        block
+                        block={true}
                         data-test-id='change-retry-button'
                         onClick={onReapeat}
                     >

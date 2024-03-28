@@ -1,4 +1,5 @@
 import { Button, Modal, Result } from 'antd';
+
 import styles from './error-modal.module.scss';
 
 type ErrorModalProps = {
@@ -9,12 +10,12 @@ type ErrorModalProps = {
 export const ErrorModal = ({ isModalOpen, onClose }: ErrorModalProps) => (
     <Modal
         open={isModalOpen}
-        centered
+        centered={true}
         footer={null}
         closable={false}
         wrapClassName={styles.modal_wrap}
         className={styles.modal}
-        width={'100%'}
+        width='100%'
         bodyStyle={{ padding: '64px 32px 56px' }}
         transitionName=''
         maskTransitionName=''
@@ -22,7 +23,7 @@ export const ErrorModal = ({ isModalOpen, onClose }: ErrorModalProps) => (
         data-test-id='modal-no-review'
     >
         <Result
-            status={'500'}
+            status='500'
             title='Что-то пошло не так'
             subTitle='Произошла ошибка, попробуйте&nbsp;ещё&nbsp;раз.'
             className={styles.result}

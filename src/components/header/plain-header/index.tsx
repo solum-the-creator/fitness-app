@@ -1,12 +1,13 @@
-import { Breadcrumb, Layout } from 'antd';
-import styles from './plain-header.module.scss';
 import { Link } from 'react-router-dom';
+import { Breadcrumb, Layout } from 'antd';
+
+import styles from './plain-header.module.scss';
 
 type PlainHeaderProps = {
-    breadCrumbs: {
+    breadCrumbs: Array<{
         title: string;
         link: string;
-    }[];
+    }>;
 };
 
 export const PlainHeader = ({ breadCrumbs }: PlainHeaderProps) => (

@@ -25,6 +25,8 @@ export const RU_CALENDAR_LOCALE = {
 
 export const DATE_FORMAT = 'DD.MM.YYYY';
 
+export const DATE_FORMAT_FEEDBACK = 'dd.MM.yyyy';
+
 export const STATUS_CODE = {
     SUCCESS: 200,
     CREATED: 201,
@@ -35,3 +37,5 @@ export const STATUS_CODE = {
     CONFLICT: 409,
     INTERNAL_SERVER_ERROR: 500,
 };
+
+export const BASE_IMAGE_URL = 'https://training-api.clevertec.ru';

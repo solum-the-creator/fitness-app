@@ -1,7 +1,8 @@
-import { Checkbox, Input, InputNumber } from 'antd';
-import styles from './exercise-item.module.scss';
-import { Exercise, ExerciseResponse } from '@redux/api/types';
 import { useState } from 'react';
+import { Exercise, ExerciseResponse } from '@redux/api/types';
+import { Checkbox, Input, InputNumber } from 'antd';
+
+import styles from './exercise-item.module.scss';
 
 type ExerciseItemProps = {
     item: Partial<Exercise> | ExerciseResponse;
@@ -47,12 +48,12 @@ export const ExerciseItem = ({
     };
 
     const handleWeightChange = (value: number | null) => {
-        if (value !== null) {
-            setWeight(value);
-            handleUpdate({ weight: value });
-        } else {
+        if (value === null) {
             setWeight(0);
             handleUpdate({ approaches: 0 });
+        } else {
+            setWeight(value);
+            handleUpdate({ weight: value });
         }
     };
 
@@ -90,7 +91,7 @@ export const ExerciseItem = ({
                     <span className={styles.label}>Подходы</span>
                     <div className={styles.approach_input}>
                         <InputNumber
-                            addonBefore={'+'}
+                            addonBefore='+'
                             min={1}
                             type='number'
                             placeholder='1'

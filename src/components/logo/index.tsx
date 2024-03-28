@@ -1,11 +1,11 @@
-import { Image } from 'antd';
-
-import logo from '/logo.svg';
-import logoCollapsed from '/fitLogo.svg';
-
-import styles from './logo.module.scss';
 import { Link } from 'react-router-dom';
 import PATHS from '@constants/paths';
+import { Image } from 'antd';
+
+import styles from './logo.module.scss';
+
+import logoCollapsed from '/fitLogo.svg';
+import logo from '/logo.svg';
 
 type LogoProps = {
     collapsed: boolean;

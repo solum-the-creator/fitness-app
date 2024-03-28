@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { setIsLoading } from '@redux/loader/loader-slice';
+
 import { useAppDispatch } from '.';
-import { setIsLoading } from '@redux/loader/loaderSlice';
 
 export const useLoaderLoading = (isLoading: boolean) => {
     const dispatch = useAppDispatch();

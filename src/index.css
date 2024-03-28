@@ -91,10 +91,13 @@
 	--second-family: "Roboto", sans-serif;
 	--padding-header: 16px 24px;
 	--padding-mobile-wrapper: 32px 16px;
+	--padding-wrapper: 24px 24px 42px;
 	--padding-clear: 0;
+	--padding-modal-body: 32px 32px 24px;
 	--padding-modal-wrapper: 16px;
 	--boreder-radius-left: 8px 0 0 8px;
 	--boreder-radius-top: 24px 24px 0 0;
+	--border-radius-large: 8px;
 }
 
 form {

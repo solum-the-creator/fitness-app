@@ -1,28 +1,31 @@
 import React from 'react';
-
-import { Button, Card, Col, Layout, Row } from 'antd';
-import { Header } from '@components/header';
-
-import styles from './main-page.module.scss';
+import { push } from 'redux-first-history';
 import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons';
-import { Footer } from './footer';
+import { Header } from '@components/header';
+import { ErrorModal } from '@components/modals/error-modal';
 import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
-import { ErrorModal } from '@components/modals/error-modal';
+import { useAppDispatch } from '@redux/configure-store';
+import { Button, Card, Col, Layout, Row } from 'antd';
+
+import { Footer } from './footer';
+
+import styles from './main-page.module.scss';
 
 const { Content } = Layout;
 
 export const MainPage: React.FC = () => {
+    const dispatch = useAppDispatch();
     const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
 
     return (
         <Layout className={styles.main_container}>
             <Header
                 title={
-                    <>
+                    <React.Fragment>
                         Приветствуем тебя в&nbsp;CleverFit&nbsp;— приложении,
                         <br /> которое поможет тебе добиться своей мечты!
-                    </>
+                    </React.Fragment>
                 }
                 breadCrumbs={[{ title: 'Главная', link: PATHS.MAIN }]}
             />
@@ -58,7 +61,7 @@ export const MainPage: React.FC = () => {
                                     </Card>
                                 </Col>
                                 <Col span={24}>
-                                    <Row gutter={[16, 8]} justify={'space-between'}>
+                                    <Row gutter={[16, 8]} justify='space-between'>
                                         <Col xs={24} sm={8} span={8}>
                                             <Card
                                                 title='Расписать тренировки'
@@ -75,7 +78,7 @@ export const MainPage: React.FC = () => {
                                                     icon={
                                                         <HeartFilled style={{ fontSize: '12px' }} />
                                                     }
-                                                    block
+                                                    block={true}
                                                     className={styles.card_button}
                                                 >
                                                     Тренировки
@@ -101,7 +104,7 @@ export const MainPage: React.FC = () => {
                                                             style={{ fontSize: '12px' }}
                                                         />
                                                     }
-                                                    block
+                                                    block={true}
                                                     className={styles.card_button}
                                                     onClick={() => onGetTraining()}
                                                     data-test-id='menu-button-calendar'
@@ -136,8 +139,10 @@ export const MainPage: React.FC = () => {
                                                             }}
                                                         />
                                                     }
-                                                    block
+                                                    block={true}
                                                     className={styles.card_button}
+                                                    onClick={() => dispatch(push(PATHS.PROFILE))}
+                                                    data-test-id='menu-button-profile'
                                                 >
                                                     Профиль
                                                 </Button>

@@ -1,4 +1,4 @@
-import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit/react';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit/react';
 
 type SiderState = {
     isCollapsed: boolean;

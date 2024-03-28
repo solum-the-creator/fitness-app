@@ -2,8 +2,18 @@ export type User = {
     email: string;
     firstName?: string;
     lastName?: string;
+    birthday?: string;
     imgSrc?: string;
     readyForJointTraining: boolean;
+    sendNotification: boolean;
+    tariff?: Tariff;
+};
+
+export type UpdateUserRequest = Partial<User> & { password?: string };
+
+export type Tariff = {
+    tariffId: string;
+    expired: string;
 };
 
 export type Feedback = {
@@ -78,4 +88,24 @@ export type TrainingResponse = Training & {
     exercises: ExerciseResponse[];
 };
 
-export type TrainingList = { name: string; key: string }[];
+export type TrainingList = Array<{ name: string; key: string }>;
+
+export type TariffList = Array<{
+    _id?: string;
+    name: string;
+    periods: Array<{
+        text: string;
+        cost: number;
+        days: number;
+    }>;
+}>;
+
+export type AddTariffRequest = {
+    tariffId: string;
+    days: number;
+};
+
+export type UploadImage = {
+    name: string;
+    url: string;
+};

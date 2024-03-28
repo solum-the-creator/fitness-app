@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -7,15 +8,15 @@ import { store, history } from '@redux/configure-store';
 
 import './styles/normilize.css';
 import './styles/reset.css';
-
 import 'antd/dist/antd.less';
 
 import './index.css';
-import { AppRoutes } from './routes/routes';
-import { Loader } from '@components/loader';
 
 import 'moment/locale/ru';
 import moment from 'moment';
+
+import { Loader } from '@components/loader';
+import { AppRoutes } from './routes/routes';
 
 moment.locale('ru', {
     week: {

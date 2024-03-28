@@ -1,21 +1,21 @@
-import styles from './feedback.module.scss';
-
+import { useEffect, useMemo, useState } from 'react';
+import { goBack, replace } from 'redux-first-history';
 import { PlainHeader } from '@components/header/plain-header';
+import { ErrorModal } from '@components/modals/error-modal';
+import { STATUS_CODE } from '@constants/constants';
+import PATHS from '@constants/paths';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { useLogout } from '@hooks/use-logout';
+import { useGetFeedbackQuery } from '@redux/api/api-slice';
+import { useAppDispatch } from '@redux/configure-store';
 import { Layout } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 
-import { useGetFeedbackQuery } from '@redux/api/apiSlice';
-import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useEffect, useMemo, useState } from 'react';
 import { EmptyFeedbacks } from './empty-feedbacks';
-import { Feedbacks } from './feedbacks';
-import { ErrorModal } from '@components/modals/error-modal';
-import { useAppDispatch } from '@redux/configure-store';
-import { goBack, replace } from 'redux-first-history';
-import { logout } from '@redux/auth/authSlice';
 import { FeedbackModal } from './feedback-modal';
-import PATHS from '@constants/paths';
-import { STATUS_CODE } from '@constants/constants';
+import { Feedbacks } from './feedbacks';
+
+import styles from './feedback.module.scss';
 
 type ErrorGetFeedbacks = {
     status: number;
@@ -30,6 +30,7 @@ export const FeedbacksPage = () => {
     const dispatch = useAppDispatch();
 
     const { data: feedbacks = [], isFetching, isError, isLoading, error } = useGetFeedbackQuery();
+    const logout = useLogout();
 
     useLoaderLoading(isFetching);
 
@@ -48,6 +49,7 @@ export const FeedbacksPage = () => {
         if (!showAll && sortedFeedbacks.length > 4) {
             return sortedFeedbacks.slice(sortedFeedbacks.length - 4);
         }
+
         return sortedFeedbacks;
     }, [showAll, sortedFeedbacks]);
 
@@ -66,14 +68,15 @@ export const FeedbacksPage = () => {
     useEffect(() => {
         if (isError) {
             const errorGetFeedbacks = error as ErrorGetFeedbacks;
+
             if (errorGetFeedbacks.status === STATUS_CODE.FORBIDDEN) {
-                dispatch(logout());
+                logout();
                 dispatch(replace('/auth'));
             } else {
                 setIsOpenErrorModal(true);
             }
         }
-    }, [isError, error, dispatch]);
+    }, [isError, error, dispatch, logout]);
 
     return (
         <Layout className={styles.main_container}>

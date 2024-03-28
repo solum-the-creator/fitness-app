@@ -1,14 +1,16 @@
-import styles from './chage-password.module.scss';
-
-import { Button, Form, Input, Typography } from 'antd';
-import { Wrapper } from '../_components/result/wrapper';
-import { Rule } from 'antd/lib/form';
-import { useChangePasswordMutation } from '@redux/api/apiSlice';
-import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useAppDispatch } from '@redux/configure-store';
-import { push, replace } from 'redux-first-history';
-import { useLocation } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { push, replace } from 'redux-first-history';
+import { PATHS_RESULT } from '@constants/paths';
+import { validateConfirm, validatePassword } from '@constants/validation';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { useChangePasswordMutation } from '@redux/api/api-slice';
+import { useAppDispatch } from '@redux/configure-store';
+import { Button, Form, Input, Typography } from 'antd';
+
+import { Wrapper } from '../_components/result/wrapper';
+
+import styles from './chage-password.module.scss';
 
 type ChangePasswordForm = {
     password: string;
@@ -20,6 +22,7 @@ export const ChangePasswordPage = () => {
     const dispatch = useAppDispatch();
     const [form] = Form.useForm();
     const [changePassword, { isLoading }] = useChangePasswordMutation();
+
     useLoaderLoading(isLoading);
 
     const isRepeat = location.state?.isRepeat as boolean;
@@ -29,10 +32,13 @@ export const ChangePasswordPage = () => {
         async (values: ChangePasswordForm) => {
             try {
                 await changePassword(values).unwrap();
-                dispatch(replace('/result/success-change-password', { fromResult: true }));
+                dispatch(replace(PATHS_RESULT.SUCCESS_CHANGE_PASSWORD, { fromResult: true }));
             } catch (error) {
                 dispatch(
-                    push('/result/error-change-password', { fromResult: true, formValues: values }),
+                    push(PATHS_RESULT.ERROR_CHANGE_PASSWORD, {
+                        fromResult: true,
+                        formValues: values,
+                    }),
                 );
             }
         },
@@ -44,26 +50,6 @@ export const ChangePasswordPage = () => {
             onFinish(repeatValues);
         }
     }, [isRepeat, onFinish, repeatValues]);
-
-    const validatePassword: Rule = () => ({
-        validator(_, value: string) {
-            if (!/(?=.*[A-Z])(?=.*[0-9])^[a-zA-Z0-9]+$/.test(value)) {
-                return Promise.reject('');
-            } else {
-                return Promise.resolve();
-            }
-        },
-    });
-
-    const validateConfirm: Rule = ({ getFieldValue }) => ({
-        validator(_, value: string) {
-            if (value !== getFieldValue('password')) {
-                return Promise.reject('Пароли не совпадают');
-            } else {
-                return Promise.resolve();
-            }
-        },
-    });
 
     return (
         <Wrapper>
@@ -79,7 +65,7 @@ export const ChangePasswordPage = () => {
                     form={form}
                 >
                     <Form.Item
-                        name={'password'}
+                        name='password'
                         rules={[{ required: true }, { min: 8, message: '' }, validatePassword]}
                         className={styles.form_item_password}
                         help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
@@ -87,7 +73,7 @@ export const ChangePasswordPage = () => {
                         <Input.Password placeholder='Пароль' data-test-id='change-password' />
                     </Form.Item>
                     <Form.Item
-                        name={'confirmPassword'}
+                        name='confirmPassword'
                         dependencies={['password']}
                         rules={[{ required: true, message: '' }, validateConfirm]}
                         className={styles.form_item_confirm_password}
@@ -97,12 +83,12 @@ export const ChangePasswordPage = () => {
                             data-test-id='change-confirm-password'
                         />
                     </Form.Item>
-                    <Form.Item shouldUpdate className={styles.form_button_submit}>
+                    <Form.Item shouldUpdate={true} className={styles.form_button_submit}>
                         {() => (
                             <Button
                                 type='primary'
                                 htmlType='submit'
-                                block
+                                block={true}
                                 data-test-id='change-submit-button'
                                 disabled={
                                     form.getFieldsError().filter(({ errors }) => errors.length)

@@ -1,15 +1,17 @@
-import { Button, Form, Input } from 'antd';
-import styles from './registration-page.module.scss';
-import { GooglePlusOutlined } from '@ant-design/icons';
-import { useRegisterMutation } from '@redux/api/apiSlice';
-import { useAppDispatch } from '@redux/configure-store';
-import { push } from 'redux-first-history';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { useLocation } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
-import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { Rule } from 'antd/lib/form';
+import { useLocation } from 'react-router-dom';
+import { push } from 'redux-first-history';
+import { GooglePlusOutlined } from '@ant-design/icons';
 import { STATUS_CODE } from '@constants/constants';
+import { PATHS_RESULT } from '@constants/paths';
+import { validateConfirm, validatePassword } from '@constants/validation';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { useRegisterMutation } from '@redux/api/api-slice';
+import { useAppDispatch } from '@redux/configure-store';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import { Button, Form, Input } from 'antd';
+
+import styles from './registration-page.module.scss';
 
 type RegistrationFormValues = {
     email: string;
@@ -23,6 +25,7 @@ export const RegistrationPage = () => {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const [register, { isLoading }] = useRegisterMutation();
+
     useLoaderLoading(isLoading);
 
     const isRepeat: boolean = location.state?.fromResult;
@@ -32,15 +35,17 @@ export const RegistrationPage = () => {
         async (values: RegistrationFormValues) => {
             try {
                 await register(values).unwrap();
-                dispatch(push('/result/success', { fromResult: true }));
+                dispatch(push(PATHS_RESULT.SUCCESS, { fromResult: true }));
             } catch (error) {
                 const registerError = error as FetchBaseQueryError;
+
                 if (registerError.status === STATUS_CODE.CONFLICT) {
-                    dispatch(push('/result/error-user-exist', { fromResult: true }));
+                    dispatch(push(PATHS_RESULT.ERROR_USER_EXIST, { fromResult: true }));
+
                     return;
                 }
 
-                dispatch(push('/result/error', { fromResult: true, formValues: values }));
+                dispatch(push(PATHS_RESULT.ERROR, { fromResult: true, formValues: values }));
             }
         },
         [register, dispatch],
@@ -52,26 +57,6 @@ export const RegistrationPage = () => {
         }
     }, [isRepeat, onFinish, repeatValues]);
 
-    const validatePassword: Rule = () => ({
-        validator(_, value: string) {
-            if (!/(?=.*[A-Z])(?=.*[0-9])^[a-zA-Z0-9]+$/.test(value)) {
-                return Promise.reject('');
-            } else {
-                return Promise.resolve();
-            }
-        },
-    });
-
-    const validateConfirm: Rule = ({ getFieldValue }) => ({
-        validator(_, value: string) {
-            if (value !== getFieldValue('password')) {
-                return Promise.reject('Пароли не совпадают');
-            } else {
-                return Promise.resolve();
-            }
-        },
-    });
-
     return (
         <Form
             name='registration'
@@ -82,17 +67,17 @@ export const RegistrationPage = () => {
             form={form}
         >
             <Form.Item
-                name={'email'}
+                name='email'
                 rules={[
                     { required: true, message: '' },
                     { type: 'email', message: '' },
                 ]}
                 className={styles.form_item_email}
             >
-                <Input addonBefore={'e-mail:'} placeholder='' data-test-id='registration-email' />
+                <Input addonBefore='e-mail:' placeholder='' data-test-id='registration-email' />
             </Form.Item>
             <Form.Item
-                name={'password'}
+                name='password'
                 rules={[{ required: true }, { min: 8, message: '' }, validatePassword]}
                 className={styles.form_item_password}
                 help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
@@ -100,7 +85,7 @@ export const RegistrationPage = () => {
                 <Input.Password placeholder='Пароль' data-test-id='registration-password' />
             </Form.Item>
             <Form.Item
-                name={'confirm'}
+                name='confirm'
                 dependencies={['password']}
                 rules={[{ required: true, message: '' }, validateConfirm]}
                 className={styles.form_item_confirm_password}
@@ -111,12 +96,12 @@ export const RegistrationPage = () => {
                 />
             </Form.Item>
 
-            <Form.Item shouldUpdate className={styles.form_button_submit}>
+            <Form.Item shouldUpdate={true} className={styles.form_button_submit}>
                 {() => (
                     <Button
                         type='primary'
                         htmlType='submit'
-                        block
+                        block={true}
                         data-test-id='registration-submit-button'
                         disabled={
                             form.getFieldsError().filter(({ errors }) => errors.length).length > 0
@@ -131,7 +116,7 @@ export const RegistrationPage = () => {
                     type='default'
                     icon={<GooglePlusOutlined style={{ fontSize: '14px' }} />}
                     htmlType='submit'
-                    block
+                    block={true}
                     disabled={isLoading}
                 >
                     Регистрация через Google

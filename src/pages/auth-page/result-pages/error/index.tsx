@@ -1,8 +1,8 @@
+import { useLocation } from 'react-router-dom';
+import { replace } from 'redux-first-history';
 import { Wrapper } from '@pages/auth-page/_components/result/wrapper';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
-import { useLocation } from 'react-router-dom';
-import { replace } from 'redux-first-history';
 
 export const Error = () => {
     const location = useLocation();
@@ -20,14 +20,14 @@ export const Error = () => {
     return (
         <Wrapper>
             <Result
-                status={'error'}
+                status='error'
                 title='Данные не сохранились'
                 subTitle='Что-то пошло не так и ваша регистрация не&nbsp;завершилась. Попробуйте ещё раз.'
                 extra={
                     <Button
                         type='primary'
                         size='large'
-                        block
+                        block={true}
                         onClick={onRepeat}
                         data-test-id='registration-retry-button'
                     >

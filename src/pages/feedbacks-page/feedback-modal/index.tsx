@@ -1,12 +1,14 @@
-import { Button, Form, Modal, Rate } from 'antd';
-import styles from './feedback-modal.module.scss';
-import TextArea from 'antd/lib/input/TextArea';
+import React, { useEffect, useRef, useState } from 'react';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { useEffect, useRef, useState } from 'react';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { useCreateFeedbackMutation } from '@redux/api/api-slice';
+import { Button, Form, Modal, Rate } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+
 import { ErrorModal } from './error-modal';
 import { SuccessModal } from './success-modal';
-import { useCreateFeedbackMutation } from '@redux/api/apiSlice';
-import { useLoaderLoading } from '@hooks/use-loader-loading';
+
+import styles from './feedback-modal.module.scss';
 
 type FeedbackFormValues = {
     rating: number;
@@ -57,6 +59,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
     const onSubmit = async () => {
         try {
             const values = await form.validateFields();
+
             await createFeedback(values).unwrap();
             resetForm();
             onClose();
@@ -81,12 +84,12 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
     };
 
     return (
-        <>
+        <React.Fragment>
             <Modal
-                forceRender
+                forceRender={true}
                 title='Ваш отзыв'
                 open={isModalOpen}
-                centered
+                centered={true}
                 onCancel={onCancel}
                 footer={
                     <Button
@@ -101,7 +104,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
                         Опубликовать
                     </Button>
                 }
-                width={'100%'}
+                width='100%'
                 className={styles.modal}
                 wrapClassName={styles.wrap_modal}
                 maskTransitionName=''
@@ -109,10 +112,11 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
                 maskStyle={{ backdropFilter: 'blur(6px)', background: 'rgba(121, 156, 212, 0.5)' }}
             >
                 <Form name='feedback' className={styles.form} form={form}>
-                    <Form.Item name='rating' rules={[{ required: true }]} noStyle>
+                    <Form.Item name='rating' rules={[{ required: true }]} noStyle={true}>
                         <Rate
                             ref={ratingRef}
                             onChange={handleOnChange}
+                            // eslint-disable-next-line react/no-unstable-nested-components
                             character={({ value, index }) =>
                                 value && index !== undefined && index < value ? (
                                     <StarFilled />
@@ -124,7 +128,7 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
                             className={styles.rating}
                         />
                     </Form.Item>
-                    <Form.Item name='message' className={styles.message_item} noStyle>
+                    <Form.Item name='message' className={styles.message_item} noStyle={true}>
                         <TextArea
                             autoSize={{ minRows: 2 }}
                             placeholder='Расскажите, почему Вам понравилось наше приложение'
@@ -139,6 +143,6 @@ export const FeedbackModal = ({ isModalOpen, onClose, onShow }: FeedbackModalPro
                 onRetry={onRetry}
             />
             <SuccessModal onClose={onCloseSuccessModal} isModalOpen={isSuccessModalOpen} />
-        </>
+        </React.Fragment>
     );
 };

@@ -1,18 +1,18 @@
-import styles from './styles/auth-page.module.scss';
-import { GooglePlusOutlined } from '@ant-design/icons';
-
-import { Button, Checkbox, Form, Input, InputRef } from 'antd';
-import { BASE_API_URL, useCheckEmailMutation, useLoginMutation } from '@redux/api/apiSlice';
-import { useDispatch } from 'react-redux';
-import { setCredentials } from '@redux/auth/authSlice';
-import { push } from 'redux-first-history';
-import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { Rule } from 'antd/lib/form';
 import { useCallback, useEffect, useRef } from 'react';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import PATHS from '@constants/paths';
+import { push } from 'redux-first-history';
+import { GooglePlusOutlined } from '@ant-design/icons';
 import { STATUS_CODE } from '@constants/constants';
+import PATHS, { PATHS_RESULT } from '@constants/paths';
+import { validatePasswordLength } from '@constants/validation';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { BASE_API_URL, useCheckEmailMutation, useLoginMutation } from '@redux/api/api-slice';
+import { setCredentials } from '@redux/auth/auth-slice';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import { Button, Checkbox, Form, Input, InputRef } from 'antd';
+
+import styles from './styles/auth-page.module.scss';
 
 type LoginFormValues = {
     email: string;
@@ -30,6 +30,7 @@ export const AuthPage = () => {
     const [checkEmail, { isLoading: isLoadingCheckEmail }] = useCheckEmailMutation();
 
     const isLoading = isLoadingAuth || isLoadingCheckEmail;
+
     useLoaderLoading(isLoading);
 
     const isFromErrorCheckEmail = location.state?.fromErrorCheckEmail as boolean;
@@ -48,20 +49,18 @@ export const AuthPage = () => {
             }
             dispatch(push(PATHS.MAIN));
         } catch (error) {
-            dispatch(push('/result/error-login', { fromResult: true }));
+            dispatch(push(PATHS_RESULT.ERROR_LOGIN, { fromResult: true }));
         }
     };
 
     const onForgotPassword = useCallback(async () => {
         const email = (form.getFieldValue('email') || repeatEmail) as string;
 
-        if (!email) {
-            inputRef.current?.focus();
-        } else {
+        if (email) {
             try {
                 await checkEmail(email).unwrap();
 
-                dispatch(push(`${PATHS.AUTH}/confirm-email`, { fromResult: true, email: email }));
+                dispatch(push(PATHS.CONFIRM_EMAIL, { fromResult: true, email }));
             } catch (error) {
                 const checkEmailError = error as FetchBaseQueryError;
                 const errorData = checkEmailError.data as {
@@ -69,20 +68,24 @@ export const AuthPage = () => {
                     error: string;
                     statusCode: number;
                 };
+
                 if (
                     checkEmailError.status === STATUS_CODE.NOT_FOUND &&
                     errorData.message === 'Email не найден'
                 ) {
-                    dispatch(push('/result/error-check-email-no-exist', { fromResult: true }));
+                    dispatch(push(PATHS_RESULT.ERROR_CHECK_EMAIL_NO_EXIST, { fromResult: true }));
+
                     return;
                 }
-                dispatch(push('/result/error-check-email', { fromResult: true, email: email }));
+                dispatch(push(PATHS_RESULT.ERROR_CHECK_EMAIL, { fromResult: true, email }));
             }
+        } else {
+            inputRef.current?.focus();
         }
     }, [checkEmail, dispatch, form, inputRef, repeatEmail]);
 
     const onLoginGoogle = () => {
-        window.location.href = `${BASE_API_URL}auth/google`;
+        window.location.href = `${BASE_API_URL}${PATHS.GOOGLE_AUTH}`;
     };
 
     useEffect(() => {
@@ -90,16 +93,6 @@ export const AuthPage = () => {
             onForgotPassword();
         }
     }, [isFromErrorCheckEmail, onForgotPassword]);
-
-    const validatePassword: Rule = () => ({
-        validator(_, value: string) {
-            if (value.length < 8 || !/(?=.*[A-Z])(?=.*[0-9])^[a-zA-Z0-9]+$/.test(value)) {
-                return Promise.reject('Пароль не менее 8 символов, с заглавной буквой и цифрой');
-            } else {
-                return Promise.resolve();
-            }
-        },
-    });
 
     return (
         <Form
@@ -111,7 +104,7 @@ export const AuthPage = () => {
             form={form}
         >
             <Form.Item
-                name={'email'}
+                name='email'
                 rules={[
                     { required: true, message: 'Обязательное поле' },
                     { type: 'email', message: 'Неверный формат почты' },
@@ -120,29 +113,25 @@ export const AuthPage = () => {
             >
                 <Input
                     ref={inputRef}
-                    addonBefore={'e-mail:'}
+                    addonBefore='e-mail:'
                     placeholder=''
                     data-test-id='login-email'
                 />
             </Form.Item>
             <Form.Item
-                name={'password'}
-                rules={[{ required: true, message: '' }, validatePassword]}
+                name='password'
+                rules={[{ required: true, message: '' }, validatePasswordLength]}
                 className={styles.form_item_password}
             >
                 <Input.Password placeholder='Пароль' data-test-id='login-password' />
             </Form.Item>
             <Form.Item className={styles.form_check_area}>
-                <Form.Item
-                    name={'remember'}
-                    valuePropName='checked'
-                    className={styles.form_remember}
-                >
+                <Form.Item name='remember' valuePropName='checked' className={styles.form_remember}>
                     <Checkbox data-test-id='login-remember'>Запомнить меня</Checkbox>
                 </Form.Item>
 
                 <div className={styles.link_container}>
-                    <Form.Item shouldUpdate>
+                    <Form.Item shouldUpdate={true}>
                         {() => (
                             <Button
                                 type='link'
@@ -162,7 +151,7 @@ export const AuthPage = () => {
                 <Button
                     type='primary'
                     htmlType='submit'
-                    block
+                    block={true}
                     data-test-id='login-submit-button'
                     disabled={isLoading}
                 >
@@ -174,7 +163,7 @@ export const AuthPage = () => {
                     type='default'
                     icon={<GooglePlusOutlined style={{ fontSize: '14px' }} />}
                     htmlType='button'
-                    block
+                    block={true}
                     onClick={onLoginGoogle}
                 >
                     Войти через Google

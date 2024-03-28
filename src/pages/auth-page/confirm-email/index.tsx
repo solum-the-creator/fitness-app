@@ -1,15 +1,16 @@
-import styles from './confirm-email.module.scss';
-
-import { Result } from 'antd';
-import { WrapperWide } from '../_components/result/wrapper-wide';
-import VerificationInput from 'react-verification-input';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useConfirmEmailMutation } from '@redux/api/apiSlice';
-import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useState } from 'react';
-import { useAppDispatch } from '@redux/configure-store';
+import VerificationInput from 'react-verification-input';
 import { replace } from 'redux-first-history';
 import PATHS from '@constants/paths';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { useConfirmEmailMutation } from '@redux/api/api-slice';
+import { useAppDispatch } from '@redux/configure-store';
+import { Result } from 'antd';
+
+import { WrapperWide } from '../_components/result/wrapper-wide';
+
+import styles from './confirm-email.module.scss';
 
 export const ConfirmEmailPage = () => {
     const location = useLocation();
@@ -19,15 +20,16 @@ export const ConfirmEmailPage = () => {
 
     const [confirm, { isLoading }] = useConfirmEmailMutation();
     const [isError, setIsError] = useState(false);
+
     useLoaderLoading(isLoading);
 
     const errorTitle = isError ? 'Неверный код.' : '';
     const errorClass = isError && styles.error;
 
     const email = location.state.email as string;
-    const handleComplete = async (code: string) => {
+    const handleComplete = async (sendCode: string) => {
         try {
-            await confirm({ email, code }).unwrap();
+            await confirm({ email, code: sendCode }).unwrap();
             dispatch(replace(`${PATHS.AUTH}/change-password`, { fromResult: true }));
         } catch (error) {
             setCode('');
@@ -40,23 +42,23 @@ export const ConfirmEmailPage = () => {
             <Result
                 status={isError ? 'error' : 'info'}
                 title={
-                    <>
+                    <React.Fragment>
                         {errorTitle} Введите код <br />
                         для восстановления аккаунта
-                    </>
+                    </React.Fragment>
                 }
                 subTitle={
-                    <>
+                    <React.Fragment>
                         Мы отправили вам на e-mail <strong>{email}</strong> <br />
                         шестизначный код. Введите его в поле ниже.
-                    </>
+                    </React.Fragment>
                 }
                 extra={
                     <div className={styles.extra_container}>
                         <VerificationInput
                             placeholder=''
                             validChars='0-9'
-                            autoFocus
+                            autoFocus={true}
                             value={code}
                             onChange={(value) => setCode(value)}
                             onComplete={(value) => handleComplete(value)}
