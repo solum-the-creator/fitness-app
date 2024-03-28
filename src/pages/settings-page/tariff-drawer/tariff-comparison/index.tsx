@@ -11,7 +11,7 @@ export const TariffComparison = () => (
             </div>
         </div>
         <div className={styles.content}>
-            <div className={styles.content_col}>
+            <div className={`${styles.content_col} ${styles.first}`}>
                 <div className={styles.text}>Статистика за месяц</div>
                 <div className={styles.text}>Статистика за всё время</div>
                 <div className={styles.text}>Совместные тренировки</div>

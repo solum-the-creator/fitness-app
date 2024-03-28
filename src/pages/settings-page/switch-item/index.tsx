@@ -32,7 +32,7 @@ export const SwitchItem = ({
     const disabledClass = disabled ? styles.disabled : '';
 
     return (
-        <div className={`${styles.switch_item_container} ${disabledClass}`} data-test-id={testId}>
+        <div className={`${styles.switch_item_container} ${disabledClass}`}>
             <div className={styles.info_container}>
                 <span className={styles.switch_text}>{text}</span>
                 <Tooltip
@@ -56,6 +56,7 @@ export const SwitchItem = ({
                     disabled={disabled}
                     onChange={onChange}
                     loading={loading}
+                    data-test-id={testId}
                 />
             </div>
         </div>

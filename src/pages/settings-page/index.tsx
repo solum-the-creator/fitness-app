@@ -1,11 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { useGetTariffListQuery, useUpdateUserMutation } from '@redux/api/api-slice';
-import { useAppSelector } from '@redux/configure-store';
-import { userSelector } from '@redux/user/user-slice';
+import { useAppDispatch, useAppSelector } from '@redux/configure-store';
+import { setUser, userSelector } from '@redux/user/user-slice';
 import { Button } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 
+import { ConfirmModal } from './confirm-modal';
 import { Header } from './header';
 import { SwitchItem } from './switch-item';
 import { TariffCard } from './tariff-card';
@@ -18,6 +19,7 @@ import proTariffImg from '/pro_able_tariff.jpg';
 import disabledProTariffImg from '/pro_disable_tariff.jpg';
 
 export const SettingsPage = () => {
+    const dispatch = useAppDispatch();
     const user = useAppSelector(userSelector);
     const [updateUser] = useUpdateUserMutation();
 
@@ -26,8 +28,7 @@ export const SettingsPage = () => {
     const currentTariff = user.tariff?.tariffId === proTariff?._id ? user.tariff : undefined;
 
     const [isTariffDrawerOpen, setIsTariffDrawerOpen] = useState(false);
-    const [isLoadingReadyForJointTraining, setIsLoadingReadyForJointTraining] = useState(false);
-    const [isLoadingSendNotification, setIsLoadingSendNotification] = useState(false);
+    const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
 
     const handleMoreClick = () => {
         setIsTariffDrawerOpen(true);
@@ -35,23 +36,19 @@ export const SettingsPage = () => {
 
     const onChangeReadyForJointTraining = async (checked: boolean) => {
         try {
-            setIsLoadingReadyForJointTraining(true);
+            dispatch(setUser({ ...user, readyForJointTraining: checked }));
             await updateUser({ readyForJointTraining: checked }).unwrap();
-
-            setIsLoadingReadyForJointTraining(false);
         } catch {
-            setIsLoadingReadyForJointTraining(false);
+            dispatch(setUser({ ...user, readyForJointTraining: !checked }));
         }
     };
 
     const onChangeSendNotification = async (checked: boolean) => {
         try {
-            setIsLoadingSendNotification(true);
+            dispatch(setUser({ ...user, sendNotification: checked }));
             await updateUser({ sendNotification: checked }).unwrap();
-
-            setIsLoadingSendNotification(false);
         } catch {
-            setIsLoadingSendNotification(false);
+            dispatch(setUser({ ...user, readyForJointTraining: checked }));
         }
     };
 
@@ -71,7 +68,8 @@ export const SettingsPage = () => {
                             />
                             <TariffCard
                                 title={`${proTariff?.name.toUpperCase()} tariff`}
-                                isActive={false}
+                                isActive={!!currentTariff}
+                                activeDate={currentTariff?.expired}
                                 imageSrc={proTariffImg}
                                 disabledImageSrc={disabledProTariffImg}
                                 onMoreClick={handleMoreClick}
@@ -82,14 +80,15 @@ export const SettingsPage = () => {
                                 tariff={proTariff}
                                 currentTariff={currentTariff}
                                 open={isTariffDrawerOpen}
+                                openConfirmModal={() => setIsConfirmModalVisible(true)}
                             />
+                            <ConfirmModal isModalOpen={isConfirmModalVisible} />
                         </div>
                     </div>
                     <div className={styles.switch_block}>
                         <SwitchItem
                             checked={user.readyForJointTraining}
                             onChange={onChangeReadyForJointTraining}
-                            loading={isLoadingReadyForJointTraining}
                             text='Открыт для совместных тренировок'
                             tooltipText={
                                 <span>
@@ -99,12 +98,11 @@ export const SettingsPage = () => {
                             }
                             tooltipWidth={205}
                             testId='tariff-trainings'
-                            tooltipTestId='tariff-theme-icon'
+                            tooltipTestId='tariff-trainings-icon'
                         />
                         <SwitchItem
                             checked={user.sendNotification}
                             onChange={onChangeSendNotification}
-                            loading={isLoadingSendNotification}
                             text='Уведомления'
                             tooltipText='включеная функция позволит получать уведомления об активностях'
                             tooltipWidth={219}

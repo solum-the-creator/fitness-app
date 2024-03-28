@@ -100,6 +100,11 @@ export type TariffList = Array<{
     }>;
 }>;
 
+export type AddTariffRequest = {
+    tariffId: string;
+    days: number;
+};
+
 export type UploadImage = {
     name: string;
     url: string;

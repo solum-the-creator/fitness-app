@@ -3,6 +3,7 @@ import { RootState } from '@redux/configure-store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import {
+    AddTariffRequest,
     ChangePasswordRequest,
     CheckEmailResponse,
     ConfrimEmailRequest,
@@ -160,6 +161,13 @@ export const apiSlice = createApi({
                 method: 'GET',
             }),
         }),
+        addTariff: builder.mutation<void, AddTariffRequest>({
+            query: (tariff) => ({
+                url: '/tariff',
+                method: 'POST',
+                body: tariff,
+            }),
+        }),
     }),
 });
 
@@ -180,4 +188,5 @@ export const {
     useAddTrainingMutation,
     useUpdateTrainingMutation,
     useGetTariffListQuery,
+    useAddTariffMutation,
 } = apiSlice;

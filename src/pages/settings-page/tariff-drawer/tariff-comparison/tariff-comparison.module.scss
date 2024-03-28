@@ -7,7 +7,7 @@
   padding: 24px 32px 50px;
 
   @media (max-width: 680px) {
-    padding: 0 16px 9px;
+    padding: 0 16px 6px;
     gap: 12px;
   }
 
@@ -45,6 +45,13 @@
     justify-content: space-between;
     padding-right: 16px;
 
+    gap: 52.5px;
+
+    @media (max-width: 680px) {
+      gap: 44.5px;
+    }
+
+
     .content_col {
       display: flex;
       flex-direction: column;
@@ -53,6 +60,11 @@
 
       @media (max-width: 680px) {
         gap: 8px;
+      }
+
+      &.first {
+        flex-grow: 1;
+        flex-shrink: 0;
       }
 
       .text {

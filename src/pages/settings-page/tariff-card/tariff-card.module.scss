@@ -51,6 +51,7 @@
 
   .active_span:has(.active_date) {
     flex-direction: column;
+    align-items: center;
     gap: 0;
   }
 }

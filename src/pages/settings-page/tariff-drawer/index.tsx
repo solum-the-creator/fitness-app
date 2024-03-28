@@ -1,8 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { CloseOutlined } from '@ant-design/icons';
+import { useAddTariffMutation } from '@redux/api/api-slice';
 import { Tariff, TariffList } from '@redux/api/types';
 import { Button, Drawer, RadioChangeEvent } from 'antd';
+import moment from 'moment';
 
 import { TariffComparison } from './tariff-comparison';
 import { TariffCost } from './tariff-cost';
@@ -13,17 +16,36 @@ type TariffDrawerProps = {
     tariff?: TariffList[number] | undefined;
     currentTariff?: Tariff;
     open: boolean;
+    openConfirmModal: () => void;
     onClose: () => void;
 };
 
-export const TariffDrawer = ({ tariff, currentTariff, open, onClose }: TariffDrawerProps) => {
+export const TariffDrawer = ({
+    tariff,
+    currentTariff,
+    open,
+    openConfirmModal,
+    onClose,
+}: TariffDrawerProps) => {
     const matches = useMediaQuery({ query: '(max-width: 680px)' });
     const drawerClass = matches ? styles.drawer_mobile : styles.drawer_fullscreen;
 
-    const [costValue, setCostValue] = useState<number | undefined>(undefined);
+    const [addTariff] = useAddTariffMutation();
+
+    const [periodValue, setPeriodValue] = useState<number | undefined>(undefined);
+
+    const formattedDate = currentTariff?.expired && moment(currentTariff.expired).format('DD.MM');
 
     const onChange = (e: RadioChangeEvent) => {
-        setCostValue(e.target.value);
+        setPeriodValue(e.target.value);
+    };
+
+    const onPickTariff = async () => {
+        if (tariff?._id && periodValue) {
+            await addTariff({ tariffId: tariff._id, days: periodValue });
+            onClose();
+            openConfirmModal();
+        }
     };
 
     return (
@@ -52,20 +74,31 @@ export const TariffDrawer = ({ tariff, currentTariff, open, onClose }: TariffDra
                 {currentTariff && (
                     <div className={styles.drawer_active_date}>
                         <div className={styles.drawer_active_date_text}>
-                            Ваш PRO tarif активен до {currentTariff.expired}
+                            Ваш PRO tarif активен до {formattedDate}
                         </div>
                     </div>
                 )}
 
                 <div className={styles.drawer_body}>
                     <TariffComparison />
-                    <TariffCost tariff={tariff} value={costValue} onChange={onChange} />
+                    {!currentTariff && (
+                        <TariffCost tariff={tariff} value={periodValue} onChange={onChange} />
+                    )}
                 </div>
-                <div className={styles.drawer_footer}>
-                    <Button block={true} type='primary' size='large' disabled={!costValue}>
-                        Выбрать и оплатить
-                    </Button>
-                </div>
+                {!currentTariff && (
+                    <div className={styles.drawer_footer}>
+                        <Button
+                            block={true}
+                            type='primary'
+                            size='large'
+                            disabled={!periodValue}
+                            onClick={onPickTariff}
+                            data-test-id='tariff-submit'
+                        >
+                            Выбрать и оплатить
+                        </Button>
+                    </div>
+                )}
             </div>
         </Drawer>
     );
