@@ -13,11 +13,11 @@ import { TariffCost } from './tariff-cost';
 import styles from './tariff-drawer.module.scss';
 
 type TariffDrawerProps = {
-    tariff?: TariffList[number] | undefined;
-    currentTariff?: Tariff;
     open: boolean;
     openConfirmModal: () => void;
     onClose: () => void;
+    tariff?: TariffList[number] | undefined;
+    currentTariff?: Tariff;
 };
 
 export const TariffDrawer = ({

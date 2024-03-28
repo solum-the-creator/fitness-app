@@ -5,29 +5,27 @@ import { Menu } from 'antd';
 
 import styles from './navbar.module.scss';
 
-type MenuKey = '/auth' | '/auth/registration';
-
 type MenuItem = {
     label: React.ReactNode;
-    key: MenuKey;
+    key: string;
 };
 
 export const Navbar = () => {
     const location = useLocation();
-    const [current, setCurrent] = useState<MenuKey>(location.pathname as MenuKey);
+    const [current, setCurrent] = useState<string>(location.pathname);
 
     useEffect(() => {
-        setCurrent(location.pathname as MenuKey);
+        setCurrent(location.pathname);
     }, [location]);
 
     const items: MenuItem[] = [
         {
             label: <Link to={PATHS.AUTH}>Вход</Link>,
-            key: '/auth',
+            key: PATHS.AUTH,
         },
         {
-            label: <Link to={`${PATHS.AUTH}/registration`}>Регистрация</Link>,
-            key: '/auth/registration',
+            label: <Link to={PATHS.REGISTRATION}>Регистрация</Link>,
+            key: PATHS.REGISTRATION,
         },
     ];
 

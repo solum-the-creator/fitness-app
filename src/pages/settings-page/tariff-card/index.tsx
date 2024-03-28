@@ -7,12 +7,12 @@ import styles from './tariff-card.module.scss';
 
 type TariffCardProps = {
     title: string;
+    imageSrc: string;
+    onMoreClick: () => void;
     isActive?: boolean;
     activeDate?: string;
-    imageSrc: string;
     disabledImageSrc?: string;
     testId?: string;
-    onMoreClick: () => void;
 };
 
 export const TariffCard = ({

@@ -2,7 +2,7 @@
   background-color: transparent;
 
   .content {
-    padding: 24px 24px 42px;
+    padding: var(--padding-wrapper);
 
     @media (max-width: 480px) {
       padding: 24px 16px 42px;

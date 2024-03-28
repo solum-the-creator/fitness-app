@@ -4,9 +4,9 @@ import { Radio, RadioChangeEvent } from 'antd';
 import styles from './tariff-cost.module.scss';
 
 type TariffCostProps = {
+    onChange: (e: RadioChangeEvent) => void;
     tariff?: TariffList[number];
     value?: number;
-    onChange: (e: RadioChangeEvent) => void;
 };
 
 export const TariffCost = ({ tariff, value, onChange }: TariffCostProps) => (

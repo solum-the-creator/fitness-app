@@ -1,11 +1,12 @@
 import { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { push, replace } from 'redux-first-history';
+import { PATHS_RESULT } from '@constants/paths';
+import { validateConfirm, validatePassword } from '@constants/validation';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useChangePasswordMutation } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Form, Input, Typography } from 'antd';
-import { Rule } from 'antd/lib/form';
 
 import { Wrapper } from '../_components/result/wrapper';
 
@@ -31,10 +32,13 @@ export const ChangePasswordPage = () => {
         async (values: ChangePasswordForm) => {
             try {
                 await changePassword(values).unwrap();
-                dispatch(replace('/result/success-change-password', { fromResult: true }));
+                dispatch(replace(PATHS_RESULT.SUCCESS_CHANGE_PASSWORD, { fromResult: true }));
             } catch (error) {
                 dispatch(
-                    push('/result/error-change-password', { fromResult: true, formValues: values }),
+                    push(PATHS_RESULT.ERROR_CHANGE_PASSWORD, {
+                        fromResult: true,
+                        formValues: values,
+                    }),
                 );
             }
         },
@@ -46,26 +50,6 @@ export const ChangePasswordPage = () => {
             onFinish(repeatValues);
         }
     }, [isRepeat, onFinish, repeatValues]);
-
-    const validatePassword: Rule = () => ({
-        validator(_, value: string) {
-            if (!/(?=.*[A-Z])(?=.*[0-9])^[a-zA-Z0-9]+$/.test(value)) {
-                return Promise.reject(new Error(''));
-            }
-
-            return Promise.resolve();
-        },
-    });
-
-    const validateConfirm: Rule = ({ getFieldValue }) => ({
-        validator(_, value: string) {
-            if (value !== getFieldValue('password')) {
-                return Promise.reject(new Error('Пароли не совпадают'));
-            }
-
-            return Promise.resolve();
-        },
-    });
 
     return (
         <Wrapper>

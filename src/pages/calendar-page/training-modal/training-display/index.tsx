@@ -2,6 +2,7 @@
 import React from 'react';
 import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { TrainingTypeBadge } from '@components/training-type-badge';
+import { DATE_FORMAT } from '@constants/constants';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { isPastDate } from '@utils/date-utils';
 import { Button, Empty } from 'antd';
@@ -47,7 +48,7 @@ export const TrainingDisplay = ({
             <div className={styles.modal_header}>
                 <div className={styles.header_content}>
                     <h4 className={styles.modal_title}>
-                        Тренировки на {selectedDate.format('DD.MM.YYYY')}
+                        Тренировки на {selectedDate.format(DATE_FORMAT)}
                     </h4>
                     {isEmpty && <p className={styles.modal_subtitle}>Нет активных тренировок</p>}
                 </div>

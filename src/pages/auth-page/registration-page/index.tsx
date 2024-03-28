@@ -3,12 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { push } from 'redux-first-history';
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { STATUS_CODE } from '@constants/constants';
+import { PATHS_RESULT } from '@constants/paths';
+import { validateConfirm, validatePassword } from '@constants/validation';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useRegisterMutation } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { Button, Form, Input } from 'antd';
-import { Rule } from 'antd/lib/form';
 
 import styles from './registration-page.module.scss';
 
@@ -34,17 +35,17 @@ export const RegistrationPage = () => {
         async (values: RegistrationFormValues) => {
             try {
                 await register(values).unwrap();
-                dispatch(push('/result/success', { fromResult: true }));
+                dispatch(push(PATHS_RESULT.SUCCESS, { fromResult: true }));
             } catch (error) {
                 const registerError = error as FetchBaseQueryError;
 
                 if (registerError.status === STATUS_CODE.CONFLICT) {
-                    dispatch(push('/result/error-user-exist', { fromResult: true }));
+                    dispatch(push(PATHS_RESULT.ERROR_USER_EXIST, { fromResult: true }));
 
                     return;
                 }
 
-                dispatch(push('/result/error', { fromResult: true, formValues: values }));
+                dispatch(push(PATHS_RESULT.ERROR, { fromResult: true, formValues: values }));
             }
         },
         [register, dispatch],
@@ -55,26 +56,6 @@ export const RegistrationPage = () => {
             onFinish(repeatValues);
         }
     }, [isRepeat, onFinish, repeatValues]);
-
-    const validatePassword: Rule = () => ({
-        validator(_, value: string) {
-            if (!/(?=.*[A-Z])(?=.*[0-9])^[a-zA-Z0-9]+$/.test(value)) {
-                return Promise.reject(new Error(''));
-            }
-
-            return Promise.resolve();
-        },
-    });
-
-    const validateConfirm: Rule = ({ getFieldValue }) => ({
-        validator(_, value: string) {
-            if (value !== getFieldValue('password')) {
-                return Promise.reject(new Error('Пароли не совпадают'));
-            }
-
-            return Promise.resolve();
-        },
-    });
 
     return (
         <Form

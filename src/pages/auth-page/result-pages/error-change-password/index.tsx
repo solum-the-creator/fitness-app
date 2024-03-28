@@ -13,7 +13,7 @@ export const ErrorChangePassword = () => {
 
     const onReapeat = () => {
         dispatch(
-            replace(`${PATHS.AUTH}/change-password`, {
+            replace(PATHS.CHANGE_PASSWORD, {
                 isRepeat: true,
                 formValues,
                 fromResult: true,

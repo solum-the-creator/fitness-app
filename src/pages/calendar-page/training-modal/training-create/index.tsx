@@ -136,7 +136,9 @@ export const TrainingCreate = ({
             } catch {
                 showErrorModal();
             }
-        } else if (selectedTrainingType && !isEmpty) {
+        }
+
+        if (selectedTrainingType && !isEmpty) {
             const training: Training = {
                 name: selectedTrainingType.name,
                 date: date.toISOString(),

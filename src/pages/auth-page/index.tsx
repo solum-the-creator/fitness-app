@@ -4,13 +4,13 @@ import { useLocation } from 'react-router-dom';
 import { push } from 'redux-first-history';
 import { GooglePlusOutlined } from '@ant-design/icons';
 import { STATUS_CODE } from '@constants/constants';
-import PATHS from '@constants/paths';
+import PATHS, { PATHS_RESULT } from '@constants/paths';
+import { validatePasswordLength } from '@constants/validation';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { BASE_API_URL, useCheckEmailMutation, useLoginMutation } from '@redux/api/api-slice';
 import { setCredentials } from '@redux/auth/auth-slice';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { Button, Checkbox, Form, Input, InputRef } from 'antd';
-import { Rule } from 'antd/lib/form';
 
 import styles from './styles/auth-page.module.scss';
 
@@ -49,7 +49,7 @@ export const AuthPage = () => {
             }
             dispatch(push(PATHS.MAIN));
         } catch (error) {
-            dispatch(push('/result/error-login', { fromResult: true }));
+            dispatch(push(PATHS_RESULT.ERROR_LOGIN, { fromResult: true }));
         }
     };
 
@@ -60,7 +60,7 @@ export const AuthPage = () => {
             try {
                 await checkEmail(email).unwrap();
 
-                dispatch(push(`${PATHS.AUTH}/confirm-email`, { fromResult: true, email }));
+                dispatch(push(PATHS.CONFIRM_EMAIL, { fromResult: true, email }));
             } catch (error) {
                 const checkEmailError = error as FetchBaseQueryError;
                 const errorData = checkEmailError.data as {
@@ -73,11 +73,11 @@ export const AuthPage = () => {
                     checkEmailError.status === STATUS_CODE.NOT_FOUND &&
                     errorData.message === 'Email не найден'
                 ) {
-                    dispatch(push('/result/error-check-email-no-exist', { fromResult: true }));
+                    dispatch(push(PATHS_RESULT.ERROR_CHECK_EMAIL_NO_EXIST, { fromResult: true }));
 
                     return;
                 }
-                dispatch(push('/result/error-check-email', { fromResult: true, email }));
+                dispatch(push(PATHS_RESULT.ERROR_CHECK_EMAIL, { fromResult: true, email }));
             }
         } else {
             inputRef.current?.focus();
@@ -85,7 +85,7 @@ export const AuthPage = () => {
     }, [checkEmail, dispatch, form, inputRef, repeatEmail]);
 
     const onLoginGoogle = () => {
-        window.location.href = `${BASE_API_URL}auth/google`;
+        window.location.href = `${BASE_API_URL}${PATHS.GOOGLE_AUTH}`;
     };
 
     useEffect(() => {
@@ -93,18 +93,6 @@ export const AuthPage = () => {
             onForgotPassword();
         }
     }, [isFromErrorCheckEmail, onForgotPassword]);
-
-    const validatePassword: Rule = () => ({
-        validator(_, value: string) {
-            if (value.length < 8 || !/(?=.*[A-Z])(?=.*[0-9])^[a-zA-Z0-9]+$/.test(value)) {
-                return Promise.reject(
-                    new Error('Пароль не менее 8 символов, с заглавной буквой и цифрой'),
-                );
-            }
-
-            return Promise.resolve();
-        },
-    });
 
     return (
         <Form
@@ -132,7 +120,7 @@ export const AuthPage = () => {
             </Form.Item>
             <Form.Item
                 name='password'
-                rules={[{ required: true, message: '' }, validatePassword]}
+                rules={[{ required: true, message: '' }, validatePasswordLength]}
                 className={styles.form_item_password}
             >
                 <Input.Password placeholder='Пароль' data-test-id='login-password' />

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { StarFilled, StarOutlined, UserOutlined } from '@ant-design/icons';
+import { DATE_FORMAT } from '@constants/constants';
 import { Feedback } from '@redux/api/types';
 import { Avatar, Rate, Typography } from 'antd';
 import { format } from 'date-fns';
@@ -17,13 +18,9 @@ export const FeedbackCard = ({
 }: FeedbackCardProps) => {
     const rateCharacters: Record<number, ReactNode> = {};
 
-    for (let i = 0; i < 5; i++) {
-        if (i < rating) {
-            rateCharacters[i] = <StarFilled />;
-        } else {
-            rateCharacters[i] = <StarOutlined />;
-        }
-    }
+    Array.from({ length: 5 }).forEach((_, i) => {
+        rateCharacters[i] = i < rating ? <StarFilled /> : <StarOutlined />;
+    });
 
     return (
         <div className={styles.feedback_card}>
@@ -54,7 +51,7 @@ export const FeedbackCard = ({
                         style={{ fontSize: '14px' }}
                         className={styles.rating}
                     />
-                    <span className={styles.date}>{format(new Date(createdAt), 'dd.MM.yyyy')}</span>
+                    <span className={styles.date}>{format(new Date(createdAt), DATE_FORMAT)}</span>
                 </div>
                 <Typography.Paragraph className={styles.comment_message}>
                     {message || ''}

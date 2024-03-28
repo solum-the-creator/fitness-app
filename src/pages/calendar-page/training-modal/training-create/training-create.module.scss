@@ -95,7 +95,7 @@
 
     :global {
       .ant-modal-body {
-        padding: 32px 32px 24px;
+        padding: var(--padding-modal-body);
 
         .ant-modal-confirm-title {
           font-weight: 500;

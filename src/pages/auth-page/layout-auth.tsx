@@ -8,11 +8,9 @@ import { Navbar } from './_components/navbar';
 
 import styles from './styles/layout-auth.module.scss';
 
-type PathType = '/auth' | '/auth/registration';
-
 export const LayoutAuth = () => {
     const location = useLocation();
-    const path = location.pathname as PathType;
+    const path = location.pathname;
     const layoutClass = path === PATHS.AUTH ? styles.layout_auth : styles.layout_registration;
 
     return (
