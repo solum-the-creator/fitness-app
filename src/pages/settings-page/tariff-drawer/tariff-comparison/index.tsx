@@ -1,13 +1,19 @@
-import { CheckCircleFilled, CloseCircleOutlined } from '@ant-design/icons';
+import { CheckCircleFilled, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 import styles from './tariff-comparison.module.scss';
 
-export const TariffComparison = () => (
+type TariffComparisonProps = {
+    active?: boolean;
+};
+
+export const TariffComparison = ({ active }: TariffComparisonProps) => (
     <div className={styles.tariff_comparison_block}>
         <div className={styles.header}>
             <div className={`${styles.tag} ${styles.gray}`}>FREE</div>
             <div className={`${styles.tag} ${styles.blue}`}>
-                <span>PRO</span>
+                <span className={active ? styles.active : undefined}>
+                    PRO {active && <CheckCircleOutlined className={styles.tag_icon} />}
+                </span>
             </div>
         </div>
         <div className={styles.content}>

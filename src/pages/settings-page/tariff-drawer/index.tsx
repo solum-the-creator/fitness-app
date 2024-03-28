@@ -80,7 +80,7 @@ export const TariffDrawer = ({
                 )}
 
                 <div className={styles.drawer_body}>
-                    <TariffComparison />
+                    <TariffComparison active={!!currentTariff} />
                     {!currentTariff && (
                         <TariffCost tariff={tariff} value={periodValue} onChange={onChange} />
                     )}

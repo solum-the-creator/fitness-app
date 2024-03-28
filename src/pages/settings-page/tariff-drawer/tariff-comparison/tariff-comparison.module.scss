@@ -23,6 +23,8 @@
       width: 56px;
       height: 24px;
 
+      position: relative;
+
       font-size: 12px;
       line-height: 130%;
 
@@ -36,6 +38,29 @@
 
         background-color: var(--primary-light-1);
         color: var(--primary-light-7);
+      }
+
+
+
+      .active {
+        padding: 3px 8px;
+        width: 100%;
+        display: flex;
+
+        .tag_icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+
+          color: var(--character-light-success);
+
+        }
       }
     }
   }
