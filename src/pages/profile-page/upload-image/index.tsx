@@ -4,7 +4,7 @@ import { BASE_IMAGE_URL, STATUS_CODE } from '@constants/constants';
 import { BASE_API_URL } from '@redux/api/api-slice';
 import { UploadImage as UploadImageResponse } from '@redux/api/types';
 import { useAppSelector } from '@redux/configure-store';
-import { Form, Upload, UploadProps } from 'antd';
+import { Form, Upload } from 'antd';
 import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
 import axios, { AxiosError, AxiosProgressEvent } from 'axios';
 import { UploadRequestError, UploadRequestOption } from 'rc-upload/lib/interface';
@@ -16,7 +16,7 @@ import styles from './upload-image.module.scss';
 
 type UploadImageProps = {
     imageUrl: string | undefined;
-    onGetValue: (e: any) => string | undefined;
+    onGetValue: (e: UploadChangeParam<UploadFile>) => string | undefined;
 };
 
 export const UploadImage = ({ imageUrl, onGetValue }: UploadImageProps) => {
@@ -91,10 +91,7 @@ export const UploadImage = ({ imageUrl, onGetValue }: UploadImageProps) => {
         }
     };
 
-    const handleOnChange: UploadProps['onChange'] = ({
-        file,
-        fileList,
-    }: UploadChangeParam<UploadFile>) => {
+    const handleOnChange = ({ file, fileList }: UploadChangeParam<UploadFile>) => {
         setDefaultFileList(fileList);
 
         if (file.status === 'done') {

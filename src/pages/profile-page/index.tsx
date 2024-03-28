@@ -9,7 +9,7 @@ import { useAppSelector } from '@redux/configure-store';
 import { userSelector } from '@redux/user/user-slice';
 import { Alert, Button, DatePicker, Form, Input } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
-import { UploadFile } from 'antd/lib/upload';
+import { UploadChangeParam, UploadFile } from 'antd/lib/upload';
 import moment, { Moment } from 'moment';
 
 import { ErrorModal } from './error-modal';
@@ -108,8 +108,8 @@ export const ProfilePage = () => {
         }
     };
 
-    const getFile = (e: any) => {
-        const file = e.file as UploadFile;
+    const getFile = (e: UploadChangeParam<UploadFile>) => {
+        const { file } = e;
 
         if (file.status === 'done') {
             return file.response.url as string;
