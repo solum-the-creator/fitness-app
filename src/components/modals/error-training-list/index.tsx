@@ -2,14 +2,14 @@ import { useCallback, useEffect } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 
-import styles from './error-modal.module.scss';
+import styles from './error-training-list.module.scss';
 
-type ErrorModalProps = {
+type ErrorTrainingListProps = {
     isError: boolean;
     refetch: () => void;
 };
 
-export const ErrorModal = ({ isError, refetch }: ErrorModalProps) => {
+export const ErrorTrainingList = ({ isError, refetch }: ErrorTrainingListProps) => {
     const showErrorModal = useCallback(
         () =>
             Modal.error({

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { BaseHeader } from '@components/header/base-header';
+import { ErrorTrainingList } from '@components/modals/error-training-list';
 import { RU_CALENDAR_LOCALE } from '@constants/constants';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
@@ -10,7 +11,6 @@ import { Content } from 'antd/lib/layout/layout';
 import moment, { Moment } from 'moment';
 
 import { CellItem } from './cell-item';
-import { ErrorModal } from './error-modal';
 import { ModalPosition } from './training-modal';
 
 import styles from './calendar-page.module.scss';
@@ -159,7 +159,7 @@ export const CalendarPage = () => {
                     />
                 </div>
             </Content>
-            <ErrorModal isError={isError} refetch={refetch} />
+            <ErrorTrainingList isError={isError} refetch={refetch} />
         </div>
     );
 };

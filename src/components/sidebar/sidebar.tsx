@@ -44,12 +44,13 @@ export const Sidebar = () => {
             key: PATHS.CALENDAR,
             icon: <CalendarTwoTone style={{ fontSize: '16px' }} />,
             label: 'Календарь',
-            onClick: () => onGetTraining(),
+            onClick: () => onGetTraining(PATHS.CALENDAR),
         },
         {
             key: PATHS.TRAININGS,
             icon: <HeartFilled style={{ fontSize: '16px' }} />,
             label: 'Тренировки',
+            onClick: () => onGetTraining(PATHS.TRAININGS),
         },
         {
             key: PATHS.ACHIEVEMENTS,

@@ -24,6 +24,7 @@ import { MainPage } from '@pages/main-page';
 import { NotFoundPage } from '@pages/not-founde-page';
 import { ProfilePage } from '@pages/profile-page';
 import { SettingsPage } from '@pages/settings-page';
+import { TrainingsPage } from '@pages/trainings-page';
 
 export const AppRoutes = () => (
     <Routes>
@@ -35,6 +36,7 @@ export const AppRoutes = () => (
                 <Route path={PATHS.CALENDAR} element={<CalendarPage />} />
                 <Route path={PATHS.PROFILE} element={<ProfilePage />} />
                 <Route path={PATHS.SETTINGS} element={<SettingsPage />} />
+                <Route path={PATHS.TRAININGS} element={<TrainingsPage />} />
                 <Route path='*' element={<NotFoundPage />} />
             </Route>
         </Route>
