@@ -6,6 +6,8 @@ import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/api-sli
 import { Tabs } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 
+import { MyTrainings } from './my-trainings';
+
 import styles from './trainings-page.module.scss';
 
 type TabItem = {
@@ -15,7 +17,7 @@ type TabItem = {
 };
 
 export const TrainingsPage = () => {
-    const { data: trainings, isFetching } = useGetTrainingQuery();
+    const { data: trainings = [], isFetching } = useGetTrainingQuery();
 
     const {
         data: trainingList = [],
@@ -27,7 +29,11 @@ export const TrainingsPage = () => {
     useLoaderLoading(isFetching || isFetchingTrainingList);
 
     const tabsItems: TabItem[] = [
-        { label: 'Мои тренировки', key: '1', children: <div>Мои тренировки</div> },
+        {
+            label: 'Мои тренировки',
+            key: '1',
+            children: <MyTrainings trainings={trainings} trainingList={trainingList} />,
+        },
         { label: 'Совместные тренировки', key: '2', children: <div>Совместные тренировки</div> },
         { label: 'Марафоны', key: '3', children: <div>Марафоны</div> },
     ];
