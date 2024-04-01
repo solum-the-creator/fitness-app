@@ -1,0 +1,28 @@
+.main_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .header_wrapper {
+    padding: var(--padding-header);
+    background-color: var(--primary-light-1);
+  }
+
+  .content_wrapper {
+    width: 100%;
+    height: 100%;
+    padding: var(--padding-wrapper);
+
+    @media (max-width: 480px) {
+      padding: var(--padding-mobile-content-wrapper);
+    }
+
+    .content {
+      height: 100%;
+      width: 100%;
+      border-radius: var(--border-radius-large);
+      background-color: var(--neutral-gray-1);
+    }
+  }
+}

@@ -10,7 +10,7 @@
 
 
     @media (max-width: 480px) {
-      padding: 24px 0 42px;
+      padding: var(--padding-mobile-content-wrapper);
     }
 
     .content {
