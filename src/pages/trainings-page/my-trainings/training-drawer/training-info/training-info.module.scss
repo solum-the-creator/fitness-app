@@ -1,0 +1,87 @@
+.select_training {
+
+  width: 100%;
+  display: flex;
+
+  :global {
+    .ant-select.ant-select-single {
+      .ant-select-selector {
+        height: 28px;
+        padding: 5px 12px;
+      }
+    }
+
+    .ant-select-selector {
+      align-items: center;
+      border-color: transparent;
+
+
+      input {
+        line-height: 130%;
+      }
+    }
+
+    .ant-select-selection-item {
+      text-align: left;
+    }
+
+    .ant-select-selection-placeholder {
+      text-align: left;
+    }
+  }
+}
+
+.select_popup {
+  :global {
+    .ant-select-item {
+      line-height: 130%;
+      min-height: 28px;
+    }
+    .ant-select-item-option-content {
+      line-height: 130%;
+    }
+  }
+}
+
+.form_input {
+  height: 28px;
+  font-size: 14px;
+  line-height: 130%;
+  input {
+    line-height: 130%;
+  }
+}
+
+.training_info {
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+
+  @media (max-width: 680px) {
+    gap: 16px;
+  }
+
+  .date_training {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .date_row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+
+      @media (max-width: 480px) {
+        gap: 24px;
+      }
+
+      :global {
+        .ant-checkbox + span {
+            padding-right: 0;
+        }
+      }
+    }
+  }
+}
