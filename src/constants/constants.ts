@@ -111,3 +111,13 @@ export const DAY_OF_WEEK_OPTIONS: OptionDayOfWeek[] = [
         value: 7,
     },
 ];
+
+export const PERIOD_TO_STRING: Record<number, string> = {
+    1: 'Через 1 день',
+    2: 'Через 2 дня',
+    3: 'Через 3 дня',
+    4: 'Через 4 дня',
+    5: 'Через 5 дней',
+    6: 'Через 6 дней',
+    7: '1 раз в неделю',
+};

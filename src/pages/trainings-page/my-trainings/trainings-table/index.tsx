@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { PERIOD_TO_STRING } from '@constants/constants';
 import { TrainingResponse } from '@redux/api/types';
 import { Button } from 'antd';
 import Table, { ColumnsType } from 'antd/lib/table';
@@ -14,10 +15,13 @@ type TrainingsTableProps = {
 type TableType = {
     key: React.Key;
     type: string;
-    period?: string;
+    period?: number;
+    action: React.ReactNode;
 };
 
 export const TrainingsTable = ({ trainings, onCreate }: TrainingsTableProps) => {
+    const periodSorter = (a: TableType, b: TableType) => (a.period ?? 0) - (b.period ?? 0);
+
     const columns: ColumnsType<TableType> = [
         {
             title: 'Тип тренировки',
@@ -25,26 +29,35 @@ export const TrainingsTable = ({ trainings, onCreate }: TrainingsTableProps) => 
             key: 'type',
         },
         {
-            title: 'Сортировка по периоду',
+            title: 'Периодичность',
             dataIndex: 'period',
             key: 'period',
+            render: (period: number) => PERIOD_TO_STRING[period],
+            sorter: periodSorter,
+            // defaultSortOrder: 'descend',
         },
         {
             title: '',
+            dataIndex: 'action',
             key: 'action',
-            render: () => <Button type='text' icon={<EditOutlined />} />,
         },
     ];
 
     const data: TableType[] = trainings.map((training) => ({
         key: training._id,
         type: training.name,
-        period: training.parameters?.period?.toString(),
+        period: training.parameters ? training.parameters.period : 0,
+        action: <Button type='text' icon={<EditOutlined />} />,
     }));
 
     return (
         <div className={styles.main_container}>
-            <Table columns={columns} dataSource={data} data-test-id='my-trainings-table' />
+            <Table
+                columns={columns}
+                dataSource={data}
+                showSorterTooltip={false}
+                data-test-id='my-trainings-table'
+            />
             <Button
                 type='primary'
                 size='large'

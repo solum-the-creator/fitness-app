@@ -11,11 +11,19 @@ export const ErrorTrainingDrawer = ({ isOpen, onClose }: ErrorTrainingDrawerProp
     const showErrorModal = useCallback(
         () =>
             Modal.error({
-                title: <span>При сохранении данных произошла ошибка</span>,
-                content: <span>Придётся попробовать ещё раз</span>,
+                title: (
+                    <span data-test-id='modal-error-user-training-title'>
+                        При сохранении данных произошла ошибка
+                    </span>
+                ),
+                content: (
+                    <span data-test-id='modal-error-user-training-subtitle'>
+                        Придётся попробовать ещё раз
+                    </span>
+                ),
                 closable: false,
                 centered: true,
-                okText: <span>Закрыть</span>,
+                okText: <span data-test-id='modal-error-user-training-button'>Закрыть</span>,
                 width: '100%',
                 maskStyle: {
                     backdropFilter: 'blur(6px)',
