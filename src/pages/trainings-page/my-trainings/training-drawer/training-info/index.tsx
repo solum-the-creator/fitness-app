@@ -1,25 +1,85 @@
-import { useState } from 'react';
 import { DATE_FORMAT, PERIOD_OPTIONS, RU_CALENDAR_LOCALE } from '@constants/constants';
 import { TrainingList } from '@redux/api/types';
 import { Checkbox, DatePicker, Select } from 'antd';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
+import { RangePickerProps } from 'antd/lib/date-picker';
+import moment, { Moment } from 'moment';
 
 import styles from './training-info.module.scss';
 
 type TrainingInfoProps = {
     trainingList: TrainingList;
+    trainingDates: Moment[];
+    changeTrainingName: (name?: string) => void;
+    changeTrainingDate: (date?: string) => void;
+    changeWithPeriod: (value: boolean) => void;
+    changeTrainingPeriod: (period?: number) => void;
+    trainingName?: string;
+    trainingDate?: string;
+    withPeriod?: boolean;
+    period?: number;
 };
 
 type OptionType = {
     label: string;
     value: string;
 };
-export const TrainingInfo = ({ trainingList }: TrainingInfoProps) => {
-    const [withPeriod, setWithPeriod] = useState(false);
-
+export const TrainingInfo = ({
+    trainingList,
+    trainingDates,
+    trainingName,
+    trainingDate,
+    withPeriod,
+    period,
+    changeTrainingName,
+    changeTrainingDate,
+    changeWithPeriod,
+    changeTrainingPeriod,
+}: TrainingInfoProps) => {
     const trainingsOptions: OptionType[] = trainingList.map((training) => ({
         label: training.name,
         value: training.key,
     }));
+
+    const selectedTrainingType = trainingList.find((item) => item.name === trainingName);
+    const selectedTrainingDate = trainingDate ? moment(trainingDate) : null;
+
+    const disabledDate: RangePickerProps['disabledDate'] = (current) =>
+        current && current < moment().endOf('day');
+
+    const datesWithTraining = (current: Moment) => {
+        const withTrainingClass = 'ant-picker-cell-with-training';
+
+        const isWithTraining = trainingDates.some((date) => current.isSame(date, 'date'));
+
+        return (
+            <div className={`ant-picker-cell-inner ${isWithTraining ? withTrainingClass : ''}`}>
+                {current.date()}
+            </div>
+        );
+    };
+    const handleChangeTypeSelect = (value: string) => {
+        const training = trainingList.find((item) => item.key === value);
+
+        changeTrainingName(training?.name);
+    };
+
+    const handleChangeDate = (date: Moment | null) => {
+        changeTrainingDate(date?.toISOString());
+    };
+
+    const handleChangeWithPeriod = (e: CheckboxChangeEvent) => {
+        changeWithPeriod(e.target.checked);
+        if (e.target.checked) {
+            changeTrainingPeriod(PERIOD_OPTIONS[0].value);
+        } else {
+            changeTrainingPeriod(undefined);
+        }
+    };
+
+    const handleChangePeriod = (value: number) => {
+        changeTrainingPeriod(value);
+    };
 
     return (
         <div className={styles.training_info}>
@@ -29,8 +89,8 @@ export const TrainingInfo = ({ trainingList }: TrainingInfoProps) => {
                     size='small'
                     placeholder='Выбор типа тренировки'
                     popupClassName={styles.select_popup}
-                    // value={selectedTrainingType?.key}
-                    // onChange={handleChangeSelect}
+                    value={selectedTrainingType?.key}
+                    onChange={handleChangeTypeSelect}
                     options={trainingsOptions}
                 />
             </div>
@@ -41,10 +101,14 @@ export const TrainingInfo = ({ trainingList }: TrainingInfoProps) => {
                         className={styles.form_input}
                         locale={RU_CALENDAR_LOCALE}
                         format={DATE_FORMAT}
+                        disabledDate={disabledDate}
+                        dateRender={datesWithTraining}
+                        value={selectedTrainingDate}
+                        onChange={handleChangeDate}
                     />
                     <Checkbox
                         checked={withPeriod}
-                        onChange={() => setWithPeriod(!withPeriod)}
+                        onChange={handleChangeWithPeriod}
                         className={styles.checkbox}
                     >
                         С&nbsp;периодичностью
@@ -60,6 +124,8 @@ export const TrainingInfo = ({ trainingList }: TrainingInfoProps) => {
                                 popupClassName={styles.select_popup}
                                 className={styles.select_training}
                                 options={PERIOD_OPTIONS}
+                                value={period}
+                                onChange={handleChangePeriod}
                             />
                         </div>
                         <div className={styles.select_training}>

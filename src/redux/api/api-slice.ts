@@ -134,6 +134,8 @@ export const apiSlice = createApi({
                     name: training.name,
                     date: training.date,
                     exercises: training.exercises,
+                    isImplementation: training.isImplementation,
+                    parameters: training.parameters,
                 },
             }),
             invalidatesTags: [{ type: 'Training', id: 'LIST' }],

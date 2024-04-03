@@ -85,3 +85,12 @@
     }
   }
 }
+
+:global {
+  .ant-picker-dropdown {
+    .ant-picker-cell:has(.ant-picker-cell-with-training)::before {
+      background-color: var(--primary-light-1);
+    }
+
+  }
+}

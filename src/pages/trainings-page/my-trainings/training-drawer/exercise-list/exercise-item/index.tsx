@@ -5,10 +5,41 @@ import styles from './exercise-item.module.scss';
 
 type ExerciseItemProps = {
     item: Partial<Exercise>;
+    onUpdate: (exercise: Partial<Exercise>) => void;
 };
 
-export const ExerciseItem = ({ item }: ExerciseItemProps) => {
-    console.log(item);
+export const ExerciseItem = ({ item, onUpdate }: ExerciseItemProps) => {
+    const handleUpdate = (updatedExercise: Partial<Exercise> = {}) => {
+        onUpdate({ ...item, ...updatedExercise });
+    };
+
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        handleUpdate({ name: e.target.value });
+    };
+
+    const handleApproachesChange = (value: number | null) => {
+        if (value !== null && value >= 1) {
+            handleUpdate({ approaches: value });
+        } else {
+            handleUpdate({ approaches: 1 });
+        }
+    };
+
+    const handleWeightChange = (value: number | null) => {
+        if (value === null) {
+            handleUpdate({ weight: 0 });
+        } else {
+            handleUpdate({ weight: value });
+        }
+    };
+
+    const handleReplaysChange = (value: number | null) => {
+        if (value === null || value < 1) {
+            handleUpdate({ replays: 1 });
+        } else {
+            handleUpdate({ replays: value });
+        }
+    };
 
     return (
         <div className={styles.exercise}>
@@ -16,8 +47,8 @@ export const ExerciseItem = ({ item }: ExerciseItemProps) => {
                 placeholder='Упражнение'
                 size='small'
                 type='text'
-                // value={name}
-                // onChange={handleNameChange}
+                value={item.name}
+                onChange={handleNameChange}
                 maxLength={32}
             />
             <div className={styles.columns}>
@@ -30,8 +61,8 @@ export const ExerciseItem = ({ item }: ExerciseItemProps) => {
                             type='number'
                             placeholder='1'
                             size='small'
-                            // value={approaches}
-                            // onChange={handleApproachesChange}
+                            value={item.approaches}
+                            onChange={handleApproachesChange}
                         />
                     </div>
                 </div>
@@ -44,8 +75,8 @@ export const ExerciseItem = ({ item }: ExerciseItemProps) => {
                                 min={0}
                                 placeholder='0'
                                 size='small'
-                                // value={weight}
-                                // onChange={handleWeightChange}
+                                value={item.weight}
+                                onChange={handleWeightChange}
                             />
                         </div>
                     </div>
@@ -57,8 +88,8 @@ export const ExerciseItem = ({ item }: ExerciseItemProps) => {
                                 placeholder='3'
                                 min={1}
                                 size='small'
-                                // value={replays}
-                                // onChange={handleReplaysChange}
+                                value={item.replays}
+                                onChange={handleReplaysChange}
                             />
                         </div>
                     </div>
