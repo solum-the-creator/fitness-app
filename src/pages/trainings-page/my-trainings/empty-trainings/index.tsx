@@ -13,7 +13,13 @@ export const EmptyTrainings = ({ onCreate }: EmptyTrainingsProps) => (
                 <h3 className={styles.title}>У вас ещё нет созданных тренировок</h3>
             </div>
         </div>
-        <Button type='primary' size='large' className={styles.button} onClick={onCreate}>
+        <Button
+            type='primary'
+            size='large'
+            className={styles.button}
+            onClick={onCreate}
+            data-test-id='create-new-training-button'
+        >
             Создать тренировку
         </Button>
     </div>

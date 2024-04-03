@@ -92,6 +92,7 @@ export const TrainingInfo = ({
                     value={selectedTrainingType?.key}
                     onChange={handleChangeTypeSelect}
                     options={trainingsOptions}
+                    data-test-id='modal-create-exercise-select'
                 />
             </div>
             <div className={styles.date_training}>
@@ -105,11 +106,13 @@ export const TrainingInfo = ({
                         dateRender={datesWithTraining}
                         value={selectedTrainingDate}
                         onChange={handleChangeDate}
+                        data-test-id='modal-drawer-right-date-picker'
                     />
                     <Checkbox
                         checked={withPeriod}
                         onChange={handleChangeWithPeriod}
                         className={styles.checkbox}
+                        data-test-id='modal-drawer-right-checkbox-period'
                     >
                         С&nbsp;периодичностью
                     </Checkbox>
@@ -126,6 +129,7 @@ export const TrainingInfo = ({
                                 options={PERIOD_OPTIONS}
                                 value={period}
                                 onChange={handleChangePeriod}
+                                data-test-id='modal-drawer-right-select-period'
                             />
                         </div>
                         <div className={styles.select_training}>

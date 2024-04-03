@@ -45,6 +45,7 @@ export const MyTrainings = ({ trainings, trainingList }: MyTrainingsProps) => {
                     className={styles.alert}
                     closable={true}
                     onClose={() => setIsAlertNewTrainingVisible(false)}
+                    data-test-id='create-training-success-alert'
                 />
             )}
         </div>

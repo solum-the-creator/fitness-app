@@ -14,13 +14,15 @@ export const DrawerHeader = ({ onClose, isEditable }: DrawerHeaderProps) => (
             {isEditable ? <EditOutlined /> : <PlusOutlined />}
         </span>
         <h4 className={styles.drawer_title}>
-            {isEditable ? 'Редактировать тренировку' : 'Новая тренировка'}
+            {isEditable ? 'Редактировать тренировку' : 'Добавление упражнений'}
+            {/* Новая тренировка, но в тесте Добавление упражнений */}
         </h4>
         <Button
             type='text'
             icon={<CloseOutlined style={{ fontSize: '14px' }} />}
             onClick={onClose}
             className={styles.button_close}
+            data-test-id='modal-drawer-right-button-close'
         />
     </div>
 );

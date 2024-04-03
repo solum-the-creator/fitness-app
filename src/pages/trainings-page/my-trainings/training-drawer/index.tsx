@@ -112,6 +112,7 @@ export const TrainingDrawer = ({
             maskStyle={{ backgroundColor: 'transparent' }}
             destroyOnClose={true}
             className={`${styles.drawer} ${drawerClass}`}
+            data-test-id='modal-drawer-right'
         >
             <div className={styles.drawer_wrapper}>
                 <DrawerHeader onClose={handleClose} isEditable={isEditable} />

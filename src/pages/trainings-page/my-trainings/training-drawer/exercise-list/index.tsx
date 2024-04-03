@@ -48,10 +48,11 @@ export const ExerciseList = ({ exerciseList, updateExerciseList }: ExerciseListP
     return (
         <React.Fragment>
             <div className={styles.exercise_list}>
-                {currentExerciseList.map((exercise) => (
+                {currentExerciseList.map((exercise, index) => (
                     <ExerciseItem
                         key={exercise.tempId}
                         item={exercise}
+                        index={index}
                         onUpdate={handleUpdateExercise}
                     />
                 ))}

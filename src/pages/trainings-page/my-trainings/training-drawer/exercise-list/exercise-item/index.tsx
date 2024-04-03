@@ -5,10 +5,11 @@ import styles from './exercise-item.module.scss';
 
 type ExerciseItemProps = {
     item: Partial<Exercise>;
+    index: number;
     onUpdate: (exercise: Partial<Exercise>) => void;
 };
 
-export const ExerciseItem = ({ item, onUpdate }: ExerciseItemProps) => {
+export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
     const handleUpdate = (updatedExercise: Partial<Exercise> = {}) => {
         onUpdate({ ...item, ...updatedExercise });
     };
@@ -50,6 +51,7 @@ export const ExerciseItem = ({ item, onUpdate }: ExerciseItemProps) => {
                 value={item.name}
                 onChange={handleNameChange}
                 maxLength={32}
+                data-test-id={`modal-drawer-right-input-exercise${index}`}
             />
             <div className={styles.columns}>
                 <div className={styles.approach}>
@@ -63,6 +65,7 @@ export const ExerciseItem = ({ item, onUpdate }: ExerciseItemProps) => {
                             size='small'
                             value={item.approaches}
                             onChange={handleApproachesChange}
+                            data-test-id={`modal-drawer-right-input-approach${index}`}
                         />
                     </div>
                 </div>
@@ -77,6 +80,7 @@ export const ExerciseItem = ({ item, onUpdate }: ExerciseItemProps) => {
                                 size='small'
                                 value={item.weight}
                                 onChange={handleWeightChange}
+                                data-test-id={`modal-drawer-right-input-weight${index}`}
                             />
                         </div>
                     </div>
@@ -90,6 +94,7 @@ export const ExerciseItem = ({ item, onUpdate }: ExerciseItemProps) => {
                                 size='small'
                                 value={item.replays}
                                 onChange={handleReplaysChange}
+                                data-test-id={`modal-drawer-right-input-quantity${index}`}
                             />
                         </div>
                     </div>

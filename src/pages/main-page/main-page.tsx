@@ -81,6 +81,7 @@ export const MainPage: React.FC = () => {
                                                     block={true}
                                                     className={styles.card_button}
                                                     onClick={() => onGetTraining(PATHS.TRAININGS)}
+                                                    data-test-id='menu-button-training'
                                                 >
                                                     Тренировки
                                                 </Button>

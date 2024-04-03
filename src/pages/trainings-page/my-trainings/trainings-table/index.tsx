@@ -44,8 +44,14 @@ export const TrainingsTable = ({ trainings, onCreate }: TrainingsTableProps) => 
 
     return (
         <div className={styles.main_container}>
-            <Table columns={columns} dataSource={data} />
-            <Button type='primary' size='large' icon={<PlusOutlined />} onClick={onCreate}>
+            <Table columns={columns} dataSource={data} data-test-id='my-trainings-table' />
+            <Button
+                type='primary'
+                size='large'
+                icon={<PlusOutlined />}
+                onClick={onCreate}
+                data-test-id='create-new-training-button'
+            >
                 Новая тренировка
             </Button>
         </div>
