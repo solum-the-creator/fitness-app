@@ -18,7 +18,7 @@ type TrainingsTableProps = {
 
 type TableType = {
     key: React.Key;
-    type: string;
+    training: TrainingResponse;
     period?: number;
     action: React.ReactNode;
 };
@@ -30,13 +30,16 @@ export const TrainingsTable = ({ trainings, trainingList, onCreate }: TrainingsT
 
     const columns: ColumnsType<TableType> = [
         {
-            title: <div className={styles.title}>Тип тренировки</div>,
-            dataIndex: 'type',
-            key: 'type',
-            render: (type) => (
+            title: <div className={styles.title}>Тип&nbsp;тренировки</div>,
+            dataIndex: 'training',
+            key: 'training',
+            render: (training: TrainingResponse) => (
                 <TrainingTypeCell
-                    type={trainingList.find((item) => item.name === type)?.key || 'default'}
-                    name={type}
+                    type={
+                        trainingList.find((item) => item.name === training.name)?.key || 'default'
+                    }
+                    training={training}
+                    trainingList={trainingList}
                 />
             ),
         },
@@ -57,14 +60,12 @@ export const TrainingsTable = ({ trainings, trainingList, onCreate }: TrainingsT
 
     const data: TableType[] = trainings.map((training) => ({
         key: training._id,
-        type: training.name,
+        training,
         period: training.parameters ? training.parameters.period : 0,
         action: (
-            <Button
-                type='link'
-                className={styles.edit_button}
-                icon={<EditOutlined className={styles.edit_icon} />}
-            />
+            <Button type='link' className={styles.edit_button} block={true}>
+                <EditOutlined className={styles.edit_icon} />
+            </Button>
         ),
     }));
 

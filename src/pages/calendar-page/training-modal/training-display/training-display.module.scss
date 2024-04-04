@@ -51,6 +51,11 @@
         background-color: var(--neutral-gray-3);
       }
 
+      .training_name {
+        display: flex;
+        align-items: center;
+      }
+
       .button {
         display: flex;
         align-items: center;

@@ -72,7 +72,7 @@ export const TrainingDisplay = ({
                     <div className={styles.trainings}>
                         {trainings.map((training, index) => (
                             <div key={training._id} className={styles.training_item}>
-                                <div>
+                                <div className={styles.training_name}>
                                     <TrainingTypeBadge
                                         type={
                                             trainingList.find((item) => item.name === training.name)

@@ -82,7 +82,7 @@ export type Training = {
     exercises: Exercise[];
 };
 
-export type TrainingResponse = Training & {
+export type TrainingResponse = Omit<Training, 'exercises'> & {
     _id: string;
     userId: string;
     exercises: ExerciseResponse[];

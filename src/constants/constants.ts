@@ -121,3 +121,12 @@ export const PERIOD_TO_STRING: Record<number, string> = {
     6: 'Через 6 дней',
     7: '1 раз в неделю',
 };
+
+export const TRAINING_COLORS: Record<string, string> = {
+    legs: '#ff4d4f',
+    strength: '#fadb14',
+    hands: '#13c2c2',
+    chest: '#52c41a',
+    back: '#fa8c16',
+    default: '#d9d9d9',
+};
