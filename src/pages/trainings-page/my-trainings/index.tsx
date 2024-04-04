@@ -28,7 +28,11 @@ export const MyTrainings = ({ trainings, trainingList }: MyTrainingsProps) => {
             {isEmpty ? (
                 <EmptyTrainings onCreate={openDrawer} />
             ) : (
-                <TrainingsTable onCreate={openDrawer} trainings={trainings} />
+                <TrainingsTable
+                    onCreate={openDrawer}
+                    trainingList={trainingList}
+                    trainings={trainings}
+                />
             )}
             <TrainingDrawer
                 isOpen={isDrawerOpen}

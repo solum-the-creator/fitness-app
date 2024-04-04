@@ -1,0 +1,16 @@
+
+.wrapper {
+  display: flex;
+  gap: 12px;
+
+  .badge {
+    width: 7px;
+  }
+
+  .name_block {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+}

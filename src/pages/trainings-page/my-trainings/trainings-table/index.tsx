@@ -1,14 +1,18 @@
 /* eslint-disable no-underscore-dangle */
+import { useMediaQuery } from 'react-responsive';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { PERIOD_TO_STRING } from '@constants/constants';
-import { TrainingResponse } from '@redux/api/types';
+import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { Button } from 'antd';
 import Table, { ColumnsType } from 'antd/lib/table';
+
+import { TrainingTypeCell } from './training-type-cell';
 
 import styles from './trainings-table.module.scss';
 
 type TrainingsTableProps = {
     trainings: TrainingResponse[];
+    trainingList: TrainingList;
     onCreate: () => void;
 };
 
@@ -19,27 +23,35 @@ type TableType = {
     action: React.ReactNode;
 };
 
-export const TrainingsTable = ({ trainings, onCreate }: TrainingsTableProps) => {
+export const TrainingsTable = ({ trainings, trainingList, onCreate }: TrainingsTableProps) => {
+    const matches = useMediaQuery({ query: '(max-width: 480px)' });
+
     const periodSorter = (a: TableType, b: TableType) => (a.period ?? 0) - (b.period ?? 0);
 
     const columns: ColumnsType<TableType> = [
         {
-            title: 'Тип тренировки',
+            title: <div className={styles.title}>Тип тренировки</div>,
             dataIndex: 'type',
             key: 'type',
+            render: (type) => (
+                <TrainingTypeCell
+                    type={trainingList.find((item) => item.name === type)?.key || 'default'}
+                    name={type}
+                />
+            ),
         },
         {
-            title: 'Периодичность',
+            title: <div className={styles.title}>Периодичность</div>,
             dataIndex: 'period',
             key: 'period',
-            render: (period: number) => PERIOD_TO_STRING[period],
+            render: (period: number) => <div>{PERIOD_TO_STRING[period]}</div>,
             sorter: periodSorter,
-            // defaultSortOrder: 'descend',
         },
         {
-            title: '',
+            title: undefined,
             dataIndex: 'action',
             key: 'action',
+            width: 32,
         },
     ];
 
@@ -47,7 +59,13 @@ export const TrainingsTable = ({ trainings, onCreate }: TrainingsTableProps) => 
         key: training._id,
         type: training.name,
         period: training.parameters ? training.parameters.period : 0,
-        action: <Button type='text' icon={<EditOutlined />} />,
+        action: (
+            <Button
+                type='link'
+                className={styles.edit_button}
+                icon={<EditOutlined className={styles.edit_icon} />}
+            />
+        ),
     }));
 
     return (
@@ -56,17 +74,26 @@ export const TrainingsTable = ({ trainings, onCreate }: TrainingsTableProps) => 
                 columns={columns}
                 dataSource={data}
                 showSorterTooltip={false}
+                pagination={{
+                    hideOnSinglePage: true,
+                    pageSize: matches ? 8 : 14,
+                    position: ['bottomLeft'],
+                }}
+                size='small'
                 data-test-id='my-trainings-table'
             />
-            <Button
-                type='primary'
-                size='large'
-                icon={<PlusOutlined />}
-                onClick={onCreate}
-                data-test-id='create-new-training-button'
-            >
-                Новая тренировка
-            </Button>
+            <div>
+                <Button
+                    type='primary'
+                    size='large'
+                    icon={<PlusOutlined />}
+                    onClick={onCreate}
+                    block={matches}
+                    data-test-id='create-new-training-button'
+                >
+                    Новая тренировка
+                </Button>
+            </div>
         </div>
     );
 };
