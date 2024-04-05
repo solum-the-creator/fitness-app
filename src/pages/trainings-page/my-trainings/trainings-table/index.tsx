@@ -14,6 +14,7 @@ type TrainingsTableProps = {
     trainings: TrainingResponse[];
     trainingList: TrainingList;
     onCreate: () => void;
+    onEdit: (training: TrainingResponse) => void;
 };
 
 type TableType = {
@@ -23,7 +24,12 @@ type TableType = {
     action: React.ReactNode;
 };
 
-export const TrainingsTable = ({ trainings, trainingList, onCreate }: TrainingsTableProps) => {
+export const TrainingsTable = ({
+    trainings,
+    trainingList,
+    onCreate,
+    onEdit,
+}: TrainingsTableProps) => {
     const matches = useMediaQuery({ query: '(max-width: 480px)' });
 
     const periodSorter = (a: TableType, b: TableType) => (a.period ?? 0) - (b.period ?? 0);
@@ -40,6 +46,7 @@ export const TrainingsTable = ({ trainings, trainingList, onCreate }: TrainingsT
                     }
                     training={training}
                     trainingList={trainingList}
+                    onEdit={onEdit}
                 />
             ),
         },
@@ -58,13 +65,22 @@ export const TrainingsTable = ({ trainings, trainingList, onCreate }: TrainingsT
         },
     ];
 
-    const data: TableType[] = trainings.map((training) => ({
+    const data: TableType[] = trainings.map((training, index) => ({
         key: training._id,
         training,
         period: training.parameters ? training.parameters.period : 0,
         action: (
-            <Button type='link' className={styles.edit_button} block={true}>
-                <EditOutlined className={styles.edit_icon} />
+            <Button
+                type='link'
+                className={styles.edit_button}
+                block={true}
+                onClick={() => onEdit(training)}
+                disabled={training.isImplementation}
+            >
+                <EditOutlined
+                    className={styles.edit_icon}
+                    data-test-id={`update-my-training-table-icon${index}`}
+                />
             </Button>
         ),
     }));
@@ -77,7 +93,7 @@ export const TrainingsTable = ({ trainings, trainingList, onCreate }: TrainingsT
                 showSorterTooltip={false}
                 pagination={{
                     hideOnSinglePage: true,
-                    pageSize: matches ? 8 : 14,
+                    pageSize: matches ? 8 : 10,
                     position: ['bottomLeft'],
                 }}
                 size='small'

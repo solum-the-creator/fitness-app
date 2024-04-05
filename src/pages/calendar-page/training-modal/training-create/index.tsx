@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import {
@@ -5,13 +6,7 @@ import {
     useGetTrainingListQuery,
     useUpdateTrainingMutation,
 } from '@redux/api/api-slice';
-import {
-    Exercise,
-    ExerciseResponse,
-    Training,
-    TrainingList,
-    TrainingResponse,
-} from '@redux/api/types';
+import { Exercise, Training, TrainingList, TrainingResponse } from '@redux/api/types';
 import { isPastDate } from '@utils/date-utils';
 import { availableTrainings } from '@utils/missing-trainings';
 import { Button, Empty, Modal, Select } from 'antd';
@@ -69,7 +64,7 @@ export const TrainingCreate = ({
     const isEditable = !!(editableTraining && selectedTrainingType?.name === editableTraining.name);
 
     const [isExerciseOpen, setIsExerciseOpen] = useState(false);
-    const [exerciseList, setExerciseList] = useState<Exercise[] | ExerciseResponse[]>(
+    const [exerciseList, setExerciseList] = useState<Exercise[]>(
         isEditable ? editableTraining.exercises : [],
     );
     const isEmpty = exerciseList.length === 0;
@@ -124,21 +119,24 @@ export const TrainingCreate = ({
 
     const handleSave = async () => {
         if (editableTraining) {
-            const training: TrainingResponse = {
-                ...editableTraining,
-                exercises: exerciseList as ExerciseResponse[],
+            const training: Training = {
+                name: editableTraining.name,
+                date: editableTraining.date,
                 isImplementation: isPast,
+                exercises: [...exerciseList],
+                parameters: editableTraining.parameters,
             };
 
             try {
-                await updateTraining(training).unwrap();
+                await updateTraining({
+                    id: editableTraining._id,
+                    training: { ...training },
+                }).unwrap();
                 onCancel();
             } catch {
                 showErrorModal();
             }
-        }
-
-        if (selectedTrainingType && !isEmpty) {
+        } else if (selectedTrainingType && !isEmpty) {
             const training: Training = {
                 name: selectedTrainingType.name,
                 date: date.toISOString(),

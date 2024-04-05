@@ -17,11 +17,31 @@ type MyTrainingsProps = {
 export const MyTrainings = ({ trainings, trainingList }: MyTrainingsProps) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isAlertNewTrainingVisible, setIsAlertNewTrainingVisible] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+
+    const [editableTraining, setEditableTraining] = useState<TrainingResponse | undefined>(
+        undefined,
+    );
 
     const trainingDates = trainings.map((training) => moment(training.date));
     const isEmpty = trainings.length === 0;
 
     const openDrawer = () => setIsDrawerOpen(true);
+
+    const openEditableDrawer = (training: TrainingResponse) => {
+        setEditableTraining(training);
+        setIsDrawerOpen(true);
+    };
+
+    const closeDrawer = () => {
+        setIsDrawerOpen(false);
+        setEditableTraining(undefined);
+    };
+
+    const showAlertTraining = (message: string) => {
+        setAlertMessage(message);
+        setIsAlertNewTrainingVisible(true);
+    };
 
     return (
         <div className={styles.main_container}>
@@ -30,20 +50,25 @@ export const MyTrainings = ({ trainings, trainingList }: MyTrainingsProps) => {
             ) : (
                 <TrainingsTable
                     onCreate={openDrawer}
+                    onEdit={openEditableDrawer}
                     trainingList={trainingList}
                     trainings={trainings}
                 />
             )}
-            <TrainingDrawer
-                isOpen={isDrawerOpen}
-                trainingList={trainingList}
-                trainingDates={trainingDates}
-                showAlertNewTraining={() => setIsAlertNewTrainingVisible(true)}
-                onClose={() => setIsDrawerOpen(false)}
-            />
+            {isDrawerOpen && (
+                <TrainingDrawer
+                    isOpen={isDrawerOpen}
+                    trainingList={trainingList}
+                    trainingDates={trainingDates}
+                    training={editableTraining}
+                    showAlertTraining={showAlertTraining}
+                    onClose={closeDrawer}
+                />
+            )}
+
             {isAlertNewTrainingVisible && (
                 <Alert
-                    message='Новая тренировка успешно добавлена'
+                    message={alertMessage}
                     showIcon={true}
                     type='success'
                     className={styles.alert}

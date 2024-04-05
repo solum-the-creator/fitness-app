@@ -1,5 +1,5 @@
 import { Exercise } from '@redux/api/types';
-import { Input, InputNumber } from 'antd';
+import { Checkbox, Input, InputNumber } from 'antd';
 
 import styles from './exercise-item.module.scss';
 
@@ -7,9 +7,17 @@ type ExerciseItemProps = {
     item: Partial<Exercise>;
     index: number;
     onUpdate: (exercise: Partial<Exercise>) => void;
+    onCheckChange: (id: string) => void;
+    isEditable?: boolean;
 };
 
-export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
+export const ExerciseItem = ({
+    item,
+    index,
+    isEditable,
+    onUpdate,
+    onCheckChange,
+}: ExerciseItemProps) => {
     const handleUpdate = (updatedExercise: Partial<Exercise> = {}) => {
         onUpdate({ ...item, ...updatedExercise });
     };
@@ -42,6 +50,10 @@ export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
         }
     };
 
+    const handleCheckChange = () => {
+        onCheckChange(item.tempId as string);
+    };
+
     return (
         <div className={styles.exercise}>
             <Input
@@ -51,6 +63,14 @@ export const ExerciseItem = ({ item, index, onUpdate }: ExerciseItemProps) => {
                 value={item.name}
                 onChange={handleNameChange}
                 maxLength={32}
+                addonAfter={
+                    isEditable && (
+                        <Checkbox
+                            onChange={handleCheckChange}
+                            data-test-id={`modal-drawer-right-checkbox-exercise${index}`}
+                        />
+                    )
+                }
                 data-test-id={`modal-drawer-right-input-exercise${index}`}
             />
             <div className={styles.columns}>

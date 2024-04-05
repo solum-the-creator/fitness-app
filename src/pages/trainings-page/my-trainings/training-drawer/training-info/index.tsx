@@ -18,6 +18,7 @@ type TrainingInfoProps = {
     trainingDate?: string;
     withPeriod?: boolean;
     period?: number;
+    isEditable?: boolean;
 };
 
 type OptionType = {
@@ -35,6 +36,7 @@ export const TrainingInfo = ({
     changeTrainingDate,
     changeWithPeriod,
     changeTrainingPeriod,
+    isEditable,
 }: TrainingInfoProps) => {
     const trainingsOptions: OptionType[] = trainingList.map((training) => ({
         label: training.name,
@@ -92,6 +94,7 @@ export const TrainingInfo = ({
                     value={selectedTrainingType?.key}
                     onChange={handleChangeTypeSelect}
                     options={trainingsOptions}
+                    disabled={isEditable}
                     data-test-id='modal-create-exercise-select'
                 />
             </div>

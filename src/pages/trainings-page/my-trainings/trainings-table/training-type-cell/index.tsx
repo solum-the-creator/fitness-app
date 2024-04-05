@@ -11,9 +11,15 @@ type TrainingTypeCellProps = {
     type: string;
     training: TrainingResponse;
     trainingList: TrainingList;
+    onEdit: (training: TrainingResponse) => void;
 };
 
-export const TrainingTypeCell = ({ type, training, trainingList }: TrainingTypeCellProps) => {
+export const TrainingTypeCell = ({
+    type,
+    training,
+    trainingList,
+    onEdit,
+}: TrainingTypeCellProps) => {
     const [showModal, setShowModal] = useState(false);
     const cellRef = useRef<HTMLDivElement>(null);
 
@@ -63,6 +69,7 @@ export const TrainingTypeCell = ({ type, training, trainingList }: TrainingTypeC
                         training={training}
                         trainingList={trainingList}
                         onClose={closeModal}
+                        onEdit={onEdit}
                     />
                 )}
             </div>

@@ -14,8 +14,8 @@ export const DrawerHeader = ({ onClose, isEditable }: DrawerHeaderProps) => (
             {isEditable ? <EditOutlined /> : <PlusOutlined />}
         </span>
         <h4 className={styles.drawer_title}>
-            {isEditable ? 'Редактировать тренировку' : 'Добавление упражнений'}
-            {/* Новая тренировка, но в тесте Добавление упражнений */}
+            {isEditable ? 'Редактирование' : 'Добавление упражнений'}
+            {/* Новая тренировка и Редактировать тренировку, но в тесте Добавление упражнений и Редактирование */}
         </h4>
         <Button
             type='text'

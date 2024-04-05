@@ -1,12 +1,14 @@
+/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useAddTrainingMutation } from '@redux/api/api-slice';
-import { Exercise, Training, TrainingList } from '@redux/api/types';
+import { useAddTrainingMutation, useUpdateTrainingMutation } from '@redux/api/api-slice';
+import { Exercise, Training, TrainingList, TrainingResponse } from '@redux/api/types';
+import { isPastDate } from '@utils/date-utils';
 import { filterExerciseList } from '@utils/exercise';
 import { Button, Drawer } from 'antd';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 
 import { DrawerHeader } from './drawer-header';
 import { ExerciseList } from './exercise-list';
@@ -19,31 +21,38 @@ type TrainingDrawerProps = {
     trainingList: TrainingList;
     trainingDates: Moment[];
     onClose: () => void;
-    showAlertNewTraining: () => void;
-    isEditable?: boolean;
+    showAlertTraining: (message: string) => void;
+    training?: TrainingResponse;
 };
 
 export const TrainingDrawer = ({
     isOpen,
     trainingList,
     trainingDates,
-    showAlertNewTraining,
+    showAlertTraining,
     onClose,
-    isEditable,
+    training,
 }: TrainingDrawerProps) => {
     const matches = useMediaQuery({ query: '(max-width: 680px)' });
     const drawerClass = matches ? styles.drawer_mobile : styles.drawer_fullscreen;
 
+    const isEditable = !!training;
+
     const [addTraining, { isLoading: isLoadingAdd }] = useAddTrainingMutation();
+    const [updateTraining, { isLoading: isLoadingUpdate }] = useUpdateTrainingMutation();
     const [showErrorModal, setShowErrorModal] = useState(false);
 
-    useLoaderLoading(isLoadingAdd);
+    useLoaderLoading(isLoadingAdd || isLoadingUpdate);
 
-    const [trainingName, setTrainingName] = useState<string | undefined>(undefined);
-    const [trainingDate, setTrainingDate] = useState<string | undefined>(undefined);
-    const [withPeriod, setWithPeriod] = useState(false);
-    const [trainingPeriod, setTrainingPeriod] = useState<number | undefined>();
-    const [exerciseList, setExerciseList] = useState<Array<Partial<Exercise>>>([]);
+    const [trainingName, setTrainingName] = useState<string | undefined>(training?.name);
+    const [trainingDate, setTrainingDate] = useState<string | undefined>(training?.date);
+    const [withPeriod, setWithPeriod] = useState(training?.parameters?.repeat || false);
+    const [trainingPeriod, setTrainingPeriod] = useState<number | undefined>(
+        training?.parameters?.period,
+    );
+    const [exerciseList, setExerciseList] = useState<Array<Partial<Exercise>>>(
+        training?.exercises || [],
+    );
 
     const canSaveTraining = trainingName && trainingDate;
 
@@ -79,23 +88,44 @@ export const TrainingDrawer = ({
 
     const saveTraining = async () => {
         if (canSaveTraining) {
-            const training: Training = {
-                name: trainingName,
-                date: trainingDate,
-                isImplementation: false,
-                exercises: filterExerciseList(exerciseList),
-                parameters: {
-                    repeat: withPeriod,
-                    period: trainingPeriod,
-                },
-            };
+            if (isEditable) {
+                const editableTraining: Training = {
+                    name: trainingName,
+                    date: trainingDate,
+                    isImplementation: isPastDate(moment(trainingDate)),
+                    exercises: filterExerciseList(exerciseList),
+                    parameters: {
+                        repeat: withPeriod,
+                        period: trainingPeriod,
+                    },
+                };
 
-            try {
-                await addTraining(training).unwrap();
-                showAlertNewTraining();
-                handleClose();
-            } catch {
-                setShowErrorModal(true);
+                try {
+                    await updateTraining({ id: training._id, training: editableTraining }).unwrap();
+                    showAlertTraining('Тренировка успешно обновлена');
+                    handleClose();
+                } catch {
+                    setShowErrorModal(true);
+                }
+            } else {
+                const newTraining: Training = {
+                    name: trainingName,
+                    date: trainingDate,
+                    isImplementation: false,
+                    exercises: filterExerciseList(exerciseList),
+                    parameters: {
+                        repeat: withPeriod,
+                        period: trainingPeriod,
+                    },
+                };
+
+                try {
+                    await addTraining(newTraining).unwrap();
+                    showAlertTraining('Новая тренировка успешно добавлена');
+                    handleClose();
+                } catch {
+                    setShowErrorModal(true);
+                }
             }
         }
     };
@@ -124,12 +154,14 @@ export const TrainingDrawer = ({
                         trainingDate={trainingDate}
                         withPeriod={withPeriod}
                         period={trainingPeriod}
+                        isEditable={isEditable}
                         changeTrainingName={changeTrainingName}
                         changeTrainingDate={changeTrainingDate}
                         changeWithPeriod={changeWithPeriod}
                         changeTrainingPeriod={changeTrainingPeriod}
                     />
                     <ExerciseList
+                        isEditable={isEditable}
                         exerciseList={exerciseList}
                         updateExerciseList={handleExerciseListUpdate}
                     />

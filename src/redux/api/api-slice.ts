@@ -140,13 +140,14 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: [{ type: 'Training', id: 'LIST' }],
         }),
-        updateTraining: builder.mutation<TrainingResponse, TrainingResponse>({
-            query: (training) => ({
-                url: `/training/${training._id}`,
+        updateTraining: builder.mutation<TrainingResponse, { id: string; training: Training }>({
+            query: ({ id, training }) => ({
+                url: `/training/${id}`,
                 method: 'PUT',
                 body: {
                     ...training,
                     exercises: training.exercises,
+                    parameters: training.parameters,
                 },
             }),
             invalidatesTags: [{ type: 'Training', id: 'LIST' }],

@@ -12,9 +12,10 @@ type TrainingModalProps = {
     trainingList: TrainingList;
     training: TrainingResponse;
     onClose: () => void;
+    onEdit: (training: TrainingResponse) => void;
 };
 
-export const TrainingModal = ({ trainingList, training, onClose }: TrainingModalProps) => {
+export const TrainingModal = ({ trainingList, training, onClose, onEdit }: TrainingModalProps) => {
     const isEmpty = training.exercises.length === 0;
 
     const trainingTypeKey =
@@ -71,14 +72,13 @@ export const TrainingModal = ({ trainingList, training, onClose }: TrainingModal
                             </div>
                         ))}
                     </div>
-                    // <ExerciseNameList onEdit={() => setIsExerciseOpen(true)} items={exerciseList} />
                 )}
             </div>
             <div className={styles.modal_footer}>
                 <Button
                     block={true}
-                    // onClick={() => setIsExerciseOpen(true)}
-                    // disabled={!selectedTrainingType}
+                    onClick={() => onEdit(training)}
+                    disabled={training.isImplementation}
                 >
                     Добавить упражнения
                 </Button>
