@@ -6,6 +6,7 @@ import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/api-sli
 import { Tabs } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 
+import { JointTrainings } from './joint-trainings';
 import { MyTrainings } from './my-trainings';
 
 import styles from './trainings-page.module.scss';
@@ -34,7 +35,7 @@ export const TrainingsPage = () => {
             key: '1',
             children: <MyTrainings trainings={trainings} trainingList={trainingList} />,
         },
-        { label: 'Совместные тренировки', key: '2', children: <div>Совместные тренировки</div> },
+        { label: 'Совместные тренировки', key: '2', children: <JointTrainings /> },
         { label: 'Марафоны', key: '3', children: <div>Марафоны</div> },
     ];
 
