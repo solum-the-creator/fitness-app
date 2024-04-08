@@ -1,0 +1,59 @@
+.partner_card {
+  width: 234px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  border: 1px solid var(--character-light-dividers);
+  border-radius: 2px;
+
+  .partner_info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .partner_name {
+      font-size: 14px;
+      line-height: 130%;
+      margin: 0;
+      width: min-content;
+    }
+  }
+
+  .training_info {
+    display: flex;
+    gap: 16px;
+
+    .label_row {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .info_label {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        line-height: 130%;
+        font-size: 12px;
+        color: var(--character-light-secondary-45);
+      }
+    }
+
+    .info_row {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .info_value {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        line-height: 130%;
+        font-weight: 500;
+        color: var(--primary-light-6);
+      }
+    }
+  }
+
+}
