@@ -5,7 +5,7 @@ import styles from './partner-card.module.scss';
 
 type PartnerCardProps = {
     name: string;
-    imageSrc: string;
+    imageSrc: string | null;
     trainingType: string;
     avgWeightInWeek: number;
 };
