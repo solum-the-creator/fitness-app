@@ -1,6 +1,7 @@
 import { CheckCircleFilled, ExclamationCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { INVITE_STATUS } from '@constants/constants';
 import { InviteStatus } from '@redux/api/types';
+import { splitNameBySearch } from '@utils/sorting';
 import { Avatar, Button, Tooltip } from 'antd';
 
 import styles from './user-joint-card.module.scss';
@@ -10,22 +11,28 @@ type UserJointCardProps = {
     trainingType: string;
     avgWeightInWeek: number;
     status: InviteStatus | null;
+    index: number;
     imageSrc?: string | null;
+    searchValue?: string;
 };
 
 export const UserJointCard = ({
     name,
-    imageSrc,
     trainingType,
     avgWeightInWeek,
     status,
+    index,
+    imageSrc,
+    searchValue = '',
 }: UserJointCardProps) => {
     const isAccepted = status === INVITE_STATUS.accepted;
     const isRejected = status === INVITE_STATUS.rejected;
     const isPending = status === INVITE_STATUS.pending;
 
+    const { prefix, highlight, suffix } = splitNameBySearch(name, searchValue);
+
     return (
-        <div className={styles.card}>
+        <div className={styles.card} data-test-id={`joint-training-cards${index}`}>
             <div className={styles.partner_info}>
                 <Avatar
                     src={imageSrc}
@@ -33,7 +40,11 @@ export const UserJointCard = ({
                     style={{ backgroundColor: '#F5F5F5', color: '#262626' }}
                     size={42}
                 />
-                <p className={styles.partner_name}>{name}</p>
+                <p className={styles.partner_name}>
+                    <span>{prefix}</span>
+                    <span className={styles.highlight}>{highlight}</span>
+                    <span>{suffix}</span>
+                </p>
             </div>
             <div className={styles.training_info}>
                 <div className={styles.info_label}>Тип тренировки:</div>

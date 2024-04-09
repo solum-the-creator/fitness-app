@@ -52,3 +52,17 @@ export const sortByStatusAndName = (a: TrainingPartner, b: TrainingPartner) => {
 
     return aLastName.localeCompare(bLastName);
 };
+
+export const splitNameBySearch = (name: string, searchValue: string) => {
+    const index = name.toLowerCase().indexOf(searchValue.toLowerCase());
+
+    if (index === -1) {
+        return { prefix: '', highlight: '', suffix: name };
+    }
+
+    return {
+        prefix: name.substring(0, index),
+        highlight: name.substring(index, index + searchValue.length),
+        suffix: name.substring(index + searchValue.length),
+    };
+};
