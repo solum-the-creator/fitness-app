@@ -109,3 +109,15 @@ export type UploadImage = {
     name: string;
     url: string;
 };
+
+export type TrainingPartner = {
+    id: string;
+    name: string;
+    trainingType: string;
+    imageSrc: string | null;
+    avgWeightInWeek: number;
+    inviteId: string | null;
+    status: InviteStatus | null;
+};
+
+export type InviteStatus = 'accepted' | 'pending' | 'rejected';

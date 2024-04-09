@@ -3,6 +3,7 @@ import { ErrorTrainingList } from '@components/modals/error-training-list';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/api-slice';
+import { findMostDemandingTrainingType } from '@utils/exercise';
 import { Tabs } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 
@@ -29,13 +30,19 @@ export const TrainingsPage = () => {
 
     useLoaderLoading(isFetching || isFetchingTrainingList);
 
+    const mostDemandingTrainingType = findMostDemandingTrainingType(trainings, trainingList);
+
     const tabsItems: TabItem[] = [
         {
             label: 'Мои тренировки',
             key: '1',
             children: <MyTrainings trainings={trainings} trainingList={trainingList} />,
         },
-        { label: 'Совместные тренировки', key: '2', children: <JointTrainings /> },
+        {
+            label: 'Совместные тренировки',
+            key: '2',
+            children: <JointTrainings trainingType={mostDemandingTrainingType} />,
+        },
         { label: 'Марафоны', key: '3', children: <div>Марафоны</div> },
     ];
 

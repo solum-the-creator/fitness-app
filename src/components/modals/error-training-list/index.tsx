@@ -7,9 +7,10 @@ import styles from './error-training-list.module.scss';
 type ErrorTrainingListProps = {
     isError: boolean;
     refetch: () => void;
+    onClose?: () => void;
 };
 
-export const ErrorTrainingList = ({ isError, refetch }: ErrorTrainingListProps) => {
+export const ErrorTrainingList = ({ isError, refetch, onClose }: ErrorTrainingListProps) => {
     const showErrorModal = useCallback(
         () =>
             Modal.error({
@@ -37,9 +38,11 @@ export const ErrorTrainingList = ({ isError, refetch }: ErrorTrainingListProps) 
                 },
                 className: styles.error_modal,
                 wrapClassName: styles.error_modal_wrapper,
+
                 onOk: () => refetch(),
+                onCancel: onClose,
             }),
-        [refetch],
+        [refetch, onClose],
     );
 
     useEffect(() => {

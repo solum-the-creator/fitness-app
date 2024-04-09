@@ -1,0 +1,79 @@
+.main_container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @media (max-width: 580px) {
+    gap: 20px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    @media (max-width: 1040px) {
+      justify-content: space-between;
+    }
+
+    @media (max-width: 580px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .button_back {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 130%;
+      height: 38px;
+      padding: 0;
+
+      span:last-child {
+        margin-left: 16px;
+      }
+
+      @media (min-width: 1041px) {
+        margin-right: 160px;
+      }
+
+      @media (max-width: 580px) {
+        font-size: 16px;
+        height: 32px;
+      }
+    }
+
+    .search {
+      max-width: 484px;
+
+      @media (max-width: 1040px) {
+        max-width: 380px;
+      }
+
+      @media (max-width: 580px) {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .user_joint_list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    :global {
+      .ant-list-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+
+        @media (max-width: 1040px) {
+          gap: 12px;
+        }
+      }
+
+      .ant-list-pagination {
+        margin-top: 16px;
+      }
+    }
+  }
+}

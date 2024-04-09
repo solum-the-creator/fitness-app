@@ -15,6 +15,7 @@ import {
     TariffList,
     Training,
     TrainingList,
+    TrainingPartner,
     TrainingResponse,
     UpdateUserRequest,
     User,
@@ -38,7 +39,7 @@ export const apiSlice = createApi({
         credentials: 'include',
         mode: 'cors',
     }),
-    tagTypes: ['Feedback', 'Training', 'User'],
+    tagTypes: ['Feedback', 'Training', 'User', 'UserJointTrainingList'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -171,6 +172,22 @@ export const apiSlice = createApi({
                 body: tariff,
             }),
         }),
+        getTrainingPals: builder.query<TrainingPartner[], void>({
+            query: () => ({
+                url: '/catalogs/training-pals',
+                method: 'GET',
+            }),
+        }),
+        getUserJointTrainingList: builder.query<TrainingPartner[], { trainingType: string } | void>(
+            {
+                query: (arg) => ({
+                    url: '/catalogs/user-joint-training-list',
+                    method: 'GET',
+                    params: arg ? { trainingType: arg.trainingType } : undefined,
+                }),
+                providesTags: [{ type: 'UserJointTrainingList', id: 'LIST' }],
+            },
+        ),
     }),
 });
 
@@ -192,4 +209,7 @@ export const {
     useUpdateTrainingMutation,
     useGetTariffListQuery,
     useAddTariffMutation,
+    useGetTrainingPalsQuery,
+    useGetUserJointTrainingListQuery,
+    useLazyGetUserJointTrainingListQuery,
 } = apiSlice;

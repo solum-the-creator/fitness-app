@@ -38,7 +38,7 @@ export const TrainingPartnerSelection = ({
                     Случайный выбор
                 </Button>
                 <Button type='text' onClick={handleSelectByType} block={true}>
-                    Выбор друга по моим видам тренировок
+                    Выбор друга по моим тренировкам
                 </Button>
             </div>
         </div>

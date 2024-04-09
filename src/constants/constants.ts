@@ -1,3 +1,4 @@
+import { InviteStatus } from '@redux/api/types';
 import ru_RU from 'antd/es/calendar/locale/ru_RU';
 
 export const RU_CALENDAR_LOCALE = {
@@ -129,4 +130,10 @@ export const TRAINING_COLORS: Record<string, string> = {
     chest: '#52c41a',
     back: '#fa8c16',
     default: '#d9d9d9',
+};
+
+export const INVITE_STATUS: Record<InviteStatus, InviteStatus> = {
+    accepted: 'accepted',
+    pending: 'pending',
+    rejected: 'rejected',
 };
