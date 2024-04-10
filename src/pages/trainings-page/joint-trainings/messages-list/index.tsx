@@ -30,29 +30,32 @@ export const MessagesList = ({ invites }: MessagesListProps) => {
                 {messagesToDisplay.map((invite) => (
                     <MessageItem
                         key={invite._id}
+                        inviteId={invite._id}
                         user={invite.from}
                         date={invite.createdAt}
                         training={invite.training}
                     />
                 ))}
             </div>
-            <div className={styles.show_more}>
-                <Button
-                    size='small'
-                    type='link'
-                    icon={
-                        showAll ? (
-                            <UpOutlined style={{ fontSize: 12 }} />
-                        ) : (
-                            <DownOutlined style={{ fontSize: 12 }} />
-                        )
-                    }
-                    className={styles.button_more}
-                    onClick={handleShowAll}
-                >
-                    {showAll ? 'Скрыть все сообщения' : 'Показать все сообщения'}
-                </Button>
-            </div>
+            {inviteCount > 1 && (
+                <div className={styles.show_more}>
+                    <Button
+                        size='small'
+                        type='link'
+                        icon={
+                            showAll ? (
+                                <UpOutlined style={{ fontSize: 12 }} />
+                            ) : (
+                                <DownOutlined style={{ fontSize: 12 }} />
+                            )
+                        }
+                        className={styles.button_more}
+                        onClick={handleShowAll}
+                    >
+                        {showAll ? 'Скрыть все сообщения' : 'Показать все сообщения'}
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };

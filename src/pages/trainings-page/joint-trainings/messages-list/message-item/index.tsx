@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
+import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
 import { DATE_FORMAT } from '@constants/constants';
+import { useLoaderLoading } from '@hooks/use-loader-loading';
+import { useUpdateInviteMutation } from '@redux/api/api-slice';
 import { Training, UserInvite } from '@redux/api/types';
 import { Avatar, Button } from 'antd';
 import moment from 'moment';
@@ -8,6 +11,7 @@ import moment from 'moment';
 import styles from './message-item.module.scss';
 
 type MessageItemProps = {
+    inviteId: string;
     user: UserInvite;
     date: string;
     training: Training;
@@ -21,7 +25,13 @@ const inviteTrainingText: Record<string, string> = {
     Спина: '[тренировок на спину]',
 };
 
-export const MessageItem = ({ user, date, training }: MessageItemProps) => {
+export const MessageItem = ({ inviteId, user, date, training }: MessageItemProps) => {
+    const [updateInvite, { isLoading }] = useUpdateInviteMutation();
+
+    useLoaderLoading(isLoading);
+
+    const [showErrorModal, setShowErrorModal] = useState(false);
+
     const formattedDate = moment(date).format(DATE_FORMAT);
     const name =
         user.firstName && user.lastName ? (
@@ -33,6 +43,14 @@ export const MessageItem = ({ user, date, training }: MessageItemProps) => {
         );
 
     const trainingText = inviteTrainingText[training.name] || '';
+
+    const handleUpdateInvite = async (status: 'accepted' | 'rejected') => {
+        try {
+            await updateInvite({ id: inviteId, status });
+        } catch {
+            setShowErrorModal(true);
+        }
+    };
 
     return (
         <div className={styles.wrapper}>
@@ -58,13 +76,24 @@ export const MessageItem = ({ user, date, training }: MessageItemProps) => {
                 </Button>
             </div>
             <div className={styles.actions}>
-                <Button type='primary' size='large' className={styles.action_button}>
+                <Button
+                    type='primary'
+                    size='large'
+                    className={styles.action_button}
+                    onClick={() => handleUpdateInvite('accepted')}
+                >
                     Тренироваться вместе
                 </Button>
-                <Button type='default' size='large' className={styles.action_button}>
+                <Button
+                    type='default'
+                    size='large'
+                    className={styles.action_button}
+                    onClick={() => handleUpdateInvite('rejected')}
+                >
                     Отклонить запрос
                 </Button>
             </div>
+            <ErrorTrainingDrawer isOpen={showErrorModal} onClose={() => setShowErrorModal(false)} />
         </div>
     );
 };

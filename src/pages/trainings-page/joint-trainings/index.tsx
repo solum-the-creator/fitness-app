@@ -3,6 +3,8 @@ import { ErrorTrainingList } from '@components/modals/error-training-list';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useGetInviteQuery, useLazyGetUserJointTrainingListQuery } from '@redux/api/api-slice';
 import { TrainingList } from '@redux/api/types';
+import { useAppDispatch } from '@redux/configure-store';
+import { setUserJointList } from '@redux/user-joint-list/user-joint-list-slice';
 import { Moment } from 'moment';
 
 import { MessagesList } from './messages-list';
@@ -23,9 +25,9 @@ export const JointTrainings = ({
     trainingList,
     trainingDates,
 }: JointTrainingsProps) => {
-    const [getUserJointTrainingList, { isFetching, data: userJointTrainingList = [] }] =
-        useLazyGetUserJointTrainingListQuery();
+    const [getUserJointTrainingList, { isFetching }] = useLazyGetUserJointTrainingListQuery();
     const { data: invites = [], isLoading } = useGetInviteQuery();
+    const dispatch = useAppDispatch();
 
     useLoaderLoading(isFetching || isLoading);
 
@@ -36,7 +38,9 @@ export const JointTrainings = ({
     const onShowRandomTrainingList = async () => {
         setLastCallType('random');
         try {
-            await getUserJointTrainingList().unwrap();
+            const userList = await getUserJointTrainingList().unwrap();
+
+            dispatch(setUserJointList(userList));
             setShowTrainingList(true);
         } catch {
             setIsError(true);
@@ -46,7 +50,12 @@ export const JointTrainings = ({
     const onShowTrainingListByType = async (type: string) => {
         setLastCallType('type');
         try {
-            await getUserJointTrainingList({ trainingType: type }).unwrap();
+            const userListByType = await getUserJointTrainingList({
+                trainingType: type,
+            }).unwrap();
+
+            dispatch(setUserJointList(userListByType));
+
             setShowTrainingList(true);
         } catch {
             setIsError(true);
@@ -71,7 +80,6 @@ export const JointTrainings = ({
             {showTrainingList ? (
                 <UserJointTrainingList
                     trainingList={trainingList}
-                    users={userJointTrainingList}
                     trainingDates={trainingDates}
                     onBack={onBack}
                 />

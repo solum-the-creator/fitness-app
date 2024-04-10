@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { TrainingList, TrainingPartner } from '@redux/api/types';
+import { useAppSelector } from '@redux/configure-store';
 import { sortByStatusAndName } from '@utils/sorting';
 import { Button, List } from 'antd';
 import Search from 'antd/lib/input/Search';
@@ -13,19 +14,19 @@ import { UserJointCard } from './user-joint-card';
 import styles from './user-joint-training-list.module.scss';
 
 type UserJointTrainingListProps = {
-    users: TrainingPartner[];
     trainingList: TrainingList;
     trainingDates: Moment[];
     onBack: () => void;
 };
 
 export const UserJointTrainingList = ({
-    users,
     trainingDates,
     trainingList,
     onBack,
 }: UserJointTrainingListProps) => {
     const matches = useMediaQuery({ query: '(max-width: 1040px)' });
+
+    const users = useAppSelector((state) => state.userJointList);
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 

@@ -142,3 +142,8 @@ export type Invite = {
     createdAt: string;
     to: UserInvite;
 };
+
+export type UpdateInviteRequest = {
+    id: string;
+    status: 'accepted' | 'rejected';
+};

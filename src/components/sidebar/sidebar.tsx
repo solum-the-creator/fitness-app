@@ -52,7 +52,7 @@ export const Sidebar = () => {
         {
             key: PATHS.TRAININGS,
             icon: (
-                <div className={styles.icon_badge}>
+                <div className={styles.icon_badge} data-test-id='notification-about-joint-training'>
                     <Badge count={inviteCount}>
                         <HeartFilled style={{ fontSize: '16px' }} />
                     </Badge>

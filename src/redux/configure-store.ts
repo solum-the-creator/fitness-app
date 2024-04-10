@@ -6,6 +6,7 @@ import inviteReducer from '@redux/invite/invite-slice';
 import loaderReducer from '@redux/loader/loader-slice';
 import siderReducer from '@redux/sider/sider-slice';
 import userReducer from '@redux/user/user-slice';
+import userJointListReducer from '@redux/user-joint-list/user-joint-list-slice';
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { createBrowserHistory } from 'history';
@@ -25,6 +26,7 @@ export const store = configureStore({
         sider: siderReducer,
         user: userReducer,
         invite: inviteReducer,
+        userJointList: userJointListReducer,
     }),
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiSlice.middleware, routerMiddleware),

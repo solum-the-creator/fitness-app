@@ -19,6 +19,7 @@ import {
     TrainingList,
     TrainingPartner,
     TrainingResponse,
+    UpdateInviteRequest,
     UpdateUserRequest,
     User,
 } from './types';
@@ -41,7 +42,7 @@ export const apiSlice = createApi({
         credentials: 'include',
         mode: 'cors',
     }),
-    tagTypes: ['Feedback', 'Training', 'User', 'UserJointTrainingList', 'Invite'],
+    tagTypes: ['Feedback', 'Training', 'User', 'UserJointTrainingList', 'Invite', 'TrainingPals'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -179,6 +180,7 @@ export const apiSlice = createApi({
                 url: '/catalogs/training-pals',
                 method: 'GET',
             }),
+            providesTags: [{ type: 'TrainingPals', id: 'LIST' }],
         }),
         getUserJointTrainingList: builder.query<TrainingPartner[], { trainingType: string } | void>(
             {
@@ -204,6 +206,18 @@ export const apiSlice = createApi({
                 body: invite,
             }),
             invalidatesTags: [{ type: 'UserJointTrainingList', id: 'LIST' }],
+        }),
+        updateInvite: builder.mutation<Invite, UpdateInviteRequest>({
+            query: ({ id, status }) => ({
+                url: '/invite',
+                method: 'PUT',
+                body: { id, status },
+            }),
+            invalidatesTags: [
+                { type: 'Invite', id: 'LIST' },
+                { type: 'UserJointTrainingList', id: 'LIST' },
+                { type: 'TrainingPals', id: 'LIST' },
+            ],
         }),
     }),
 });
@@ -231,4 +245,5 @@ export const {
     useLazyGetUserJointTrainingListQuery,
     useGetInviteQuery,
     useAddInviteMutation,
+    useUpdateInviteMutation,
 } = apiSlice;

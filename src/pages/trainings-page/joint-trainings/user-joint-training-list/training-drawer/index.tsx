@@ -5,6 +5,8 @@ import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useAddInviteMutation, useAddTrainingMutation } from '@redux/api/api-slice';
 import { Exercise, Training, TrainingList, TrainingPartner } from '@redux/api/types';
+import { useAppDispatch } from '@redux/configure-store';
+import { updateUserInJointList } from '@redux/user-joint-list/user-joint-list-slice';
 import { filterExerciseList } from '@utils/exercise';
 import { Button, Drawer } from 'antd';
 import { Moment } from 'moment';
@@ -34,8 +36,11 @@ export const TrainingDrawer = ({
     const matches = useMediaQuery({ query: '(max-width: 680px)' });
     const drawerClass = matches ? styles.drawer_mobile : styles.drawer_fullscreen;
 
+    const dispatch = useAppDispatch();
+
     const [addTraining, { isLoading: isLoadingAdd }] = useAddTrainingMutation();
     const [addInvite, { isLoading: isLoadingInvite }] = useAddInviteMutation();
+
     const [showErrorModal, setShowErrorModal] = useState(false);
 
     useLoaderLoading(isLoadingAdd || isLoadingInvite);
@@ -91,6 +96,7 @@ export const TrainingDrawer = ({
 
                 await addInvite({ to: trainingPartner.id, trainingId: addedTraining._id }).unwrap();
 
+                dispatch(updateUserInJointList({ id: trainingPartner.id, status: 'pending' }));
                 handleClose();
             } catch {
                 setShowErrorModal(true);
