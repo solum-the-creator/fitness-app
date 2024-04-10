@@ -2,6 +2,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { combineReducers } from 'redux';
 import { createReduxHistoryContext } from 'redux-first-history';
 import authReducer from '@redux/auth/auth-slice';
+import inviteReducer from '@redux/invite/invite-slice';
 import loaderReducer from '@redux/loader/loader-slice';
 import siderReducer from '@redux/sider/sider-slice';
 import userReducer from '@redux/user/user-slice';
@@ -23,6 +24,7 @@ export const store = configureStore({
         loader: loaderReducer,
         sider: siderReducer,
         user: userReducer,
+        invite: inviteReducer,
     }),
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiSlice.middleware, routerMiddleware),

@@ -24,7 +24,7 @@ export const FeedbackCard = ({
 
     return (
         <div className={styles.feedback_card}>
-            <div className={styles.comment_content_author}>
+            <div className={styles.user_info}>
                 <div className={styles.image_container}>
                     <Avatar
                         src={imageSrc}
@@ -33,7 +33,7 @@ export const FeedbackCard = ({
                         size={42}
                     />
                 </div>
-                <p className={styles.name_author}>{fullName || 'Пользователь'}</p>
+                <p className={styles.name}>{fullName || 'Пользователь'}</p>
             </div>
             <div className={styles.comment_content}>
                 <div className={styles.comment_header}>

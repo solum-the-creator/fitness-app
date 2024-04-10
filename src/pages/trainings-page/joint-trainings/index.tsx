@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ErrorTrainingList } from '@components/modals/error-training-list';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
-import { useLazyGetUserJointTrainingListQuery } from '@redux/api/api-slice';
+import { useGetInviteQuery, useLazyGetUserJointTrainingListQuery } from '@redux/api/api-slice';
 import { TrainingList } from '@redux/api/types';
 import { Moment } from 'moment';
 
+import { MessagesList } from './messages-list';
 import { TrainingPartnerSelection } from './training-partner-selection';
 import { TrainingPartners } from './training-partners';
 import { UserJointTrainingList } from './user-joint-training-list';
@@ -24,8 +25,9 @@ export const JointTrainings = ({
 }: JointTrainingsProps) => {
     const [getUserJointTrainingList, { isFetching, data: userJointTrainingList = [] }] =
         useLazyGetUserJointTrainingListQuery();
+    const { data: invites = [], isLoading } = useGetInviteQuery();
 
-    useLoaderLoading(isFetching);
+    useLoaderLoading(isFetching || isLoading);
 
     const [showTrainingList, setShowTrainingList] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -75,10 +77,13 @@ export const JointTrainings = ({
                 />
             ) : (
                 <React.Fragment>
+                    {invites.length > 0 && <MessagesList invites={invites} />}
+
                     <TrainingPartnerSelection
                         selectRandom={onShowRandomTrainingList}
                         selectByType={() => onShowTrainingListByType(trainingType || '')}
                     />
+
                     <TrainingPartners />
                 </React.Fragment>
             )}

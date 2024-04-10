@@ -41,7 +41,7 @@ export const apiSlice = createApi({
         credentials: 'include',
         mode: 'cors',
     }),
-    tagTypes: ['Feedback', 'Training', 'User', 'UserJointTrainingList'],
+    tagTypes: ['Feedback', 'Training', 'User', 'UserJointTrainingList', 'Invite'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -190,6 +190,13 @@ export const apiSlice = createApi({
                 providesTags: [{ type: 'UserJointTrainingList', id: 'LIST' }],
             },
         ),
+        getInvite: builder.query<Invite[], void>({
+            query: () => ({
+                url: '/invite',
+                method: 'GET',
+            }),
+            providesTags: [{ type: 'Invite', id: 'LIST' }],
+        }),
         addInvite: builder.mutation<Invite, AddInviteRequest>({
             query: (invite) => ({
                 url: '/invite',
@@ -222,5 +229,6 @@ export const {
     useGetTrainingPalsQuery,
     useGetUserJointTrainingListQuery,
     useLazyGetUserJointTrainingListQuery,
+    useGetInviteQuery,
     useAddInviteMutation,
 } = apiSlice;

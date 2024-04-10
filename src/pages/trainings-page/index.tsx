@@ -1,8 +1,10 @@
+import { Badge } from '@components/badge';
 import { BaseHeader } from '@components/header/base-header';
 import { ErrorTrainingList } from '@components/modals/error-training-list';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/api-slice';
+import { useAppSelector } from '@redux/configure-store';
 import { findMostDemandingTrainingType } from '@utils/exercise';
 import { Tabs } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
@@ -14,13 +16,14 @@ import { MyTrainings } from './my-trainings';
 import styles from './trainings-page.module.scss';
 
 type TabItem = {
-    label: string;
+    label: React.ReactNode;
     key: string;
     children: React.ReactNode;
 };
 
 export const TrainingsPage = () => {
     const { data: trainings = [], isFetching } = useGetTrainingQuery();
+    const inviteCount = useAppSelector((state) => state.invite);
 
     const {
         data: trainingList = [],
@@ -41,7 +44,15 @@ export const TrainingsPage = () => {
             children: <MyTrainings trainings={trainings} trainingList={trainingList} />,
         },
         {
-            label: 'Совместные тренировки',
+            label: (
+                <div className={styles.label_badge}>
+                    <span>Совместные тренировки</span>
+                    {/* <Badge count={inviteCount} /> */}
+                    <span>
+                        <Badge count={inviteCount} />
+                    </span>
+                </div>
+            ),
             key: '2',
             children: (
                 <JointTrainings

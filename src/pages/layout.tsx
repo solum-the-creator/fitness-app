@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from '@components/sidebar';
 import { STATUS_CODE } from '@constants/constants';
-import { useGetMeQuery } from '@redux/api/api-slice';
+import { useGetInviteQuery, useGetMeQuery } from '@redux/api/api-slice';
 import { logout } from '@redux/auth/auth-slice';
 import { useAppDispatch } from '@redux/configure-store';
+import { setInviteCount } from '@redux/invite/invite-slice';
 import { setUser } from '@redux/user/user-slice';
 import { Layout } from 'antd';
 
@@ -22,6 +23,7 @@ type ErrorGetUser = {
 export const LayoutMain = () => {
     const dispatch = useAppDispatch();
     const { data: user, isError, error, isSuccess } = useGetMeQuery();
+    const { data: invites = [], isSuccess: isSuccessInvite } = useGetInviteQuery();
 
     useEffect(() => {
         if (isError) {
@@ -35,6 +37,12 @@ export const LayoutMain = () => {
             dispatch(setUser(user));
         }
     }, [isError, error, dispatch, isSuccess, user]);
+
+    useEffect(() => {
+        if (isSuccessInvite) {
+            dispatch(setInviteCount(invites.length));
+        }
+    }, [isSuccessInvite, dispatch, invites.length]);
 
     return (
         <Layout hasSider={true} style={{ height: '100%' }} className={styles.image_container}>

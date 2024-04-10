@@ -9,13 +9,14 @@ import {
     MenuUnfoldOutlined,
     TrophyFilled,
 } from '@ant-design/icons';
+import { Badge } from '@components/badge';
 import { ExitIcon } from '@components/icons/exit-icon';
 import { Logo } from '@components/logo';
 import { ErrorModal } from '@components/modals/error-modal';
 import PATHS from '@constants/paths';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { useLogout } from '@hooks/use-logout';
-import { useAppDispatch } from '@redux/configure-store';
+import { useAppDispatch, useAppSelector } from '@redux/configure-store';
 import { setIsCollapsed } from '@redux/sider/sider-slice';
 import { Button, Layout, Menu } from 'antd';
 
@@ -28,6 +29,8 @@ export const Sidebar = () => {
     const location = useLocation();
     const matches = useMediaQuery({ query: '(max-width: 768px)' });
     const [collapsed, setCollapsed] = useState(matches);
+
+    const inviteCount = useAppSelector((state) => state.invite);
 
     const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
     const logout = useLogout();
@@ -48,7 +51,13 @@ export const Sidebar = () => {
         },
         {
             key: PATHS.TRAININGS,
-            icon: <HeartFilled style={{ fontSize: '16px' }} />,
+            icon: (
+                <div className={styles.icon_badge}>
+                    <Badge count={inviteCount}>
+                        <HeartFilled style={{ fontSize: '16px' }} />
+                    </Badge>
+                </div>
+            ),
             label: 'Тренировки',
             onClick: () => onGetTraining(PATHS.TRAININGS),
         },

@@ -9,6 +9,13 @@
     background-color: var(--primary-light-1);
   }
 
+  .label_badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+  }
+
   .content_wrapper {
     width: 100%;
     height: 100%;
