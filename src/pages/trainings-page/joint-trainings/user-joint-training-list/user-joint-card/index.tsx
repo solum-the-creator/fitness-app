@@ -7,22 +7,26 @@ import { Avatar, Button, Tooltip } from 'antd';
 import styles from './user-joint-card.module.scss';
 
 type UserJointCardProps = {
+    id: string;
     name: string;
     trainingType: string;
     avgWeightInWeek: number;
     status: InviteStatus | null;
     index: number;
+    openDrawer: (id: string) => void;
     imageSrc?: string | null;
     searchValue?: string;
 };
 
 export const UserJointCard = ({
+    id,
     name,
     trainingType,
     avgWeightInWeek,
     status,
     index,
     imageSrc,
+    openDrawer,
     searchValue = '',
 }: UserJointCardProps) => {
     const isAccepted = status === INVITE_STATUS.accepted;
@@ -58,7 +62,13 @@ export const UserJointCard = ({
                     Отменить тренировку
                 </Button>
             ) : (
-                <Button type='primary' size='small' className={styles.button} disabled={isPending}>
+                <Button
+                    type='primary'
+                    size='small'
+                    className={styles.button}
+                    disabled={isPending}
+                    onClick={() => openDrawer(id)}
+                >
                     Создать тренировку
                 </Button>
             )}

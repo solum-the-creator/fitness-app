@@ -3,12 +3,14 @@ import { RootState } from '@redux/configure-store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import {
+    AddInviteRequest,
     AddTariffRequest,
     ChangePasswordRequest,
     CheckEmailResponse,
     ConfrimEmailRequest,
     ConfrimEmailResponse,
     Feedback,
+    Invite,
     LoginRequest,
     LoginResponse,
     RegistrationRequest,
@@ -188,6 +190,14 @@ export const apiSlice = createApi({
                 providesTags: [{ type: 'UserJointTrainingList', id: 'LIST' }],
             },
         ),
+        addInvite: builder.mutation<Invite, AddInviteRequest>({
+            query: (invite) => ({
+                url: '/invite',
+                method: 'POST',
+                body: invite,
+            }),
+            invalidatesTags: [{ type: 'UserJointTrainingList', id: 'LIST' }],
+        }),
     }),
 });
 
@@ -212,4 +222,5 @@ export const {
     useGetTrainingPalsQuery,
     useGetUserJointTrainingListQuery,
     useLazyGetUserJointTrainingListQuery,
+    useAddInviteMutation,
 } = apiSlice;

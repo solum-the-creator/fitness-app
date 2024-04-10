@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 8px;
+
+  .partner_info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .partner_name {
+      font-size: 14px;
+      line-height: 130%;
+      margin: 0;
+      width: min-content;
+
+      text-overflow: ellipsis;
+    }
+  }
+
+  .training_type {
+    display: flex;
+    align-items: flex-end;
+  }
+}

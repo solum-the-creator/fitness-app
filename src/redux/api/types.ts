@@ -121,3 +121,24 @@ export type TrainingPartner = {
 };
 
 export type InviteStatus = 'accepted' | 'pending' | 'rejected';
+
+export type AddInviteRequest = {
+    to: string;
+    trainingId: string;
+};
+
+export type UserInvite = {
+    _id: string;
+    firstName: string | null;
+    lastName: string | null;
+    imageSrc: string | null;
+};
+
+export type Invite = {
+    _id: string;
+    from: UserInvite;
+    training: TrainingResponse;
+    status: InviteStatus;
+    createdAt: string;
+    to: UserInvite;
+};

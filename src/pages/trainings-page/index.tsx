@@ -6,6 +6,7 @@ import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/api-sli
 import { findMostDemandingTrainingType } from '@utils/exercise';
 import { Tabs } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
+import moment from 'moment';
 
 import { JointTrainings } from './joint-trainings';
 import { MyTrainings } from './my-trainings';
@@ -30,6 +31,7 @@ export const TrainingsPage = () => {
 
     useLoaderLoading(isFetching || isFetchingTrainingList);
 
+    const trainingDates = trainings.map((training) => moment(training.date));
     const mostDemandingTrainingType = findMostDemandingTrainingType(trainings, trainingList);
 
     const tabsItems: TabItem[] = [
@@ -41,7 +43,13 @@ export const TrainingsPage = () => {
         {
             label: 'Совместные тренировки',
             key: '2',
-            children: <JointTrainings trainingType={mostDemandingTrainingType} />,
+            children: (
+                <JointTrainings
+                    trainingType={mostDemandingTrainingType}
+                    trainingDates={trainingDates}
+                    trainingList={trainingList}
+                />
+            ),
         },
         { label: 'Марафоны', key: '3', children: <div>Марафоны</div> },
     ];

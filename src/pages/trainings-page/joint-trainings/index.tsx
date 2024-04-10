@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ErrorTrainingList } from '@components/modals/error-training-list';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useLazyGetUserJointTrainingListQuery } from '@redux/api/api-slice';
+import { TrainingList } from '@redux/api/types';
+import { Moment } from 'moment';
 
 import { TrainingPartnerSelection } from './training-partner-selection';
 import { TrainingPartners } from './training-partners';
@@ -11,9 +13,15 @@ import styles from './joint-trainings.module.scss';
 
 type JointTrainingsProps = {
     trainingType: string | null;
+    trainingList: TrainingList;
+    trainingDates: Moment[];
 };
 
-export const JointTrainings = ({ trainingType }: JointTrainingsProps) => {
+export const JointTrainings = ({
+    trainingType,
+    trainingList,
+    trainingDates,
+}: JointTrainingsProps) => {
     const [getUserJointTrainingList, { isFetching, data: userJointTrainingList = [] }] =
         useLazyGetUserJointTrainingListQuery();
 
@@ -59,7 +67,12 @@ export const JointTrainings = ({ trainingType }: JointTrainingsProps) => {
     return (
         <div className={styles.main_container}>
             {showTrainingList ? (
-                <UserJointTrainingList users={userJointTrainingList} onBack={onBack} />
+                <UserJointTrainingList
+                    trainingList={trainingList}
+                    users={userJointTrainingList}
+                    trainingDates={trainingDates}
+                    onBack={onBack}
+                />
             ) : (
                 <React.Fragment>
                     <TrainingPartnerSelection

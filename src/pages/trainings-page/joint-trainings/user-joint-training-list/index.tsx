@@ -1,26 +1,47 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { TrainingPartner } from '@redux/api/types';
+import { TrainingList, TrainingPartner } from '@redux/api/types';
 import { sortByStatusAndName } from '@utils/sorting';
 import { Button, List } from 'antd';
 import Search from 'antd/lib/input/Search';
+import { Moment } from 'moment';
 
+import { TrainingDrawer } from './training-drawer';
 import { UserJointCard } from './user-joint-card';
 
 import styles from './user-joint-training-list.module.scss';
 
 type UserJointTrainingListProps = {
     users: TrainingPartner[];
+    trainingList: TrainingList;
+    trainingDates: Moment[];
     onBack: () => void;
 };
 
-export const UserJointTrainingList = ({ users, onBack }: UserJointTrainingListProps) => {
+export const UserJointTrainingList = ({
+    users,
+    trainingDates,
+    trainingList,
+    onBack,
+}: UserJointTrainingListProps) => {
     const matches = useMediaQuery({ query: '(max-width: 1040px)' });
 
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
     const [searchValue, setSearchValue] = useState('');
+    const [currentPartner, setCurrentPartner] = useState<TrainingPartner | undefined>(undefined);
 
     const sortedUsers = [...users].sort(sortByStatusAndName);
+
+    const openDrawer = (id: string) => {
+        setCurrentPartner(sortedUsers.find((user) => user.id === id));
+        setIsDrawerOpen(true);
+    };
+
+    const closeDrawer = () => {
+        setIsDrawerOpen(false);
+    };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -56,6 +77,7 @@ export const UserJointTrainingList = ({ users, onBack }: UserJointTrainingListPr
                 dataSource={filteredUsers}
                 renderItem={(user, index) => (
                     <UserJointCard
+                        openDrawer={openDrawer}
                         index={index}
                         {...user}
                         key={user.id}
@@ -63,6 +85,15 @@ export const UserJointTrainingList = ({ users, onBack }: UserJointTrainingListPr
                     />
                 )}
             />
+            {isDrawerOpen && currentPartner && (
+                <TrainingDrawer
+                    trainingPartner={currentPartner}
+                    trainingList={trainingList}
+                    isOpen={isDrawerOpen}
+                    trainingDates={trainingDates}
+                    onClose={closeDrawer}
+                />
+            )}
         </div>
     );
 };
