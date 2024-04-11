@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
 import { DATE_FORMAT } from '@constants/constants';
+import { avatarStyles } from '@constants/styles';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useUpdateInviteMutation } from '@redux/api/api-slice';
 import { TrainingList, TrainingResponse, UserInvite } from '@redux/api/types';
@@ -63,7 +64,7 @@ export const MessageItem = ({ inviteId, user, date, training, trainingList }: Me
                     <Avatar
                         src={user.imageSrc}
                         icon={<UserOutlined />}
-                        style={{ backgroundColor: '#F5F5F5', color: '#262626' }}
+                        style={avatarStyles}
                         size={42}
                     />
                 </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CheckCircleFilled, ExclamationCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
 import { INVITE_STATUS } from '@constants/constants';
+import { avatarStyles } from '@constants/styles';
 import { useDeleteInviteMutation } from '@redux/api/api-slice';
 import { InviteStatus } from '@redux/api/types';
 import { useAppDispatch } from '@redux/configure-store';
@@ -66,12 +67,7 @@ export const UserJointCard = ({
         <React.Fragment>
             <div className={styles.card} data-test-id={`joint-training-cards${index}`}>
                 <div className={styles.partner_info}>
-                    <Avatar
-                        src={imageSrc}
-                        icon={<UserOutlined />}
-                        style={{ backgroundColor: '#F5F5F5', color: '#262626' }}
-                        size={42}
-                    />
+                    <Avatar src={imageSrc} icon={<UserOutlined />} style={avatarStyles} size={42} />
                     <p className={styles.partner_name}>
                         <span>{prefix}</span>
                         <span className={styles.highlight}>{highlight}</span>

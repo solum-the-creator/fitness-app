@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { StarFilled, StarOutlined, UserOutlined } from '@ant-design/icons';
 import { DATE_FORMAT_FEEDBACK } from '@constants/constants';
+import { avatarStyles } from '@constants/styles';
 import { Feedback } from '@redux/api/types';
 import { Avatar, Rate, Typography } from 'antd';
 import { format } from 'date-fns';
@@ -26,12 +27,7 @@ export const FeedbackCard = ({
         <div className={styles.feedback_card}>
             <div className={styles.user_info}>
                 <div className={styles.image_container}>
-                    <Avatar
-                        src={imageSrc}
-                        icon={<UserOutlined />}
-                        style={{ backgroundColor: '#F5F5F5', color: '#262626' }}
-                        size={42}
-                    />
+                    <Avatar src={imageSrc} icon={<UserOutlined />} style={avatarStyles} size={42} />
                 </div>
                 <p className={styles.name}>{fullName || 'Пользователь'}</p>
             </div>

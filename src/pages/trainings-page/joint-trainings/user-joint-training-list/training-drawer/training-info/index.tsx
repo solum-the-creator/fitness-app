@@ -100,15 +100,7 @@ export const TrainingInfo = ({
                                 data-test-id='modal-drawer-right-select-period'
                             />
                         </div>
-                        <div className={styles.select_training}>
-                            {/* <Select
-                            style={{ width: '100%' }}
-                            size='small'
-                            placeholder='День недели'
-                            popupClassName={styles.select_popup}
-                            options={DAY_OF_WEEK_OPTIONS}
-                        /> */}
-                        </div>
+                        <div className={styles.select_training} />
                     </div>
                 )}
             </div>

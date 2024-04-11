@@ -1,3 +1,4 @@
+import { primaryTextColor } from '@constants/styles';
 import { Badge } from 'antd';
 
 import styles from './training-type.module.scss';
@@ -43,7 +44,7 @@ export const TrainingTypeBadge = ({
                 ) : undefined
             }
             className={`${styles.badge} ${sizeClass} ${className}`}
-            style={{ color: badgeColor || '#262626' }}
+            style={{ color: badgeColor || primaryTextColor }}
         />
     );
 };

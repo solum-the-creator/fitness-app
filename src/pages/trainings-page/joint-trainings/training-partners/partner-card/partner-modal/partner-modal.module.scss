@@ -59,10 +59,8 @@
     justify-content: flex-start;
     gap: 8px;
 
-    .status_text {
-      font-size: 12px;
-      line-height: 130%;
-    }
+    font-size: 12px;
+    line-height: 130%;
 
     @media (max-width: 480px) {
       grid-row: 4;

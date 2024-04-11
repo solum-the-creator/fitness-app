@@ -1,5 +1,6 @@
 import { UserOutlined } from '@ant-design/icons';
 import { TrainingTypeBadge } from '@components/training-type-badge';
+import { avatarStyles } from '@constants/styles';
 import { TrainingList } from '@redux/api/types';
 import { Avatar } from 'antd';
 
@@ -18,12 +19,7 @@ export const PartnerInfo = ({ name, trainingType, trainingList, imageSrc }: Part
     return (
         <div className={styles.wrapper}>
             <div className={styles.partner_info}>
-                <Avatar
-                    src={imageSrc}
-                    icon={<UserOutlined />}
-                    style={{ backgroundColor: '#F5F5F5', color: '#262626' }}
-                    size={42}
-                />
+                <Avatar src={imageSrc} icon={<UserOutlined />} style={avatarStyles} size={42} />
                 <p className={styles.partner_name}>{name}</p>
             </div>
             <div className={styles.training_type}>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircleFilled, UserOutlined } from '@ant-design/icons';
 import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
+import { avatarStyles } from '@constants/styles';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useDeleteInviteMutation } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
@@ -69,7 +70,7 @@ export const PartnerModal = ({
                         <Avatar
                             src={imageSrc}
                             icon={<UserOutlined />}
-                            style={{ backgroundColor: '#F5F5F5', color: '#262626' }}
+                            style={avatarStyles}
                             size={42}
                         />
                         <p className={styles.partner_name}>{name}</p>
@@ -81,9 +82,7 @@ export const PartnerModal = ({
                         <div className={styles.info_value}>{avgWeightInWeek} кг/нед</div>
                     </div>
                     <div className={styles.status}>
-                        <span className={styles.status_text}>
-                            тренировка одобрена <CheckCircleFilled style={{ color: '#52C41A' }} />
-                        </span>
+                        тренировка одобрена <CheckCircleFilled style={{ color: '#52C41A' }} />
                     </div>
                     <div className={styles.button_wrapper}>
                         <Button
