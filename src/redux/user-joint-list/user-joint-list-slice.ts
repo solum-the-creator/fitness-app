@@ -22,6 +22,4 @@ const userJointListSlice = createSlice({
 
 export const { setUserJointList, updateUserInJointList } = userJointListSlice.actions;
 
-export const inviteCountSelector = (state: number) => state;
-
 export default userJointListSlice.reducer;

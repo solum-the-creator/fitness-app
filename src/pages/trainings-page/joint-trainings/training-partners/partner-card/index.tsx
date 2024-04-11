@@ -12,6 +12,7 @@ type PartnerCardProps = {
     imageSrc: string | null;
     trainingType: string;
     avgWeightInWeek: number;
+    index: number;
 };
 
 export const PartnerCard = ({
@@ -20,6 +21,7 @@ export const PartnerCard = ({
     avgWeightInWeek,
     imageSrc,
     trainingType,
+    index,
 }: PartnerCardProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,6 +47,7 @@ export const PartnerCard = ({
                 role='button'
                 onKeyDown={handleKeyDown}
                 tabIndex={0}
+                data-test-id={`joint-training-cards${index}`}
             >
                 <div className={styles.partner_info}>
                     <Avatar

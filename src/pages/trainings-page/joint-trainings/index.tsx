@@ -85,7 +85,9 @@ export const JointTrainings = ({
                 />
             ) : (
                 <React.Fragment>
-                    {invites.length > 0 && <MessagesList invites={invites} />}
+                    {invites.length > 0 && (
+                        <MessagesList invites={invites} trainingList={trainingList} />
+                    )}
 
                     <TrainingPartnerSelection
                         selectRandom={onShowRandomTrainingList}

@@ -61,6 +61,14 @@
       color: var(--primary-light-9);
     }
 
+    .button_container {
+      position: relative;
+
+      @media (max-width: 440px) {
+        width: 100%;
+      }
+    }
+
     .details_button {
       padding: 0;
 

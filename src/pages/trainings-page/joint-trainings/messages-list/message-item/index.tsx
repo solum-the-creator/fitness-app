@@ -4,9 +4,11 @@ import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
 import { DATE_FORMAT } from '@constants/constants';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useUpdateInviteMutation } from '@redux/api/api-slice';
-import { Training, UserInvite } from '@redux/api/types';
+import { TrainingList, TrainingResponse, UserInvite } from '@redux/api/types';
 import { Avatar, Button } from 'antd';
 import moment from 'moment';
+
+import { DetailsModal } from './details-modal';
 
 import styles from './message-item.module.scss';
 
@@ -14,7 +16,8 @@ type MessageItemProps = {
     inviteId: string;
     user: UserInvite;
     date: string;
-    training: Training;
+    training: TrainingResponse;
+    trainingList: TrainingList;
 };
 
 const inviteTrainingText: Record<string, string> = {
@@ -25,11 +28,12 @@ const inviteTrainingText: Record<string, string> = {
     Спина: '[тренировок на спину]',
 };
 
-export const MessageItem = ({ inviteId, user, date, training }: MessageItemProps) => {
+export const MessageItem = ({ inviteId, user, date, training, trainingList }: MessageItemProps) => {
     const [updateInvite, { isLoading }] = useUpdateInviteMutation();
 
     useLoaderLoading(isLoading);
 
+    const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
 
     const formattedDate = moment(date).format(DATE_FORMAT);
@@ -71,9 +75,23 @@ export const MessageItem = ({ inviteId, user, date, training }: MessageItemProps
                     Привет, я ищу партнёра для совместных {trainingText}. Ты хочешь присоединиться
                     ко мне на следующих тренировках?
                 </p>
-                <Button type='link' size='small' className={styles.details_button}>
-                    Посмотреть детали тренировки
-                </Button>
+                <div className={styles.button_container}>
+                    <Button
+                        type='link'
+                        size='small'
+                        className={styles.details_button}
+                        onClick={() => setShowDetailsModal(true)}
+                    >
+                        Посмотреть детали тренировки
+                    </Button>
+                    {showDetailsModal && (
+                        <DetailsModal
+                            onClose={() => setShowDetailsModal(false)}
+                            training={training}
+                            trainingList={trainingList}
+                        />
+                    )}
+                </div>
             </div>
             <div className={styles.actions}>
                 <Button

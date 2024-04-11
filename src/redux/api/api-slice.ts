@@ -224,7 +224,6 @@ export const apiSlice = createApi({
                 url: `/invite/${id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: [{ type: 'TrainingPals', id: 'LIST' }],
         }),
     }),
 });

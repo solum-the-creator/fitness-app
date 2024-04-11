@@ -3,6 +3,8 @@ import { CheckCircleFilled, UserOutlined } from '@ant-design/icons';
 import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useDeleteInviteMutation } from '@redux/api/api-slice';
+import { useAppDispatch } from '@redux/configure-store';
+import { deleteTrainingPartner } from '@redux/training-partners/training-partners-slice';
 import { Avatar, Button, Modal } from 'antd';
 
 import styles from './partner-modal.module.scss';
@@ -26,6 +28,7 @@ export const PartnerModal = ({
     open,
     onClose,
 }: PartnerModalProps) => {
+    const dispatch = useAppDispatch();
     const [deleteInvite, { isLoading }] = useDeleteInviteMutation();
 
     const [isErrorOpen, setIsErrorOpen] = useState(false);
@@ -40,6 +43,7 @@ export const PartnerModal = ({
         if (inviteId) {
             try {
                 await deleteInvite(inviteId).unwrap();
+                dispatch(deleteTrainingPartner(inviteId));
                 onClose();
             } catch {
                 onClose();
@@ -58,6 +62,7 @@ export const PartnerModal = ({
                 transitionName=''
                 maskTransitionName=''
                 maskStyle={{ backdropFilter: 'blur(6px)', background: 'rgba(121, 156, 212, 0.5)' }}
+                data-test-id='partner-modal'
             >
                 <div className={styles.content}>
                     <div className={styles.partner_info}>

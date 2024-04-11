@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
-import { Invite } from '@redux/api/types';
+import { Invite, TrainingList } from '@redux/api/types';
 import { Button } from 'antd';
 
 import { MessageItem } from './message-item';
@@ -10,9 +10,10 @@ import styles from './messages-list.module.scss';
 
 type MessagesListProps = {
     invites: Invite[];
+    trainingList: TrainingList;
 };
 
-export const MessagesList = ({ invites }: MessagesListProps) => {
+export const MessagesList = ({ invites, trainingList }: MessagesListProps) => {
     const [showAll, setShowAll] = useState(false);
 
     const inviteCount = invites.length;
@@ -34,6 +35,7 @@ export const MessagesList = ({ invites }: MessagesListProps) => {
                         user={invite.from}
                         date={invite.createdAt}
                         training={invite.training}
+                        trainingList={trainingList}
                     />
                 ))}
             </div>

@@ -1,0 +1,78 @@
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-width: 312px;
+  z-index: 6;
+
+  @media (max-width: 440px) {
+    min-width: 100%;
+  }
+
+  background-color: var(--neutral-gray-1);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+
+  display: flex;
+  flex-direction: column;
+  cursor: auto;
+
+  .modal_header {
+    position: relative;
+    padding: 17.5px 12px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .cancel_button {
+      height: auto;
+      width: auto;
+      padding: 0;
+    }
+
+  }
+
+  .modal_content {
+    padding: 24px 12px;
+    box-shadow: inset 0 2px 0 0 var(--character-light-dividers);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .meta_info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+
+      .period {
+        font-weight: 500;
+        line-height: 130%;
+        font-size: 16px;
+      }
+    }
+
+    .empty {
+      padding: 16px 0;
+      margin-top: 13px;
+      margin-bottom: 14px;
+    }
+
+    .exercise_list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .exercise_item {
+        display: flex;
+        justify-content: space-between;
+        color: var(--character-light-secondary-45);
+        line-height: 130%;
+
+        .exercise_info {
+          color: var(--primary-light-6);
+        }
+      }
+    }
+  }
+}
