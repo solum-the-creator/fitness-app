@@ -50,7 +50,7 @@ export const TrainingDrawer = ({
     const [trainingPeriod, setTrainingPeriod] = useState<number | undefined>(undefined);
     const [exerciseList, setExerciseList] = useState<Array<Partial<Exercise>>>([]);
 
-    const canSaveTraining = trainingDate;
+    const canSaveTraining = trainingDate && filterExerciseList(exerciseList).length > 0;
 
     const changeTrainingDate = (date?: string) => {
         setTrainingDate(date);

@@ -54,7 +54,8 @@ export const TrainingDrawer = ({
         training?.exercises || [],
     );
 
-    const canSaveTraining = trainingName && trainingDate;
+    const canSaveTraining =
+        trainingName && trainingDate && filterExerciseList(exerciseList).length > 0;
 
     const changeTrainingName = (name?: string) => {
         setTrainingName(name);
