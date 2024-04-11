@@ -17,9 +17,12 @@ const userJointListSlice = createSlice({
 
             return state;
         },
+        deleteUserInJointList: (state, { payload }: PayloadAction<string>) =>
+            state.filter((user) => user.id !== payload),
     },
 });
 
-export const { setUserJointList, updateUserInJointList } = userJointListSlice.actions;
+export const { setUserJointList, updateUserInJointList, deleteUserInJointList } =
+    userJointListSlice.actions;
 
 export default userJointListSlice.reducer;

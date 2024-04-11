@@ -35,6 +35,12 @@ export const UserJointTrainingList = ({
 
     const sortedUsers = [...users].sort(sortByStatusAndName);
 
+    const possiblePartners = users.reduce(
+        (acc, user) => (user.status && user.status !== 'rejected' ? acc + 1 : acc),
+        0,
+    );
+    const canAddPartner = possiblePartners < 4;
+
     const openDrawer = (id: string) => {
         setCurrentPartner(sortedUsers.find((user) => user.id === id));
         setIsDrawerOpen(true);
@@ -74,10 +80,16 @@ export const UserJointTrainingList = ({
             </div>
             <List
                 className={styles.user_joint_list}
-                pagination={{ position: 'bottom', pageSize: matches ? 8 : 12, size: 'small' }}
+                pagination={{
+                    position: 'bottom',
+                    pageSize: matches ? 8 : 12,
+                    size: 'small',
+                    showSizeChanger: false,
+                }}
                 dataSource={filteredUsers}
                 renderItem={(user, index) => (
                     <UserJointCard
+                        disabled={!canAddPartner}
                         openDrawer={openDrawer}
                         index={index}
                         {...user}
