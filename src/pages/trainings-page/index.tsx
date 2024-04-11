@@ -11,6 +11,7 @@ import { Content } from 'antd/lib/layout/layout';
 import moment from 'moment';
 
 import { JointTrainings } from './joint-trainings';
+import { Marathon } from './marathon';
 import { MyTrainings } from './my-trainings';
 
 import styles from './trainings-page.module.scss';
@@ -61,7 +62,7 @@ export const TrainingsPage = () => {
                 />
             ),
         },
-        { label: 'Марафоны', key: '3', children: <div>Марафоны</div> },
+        { label: 'Марафоны', key: '3', children: <Marathon /> },
     ];
 
     return (
@@ -76,7 +77,7 @@ export const TrainingsPage = () => {
             </div>
             <div className={styles.content_wrapper}>
                 <Content className={styles.content}>
-                    <Tabs items={tabsItems} />
+                    <Tabs items={tabsItems} className={styles.tabs} />
                 </Content>
             </div>
             <ErrorTrainingList isError={isError} refetch={refetch} />

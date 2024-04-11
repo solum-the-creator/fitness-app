@@ -37,7 +37,23 @@
         padding: 16px 24px;
       }
 
+      .tabs {
+        height: 100%;
+      }
+
       :global {
+        .ant-tabs-content-holder {
+          height: 100%;
+
+          .ant-tabs-content {
+            height: 100%;
+
+            .ant-tabs-tabpane {
+              height: 100%;
+            }
+          }
+        }
+
         .ant-tabs-nav {
           margin: 5px 0;
 

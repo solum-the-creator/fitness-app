@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+
+  .title {
+    text-align: center;
+    margin: 0;
+    color: var(--primary-light-9);
+  }
+
+  .description {
+    text-align: center;
+    margin: 0;
+    color: var(--character-light-secondary-45);
+  }
+}
