@@ -1,0 +1,23 @@
+
+.wrapper {
+  display: flex;
+  gap: 12px;
+
+  .badge {
+    width: 7px;
+  }
+
+  .name_block {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    cursor: pointer;
+
+    @media (max-width: 480px) {
+      position: static;
+    }
+
+  }
+}

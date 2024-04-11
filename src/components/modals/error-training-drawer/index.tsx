@@ -1,51 +1,46 @@
 import { useCallback, useEffect } from 'react';
-import { CloseOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 
-import styles from './error-modal.module.scss';
+import styles from './error-training-drawer.module.scss';
 
-type ErrorModalProps = {
-    isError: boolean;
-    refetch: () => void;
+type ErrorTrainingDrawerProps = {
+    isOpen: boolean;
+    onClose: () => void;
 };
-
-export const ErrorModal = ({ isError, refetch }: ErrorModalProps) => {
+export const ErrorTrainingDrawer = ({ isOpen, onClose }: ErrorTrainingDrawerProps) => {
     const showErrorModal = useCallback(
         () =>
             Modal.error({
                 title: (
                     <span data-test-id='modal-error-user-training-title'>
-                        При открытии данных произошла ошибка
+                        При сохранении данных произошла ошибка
                     </span>
                 ),
                 content: (
                     <span data-test-id='modal-error-user-training-subtitle'>
-                        Попробуйте ещё раз.
+                        Придётся попробовать ещё раз
                     </span>
                 ),
-                closable: true,
+                closable: false,
                 centered: true,
-                okText: <span data-test-id='modal-error-user-training-button'>Обновить</span>,
-                closeIcon: <CloseOutlined data-test-id='modal-error-user-training-button-close' />,
+                okText: <span data-test-id='modal-error-user-training-button'>Закрыть</span>,
                 width: '100%',
-                transitionName: '',
-                maskTransitionName: '',
                 maskStyle: {
                     backdropFilter: 'blur(6px)',
                     background: 'rgba(121, 156, 212, 0.1)',
-                    zIndex: 11,
+                    zIndex: 13,
                 },
                 className: styles.error_modal,
                 wrapClassName: styles.error_modal_wrapper,
-                onOk: () => refetch(),
+                onOk: onClose,
             }),
-        [refetch],
+        [onClose],
     );
 
     useEffect(() => {
         let errorModal: ReturnType<typeof Modal.error> | null = null;
 
-        if (isError) {
+        if (isOpen) {
             errorModal = showErrorModal();
         }
 
@@ -54,7 +49,7 @@ export const ErrorModal = ({ isError, refetch }: ErrorModalProps) => {
                 errorModal.destroy();
             }
         };
-    }, [isError, showErrorModal]);
+    }, [isOpen, showErrorModal]);
 
     return null;
 };

@@ -50,7 +50,7 @@ export const ExerciseItem = ({
     const handleWeightChange = (value: number | null) => {
         if (value === null) {
             setWeight(0);
-            handleUpdate({ approaches: 0 });
+            handleUpdate({ weight: 0 });
         } else {
             setWeight(value);
             handleUpdate({ weight: value });
@@ -58,12 +58,12 @@ export const ExerciseItem = ({
     };
 
     const handleReplaysChange = (value: number | null) => {
-        if (value !== null && value >= 1) {
-            setReplays(value);
-            handleUpdate({ replays: value });
-        } else {
+        if (value === null || value < 1) {
             setReplays(1);
             handleUpdate({ replays: 1 });
+        } else {
+            setReplays(value);
+            handleUpdate({ replays: value });
         }
     };
 

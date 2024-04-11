@@ -1,0 +1,76 @@
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-width: 240px;
+  z-index: 6;
+
+  background-color: var(--neutral-gray-1);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+
+  display: flex;
+  flex-direction: column;
+  cursor: auto;
+
+  @media (max-width: 480px) {
+    width: calc(100vw - 62px);
+  }
+
+  .cancel_button {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    z-index: 9;
+    top: 16px;
+    left: 4px;
+  }
+
+  .modal_header {
+    position: relative;
+    padding: 16px 12px 14px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    border-bottom: 2px solid;
+
+    .name {
+      padding: 1.5px 24px;
+    }
+
+  }
+
+  .modal_content {
+    padding: 16px 12px;
+    box-shadow: inset 0 2px 0 0 var(--character-light-dividers);
+
+    .empty {
+      padding: 16px 0;
+      margin-top: 13px;
+      margin-bottom: 14px;
+    }
+
+    .exercise_list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .exercise_item {
+        color: var(--character-light-secondary-45);
+      }
+    }
+  }
+
+  .modal_footer {
+    padding: 12px;
+    box-shadow: inset 0 1px 0 0 var(--character-light-dividers);
+    display: flex;
+    flex-direction: column;
+  }
+
+}

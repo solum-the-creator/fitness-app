@@ -1,0 +1,17 @@
+.main_container {
+  height: 100%;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @media (max-width: 480px) {
+    margin-top: 20px;
+    gap: 20px;
+  }
+}
+
+.content_container {
+  display: flex;
+  flex-direction: column;
+}

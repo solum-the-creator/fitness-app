@@ -80,6 +80,8 @@ export const MainPage: React.FC = () => {
                                                     }
                                                     block={true}
                                                     className={styles.card_button}
+                                                    onClick={() => onGetTraining(PATHS.TRAININGS)}
+                                                    data-test-id='menu-button-training'
                                                 >
                                                     Тренировки
                                                 </Button>
@@ -106,16 +108,11 @@ export const MainPage: React.FC = () => {
                                                     }
                                                     block={true}
                                                     className={styles.card_button}
-                                                    onClick={() => onGetTraining()}
+                                                    onClick={() => onGetTraining(PATHS.CALENDAR)}
                                                     data-test-id='menu-button-calendar'
                                                 >
                                                     Календарь
                                                 </Button>
-
-                                                <ErrorModal
-                                                    isModalOpen={isErrorModalOpen}
-                                                    onClose={closeErrorModal}
-                                                />
                                             </Card>
                                         </Col>
                                         <Col xs={24} sm={8} span={8}>
@@ -148,6 +145,10 @@ export const MainPage: React.FC = () => {
                                                 </Button>
                                             </Card>
                                         </Col>
+                                        <ErrorModal
+                                            isModalOpen={isErrorModalOpen}
+                                            onClose={closeErrorModal}
+                                        />
                                     </Row>
                                 </Col>
                             </Row>

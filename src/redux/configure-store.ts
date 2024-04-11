@@ -2,9 +2,12 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { combineReducers } from 'redux';
 import { createReduxHistoryContext } from 'redux-first-history';
 import authReducer from '@redux/auth/auth-slice';
+import inviteReducer from '@redux/invite/invite-slice';
 import loaderReducer from '@redux/loader/loader-slice';
 import siderReducer from '@redux/sider/sider-slice';
+import trainingPartnersReducer from '@redux/training-partners/training-partners-slice';
 import userReducer from '@redux/user/user-slice';
+import userJointListReducer from '@redux/user-joint-list/user-joint-list-slice';
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { createBrowserHistory } from 'history';
@@ -23,6 +26,9 @@ export const store = configureStore({
         loader: loaderReducer,
         sider: siderReducer,
         user: userReducer,
+        invite: inviteReducer,
+        userJointList: userJointListReducer,
+        trainingPartners: trainingPartnersReducer,
     }),
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiSlice.middleware, routerMiddleware),

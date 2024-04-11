@@ -1,0 +1,48 @@
+.container {
+	display: inline-flex;
+	position: relative;
+	flex-shrink: 0;
+	vertical-align: middle;
+}
+
+.badge {
+  right: -9px;
+  top: 4px;
+
+	height: 16px;
+	display: flex;
+	padding: 0 6px;
+	z-index: 1;
+	position: absolute;
+	flex-wrap: wrap;
+	width: 16px;
+  font-size: 12px;
+  line-height: 14px;
+	box-sizing: border-box;
+	align-items: center;
+	align-content: center;
+	border-radius: 10px;
+	flex-direction: row;
+	justify-content: center;
+
+  background-color: var(--character-light-error);
+  color: var(--character-light-primary-inverse);
+
+}
+
+.badge_row {
+  height: 16px;
+  width: 24px;
+  display: flex;
+  font-size: 12px;
+  line-height: 14px;
+	box-sizing: border-box;
+	align-items: center;
+	align-content: center;
+	border-radius: 10px;
+	flex-direction: row;
+	justify-content: center;
+
+  background-color: var(--character-light-error);
+  color: var(--character-light-primary-inverse);
+}

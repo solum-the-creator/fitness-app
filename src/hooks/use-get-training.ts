@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { push } from 'redux-first-history';
-import PATHS from '@constants/paths';
 import { useLazyGetTrainingQuery } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
 
@@ -14,10 +13,10 @@ export const useGetLazyTraining = () => {
 
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
 
-    const onGetTraining = async () => {
+    const onGetTraining = async (path: string) => {
         try {
             await getTraining().unwrap();
-            dispatch(push(PATHS.CALENDAR));
+            dispatch(push(path));
         } catch {
             setIsErrorModalOpen(true);
         }

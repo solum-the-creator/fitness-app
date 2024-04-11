@@ -3,19 +3,23 @@ import { RootState } from '@redux/configure-store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import {
+    AddInviteRequest,
     AddTariffRequest,
     ChangePasswordRequest,
     CheckEmailResponse,
     ConfrimEmailRequest,
     ConfrimEmailResponse,
     Feedback,
+    Invite,
     LoginRequest,
     LoginResponse,
     RegistrationRequest,
     TariffList,
     Training,
     TrainingList,
+    TrainingPartner,
     TrainingResponse,
+    UpdateInviteRequest,
     UpdateUserRequest,
     User,
 } from './types';
@@ -38,7 +42,7 @@ export const apiSlice = createApi({
         credentials: 'include',
         mode: 'cors',
     }),
-    tagTypes: ['Feedback', 'Training', 'User'],
+    tagTypes: ['Feedback', 'Training', 'User', 'UserJointTrainingList', 'Invite', 'TrainingPals'],
     endpoints: (builder) => ({
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (credentials) => ({
@@ -134,17 +138,20 @@ export const apiSlice = createApi({
                     name: training.name,
                     date: training.date,
                     exercises: training.exercises,
+                    isImplementation: training.isImplementation,
+                    parameters: training.parameters,
                 },
             }),
             invalidatesTags: [{ type: 'Training', id: 'LIST' }],
         }),
-        updateTraining: builder.mutation<TrainingResponse, TrainingResponse>({
-            query: (training) => ({
-                url: `/training/${training._id}`,
+        updateTraining: builder.mutation<TrainingResponse, { id: string; training: Training }>({
+            query: ({ id, training }) => ({
+                url: `/training/${id}`,
                 method: 'PUT',
                 body: {
                     ...training,
                     exercises: training.exercises,
+                    parameters: training.parameters,
                 },
             }),
             invalidatesTags: [{ type: 'Training', id: 'LIST' }],
@@ -168,6 +175,60 @@ export const apiSlice = createApi({
                 body: tariff,
             }),
         }),
+        getTrainingPals: builder.query<TrainingPartner[], void>({
+            query: () => ({
+                url: '/catalogs/training-pals',
+                method: 'GET',
+            }),
+            providesTags: [{ type: 'TrainingPals', id: 'LIST' }],
+        }),
+        getUserJointTrainingList: builder.query<TrainingPartner[], { trainingType: string } | void>(
+            {
+                query: (arg) => ({
+                    url: '/catalogs/user-joint-training-list',
+                    method: 'GET',
+                    params: arg ? { trainingType: arg.trainingType } : undefined,
+                }),
+                providesTags: [{ type: 'UserJointTrainingList', id: 'LIST' }],
+            },
+        ),
+        getInvite: builder.query<Invite[], void>({
+            query: () => ({
+                url: '/invite',
+                method: 'GET',
+            }),
+            providesTags: [{ type: 'Invite', id: 'LIST' }],
+        }),
+        addInvite: builder.mutation<Invite, AddInviteRequest>({
+            query: (invite) => ({
+                url: '/invite',
+                method: 'POST',
+                body: invite,
+            }),
+            invalidatesTags: [{ type: 'UserJointTrainingList', id: 'LIST' }],
+        }),
+        updateInvite: builder.mutation<Invite, UpdateInviteRequest>({
+            query: ({ id, status }) => ({
+                url: '/invite',
+                method: 'PUT',
+                body: { id, status },
+            }),
+            invalidatesTags: [
+                { type: 'Invite', id: 'LIST' },
+                { type: 'UserJointTrainingList', id: 'LIST' },
+                { type: 'TrainingPals', id: 'LIST' },
+            ],
+        }),
+        deleteInvite: builder.mutation<void, string>({
+            query: (id) => ({
+                url: `/invite/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: [
+                { type: 'UserJointTrainingList', id: 'LIST' },
+                { type: 'TrainingPals', id: 'LIST' },
+            ],
+        }),
     }),
 });
 
@@ -189,4 +250,11 @@ export const {
     useUpdateTrainingMutation,
     useGetTariffListQuery,
     useAddTariffMutation,
+    useGetTrainingPalsQuery,
+    useGetUserJointTrainingListQuery,
+    useLazyGetUserJointTrainingListQuery,
+    useGetInviteQuery,
+    useAddInviteMutation,
+    useUpdateInviteMutation,
+    useDeleteInviteMutation,
 } = apiSlice;

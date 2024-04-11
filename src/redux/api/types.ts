@@ -82,7 +82,7 @@ export type Training = {
     exercises: Exercise[];
 };
 
-export type TrainingResponse = Training & {
+export type TrainingResponse = Omit<Training, 'exercises'> & {
     _id: string;
     userId: string;
     exercises: ExerciseResponse[];
@@ -108,4 +108,42 @@ export type AddTariffRequest = {
 export type UploadImage = {
     name: string;
     url: string;
+};
+
+export type TrainingPartner = {
+    id: string;
+    name: string;
+    trainingType: string;
+    imageSrc: string | null;
+    avgWeightInWeek: number;
+    inviteId: string | null;
+    status: InviteStatus | null;
+};
+
+export type InviteStatus = 'accepted' | 'pending' | 'rejected';
+
+export type AddInviteRequest = {
+    to: string;
+    trainingId: string;
+};
+
+export type UserInvite = {
+    _id: string;
+    firstName: string | null;
+    lastName: string | null;
+    imageSrc: string | null;
+};
+
+export type Invite = {
+    _id: string;
+    from: UserInvite;
+    training: TrainingResponse;
+    status: InviteStatus;
+    createdAt: string;
+    to: UserInvite;
+};
+
+export type UpdateInviteRequest = {
+    id: string;
+    status: 'accepted' | 'rejected';
 };

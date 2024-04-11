@@ -1,0 +1,21 @@
+.wrapper {
+  padding: 16px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (max-width: 860px) {
+    padding: 12px;
+  }
+
+  .messages_label {
+    color: var(--character-light-secondary-45);
+    line-height: 130%;
+  }
+
+  .button_more {
+    padding: 0;
+    line-height: 130%;
+    height: auto;
+  }
+}
