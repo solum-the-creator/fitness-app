@@ -8,6 +8,17 @@
   border: 1px solid var(--character-light-dividers);
   border-radius: 2px;
 
+  cursor: pointer;
+  transition: border 0.2s ease;
+
+  &:focus {
+    border: 1px solid var(--primary-light-6);
+  }
+
+  &:hover {
+    border: 1px solid var(--character-light-border);
+  }
+
   @media (max-width: 580px) {
     width: 100%;
   }

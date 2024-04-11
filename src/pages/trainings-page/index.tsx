@@ -47,7 +47,6 @@ export const TrainingsPage = () => {
             label: (
                 <div className={styles.label_badge}>
                     <span>Совместные тренировки</span>
-                    {/* <Badge count={inviteCount} /> */}
                     <span>
                         <Badge count={inviteCount} />
                     </span>

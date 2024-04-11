@@ -219,6 +219,13 @@ export const apiSlice = createApi({
                 { type: 'TrainingPals', id: 'LIST' },
             ],
         }),
+        deleteInvite: builder.mutation<void, string>({
+            query: (id) => ({
+                url: `/invite/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: [{ type: 'TrainingPals', id: 'LIST' }],
+        }),
     }),
 });
 
@@ -246,4 +253,5 @@ export const {
     useGetInviteQuery,
     useAddInviteMutation,
     useUpdateInviteMutation,
+    useDeleteInviteMutation,
 } = apiSlice;
