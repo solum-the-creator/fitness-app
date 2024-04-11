@@ -10,7 +10,7 @@ type BadgeProps = {
 export const Badge = ({ count, children }: BadgeProps) => {
     const isHide = !count;
 
-    const badgeClass = cn({
+    const badgeClassNames = cn({
         [styles.badge]: children,
         [styles.badge_row]: !children,
     });
@@ -18,7 +18,7 @@ export const Badge = ({ count, children }: BadgeProps) => {
     return (
         <div className={styles.container}>
             <div>{children}</div>
-            {isHide ? null : <span className={badgeClass}>{count}</span>}
+            {isHide ? null : <span className={badgeClassNames}>{count}</span>}
         </div>
     );
 };
