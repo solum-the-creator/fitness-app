@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ErrorTrainingList } from '@components/modals/error-training-list';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useGetInviteQuery, useLazyGetUserJointTrainingListQuery } from '@redux/api/api-slice';
 import { TrainingList } from '@redux/api/types';
-import { useAppDispatch } from '@redux/configure-store';
+import { useAppDispatch, useAppSelector } from '@redux/configure-store';
 import { setUserJointList } from '@redux/user-joint-list/user-joint-list-slice';
 import { Moment } from 'moment';
 
@@ -29,11 +29,15 @@ export const JointTrainings = ({
     const { data: invites = [], isLoading } = useGetInviteQuery();
     const dispatch = useAppDispatch();
 
+    const trainingPals = useAppSelector((state) => state.trainingPartners);
+
     useLoaderLoading(isFetching || isLoading);
 
     const [showTrainingList, setShowTrainingList] = useState(false);
     const [isError, setIsError] = useState(false);
     const [lastCallType, setLastCallType] = useState<string | null>(null);
+
+    const canShowTrainingSelection = trainingPals.length < 4;
 
     const onShowRandomTrainingList = async () => {
         setLastCallType('random');
@@ -84,18 +88,19 @@ export const JointTrainings = ({
                     onBack={onBack}
                 />
             ) : (
-                <React.Fragment>
+                <div className={styles.content_container}>
                     {invites.length > 0 && (
                         <MessagesList invites={invites} trainingList={trainingList} />
                     )}
-
-                    <TrainingPartnerSelection
-                        selectRandom={onShowRandomTrainingList}
-                        selectByType={() => onShowTrainingListByType(trainingType || '')}
-                    />
+                    {canShowTrainingSelection && (
+                        <TrainingPartnerSelection
+                            selectRandom={onShowRandomTrainingList}
+                            selectByType={() => onShowTrainingListByType(trainingType || '')}
+                        />
+                    )}
 
                     <TrainingPartners />
-                </React.Fragment>
+                </div>
             )}
             <ErrorTrainingList
                 onClose={() => setIsError(false)}
