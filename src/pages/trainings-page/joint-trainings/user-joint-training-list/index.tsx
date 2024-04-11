@@ -39,7 +39,7 @@ export const UserJointTrainingList = ({
         (acc, user) => (user.status && user.status !== 'rejected' ? acc + 1 : acc),
         0,
     );
-    const canAddPartner = possiblePartners < 4;
+    const canAddPartner = possiblePartners <= 4;
 
     const openDrawer = (id: string) => {
         setCurrentPartner(sortedUsers.find((user) => user.id === id));

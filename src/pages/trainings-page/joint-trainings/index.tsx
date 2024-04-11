@@ -37,7 +37,7 @@ export const JointTrainings = ({
     const [isError, setIsError] = useState(false);
     const [lastCallType, setLastCallType] = useState<string | null>(null);
 
-    const canShowTrainingSelection = trainingPals.length < 4;
+    const canShowTrainingSelection = trainingPals.length <= 4;
 
     const onShowRandomTrainingList = async () => {
         setLastCallType('random');
