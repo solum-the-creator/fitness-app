@@ -1,3 +1,5 @@
+import cn from 'classnames';
+
 import styles from './badge.module.scss';
 
 type BadgeProps = {
@@ -6,9 +8,12 @@ type BadgeProps = {
 };
 
 export const Badge = ({ count, children }: BadgeProps) => {
-    const isHide = count === 0 || !count;
+    const isHide = !count;
 
-    const badgeClass = children ? styles.badge : styles.badge_row;
+    const badgeClass = cn({
+        [styles.badge]: children,
+        [styles.badge_row]: !children,
+    });
 
     return (
         <div className={styles.container}>
