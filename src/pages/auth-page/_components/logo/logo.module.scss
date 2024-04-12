@@ -6,13 +6,9 @@
 
   .logo {
     object-fit: cover;
-    width: 309px;
-    height: 76px;
 
     @media (max-width: 640px) {
-      width: 203px;
       height: 50px;
-
     }
   }
 }

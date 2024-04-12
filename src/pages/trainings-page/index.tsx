@@ -9,18 +9,13 @@ import { findMostDemandingTrainingType } from '@utils/exercise';
 import { Tabs } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import moment from 'moment';
+import { TabItem } from 'src/types/tabs';
 
 import { JointTrainings } from './joint-trainings';
 import { Marathon } from './marathon';
 import { MyTrainings } from './my-trainings';
 
 import styles from './trainings-page.module.scss';
-
-type TabItem = {
-    label: React.ReactNode;
-    key: string;
-    children: React.ReactNode;
-};
 
 export const TrainingsPage = () => {
     const { data: trainings = [], isFetching } = useGetTrainingQuery();

@@ -2,7 +2,7 @@ import { Image } from 'antd';
 
 import styles from './logo.module.scss';
 
-import logo from '/logo.svg';
+import logo from '/logo_login.svg';
 
 export const Logo = () => (
     <div className={styles.logo_container}>
