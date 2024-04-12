@@ -65,6 +65,7 @@ export const Sidebar = () => {
             key: PATHS.ACHIEVEMENTS,
             icon: <TrophyFilled style={{ fontSize: '16px' }} />,
             label: 'Достижения',
+            onClick: () => onGetTraining(PATHS.ACHIEVEMENTS),
         },
         {
             key: PATHS.PROFILE,

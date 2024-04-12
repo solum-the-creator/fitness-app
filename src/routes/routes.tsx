@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthRoutes } from '@components/auth-routes';
 import { UnauthRoutes } from '@components/unauth-routes';
 import PATHS from '@constants/paths';
+import { AchievementsPage } from '@pages/achievements-page';
 import { AuthPage } from '@pages/auth-page';
 import { ChangePasswordPage } from '@pages/auth-page/change-password';
 import { ConfirmEmailPage } from '@pages/auth-page/confirm-email';
@@ -37,6 +38,7 @@ export const AppRoutes = () => (
                 <Route path={PATHS.PROFILE} element={<ProfilePage />} />
                 <Route path={PATHS.SETTINGS} element={<SettingsPage />} />
                 <Route path={PATHS.TRAININGS} element={<TrainingsPage />} />
+                <Route path={PATHS.ACHIEVEMENTS} element={<AchievementsPage />} />
                 <Route path='*' element={<NotFoundPage />} />
             </Route>
         </Route>
