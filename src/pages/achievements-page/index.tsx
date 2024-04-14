@@ -7,6 +7,9 @@ import { Tabs } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import { TabItem } from 'src/types/tabs';
 
+import { AchievementsPerMonth } from './achievements-per-month';
+import { AchievementsPerWeek } from './achievements-per-week';
+
 import styles from './achievements-page.module.scss';
 
 export const AchievementsPage = () => {
@@ -25,12 +28,12 @@ export const AchievementsPage = () => {
         {
             label: 'За неделю',
             key: '1',
-            children: 'Статистика за неделю',
+            children: <AchievementsPerWeek trainingList={trainingList} />,
         },
         {
             label: 'За месяц',
             key: '2',
-            children: 'Статистика за месяц',
+            children: <AchievementsPerMonth trainingList={trainingList} />,
         },
         { label: 'За всё время (PRO)', key: '3', disabled: true },
     ];

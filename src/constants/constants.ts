@@ -1,3 +1,4 @@
+import { TagData } from '@components/tags-list';
 import { InviteStatus } from '@redux/api/types';
 import ru_RU from 'antd/es/calendar/locale/ru_RU';
 
@@ -136,4 +137,9 @@ export const INVITE_STATUS: Record<InviteStatus, InviteStatus> = {
     accepted: 'accepted',
     pending: 'pending',
     rejected: 'rejected',
+};
+
+export const TAG_ALL: TagData = {
+    name: 'Все',
+    key: 'all',
 };
