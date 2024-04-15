@@ -4,3 +4,8 @@
   flex-direction: column;
   gap: 24px;
 }
+
+.chart {
+  border-radius: 2px;
+  border: 1px solid var(--character-light-dividers);
+}

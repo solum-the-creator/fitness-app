@@ -1,5 +1,6 @@
 import { useMediaQuery } from 'react-responsive';
 import { CheckOutlined } from '@ant-design/icons';
+import { DATE_SHORT_FORMAT } from '@constants/constants';
 import { Button, Card } from 'antd';
 import moment from 'moment';
 
@@ -26,7 +27,7 @@ export const TariffCard = ({
 }: TariffCardProps) => {
     const matches = useMediaQuery({ query: '(max-width: 600px)' });
 
-    const formattedDate = activeDate && moment(activeDate).format('DD.MM');
+    const formattedDate = activeDate && moment(activeDate).format(DATE_SHORT_FORMAT);
 
     const activeUntill = activeDate ? (
         <span className={styles.active_date}>до {formattedDate}</span>

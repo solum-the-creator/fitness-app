@@ -8,7 +8,7 @@ import {
 } from '@redux/api/api-slice';
 import { Exercise, Training, TrainingList, TrainingResponse } from '@redux/api/types';
 import { isPastDate } from '@utils/date-utils';
-import { availableTrainings } from '@utils/missing-trainings';
+import { availableTrainings } from '@utils/trainings';
 import { Button, Empty, Modal, Select } from 'antd';
 import { Moment } from 'moment';
 

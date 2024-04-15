@@ -1,0 +1,57 @@
+import { useMediaQuery } from 'react-responsive';
+import { Column, ColumnConfig } from '@ant-design/plots';
+
+import styles from './column-per-week.module.scss';
+
+type ColumnPerWeekProps = {
+    data: ColumnData[];
+};
+
+export type ColumnData = {
+    date: string;
+    value: number;
+};
+
+export const ColumnPerWeek = ({ data }: ColumnPerWeekProps) => {
+    const matches = useMediaQuery({ query: '(max-width: 460px)' });
+
+    const config: ColumnConfig = {
+        data,
+        xField: 'date',
+        yField: 'value',
+        axis: {
+            x: {
+                title: 'Нагрузка, кг',
+                titleSpacing: matches ? 8 : 16,
+                titlePosition: 'bottom',
+                titleFontSize: matches ? 10 : 14,
+                tick: false,
+                labelSpacing: matches ? 8 : 20,
+            },
+            y: {
+                labelFormatter: (value: number) => `${value} кг`,
+                tick: false,
+                fontSize: 1,
+                labelSpacing: matches ? 8 : 16,
+                labelTextAlign: 'start',
+            },
+        },
+        style: {
+            fill: '#85A5FF',
+            margin: 0,
+        },
+        sizeField: matches ? 15 : 30,
+        interaction: {
+            elementHighlightByColor: false,
+        },
+        insetLeft: 10,
+        paddingLeft: 40,
+        marginTop: 26,
+        width: matches ? 328 : 520,
+        height: matches ? 236 : 374,
+        tooltip: false,
+        className: styles.chart,
+    };
+
+    return <Column {...config} />;
+};

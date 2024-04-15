@@ -28,7 +28,7 @@ export const AchievementsPage = () => {
         {
             label: 'За неделю',
             key: '1',
-            children: <AchievementsPerWeek trainingList={trainingList} />,
+            children: <AchievementsPerWeek trainings={trainings} trainingList={trainingList} />,
         },
         {
             label: 'За месяц',

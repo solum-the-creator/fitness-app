@@ -1,18 +1,24 @@
 import { useState } from 'react';
 import { TagsList } from '@components/tags-list';
 import { TAG_ALL } from '@constants/constants';
-import { TrainingList } from '@redux/api/types';
+import { TrainingList, TrainingResponse } from '@redux/api/types';
+import { getDataForWeekColumn } from '@utils/trainings';
+
+import { ColumnPerWeek } from './column-per-week';
 
 import styles from './achievements-per-week.module.scss';
 
 type AchievementsPerWeekProps = {
+    trainings: TrainingResponse[];
     trainingList: TrainingList;
 };
 
-export const AchievementsPerWeek = ({ trainingList }: AchievementsPerWeekProps) => {
+export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPerWeekProps) => {
     const tagsData = [TAG_ALL, ...trainingList];
 
     const [selectedTag, setSelectedTag] = useState<string>(tagsData[0].key);
+
+    const data = getDataForWeekColumn(trainings);
 
     return (
         <div className={styles.container}>
@@ -22,6 +28,9 @@ export const AchievementsPerWeek = ({ trainingList }: AchievementsPerWeekProps) 
                 selectedTag={selectedTag}
                 onChange={setSelectedTag}
             />
+            <div>
+                <ColumnPerWeek data={data} />
+            </div>
         </div>
     );
 };

@@ -29,6 +29,8 @@ export const DATE_FORMAT = 'DD.MM.YYYY';
 
 export const DATE_FORMAT_FEEDBACK = 'dd.MM.yyyy';
 
+export const DATE_SHORT_FORMAT = 'DD.MM';
+
 export const STATUS_CODE = {
     SUCCESS: 200,
     CREATED: 201,

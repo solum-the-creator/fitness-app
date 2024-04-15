@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useHandleModalResize } from '@hooks/use-handle-modal-resize';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
-import { missingTrainings } from '@utils/missing-trainings';
+import { missingTrainings } from '@utils/trainings';
 import { Moment } from 'moment';
 
 import { TrainingCreate } from './training-create';
