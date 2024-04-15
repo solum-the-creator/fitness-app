@@ -23,7 +23,7 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
     const {
         totalWorkload,
         dailyWorkload,
-        totalRepeats,
+        totalReplays,
         totalApproaches,
         columnData: data,
     } = getDataForWeek(trainings);
@@ -43,7 +43,7 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
             <GeneralInfo
                 totalWorkload={totalWorkload}
                 dailyWorkload={dailyWorkload}
-                totalRepeats={totalRepeats}
+                totalReplays={totalReplays}
                 totalApproaches={totalApproaches}
             />
         </div>

@@ -3,14 +3,14 @@ import styles from './general-info.module.scss';
 type GeneralInfoProps = {
     totalWorkload: number;
     dailyWorkload: number;
-    totalRepeats: number;
+    totalReplays: number;
     totalApproaches: number;
 };
 
 export const GeneralInfo = ({
     totalWorkload,
     dailyWorkload,
-    totalRepeats,
+    totalReplays,
     totalApproaches,
 }: GeneralInfoProps) => (
     <div className={styles.general_info}>
@@ -23,7 +23,7 @@ export const GeneralInfo = ({
             <p className={styles.title}>Нагрузка в&nbsp;день,&nbsp;кг</p>
         </div>
         <div className={styles.general_info_item}>
-            <span className={styles.value}>{totalRepeats}</span>
+            <span className={styles.value}>{totalReplays}</span>
             <p className={styles.title}>Количество повторени,&nbsp;раз</p>
         </div>
         <div className={styles.general_info_item}>

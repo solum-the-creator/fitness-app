@@ -4,7 +4,7 @@ import { TrainingList, TrainingResponse } from '@redux/api/types';
 import {
     getAverageWorkload,
     getTotalApproaches,
-    getTotalRepeats,
+    getTotalReplays,
     getTotalWorkload,
 } from './exercise';
 
@@ -68,7 +68,7 @@ export const getDataForWeek = (trainings: TrainingResponse[]) => {
 
     const dailyWorkload = Math.round((totalWorkload / 7) * 10) / 10;
 
-    const totalRepeats = getTotalRepeats(selectedTrainings);
+    const totalReplays = getTotalReplays(selectedTrainings);
     const totalApproaches = getTotalApproaches(selectedTrainings);
 
     const columnData: ColumnData[] = data.map((item) => ({
@@ -76,5 +76,5 @@ export const getDataForWeek = (trainings: TrainingResponse[]) => {
         value: item.averageWorkload,
     }));
 
-    return { totalWorkload, columnData, totalRepeats, totalApproaches, dailyWorkload };
+    return { totalWorkload, columnData, totalReplays, totalApproaches, dailyWorkload };
 };

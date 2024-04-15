@@ -37,7 +37,7 @@ export const getTotalWorkload = (trainings: Training[]): number =>
         0,
     );
 
-export const getTotalRepeats = (trainings: Training[]): number =>
+export const getTotalReplays = (trainings: Training[]): number =>
     trainings.reduce(
         (acc, training) =>
             acc +
