@@ -1,7 +1,5 @@
-import { DATE_SHORT_FORMAT } from '@constants/constants';
 import { ColumnData } from '@pages/achievements-page/achievements-per-week/column-per-week';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
-import moment from 'moment';
 
 import { getAverageWorkload } from './exercise';
 
@@ -62,7 +60,7 @@ export const getDataForWeekColumn = (trainings: TrainingResponse[]) => {
     });
 
     const columnData: ColumnData[] = data.map((item) => ({
-        date: moment(item.date).format(DATE_SHORT_FORMAT),
+        date: item.date.toISOString(),
         value: item.averageWorkload,
     }));
 

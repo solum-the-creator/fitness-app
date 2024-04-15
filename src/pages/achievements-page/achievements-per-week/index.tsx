@@ -4,6 +4,7 @@ import { TAG_ALL } from '@constants/constants';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { getDataForWeekColumn } from '@utils/trainings';
 
+import { AverageWorkloadBlock } from './average-workload-block';
 import { ColumnPerWeek } from './column-per-week';
 
 import styles from './achievements-per-week.module.scss';
@@ -28,8 +29,9 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
                 selectedTag={selectedTag}
                 onChange={setSelectedTag}
             />
-            <div>
+            <div className={styles.workload_block}>
                 <ColumnPerWeek data={data} />
+                <AverageWorkloadBlock data={data} />
             </div>
         </div>
     );

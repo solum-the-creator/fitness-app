@@ -1,5 +1,7 @@
 import { useMediaQuery } from 'react-responsive';
 import { Column, ColumnConfig } from '@ant-design/plots';
+import { DATE_SHORT_FORMAT } from '@constants/constants';
+import moment from 'moment';
 
 import styles from './column-per-week.module.scss';
 
@@ -21,6 +23,7 @@ export const ColumnPerWeek = ({ data }: ColumnPerWeekProps) => {
         yField: 'value',
         axis: {
             x: {
+                labelFormatter: (value: string) => moment(value).format(DATE_SHORT_FORMAT),
                 title: 'Нагрузка, кг',
                 titleSpacing: matches ? 8 : 16,
                 titlePosition: 'bottom',

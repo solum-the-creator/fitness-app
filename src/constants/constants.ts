@@ -116,6 +116,16 @@ export const DAY_OF_WEEK_OPTIONS: OptionDayOfWeek[] = [
     },
 ];
 
+export const NUMBER_TO_WEEKDAY: Record<number, string> = {
+    1: 'Понедельник',
+    2: 'Вторник',
+    3: 'Среда',
+    4: 'Четверг',
+    5: 'Пятница',
+    6: 'Суббота',
+    7: 'Воскресенье',
+};
+
 export const PERIOD_TO_STRING: Record<number, string> = {
     1: 'Через 1 день',
     2: 'Через 2 дня',

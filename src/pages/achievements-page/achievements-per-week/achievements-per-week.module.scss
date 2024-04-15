@@ -3,6 +3,18 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  .workload_block {
+    display: flex;
+    align-items: center;
+    gap: calc((100% - 840px) / 2);
+
+    @media (max-width: 980px) {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
 }
 
 .chart {
