@@ -68,8 +68,8 @@ export const getDataForWeek = (trainings: TrainingResponse[]) => {
 
     const dailyWorkload = Math.round((totalWorkload / 7) * 10) / 10;
 
-    const totalReplays = Math.round((getTotalReplays(selectedTrainings) / 7) * 10) / 10;
-    const totalApproaches = Math.round((getTotalApproaches(selectedTrainings) / 7) * 10) / 10;
+    const totalReplays = getTotalReplays(selectedTrainings);
+    const totalApproaches = getTotalApproaches(selectedTrainings);
 
     const columnData: ColumnData[] = data.map((item) => ({
         date: item.date.toISOString(),
