@@ -37,6 +37,25 @@ export const getTotalWorkload = (trainings: Training[]): number =>
         0,
     );
 
+export const getTotalRepeats = (trainings: Training[]): number =>
+    trainings.reduce(
+        (acc, training) =>
+            acc +
+            training.exercises.reduce((exerciseAcc, exercise) => exerciseAcc + exercise.replays, 0),
+        0,
+    );
+
+export const getTotalApproaches = (trainings: Training[]): number =>
+    trainings.reduce(
+        (acc, training) =>
+            acc +
+            training.exercises.reduce(
+                (exerciseAcc, exercise) => exerciseAcc + exercise.approaches,
+                0,
+            ),
+        0,
+    );
+
 export const getAverageWorkload = (trainings: Training[]): number => {
     const { totalWorkload, totalExercises } = trainings.reduce(
         (acc, training) => {

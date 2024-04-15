@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { TagsList } from '@components/tags-list';
 import { TAG_ALL } from '@constants/constants';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
-import { getDataForWeekColumn } from '@utils/trainings';
+import { getDataForWeek } from '@utils/trainings';
 
 import { AverageWorkloadBlock } from './average-workload-block';
 import { ColumnPerWeek } from './column-per-week';
+import { GeneralInfo } from './general-info';
 
 import styles from './achievements-per-week.module.scss';
 
@@ -19,7 +20,13 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
 
     const [selectedTag, setSelectedTag] = useState<string>(tagsData[0].key);
 
-    const data = getDataForWeekColumn(trainings);
+    const {
+        totalWorkload,
+        dailyWorkload,
+        totalRepeats,
+        totalApproaches,
+        columnData: data,
+    } = getDataForWeek(trainings);
 
     return (
         <div className={styles.container}>
@@ -33,6 +40,12 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
                 <ColumnPerWeek data={data} />
                 <AverageWorkloadBlock data={data} />
             </div>
+            <GeneralInfo
+                totalWorkload={totalWorkload}
+                dailyWorkload={dailyWorkload}
+                totalRepeats={totalRepeats}
+                totalApproaches={totalApproaches}
+            />
         </div>
     );
 };

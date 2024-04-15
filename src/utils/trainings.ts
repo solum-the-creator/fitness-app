@@ -1,7 +1,12 @@
 import { ColumnData } from '@pages/achievements-page/achievements-per-week/column-per-week';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
 
-import { getAverageWorkload } from './exercise';
+import {
+    getAverageWorkload,
+    getTotalApproaches,
+    getTotalRepeats,
+    getTotalWorkload,
+} from './exercise';
 
 export const missingTrainings = (
     trainingList: TrainingList,
@@ -50,19 +55,26 @@ export const getLastWeekTrainings = (
     return lastWeekTrainings;
 };
 
-export const getDataForWeekColumn = (trainings: TrainingResponse[]) => {
+export const getDataForWeek = (trainings: TrainingResponse[]) => {
     const lastWeekTrainings = getLastWeekTrainings(trainings);
-
+    const selectedTrainings = [...lastWeekTrainings.flatMap((item) => item.trainings)];
     const data = lastWeekTrainings.map((item) => {
         const averageWorkload = getAverageWorkload(item.trainings);
 
         return { date: item.date, averageWorkload };
     });
 
+    const totalWorkload = getTotalWorkload(selectedTrainings);
+
+    const dailyWorkload = Math.round((totalWorkload / 7) * 10) / 10;
+
+    const totalRepeats = getTotalRepeats(selectedTrainings);
+    const totalApproaches = getTotalApproaches(selectedTrainings);
+
     const columnData: ColumnData[] = data.map((item) => ({
         date: item.date.toISOString(),
         value: item.averageWorkload,
     }));
 
-    return columnData;
+    return { totalWorkload, columnData, totalRepeats, totalApproaches, dailyWorkload };
 };
