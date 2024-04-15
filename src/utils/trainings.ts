@@ -1,8 +1,9 @@
 import { ColumnData } from '@pages/achievements-page/achievements-per-week/column-per-week';
-import { TrainingList, TrainingResponse } from '@redux/api/types';
+import { Training, TrainingList, TrainingResponse } from '@redux/api/types';
 
 import {
     getAverageWorkload,
+    getMostPopularExercise,
     getTotalApproaches,
     getTotalReplays,
     getTotalWorkload,
@@ -55,6 +56,24 @@ export const getLastWeekTrainings = (
     return lastWeekTrainings;
 };
 
+const getMostPopularTraining = (trainings: Training[]): string | null => {
+    const trainingCounts: Array<{ name: string; count: number }> = [];
+
+    trainings.forEach((training) => {
+        const index = trainingCounts.findIndex((item) => item.name === training.name);
+
+        if (index >= 0) {
+            trainingCounts[index].count += 1;
+        } else {
+            trainingCounts.push({ name: training.name, count: 1 });
+        }
+    });
+
+    return trainingCounts.sort((a, b) => b.count - a.count).length > 0
+        ? trainingCounts[0].name
+        : null;
+};
+
 export const getDataForWeek = (trainings: TrainingResponse[]) => {
     const lastWeekTrainings = getLastWeekTrainings(trainings);
     const selectedTrainings = [...lastWeekTrainings.flatMap((item) => item.trainings)];
@@ -71,10 +90,21 @@ export const getDataForWeek = (trainings: TrainingResponse[]) => {
     const totalReplays = getTotalReplays(selectedTrainings);
     const totalApproaches = getTotalApproaches(selectedTrainings);
 
+    const mostPopularTraining = getMostPopularTraining(selectedTrainings);
+    const mostPopularExercise = getMostPopularExercise(selectedTrainings);
+
     const columnData: ColumnData[] = data.map((item) => ({
         date: item.date.toISOString(),
         value: item.averageWorkload,
     }));
 
-    return { totalWorkload, columnData, totalReplays, totalApproaches, dailyWorkload };
+    return {
+        totalWorkload,
+        columnData,
+        totalReplays,
+        totalApproaches,
+        mostPopularTraining,
+        mostPopularExercise,
+        dailyWorkload,
+    };
 };

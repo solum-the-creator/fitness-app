@@ -74,35 +74,25 @@ export const getAverageWorkload = (trainings: Training[]): number => {
     return Math.round(averageWorkload);
 };
 
-// export const calculateDailyAverageWorkload = (
-//     trainings: Training[],
-//     countDays: number,
-// ): number[] => {
-//     const dailyWorkloads: number[] = new Array(countDays).fill(0);
-//     const dailyTrainingCounts: number[] = new Array(countDays).fill(0);
+export const getMostPopularExercise = (trainings: Training[]): string | null => {
+    const exerciseCounts: Array<{ name: string; count: number }> = [];
 
-//     trainings.forEach((training) => {
-//         const trainingDate = new Date(training.date);
-//         const dayOfWeek = trainingDate.getDay();
+    trainings.forEach((training) => {
+        training.exercises.forEach((exercise) => {
+            const index = exerciseCounts.findIndex((item) => item.name === exercise.name);
 
-//         if (training.exercises.length > 0) {
-//             training.exercises.forEach((exercise) => {
-//                 dailyWorkloads[dayOfWeek] += calculateWorkload(exercise);
-//             });
-//             dailyTrainingCounts[dayOfWeek] += 1;
-//         }
-//     });
+            if (index >= 0) {
+                exerciseCounts[index].count += 1;
+            } else {
+                exerciseCounts.push({ name: exercise.name, count: 1 });
+            }
+        });
+    });
 
-//     const dailyAverages: number[] = dailyWorkloads.map((workload, index) => {
-//         if (dailyTrainingCounts[index] === 0) {
-//             return 0;
-//         }
-
-//         return workload / dailyTrainingCounts[index];
-//     });
-
-//     return dailyAverages;
-// };
+    return exerciseCounts.sort((a, b) => b.count - a.count).length > 0
+        ? exerciseCounts[0].name
+        : null;
+};
 
 export const findMostDemandingTrainingType = (
     trainings: Training[],

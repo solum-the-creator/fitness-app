@@ -7,6 +7,7 @@ import { getDataForWeek } from '@utils/trainings';
 import { AverageWorkloadBlock } from './average-workload-block';
 import { ColumnPerWeek } from './column-per-week';
 import { GeneralInfo } from './general-info';
+import { MostPopularInfo } from './most-popular-info';
 
 import styles from './achievements-per-week.module.scss';
 
@@ -25,6 +26,8 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
         dailyWorkload,
         totalReplays,
         totalApproaches,
+        mostPopularTraining,
+        mostPopularExercise,
         columnData: data,
     } = getDataForWeek(trainings);
 
@@ -45,6 +48,10 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
                 dailyWorkload={dailyWorkload}
                 totalReplays={totalReplays}
                 totalApproaches={totalApproaches}
+            />
+            <MostPopularInfo
+                mostPopularTraining={mostPopularTraining}
+                mostPopularExercise={mostPopularExercise}
             />
         </div>
     );
