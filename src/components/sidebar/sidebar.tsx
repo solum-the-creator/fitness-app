@@ -64,7 +64,7 @@ export const Sidebar = () => {
         {
             key: PATHS.ACHIEVEMENTS,
             icon: <TrophyFilled style={{ fontSize: '16px' }} />,
-            label: 'Достижения',
+            label: <span data-test-id='sidebar-achievements'>Достижения</span>,
             onClick: () => onGetTraining(PATHS.ACHIEVEMENTS),
         },
         {
