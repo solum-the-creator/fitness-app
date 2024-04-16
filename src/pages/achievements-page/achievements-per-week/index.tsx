@@ -6,6 +6,7 @@ import { getDataForWeek } from '@utils/trainings';
 
 import { AverageWorkloadBlock } from './average-workload-block';
 import { ColumnPerWeek } from './column-per-week';
+import { ExercisePieChart } from './exercise-pie-chart';
 import { GeneralInfo } from './general-info';
 import { MostPopularInfo } from './most-popular-info';
 
@@ -53,6 +54,9 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
                 mostPopularTraining={mostPopularTraining}
                 mostPopularExercise={mostPopularExercise}
             />
+            <div>
+                <ExercisePieChart />
+            </div>
         </div>
     );
 };
