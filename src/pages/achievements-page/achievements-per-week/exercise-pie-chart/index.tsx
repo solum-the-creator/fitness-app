@@ -1,31 +1,22 @@
 import { useMediaQuery } from 'react-responsive';
 import { Pie, PieConfig } from '@ant-design/plots';
+import { convertDataForPieChart, PopularExercise } from '@utils/exercise';
 
-export const ExercisePieChart = () => {
+type ExercisePieChartProps = {
+    data: Array<{
+        date: string;
+        mostPopularExercise: PopularExercise | null;
+    }>;
+};
+
+export const ExercisePieChart = ({ data }: ExercisePieChartProps) => {
     const matches = useMediaQuery({ query: '(max-width: 980px)' });
 
-    const data = [
-        {
-            name: 'Подтягивания',
-            value: 10,
-        },
-        {
-            name: 'Приседания',
-            value: 15,
-        },
-        {
-            name: 'Отжимания',
-            value: 20,
-        },
-        {
-            name: 'Ходьба',
-            value: 25,
-        },
-    ];
+    const convertedData = convertDataForPieChart(data);
 
     const config: PieConfig = {
-        data,
-        angleField: 'value',
+        data: convertedData,
+        angleField: 'count',
         colorField: 'name',
         legend: false,
         innerRadius: 0.7,
@@ -58,5 +49,5 @@ export const ExercisePieChart = () => {
         },
     };
 
-    return <Pie {...config} />;
+    return convertedData.length ? <Pie {...config} /> : null;
 };

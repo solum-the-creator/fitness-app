@@ -4,9 +4,16 @@
   flex-direction: column;
   gap: 24px;
 
+  height: 100%;
+
+
+
+}
+
+.content {
   @media (min-width: 680px) {
     overflow-y: auto;
-    height: calc(100% - 24px);
+    height: calc(100% - 66px);
 
     &::-webkit-scrollbar {
       width: 20px;
@@ -26,7 +33,6 @@
     &::-webkit-scrollbar-thumb:hover {
       background-color: #a8bbbf;
     }
-
   }
 
 

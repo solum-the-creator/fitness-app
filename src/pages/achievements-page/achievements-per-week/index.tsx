@@ -30,38 +30,9 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
         totalApproaches,
         mostPopularTraining,
         mostPopularExercise,
+        mostPopularExerciseForEachDay,
         columnData: data,
     } = getDataForWeek(trainings);
-
-    const testData = [
-        {
-            date: '2024-04-16',
-            name: 'Упражнение 1',
-        },
-        {
-            date: '2024-04-17',
-            name: 'Упражнение 2',
-        },
-        {
-            date: '2024-04-18',
-            name: 'Упражнение 3',
-        },
-        {
-            date: '2024-04-19',
-            name: 'Упражнение 4',
-        },
-        {
-            date: '2024-04-20',
-            name: 'Упражнение 5',
-        },
-        {
-            date: '2024-04-21',
-            name: 'Упражнение 6',
-        },
-        {
-            date: '2024-04-22',
-        },
-    ];
 
     return (
         <div className={styles.container}>
@@ -71,23 +42,25 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
                 selectedTag={selectedTag}
                 onChange={setSelectedTag}
             />
-            <div className={styles.workload_block}>
-                <ColumnPerWeek data={data} />
-                <AverageWorkloadBlock data={data} />
-            </div>
-            <GeneralInfo
-                totalWorkload={totalWorkload}
-                dailyWorkload={dailyWorkload}
-                totalReplays={totalReplays}
-                totalApproaches={totalApproaches}
-            />
-            <MostPopularInfo
-                mostPopularTraining={mostPopularTraining}
-                mostPopularExercise={mostPopularExercise}
-            />
-            <div className={styles.exercise_block}>
-                <ExercisePieChart />
-                <MostPopularExercises data={testData} />
+            <div className={styles.content}>
+                <div className={styles.workload_block}>
+                    <ColumnPerWeek data={data} />
+                    <AverageWorkloadBlock data={data} />
+                </div>
+                <GeneralInfo
+                    totalWorkload={totalWorkload}
+                    dailyWorkload={dailyWorkload}
+                    totalReplays={totalReplays}
+                    totalApproaches={totalApproaches}
+                />
+                <MostPopularInfo
+                    mostPopularTraining={mostPopularTraining}
+                    mostPopularExercise={mostPopularExercise && mostPopularExercise.name}
+                />
+                <div className={styles.exercise_block}>
+                    <ExercisePieChart data={mostPopularExerciseForEachDay} />
+                    <MostPopularExercises data={mostPopularExerciseForEachDay} />
+                </div>
             </div>
         </div>
     );

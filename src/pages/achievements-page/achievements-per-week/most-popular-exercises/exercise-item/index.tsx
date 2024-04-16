@@ -8,7 +8,7 @@ import styles from './exercise-item.module.scss';
 
 type ExerciseItemProps = {
     date: string;
-    name?: string;
+    name: string | null;
 };
 
 export const ExerciseItem = ({ date, name }: ExerciseItemProps) => {

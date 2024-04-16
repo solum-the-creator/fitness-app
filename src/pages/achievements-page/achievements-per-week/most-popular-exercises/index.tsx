@@ -1,3 +1,4 @@
+import { PopularExercise } from '@utils/exercise';
 import { sortByWeekDay } from '@utils/sorting';
 
 import { ExerciseItem } from './exercise-item';
@@ -5,12 +6,10 @@ import { ExerciseItem } from './exercise-item';
 import styles from './most-popular-exercises.module.scss';
 
 type MostPopularExercisesProps = {
-    data: PopularExercise[];
-};
-
-type PopularExercise = {
-    date: string;
-    name?: string;
+    data: Array<{
+        date: string;
+        mostPopularExercise: PopularExercise | null;
+    }>;
 };
 
 export const MostPopularExercises = ({ data }: MostPopularExercisesProps) => {
@@ -25,7 +24,11 @@ export const MostPopularExercises = ({ data }: MostPopularExercisesProps) => {
             </p>
             <div className={styles.exercise_list}>
                 {sortedData.map((item) => (
-                    <ExerciseItem key={item.date} date={item.date} name={item.name} />
+                    <ExerciseItem
+                        key={item.date}
+                        date={item.date}
+                        name={item.mostPopularExercise && item.mostPopularExercise.name}
+                    />
                 ))}
             </div>
         </div>

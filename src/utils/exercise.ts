@@ -1,6 +1,11 @@
 import { Exercise, Training, TrainingList } from '@redux/api/types';
 import { nanoid } from 'nanoid';
 
+export type PopularExercise = {
+    name: string;
+    count: number;
+};
+
 export const createEmptyExercise = (): Partial<Exercise> => ({
     name: '',
     replays: undefined,
@@ -74,25 +79,35 @@ export const getAverageWorkload = (trainings: Training[]): number => {
     return Math.round(averageWorkload);
 };
 
-export const getMostPopularExercise = (trainings: Training[]): string | null => {
-    const exerciseCounts: Array<{ name: string; count: number }> = [];
+export const getMostPopularExercise = (trainings: Training[]): PopularExercise | null => {
+    const exerciseCounts: { [name: string]: number } = {};
 
     trainings.forEach((training) => {
         training.exercises.forEach((exercise) => {
-            const index = exerciseCounts.findIndex((item) => item.name === exercise.name);
-
-            if (index >= 0) {
-                exerciseCounts[index].count += 1;
-            } else {
-                exerciseCounts.push({ name: exercise.name, count: 1 });
-            }
+            exerciseCounts[exercise.name] = (exerciseCounts[exercise.name] || 0) + 1;
         });
     });
 
-    return exerciseCounts.sort((a, b) => b.count - a.count).length > 0
-        ? exerciseCounts[0].name
-        : null;
+    const sortedExerciseCounts = Object.entries(exerciseCounts)
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count);
+
+    const mostPopularExercise =
+        sortedExerciseCounts.length > 0
+            ? { name: sortedExerciseCounts[0].name, count: sortedExerciseCounts[0].count }
+            : null;
+
+    return mostPopularExercise;
 };
+
+export const getMostPopularExerciseForEachDay = (
+    data: Array<{ date: Date; trainings: Training[] }>,
+): Array<{ date: string; mostPopularExercise: PopularExercise | null }> =>
+    data.map(({ date, trainings }) => {
+        const mostPopularExercise = getMostPopularExercise(trainings);
+
+        return { date: date.toISOString(), mostPopularExercise };
+    });
 
 export const findMostDemandingTrainingType = (
     trainings: Training[],
@@ -127,4 +142,27 @@ export const findMostDemandingTrainingType = (
     });
 
     return trainingList.find((item) => item.name === mostDemandingTrainingType)?.key || null;
+};
+
+export const convertDataForPieChart = (
+    data: Array<{ date: string; mostPopularExercise: PopularExercise | null }>,
+): PopularExercise[] => {
+    const result: { [name: string]: number } = {};
+
+    data.forEach(({ mostPopularExercise }) => {
+        if (mostPopularExercise) {
+            if (result[mostPopularExercise.name]) {
+                result[mostPopularExercise.name] += mostPopularExercise.count;
+            } else {
+                result[mostPopularExercise.name] = mostPopularExercise.count;
+            }
+        }
+    });
+
+    const formattedData: PopularExercise[] = Object.keys(result).map((name) => ({
+        name,
+        count: result[name],
+    }));
+
+    return formattedData;
 };
