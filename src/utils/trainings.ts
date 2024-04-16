@@ -77,7 +77,23 @@ const getMostPopularTraining = (trainings: Training[]): string | null => {
 
 export const getDataForWeek = (trainings: TrainingResponse[]) => {
     const lastWeekTrainings = getLastWeekTrainings(trainings);
+
     const selectedTrainings = [...lastWeekTrainings.flatMap((item) => item.trainings)];
+
+    if (selectedTrainings.length === 0) {
+        return {
+            isEmpty: true,
+            totalWorkload: 0,
+            columnData: [],
+            totalReplays: 0,
+            totalApproaches: 0,
+            mostPopularTraining: null,
+            mostPopularExercise: null,
+            mostPopularExerciseForEachDay: [],
+            dailyWorkload: 0,
+        };
+    }
+
     const data = lastWeekTrainings.map((item) => {
         const averageWorkload = getAverageWorkload(item.trainings);
 
@@ -102,6 +118,7 @@ export const getDataForWeek = (trainings: TrainingResponse[]) => {
     }));
 
     return {
+        isEmpty: false,
         totalWorkload,
         columnData,
         totalReplays,

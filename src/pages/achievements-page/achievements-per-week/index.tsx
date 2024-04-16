@@ -4,6 +4,8 @@ import { TAG_ALL } from '@constants/constants';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { getDataForWeek } from '@utils/trainings';
 
+import { EmptyTraining } from '../empty-training';
+
 import { AverageWorkloadBlock } from './average-workload-block';
 import { ColumnPerWeek } from './column-per-week';
 import { ExercisePieChart } from './exercise-pie-chart';
@@ -33,6 +35,7 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
     });
 
     const {
+        isEmpty,
         totalWorkload,
         dailyWorkload,
         totalReplays,
@@ -51,27 +54,31 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
                 selectedTag={selectedTag}
                 onChange={setSelectedTag}
             />
-            <div className={styles.content}>
-                <div className={styles.workload_block}>
-                    <ColumnPerWeek data={data} />
-                    <AverageWorkloadBlock data={data} />
+            {isEmpty ? (
+                <EmptyTraining />
+            ) : (
+                <div className={styles.content}>
+                    <div className={styles.workload_block}>
+                        <ColumnPerWeek data={data} />
+                        <AverageWorkloadBlock data={data} />
+                    </div>
+                    <GeneralInfo
+                        totalWorkload={totalWorkload}
+                        dailyWorkload={dailyWorkload}
+                        totalReplays={totalReplays}
+                        totalApproaches={totalApproaches}
+                    />
+                    <MostPopularInfo
+                        isFiltered={isFiltered}
+                        mostPopularTraining={mostPopularTraining}
+                        mostPopularExercise={mostPopularExercise && mostPopularExercise.name}
+                    />
+                    <div className={styles.exercise_block}>
+                        <ExercisePieChart data={mostPopularExerciseForEachDay} />
+                        <MostPopularExercises data={mostPopularExerciseForEachDay} />
+                    </div>
                 </div>
-                <GeneralInfo
-                    totalWorkload={totalWorkload}
-                    dailyWorkload={dailyWorkload}
-                    totalReplays={totalReplays}
-                    totalApproaches={totalApproaches}
-                />
-                <MostPopularInfo
-                    isFiltered={isFiltered}
-                    mostPopularTraining={mostPopularTraining}
-                    mostPopularExercise={mostPopularExercise && mostPopularExercise.name}
-                />
-                <div className={styles.exercise_block}>
-                    <ExercisePieChart data={mostPopularExerciseForEachDay} />
-                    <MostPopularExercises data={mostPopularExerciseForEachDay} />
-                </div>
-            </div>
+            )}
         </div>
     );
 };
