@@ -8,6 +8,7 @@ import { AverageWorkloadBlock } from './average-workload-block';
 import { ColumnPerWeek } from './column-per-week';
 import { ExercisePieChart } from './exercise-pie-chart';
 import { GeneralInfo } from './general-info';
+import { MostPopularExercises } from './most-popular-exercises';
 import { MostPopularInfo } from './most-popular-info';
 
 import styles from './achievements-per-week.module.scss';
@@ -32,6 +33,36 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
         columnData: data,
     } = getDataForWeek(trainings);
 
+    const testData = [
+        {
+            date: '2024-04-16',
+            name: 'Упражнение 1',
+        },
+        {
+            date: '2024-04-17',
+            name: 'Упражнение 2',
+        },
+        {
+            date: '2024-04-18',
+            name: 'Упражнение 3',
+        },
+        {
+            date: '2024-04-19',
+            name: 'Упражнение 4',
+        },
+        {
+            date: '2024-04-20',
+            name: 'Упражнение 5',
+        },
+        {
+            date: '2024-04-21',
+            name: 'Упражнение 6',
+        },
+        {
+            date: '2024-04-22',
+        },
+    ];
+
     return (
         <div className={styles.container}>
             <TagsList
@@ -54,8 +85,9 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
                 mostPopularTraining={mostPopularTraining}
                 mostPopularExercise={mostPopularExercise}
             />
-            <div>
+            <div className={styles.exercise_block}>
                 <ExercisePieChart />
+                <MostPopularExercises data={testData} />
             </div>
         </div>
     );

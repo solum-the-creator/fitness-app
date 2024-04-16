@@ -1,5 +1,6 @@
 import { INVITE_STATUS } from '@constants/constants';
 import { TrainingPartner } from '@redux/api/types';
+import moment from 'moment';
 
 export const sortByName = (a: TrainingPartner, b: TrainingPartner) => {
     const [aFirstName, aLastName] = a.name.split(' ');
@@ -43,8 +44,18 @@ export const sortByStatusAndName = (a: TrainingPartner, b: TrainingPartner) => {
         return -1;
     }
 
-    const [aFirstName, aLastName] = a.name.split(' ');
-    const [bFirstName, bLastName] = b.name.split(' ');
+    if (!a.name && !b.name) {
+        return 0;
+    }
+    if (!a.name) {
+        return -1;
+    }
+    if (!b.name) {
+        return 1;
+    }
+
+    const [aFirstName = '', aLastName = ''] = a.name.split(' ');
+    const [bFirstName = '', bLastName = ''] = b.name.split(' ');
 
     if (aFirstName !== bFirstName) {
         return aFirstName.localeCompare(bFirstName);
@@ -66,3 +77,6 @@ export const splitNameBySearch = (name: string, searchValue: string) => {
         suffix: name.substring(index + searchValue.length),
     };
 };
+
+export const sortByWeekDay = <T extends { date: string }>(data: T[]): T[] =>
+    [...data].sort((a, b) => moment(a.date).isoWeekday() - moment(b.date).isoWeekday());

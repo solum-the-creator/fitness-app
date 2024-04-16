@@ -1,6 +1,6 @@
 import React from 'react';
 import { NUMBER_TO_WEEKDAY } from '@constants/constants';
-import { primaryLightColor1, primaryLightColor6 } from '@constants/styles';
+import { COLORS } from '@constants/styles';
 import { Badge } from 'antd';
 import moment from 'moment';
 
@@ -17,9 +17,9 @@ export const WorkloadItem = ({ date, workload }: WorkloadItemProps) => {
     const weekDay = moment(date).isoWeekday();
     const weekDayName = NUMBER_TO_WEEKDAY[weekDay];
 
-    const badgeColor = withWorkload ? primaryLightColor6 : primaryLightColor1;
+    const badgeColor = withWorkload ? COLORS.primaryLightColor6 : COLORS.primaryLightColor1;
     const badgeStyles = {
-        color: withWorkload ? primaryLightColor1 : primaryLightColor6,
+        color: withWorkload ? COLORS.primaryLightColor1 : COLORS.primaryLightColor6,
     };
 
     const workloadText = withWorkload ? `${workload} кг` : '';

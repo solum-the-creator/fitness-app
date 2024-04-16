@@ -2,7 +2,7 @@ import { useMediaQuery } from 'react-responsive';
 import { push } from 'redux-first-history';
 import { AndroidFilled, AppleFilled } from '@ant-design/icons';
 import PATHS from '@constants/paths';
-import { primaryTextColor } from '@constants/styles';
+import { COLORS } from '@constants/styles';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Card, Layout, Row, Typography } from 'antd';
 
@@ -51,11 +51,19 @@ export const Footer = () => {
                     }}
                     className={styles.card_app}
                 >
-                    <Link href='/' className={styles.link_app} style={{ color: primaryTextColor }}>
+                    <Link
+                        href='/'
+                        className={styles.link_app}
+                        style={{ color: COLORS.primaryTextColor }}
+                    >
                         <AndroidFilled />
                         Android OS
                     </Link>
-                    <Link href='/' className={styles.link_app} style={{ color: primaryTextColor }}>
+                    <Link
+                        href='/'
+                        className={styles.link_app}
+                        style={{ color: COLORS.primaryTextColor }}
+                    >
                         <AppleFilled />
                         Apple iOS
                     </Link>

@@ -3,7 +3,9 @@ export const avatarStyles = {
     color: '#262626',
 };
 
-export const primaryTextColor = '#262626';
-
-export const primaryLightColor6 = '#2F54EB';
-export const primaryLightColor1 = '#F0F5FF';
+export const COLORS = {
+    primaryLightColor6: '#2F54EB',
+    primaryLightColor1: '#F0F5FF',
+    primaryTextColor: '#262626',
+    characterLightError: '#FF4D4F',
+};

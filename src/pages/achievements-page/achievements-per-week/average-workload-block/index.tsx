@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { sortByWeekDay } from '@utils/sorting';
 
 import { ColumnData } from '../column-per-week';
 
@@ -10,9 +10,7 @@ type AverageWorkloadBlockProps = {
     data: ColumnData[];
 };
 export const AverageWorkloadBlock = ({ data }: AverageWorkloadBlockProps) => {
-    const sortedData = [...data].sort(
-        (a, b) => moment(a.date).isoWeekday() - moment(b.date).isoWeekday(),
-    );
+    const sortedData = sortByWeekDay([...data]);
 
     return (
         <div className={styles.container}>

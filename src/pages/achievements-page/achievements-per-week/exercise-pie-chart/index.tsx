@@ -2,8 +2,7 @@ import { useMediaQuery } from 'react-responsive';
 import { Pie, PieConfig } from '@ant-design/plots';
 
 export const ExercisePieChart = () => {
-    const matches = useMediaQuery({ query: '(max-width: 840px)' });
-    const isMobile = useMediaQuery({ query: '(max-width: 580px)' });
+    const matches = useMediaQuery({ query: '(max-width: 980px)' });
 
     const data = [
         {
@@ -45,12 +44,12 @@ export const ExercisePieChart = () => {
         },
         tooltip: false,
         width: matches ? undefined : 520,
-        height: isMobile ? 210 : 334,
+        height: matches ? 210 : 334,
 
-        paddingTop: isMobile ? 24 : 89,
-        paddingBottom: isMobile ? 24 : 89,
-        paddingLeft: isMobile ? 86 : 182,
-        paddingRight: isMobile ? 86 : 182,
+        paddingTop: matches ? 24 : 89,
+        paddingBottom: matches ? 24 : 89,
+        paddingLeft: matches ? 86 : 182,
+        paddingRight: matches ? 86 : 182,
 
         scale: {
             color: {

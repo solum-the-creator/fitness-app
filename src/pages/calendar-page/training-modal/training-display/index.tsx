@@ -3,7 +3,7 @@ import React from 'react';
 import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { TrainingTypeBadge } from '@components/training-type-badge';
 import { DATE_FORMAT } from '@constants/constants';
-import { primaryTextColor } from '@constants/styles';
+import { COLORS } from '@constants/styles';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { isPastDate } from '@utils/date-utils';
 import { Button, Empty } from 'antd';
@@ -55,7 +55,11 @@ export const TrainingDisplay = ({
                 </div>
                 <Button
                     type='text'
-                    icon={<CloseOutlined style={{ fontSize: '12px', color: primaryTextColor }} />}
+                    icon={
+                        <CloseOutlined
+                            style={{ fontSize: '12px', color: COLORS.primaryTextColor }}
+                        />
+                    }
                     onClick={handleModalClose}
                     className={styles.button_close}
                     data-test-id='modal-create-training-button-close'
