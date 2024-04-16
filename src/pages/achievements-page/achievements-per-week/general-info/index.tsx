@@ -24,7 +24,7 @@ export const GeneralInfo = ({
         </div>
         <div className={styles.general_info_item}>
             <span className={styles.value}>{totalReplays}</span>
-            <p className={styles.title}>Количество повторени,&nbsp;раз</p>
+            <p className={styles.title}>Количество повторений,&nbsp;раз</p>
         </div>
         <div className={styles.general_info_item}>
             <span className={styles.value}>{totalApproaches}</span>

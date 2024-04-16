@@ -23,6 +23,14 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
 
     const [selectedTag, setSelectedTag] = useState<string>(tagsData[0].key);
 
+    const filteredTrainings = trainings.filter((training) => {
+        if (selectedTag === TAG_ALL.key) {
+            return true;
+        }
+
+        return tagsData.some((item) => item.key === selectedTag && item.name === training.name);
+    });
+
     const {
         totalWorkload,
         dailyWorkload,
@@ -32,7 +40,7 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
         mostPopularExercise,
         mostPopularExerciseForEachDay,
         columnData: data,
-    } = getDataForWeek(trainings);
+    } = getDataForWeek(filteredTrainings);
 
     return (
         <div className={styles.container}>
