@@ -23,12 +23,13 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
 
     const [selectedTag, setSelectedTag] = useState<string>(tagsData[0].key);
 
+    const isFiltered = selectedTag !== TAG_ALL.key;
     const filteredTrainings = trainings.filter((training) => {
-        if (selectedTag === TAG_ALL.key) {
-            return true;
+        if (isFiltered) {
+            return tagsData.some((item) => item.key === selectedTag && item.name === training.name);
         }
 
-        return tagsData.some((item) => item.key === selectedTag && item.name === training.name);
+        return true;
     });
 
     const {
@@ -62,6 +63,7 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
                     totalApproaches={totalApproaches}
                 />
                 <MostPopularInfo
+                    isFiltered={isFiltered}
                     mostPopularTraining={mostPopularTraining}
                     mostPopularExercise={mostPopularExercise && mostPopularExercise.name}
                 />

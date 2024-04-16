@@ -14,7 +14,11 @@ export const AverageWorkloadBlock = ({ data }: AverageWorkloadBlockProps) => {
 
     return (
         <div className={styles.container}>
-            <p className={styles.title}>Средняя силовая нагрузка по дням недели</p>
+            <p className={styles.title}>
+                Средняя нагрузка
+                <br />
+                по дням недели
+            </p>
             <div className={styles.workload_list}>
                 {sortedData.map((item) => (
                     <WorkloadItem key={item.date} date={item.date} workload={item.value} />
