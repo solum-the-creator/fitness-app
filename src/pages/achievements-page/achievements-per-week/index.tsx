@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { TagsList } from '@components/tags-list';
 import { TAG_ALL } from '@constants/constants';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
-import { getDataForWeek } from '@utils/trainings';
+import { getDataStats } from '@utils/trainings';
 
 import { EmptyTraining } from '../empty-training';
 
@@ -44,7 +44,7 @@ export const AchievementsPerWeek = ({ trainings, trainingList }: AchievementsPer
         mostPopularExercise,
         mostPopularExerciseForEachDay,
         columnData: data,
-    } = getDataForWeek(filteredTrainings);
+    } = getDataStats(filteredTrainings);
 
     return (
         <div className={styles.container}>

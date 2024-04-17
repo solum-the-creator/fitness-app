@@ -4,12 +4,13 @@ import { DATE_SHORT_FORMAT } from '@constants/constants';
 import { ColumnData } from '@utils/trainings';
 import moment from 'moment';
 
-type ColumnPerWeekProps = {
+type ColumnPerMonthProps = {
     data: ColumnData[];
 };
 
-export const ColumnPerWeek = ({ data }: ColumnPerWeekProps) => {
-    const matches = useMediaQuery({ query: '(max-width: 460px)' });
+export const ColumnPerMonth = ({ data }: ColumnPerMonthProps) => {
+    const isFullScreen = useMediaQuery({ query: '(min-width: 1200px)' });
+    const matches = useMediaQuery({ query: '(max-width: 560px)' });
 
     const config: ColumnConfig = {
         data,
@@ -43,16 +44,21 @@ export const ColumnPerWeek = ({ data }: ColumnPerWeekProps) => {
             fill: '#85A5FF',
             margin: 0,
         },
-        sizeField: matches ? 15 : 30,
+        sizeField: matches ? 18 : 30,
         interaction: {
             elementHighlightByColor: false,
         },
-        insetLeft: 10,
-        paddingLeft: 40,
+        insetLeft: 30,
         marginTop: 26,
-        width: matches ? 328 : 520,
+        paddingLeft: 40,
+        paddingRight: 24,
         height: matches ? 236 : 374,
         tooltip: false,
+        scrollbar: {
+            x: {
+                ratio: isFullScreen ? 0.5 : 0.3,
+            },
+        },
     };
 
     return <Column {...config} />;

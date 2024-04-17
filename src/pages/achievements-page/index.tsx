@@ -33,7 +33,7 @@ export const AchievementsPage = () => {
         {
             label: 'За месяц',
             key: '2',
-            children: <AchievementsPerMonth trainingList={trainingList} />,
+            children: <AchievementsPerMonth trainings={trainings} trainingList={trainingList} />,
         },
         { label: 'За всё время (PRO)', key: '3', disabled: true },
     ];

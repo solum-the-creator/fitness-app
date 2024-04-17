@@ -1,4 +1,3 @@
-import { ColumnData } from '@pages/achievements-page/achievements-per-week/column-per-week';
 import { Training, TrainingList, TrainingResponse } from '@redux/api/types';
 
 import {
@@ -9,6 +8,11 @@ import {
     getTotalReplays,
     getTotalWorkload,
 } from './exercise';
+
+export type ColumnData = {
+    date: string;
+    value: number;
+};
 
 export const missingTrainings = (
     trainingList: TrainingList,
@@ -36,13 +40,16 @@ export const availableTrainings = (
 export const getLastWeekTrainings = (
     trainings: TrainingResponse[],
 ): Array<{ date: Date; trainings: TrainingResponse[] }> => {
+    const daysCount = 7;
     const today = new Date();
-    const oneDayMs = 1000 * 60 * 60 * 24;
 
-    const lastSevenDays = Array.from(
-        { length: 7 },
-        (_, index) => new Date(today.getTime() - (6 - index) * oneDayMs),
-    );
+    const lastSevenDays = Array.from({ length: daysCount }, (_, index) => {
+        const date = new Date(today);
+
+        date.setDate(today.getDate() - (daysCount - index - 1));
+
+        return date;
+    });
 
     const lastWeekTrainings = lastSevenDays.map((date) => {
         const trainingsForDay = trainings.filter((training) => {
@@ -55,6 +62,39 @@ export const getLastWeekTrainings = (
     });
 
     return lastWeekTrainings;
+};
+
+const getMonthTrainings = (
+    trainings: TrainingResponse[],
+): Array<{ date: Date; trainings: TrainingResponse[] }> => {
+    const daysCount = 28;
+    const today = new Date();
+
+    const nextSunday = new Date(today);
+
+    while (nextSunday.getDay() !== 0) {
+        nextSunday.setDate(nextSunday.getDate() + 1);
+    }
+
+    const dateRange = [];
+    const currentDate = new Date(nextSunday);
+
+    for (let i = 0; i < daysCount; i++) {
+        dateRange.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() - 1);
+    }
+
+    const lastFourWeeksTrainings = dateRange.map((date) => {
+        const trainingsForDay = trainings.filter((training) => {
+            const trainingDate = new Date(training.date);
+
+            return trainingDate.toDateString() === date.toDateString();
+        });
+
+        return { date, trainings: trainingsForDay };
+    });
+
+    return lastFourWeeksTrainings.reverse();
 };
 
 const getMostPopularTraining = (trainings: Training[]): string | null => {
@@ -75,10 +115,16 @@ const getMostPopularTraining = (trainings: Training[]): string | null => {
         : null;
 };
 
-export const getDataForWeek = (trainings: TrainingResponse[]) => {
-    const lastWeekTrainings = getLastWeekTrainings(trainings);
+export const getDataStats = (trainings: TrainingResponse[], isForMonth = false) => {
+    const dayliTrainings: Array<{ date: Date; trainings: TrainingResponse[] }> = [];
 
-    const selectedTrainings = [...lastWeekTrainings.flatMap((item) => item.trainings)];
+    if (isForMonth) {
+        dayliTrainings.push(...getMonthTrainings(trainings));
+    } else {
+        dayliTrainings.push(...getLastWeekTrainings(trainings));
+    }
+
+    const selectedTrainings = [...dayliTrainings.flatMap((item) => item.trainings)];
 
     if (selectedTrainings.length === 0) {
         return {
@@ -94,7 +140,7 @@ export const getDataForWeek = (trainings: TrainingResponse[]) => {
         };
     }
 
-    const data = lastWeekTrainings.map((item) => {
+    const data = dayliTrainings.map((item) => {
         const averageWorkload = getAverageWorkload(item.trainings);
 
         return { date: item.date, averageWorkload };
@@ -110,7 +156,7 @@ export const getDataForWeek = (trainings: TrainingResponse[]) => {
     const mostPopularTraining = getMostPopularTraining(selectedTrainings);
     const mostPopularExercise = getMostPopularExercise(selectedTrainings);
 
-    const mostPopularExerciseForEachDay = getMostPopularExerciseForEachDay(lastWeekTrainings);
+    const mostPopularExerciseForEachDay = getMostPopularExerciseForEachDay(dayliTrainings);
 
     const columnData: ColumnData[] = data.map((item) => ({
         date: item.date.toISOString(),
