@@ -6,6 +6,7 @@ import { getDataForMonth, getDataStats } from '@utils/trainings';
 
 import { EmptyTraining } from '../empty-training';
 import { GeneralInfo } from '../general-info';
+import { MostPopularInfo } from '../most-popular-info';
 
 import { AverageDaylyWorkload } from './average-dayly-workload';
 import { ColumnPerMonth } from './column-per-month';
@@ -65,12 +66,12 @@ export const AchievementsPerMonth = ({ trainings, trainingList }: AchievementsPe
                         totalReplays={totalReplays}
                         totalApproaches={totalApproaches}
                     />
-                    {/* <MostPopularInfo
+                    <MostPopularInfo
                         isFiltered={isFiltered}
                         mostPopularTraining={mostPopularTraining}
                         mostPopularExercise={mostPopularExercise && mostPopularExercise.name}
                     />
-                    <div className={styles.exercise_block}>
+                    {/* <div className={styles.exercise_block}>
                         <ExercisePieChart data={mostPopularExerciseForEachDay} />
                         <MostPopularExercises data={mostPopularExerciseForEachDay} />
                     </div> */}

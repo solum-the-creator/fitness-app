@@ -6,12 +6,12 @@ import { getDataStats } from '@utils/trainings';
 
 import { EmptyTraining } from '../empty-training';
 import { GeneralInfo } from '../general-info';
+import { MostPopularInfo } from '../most-popular-info';
 
 import { AverageWorkloadBlock } from './average-workload-block';
 import { ColumnPerWeek } from './column-per-week';
 import { ExercisePieChart } from './exercise-pie-chart';
 import { MostPopularExercises } from './most-popular-exercises';
-import { MostPopularInfo } from './most-popular-info';
 
 import styles from './achievements-per-week.module.scss';
 
