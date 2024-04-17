@@ -50,7 +50,7 @@ export const AchievementsPage = () => {
             </div>
             <div className={styles.content_wrapper}>
                 <Content className={styles.content}>
-                    <Tabs items={tabsItems} className={styles.tabs} />
+                    <Tabs items={tabsItems} className={styles.tabs} destroyInactiveTabPane={true} />
                 </Content>
             </div>
             <ErrorTrainingList isError={isError} refetch={refetch} />
