@@ -3,7 +3,7 @@ import { Training, TrainingList, TrainingResponse } from '@redux/api/types';
 import {
     getAverageWorkload,
     getMostPopularExercise,
-    getMostPopularExerciseForEachDay,
+    getMostPopularExerciseForEachWeekDay,
     getTotalApproaches,
     getTotalReplays,
     getTotalWorkload,
@@ -169,7 +169,7 @@ export const getDataStats = (trainings: TrainingResponse[], isForMonth = false) 
     const mostPopularTraining = getMostPopularTraining(selectedTrainings);
     const mostPopularExercise = getMostPopularExercise(selectedTrainings);
 
-    const mostPopularExerciseForEachDay = getMostPopularExerciseForEachDay(dayliTrainings);
+    const mostPopularExerciseForEachDay = getMostPopularExerciseForEachWeekDay(dayliTrainings);
 
     const columnData: ColumnData[] = data.map((item) => ({
         date: item.date.toISOString(),

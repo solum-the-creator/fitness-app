@@ -4,7 +4,7 @@ import { convertDataForPieChart, PopularExercise } from '@utils/exercise';
 
 type ExercisePieChartProps = {
     data: Array<{
-        date: string;
+        dayOfWeek: number;
         mostPopularExercise: PopularExercise | null;
     }>;
 };

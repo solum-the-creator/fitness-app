@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { TagsList } from '@components/tags-list';
 import { TAG_ALL } from '@constants/constants';
 import { TrainingList, TrainingResponse } from '@redux/api/types';
-import { getDataForMonth, getDataStats } from '@utils/trainings';
+import { getDataStats } from '@utils/trainings';
 
 import { EmptyTraining } from '../empty-training';
+import { ExercisePieChart } from '../exercise-pie-chart';
 import { GeneralInfo } from '../general-info';
+import { MostPopularExercises } from '../most-popular-exercises';
 import { MostPopularInfo } from '../most-popular-info';
 
 import { AverageDaylyWorkload } from './average-dayly-workload';
@@ -71,10 +73,10 @@ export const AchievementsPerMonth = ({ trainings, trainingList }: AchievementsPe
                         mostPopularTraining={mostPopularTraining}
                         mostPopularExercise={mostPopularExercise && mostPopularExercise.name}
                     />
-                    {/* <div className={styles.exercise_block}>
+                    <div className={styles.exercise_block}>
                         <ExercisePieChart data={mostPopularExerciseForEachDay} />
                         <MostPopularExercises data={mostPopularExerciseForEachDay} />
-                    </div> */}
+                    </div>
                 </div>
             )}
         </div>

@@ -1,4 +1,5 @@
 import { Exercise, Training, TrainingList } from '@redux/api/types';
+import { getDay } from 'date-fns';
 import { nanoid } from 'nanoid';
 
 export type PopularExercise = {
@@ -100,14 +101,30 @@ export const getMostPopularExercise = (trainings: Training[]): PopularExercise |
     return mostPopularExercise;
 };
 
-export const getMostPopularExerciseForEachDay = (
+export const getMostPopularExerciseForEachWeekDay = (
     data: Array<{ date: Date; trainings: Training[] }>,
-): Array<{ date: string; mostPopularExercise: PopularExercise | null }> =>
-    data.map(({ date, trainings }) => {
-        const mostPopularExercise = getMostPopularExercise(trainings);
+): Array<{ dayOfWeek: number; mostPopularExercise: PopularExercise | null }> => {
+    const groupedTrainings: { [key: number]: Training[] } = {};
 
-        return { date: date.toISOString(), mostPopularExercise };
+    data.forEach(({ date, trainings }) => {
+        const dayOfWeek = getDay(date);
+
+        if (!groupedTrainings[dayOfWeek]) {
+            groupedTrainings[dayOfWeek] = [];
+        }
+        groupedTrainings[dayOfWeek].push(...trainings);
     });
+
+    const mostPopularExercisesForEachWeekDay = Object.entries(groupedTrainings).map(
+        ([dayOfWeek, trainings]) => {
+            const mostPopularExercise = getMostPopularExercise(trainings);
+
+            return { dayOfWeek: Number(dayOfWeek), mostPopularExercise };
+        },
+    );
+
+    return mostPopularExercisesForEachWeekDay;
+};
 
 export const findMostDemandingTrainingType = (
     trainings: Training[],
@@ -145,7 +162,7 @@ export const findMostDemandingTrainingType = (
 };
 
 export const convertDataForPieChart = (
-    data: Array<{ date: string; mostPopularExercise: PopularExercise | null }>,
+    data: Array<{ dayOfWeek: number; mostPopularExercise: PopularExercise | null }>,
 ): PopularExercise[] => {
     const result: { [name: string]: number } = {};
 
