@@ -5,6 +5,7 @@ import { TrainingList, TrainingResponse } from '@redux/api/types';
 import { getDataForMonth, getDataStats } from '@utils/trainings';
 
 import { EmptyTraining } from '../empty-training';
+import { GeneralInfo } from '../general-info';
 
 import { AverageDaylyWorkload } from './average-dayly-workload';
 import { ColumnPerMonth } from './column-per-month';
@@ -58,13 +59,13 @@ export const AchievementsPerMonth = ({ trainings, trainingList }: AchievementsPe
                         <ColumnPerMonth data={data} />
                         <AverageDaylyWorkload data={data} />
                     </div>
-                    {/* <GeneralInfo
+                    <GeneralInfo
                         totalWorkload={totalWorkload}
                         dailyWorkload={dailyWorkload}
                         totalReplays={totalReplays}
                         totalApproaches={totalApproaches}
                     />
-                    <MostPopularInfo
+                    {/* <MostPopularInfo
                         isFiltered={isFiltered}
                         mostPopularTraining={mostPopularTraining}
                         mostPopularExercise={mostPopularExercise && mostPopularExercise.name}
