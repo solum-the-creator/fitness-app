@@ -4,6 +4,8 @@ import { DATE_SHORT_FORMAT } from '@constants/constants';
 import { ColumnData } from '@utils/trainings';
 import moment from 'moment';
 
+import styles from './column-per-month.module.scss';
+
 type ColumnPerMonthProps = {
     data: ColumnData[];
 };
@@ -52,13 +54,14 @@ export const ColumnPerMonth = ({ data }: ColumnPerMonthProps) => {
         marginTop: 26,
         paddingLeft: 40,
         paddingRight: 24,
-        height: matches ? 236 : 374,
+        height: matches ? 236 : 344,
         tooltip: false,
         scrollbar: {
             x: {
                 ratio: isFullScreen ? 0.5 : 0.3,
             },
         },
+        className: styles.chart,
     };
 
     return <Column {...config} />;

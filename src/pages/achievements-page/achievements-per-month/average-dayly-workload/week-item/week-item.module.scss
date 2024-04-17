@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .workload_list {
+    min-width: 168px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: repeat(7, 32px);
+    column-gap: 16px;
+    row-gap: 4px;
+  }
+
+  .title {
+    line-height: 130%;
+  }
+
+  .button_collapse {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    height: 18px;
+
+    .icon {
+      margin-left: 16px;
+    }
+  }
+
+}

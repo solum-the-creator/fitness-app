@@ -115,8 +115,21 @@ const getMostPopularTraining = (trainings: Training[]): string | null => {
         : null;
 };
 
+export const splitIntoWeeks = <T>(data: T[]): T[][] =>
+    data.reduce((acc: T[][], item, index) => {
+        const weekIndex = Math.floor(index / 7);
+
+        if (!acc[weekIndex]) {
+            acc[weekIndex] = [];
+        }
+        acc[weekIndex].push(item);
+
+        return acc;
+    }, []);
+
 export const getDataStats = (trainings: TrainingResponse[], isForMonth = false) => {
     const dayliTrainings: Array<{ date: Date; trainings: TrainingResponse[] }> = [];
+    const daysCount = isForMonth ? 28 : 7;
 
     if (isForMonth) {
         dayliTrainings.push(...getMonthTrainings(trainings));
@@ -148,7 +161,7 @@ export const getDataStats = (trainings: TrainingResponse[], isForMonth = false) 
 
     const totalWorkload = getTotalWorkload(selectedTrainings);
 
-    const dailyWorkload = Math.round((totalWorkload / 7) * 10) / 10;
+    const dailyWorkload = Math.round((totalWorkload / daysCount) * 10) / 10;
 
     const totalReplays = getTotalReplays(selectedTrainings);
     const totalApproaches = getTotalApproaches(selectedTrainings);

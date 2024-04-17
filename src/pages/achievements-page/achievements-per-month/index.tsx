@@ -6,6 +6,7 @@ import { getDataForMonth, getDataStats } from '@utils/trainings';
 
 import { EmptyTraining } from '../empty-training';
 
+import { AverageDaylyWorkload } from './average-dayly-workload';
 import { ColumnPerMonth } from './column-per-month';
 
 import styles from './achievements-per-month.module.scss';
@@ -55,7 +56,7 @@ export const AchievementsPerMonth = ({ trainings, trainingList }: AchievementsPe
                 <div className={styles.content}>
                     <div className={styles.workload_block}>
                         <ColumnPerMonth data={data} />
-                        {/* <AverageDaylyWorkload data={data} /> */}
+                        <AverageDaylyWorkload data={data} />
                     </div>
                     {/* <GeneralInfo
                         totalWorkload={totalWorkload}

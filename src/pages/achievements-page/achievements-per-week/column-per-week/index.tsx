@@ -4,6 +4,8 @@ import { DATE_SHORT_FORMAT } from '@constants/constants';
 import { ColumnData } from '@utils/trainings';
 import moment from 'moment';
 
+import styles from './column-per-week.module.scss';
+
 type ColumnPerWeekProps = {
     data: ColumnData[];
 };
@@ -53,6 +55,7 @@ export const ColumnPerWeek = ({ data }: ColumnPerWeekProps) => {
         width: matches ? 328 : 520,
         height: matches ? 236 : 374,
         tooltip: false,
+        className: styles.chart,
     };
 
     return <Column {...config} />;

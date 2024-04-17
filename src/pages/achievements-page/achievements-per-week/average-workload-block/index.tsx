@@ -1,8 +1,6 @@
+import { WorkloadItem } from '@components/workload-item';
 import { sortByWeekDay } from '@utils/sorting';
-
-import { ColumnData } from '../column-per-week';
-
-import { WorkloadItem } from './workload-item';
+import { ColumnData } from '@utils/trainings';
 
 import styles from './average-workload-block.module.scss';
 
