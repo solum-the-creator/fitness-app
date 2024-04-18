@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
-import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
+import { ErrorSaveDataModal } from '@components/modals/error-save-data-modal';
 import { DATE_FORMAT } from '@constants/constants';
 import { avatarStyles } from '@constants/styles';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
@@ -112,7 +112,7 @@ export const MessageItem = ({ inviteId, user, date, training, trainingList }: Me
                     Отклонить запрос
                 </Button>
             </div>
-            <ErrorTrainingDrawer isOpen={showErrorModal} onClose={() => setShowErrorModal(false)} />
+            <ErrorSaveDataModal isOpen={showErrorModal} onClose={() => setShowErrorModal(false)} />
         </div>
     );
 };

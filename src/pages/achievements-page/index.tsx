@@ -1,5 +1,5 @@
 import { BaseHeader } from '@components/header/base-header';
-import { ErrorTrainingList } from '@components/modals/error-training-list';
+import { ErrorOpenDataModal } from '@components/modals/error-open-data-modal';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/api-slice';
@@ -53,7 +53,7 @@ export const AchievementsPage = () => {
                     <Tabs items={tabsItems} className={styles.tabs} destroyInactiveTabPane={true} />
                 </Content>
             </div>
-            <ErrorTrainingList isError={isError} refetch={refetch} />
+            <ErrorOpenDataModal isError={isError} refetch={refetch} />
         </div>
     );
 };

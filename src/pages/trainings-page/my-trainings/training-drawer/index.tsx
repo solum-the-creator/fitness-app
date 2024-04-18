@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
+import { ErrorSaveDataModal } from '@components/modals/error-save-data-modal';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useAddTrainingMutation, useUpdateTrainingMutation } from '@redux/api/api-slice';
 import { Exercise, Training, TrainingList, TrainingResponse } from '@redux/api/types';
@@ -178,7 +178,7 @@ export const TrainingDrawer = ({
                     </Button>
                 </div>
             </div>
-            <ErrorTrainingDrawer isOpen={showErrorModal} onClose={handleClose} />
+            <ErrorSaveDataModal isOpen={showErrorModal} onClose={handleClose} />
         </Drawer>
     );
 };

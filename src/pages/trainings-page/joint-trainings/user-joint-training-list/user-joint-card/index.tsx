@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CheckCircleFilled, ExclamationCircleOutlined, UserOutlined } from '@ant-design/icons';
-import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
+import { ErrorSaveDataModal } from '@components/modals/error-save-data-modal';
 import { INVITE_STATUS } from '@constants/constants';
 import { avatarStyles, COLORS } from '@constants/styles';
 import { useDeleteInviteMutation } from '@redux/api/api-slice';
@@ -125,7 +125,7 @@ export const UserJointCard = ({
                     )}
                 </div>
             </div>
-            <ErrorTrainingDrawer isOpen={isErrorOpen} onClose={() => setIsErrorOpen(false)} />
+            <ErrorSaveDataModal isOpen={isErrorOpen} onClose={() => setIsErrorOpen(false)} />
         </React.Fragment>
     );
 };

@@ -1,3 +1,5 @@
+import cn from 'classnames';
+
 import styles from './wrapper-wide.module.scss';
 
 type WrapperWideProps = {
@@ -6,5 +8,5 @@ type WrapperWideProps = {
 };
 
 export const WrapperWide = ({ children, className }: WrapperWideProps) => (
-    <div className={`${styles.wrapper} ${className}`}>{children}</div>
+    <div className={cn(styles.wrapper, className)}>{children}</div>
 );

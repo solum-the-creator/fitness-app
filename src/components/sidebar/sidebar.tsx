@@ -29,12 +29,12 @@ export const Sidebar = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
     const matches = useMediaQuery({ query: '(max-width: 768px)' });
+    const logout = useLogout();
+    const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
+
     const [collapsed, setCollapsed] = useState(matches);
 
     const inviteCount = useAppSelector((state) => state.invite);
-
-    const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
-    const logout = useLogout();
 
     useEffect(() => {
         if (matches) {

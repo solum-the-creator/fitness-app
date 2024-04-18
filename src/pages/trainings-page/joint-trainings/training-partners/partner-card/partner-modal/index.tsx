@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CheckCircleFilled, UserOutlined } from '@ant-design/icons';
-import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
+import { ErrorSaveDataModal } from '@components/modals/error-save-data-modal';
 import { avatarStyles, COLORS } from '@constants/styles';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useDeleteInviteMutation } from '@redux/api/api-slice';
@@ -98,7 +98,7 @@ export const PartnerModal = ({
                     </div>
                 </div>
             </Modal>
-            <ErrorTrainingDrawer isOpen={isErrorOpen} onClose={handleCloseErrorModal} />
+            <ErrorSaveDataModal isOpen={isErrorOpen} onClose={handleCloseErrorModal} />
         </React.Fragment>
     );
 };

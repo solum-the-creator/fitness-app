@@ -7,7 +7,12 @@ import styles from './header.module.scss';
 
 type HeaderProps = {
     title?: React.ReactNode | string;
-    breadCrumbs?: [{ title: string; link: string }];
+    breadCrumbs?: BreadcrumbItem[];
+};
+
+type BreadcrumbItem = {
+    title: string;
+    link: string;
 };
 
 export const Header = ({ breadCrumbs, title }: HeaderProps) => (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { BaseHeader } from '@components/header/base-header';
-import { ErrorTrainingList } from '@components/modals/error-training-list';
+import { ErrorOpenDataModal } from '@components/modals/error-open-data-modal';
 import { RU_CALENDAR_LOCALE } from '@constants/constants';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
@@ -159,7 +159,7 @@ export const CalendarPage = () => {
                     />
                 </div>
             </Content>
-            <ErrorTrainingList isError={isError} refetch={refetch} />
+            <ErrorOpenDataModal isError={isError} refetch={refetch} />
         </div>
     );
 };
