@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { CloseOutlined } from '@ant-design/icons';

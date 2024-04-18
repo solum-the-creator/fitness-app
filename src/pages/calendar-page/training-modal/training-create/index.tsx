@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import {

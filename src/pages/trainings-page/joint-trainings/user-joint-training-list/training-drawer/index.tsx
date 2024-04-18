@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';

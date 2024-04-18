@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { TrainingTypeBadge } from '@components/training-type-badge';

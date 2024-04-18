@@ -28,6 +28,7 @@ module.exports = {
         'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
         'import/no-absolute-path': 'off',
         'react/react-in-jsx-scope': 'off',
+        'no-underscore-dangle': 'off',
         'import/no-extraneous-dependencies': [
             'error',
             {
