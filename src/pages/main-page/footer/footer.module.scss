@@ -7,7 +7,6 @@
       flex-direction: column-reverse;
       gap: 24px;
     }
-
   }
 
   :global {
@@ -25,7 +24,6 @@
     @media (max-width: 480px) {
       align-items: center;
     }
-
 
     .title_desc {
       font-size: 14px;

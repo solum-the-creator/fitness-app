@@ -1,5 +1,5 @@
 .exercise_list {
-  padding: 16px 12px;
+  padding: var(--padding-content-small);
   display: flex;
   flex-direction: column;
   gap: 12px;

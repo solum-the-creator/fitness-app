@@ -46,11 +46,11 @@
   }
 
   .modal_content {
-    padding: 16px 12px;
+    padding: var(--padding-content-small);
     box-shadow: inset 0 2px 0 0 var(--character-light-dividers);
 
     .empty {
-      padding: 16px 0;
+      padding: var(--padding-vertical);
       margin-top: 13px;
       margin-bottom: 14px;
     }
@@ -72,5 +72,4 @@
     display: flex;
     flex-direction: column;
   }
-
 }

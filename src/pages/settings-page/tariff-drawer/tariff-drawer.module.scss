@@ -1,12 +1,12 @@
 :global {
   .ant-drawer-right .ant-drawer-content-wrapper {
     border-radius: var(--boreder-radius-left);
-    box-shadow: 0 9px 28px 8px rgba(0, 0, 0, 0.05), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: var(--drawer-box-shadow);
   }
 
   .ant-drawer-bottom .ant-drawer-content-wrapper {
     border-radius: var(--boreder-radius-top);
-    box-shadow: 0 9px 28px 8px rgba(0, 0, 0, 0.05), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: var(--drawer-box-shadow);
   }
 }
 
@@ -44,14 +44,14 @@
     gap: 24px;
 
     .drawer_header {
-      padding: 24px 32px 16px;
+      padding: var(--padding-drawer);
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
 
       @media (max-width: 680px) {
-        padding: 24px 16px 16px;
+        padding: var(--padding-drawer-small);
       }
 
       .drawer_icon {
@@ -79,7 +79,7 @@
       padding: 0 32px;
 
       @media (max-width: 680px) {
-        padding: 0 16px;
+        padding: var(--padding-horizontal);
       }
 
       .drawer_active_date_text {
@@ -95,7 +95,7 @@
         font-weight: 500;
 
         @media (max-width: 680px) {
-          padding: 16px;
+          padding: var(--padding-modal-wrapper);
         }
       }
     }
@@ -128,7 +128,7 @@
   gap: 24px;
 
   @media (max-width: 680px) {
-    padding: 0 16px;
+    padding: var(--padding-horizontal);
     gap: 12px;
   }
 

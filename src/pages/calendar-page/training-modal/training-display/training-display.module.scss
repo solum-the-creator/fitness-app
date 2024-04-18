@@ -1,5 +1,5 @@
 .modal_header {
-  padding: 16px 12px;
+  padding: var(--padding-content-small);
   display: flex;
   justify-content: space-between;
 
@@ -33,7 +33,7 @@
 
 .modal_main {
   .trainings {
-    padding: 16px 0;
+    padding: var(--padding-vertical);
     display: flex;
     flex-direction: column;
     gap: 4px;

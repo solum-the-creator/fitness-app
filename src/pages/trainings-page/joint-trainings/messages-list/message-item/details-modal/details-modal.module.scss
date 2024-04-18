@@ -52,7 +52,7 @@
     }
 
     .empty {
-      padding: 16px 0;
+      padding: var(--padding-vertical);
       margin-top: 13px;
       margin-bottom: 14px;
     }

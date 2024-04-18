@@ -7,7 +7,7 @@
 
   :global {
     .ant-modal-body {
-      padding: 64px 85.5px;
+      padding: var(--padding-modal-wrapper);
 
       @media (max-width: 768px) {
         padding: var(--padding-mobile-wrapper);

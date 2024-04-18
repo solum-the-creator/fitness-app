@@ -17,7 +17,6 @@
     display: flex;
     align-items: center;
     gap: 4px;
-
   }
 
   .content_wrapper {
@@ -37,7 +36,7 @@
       padding: 24px;
 
       @media (max-width: 480px) {
-        padding: 16px 24px;
+        padding: var(--padding-header);
       }
 
       .tabs {
@@ -66,7 +65,6 @@
           }
         }
 
-
         .ant-tabs-nav-list {
 
           @media (min-width: 520px) {
@@ -75,7 +73,7 @@
           }
 
           @media (max-width: 990px) {
-            padding: 0 12px;
+            padding: var(--padding-horizontal-small);
           }
 
           @media (max-width: 480px) {

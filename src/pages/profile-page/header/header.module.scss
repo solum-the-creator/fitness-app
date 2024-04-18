@@ -8,7 +8,7 @@
   background-color: var(--primary-light-1);
 
   @media (max-width: 992px) {
-    padding: 16px 24px;
+    padding: var(--padding-header);
     flex-direction: column;
   }
 

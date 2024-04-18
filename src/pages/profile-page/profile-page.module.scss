@@ -23,7 +23,7 @@
 
       @media (max-width: 480px) {
         border-radius: 0;
-        padding: 16px 24px;
+        padding: var(--padding-header);
       }
     }
   }

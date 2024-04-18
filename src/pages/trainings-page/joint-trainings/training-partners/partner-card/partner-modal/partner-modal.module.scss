@@ -72,7 +72,6 @@
       margin-bottom: 4px;
     }
   }
-
 }
 
 :global {
@@ -80,7 +79,7 @@
     padding: 40px 32px;
 
     @media (max-width: 480px) {
-      padding: 16px 12px;
+      padding: var(--padding-content-small);
     }
   }
 }

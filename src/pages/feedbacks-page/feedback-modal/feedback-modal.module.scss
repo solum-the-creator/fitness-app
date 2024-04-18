@@ -5,7 +5,6 @@
 .modal {
   max-width: 540px;
 
-
   :global {
     .ant-modal-header {
       @media (max-width: 768px) {
@@ -36,7 +35,6 @@
       display: block;
     }
   }
-
 
   .form {
     .message_item {

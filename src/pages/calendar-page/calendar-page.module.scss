@@ -14,11 +14,9 @@
   @media (max-width: 680px) {
     align-self: flex-start;
   }
-
 }
 
 .calendar_container {
-
   @media (max-width: 680px) {
     margin-top: 19px;
     padding-bottom: 7px;
@@ -155,9 +153,6 @@
       .ant-picker-cell.selected {
         z-index: 8;
       }
-
     }
   }
-
-
 }

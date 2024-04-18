@@ -1,5 +1,4 @@
 .select_training {
-
   width: 100%;
   display: flex;
 
@@ -78,6 +77,5 @@
     .ant-picker-cell:has(.ant-picker-cell-with-training)::before {
       background-color: var(--primary-light-1);
     }
-
   }
 }

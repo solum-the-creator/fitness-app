@@ -53,7 +53,7 @@
     text-align: center;
     background-color: var(--neutral-gray-4);
     border: none;
-    padding: 7px 12px;
+    padding: var(--padding-button);
     font-size: 14px;
     color: var(--primary-light-6);
   }
@@ -62,7 +62,7 @@
     text-align: center;
     background-color: var(--neutral-gray-4);
     border: none;
-    padding: 7px 12px;
+    padding: var(--padding-button);
     font-size: 14px;
   }
 }

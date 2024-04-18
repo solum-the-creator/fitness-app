@@ -1,12 +1,12 @@
 .drawer_header {
-  padding: 24px 32px 16px;
+  padding: var(--padding-drawer);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
 
   @media (max-width: 680px) {
-    padding: 24px 16px 16px;
+    padding: var(--padding-drawer-small);
   }
 
   .drawer_icon {
