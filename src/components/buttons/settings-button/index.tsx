@@ -16,7 +16,7 @@ export const SettingsButton = () => {
     return (
         <Button
             icon={<SettingOutlined />}
-            type={matchesMobile ? 'default' : 'text'}
+            type='text'
             shape={matchesMobile ? 'circle' : 'default'}
             onClick={onClick}
             data-test-id='header-settings'
