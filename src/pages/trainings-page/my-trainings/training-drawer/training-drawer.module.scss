@@ -49,6 +49,8 @@
       flex-direction: column;
       gap: 24px;
 
+      max-height: calc(100% - 130px);
+
       @media (max-width: 680px) {
         padding: var(--padding-horizontal);
         gap: 16px;

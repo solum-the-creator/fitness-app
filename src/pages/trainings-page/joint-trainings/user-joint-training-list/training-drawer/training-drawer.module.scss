@@ -21,6 +21,8 @@
 }
 
 .drawer_fullscreen {
+  max-height: 100vh;
+
   :global {
     .ant-drawer-content {
       border-radius: var(--boreder-radius-left);
@@ -43,6 +45,7 @@
     height: 100%;
 
     .drawer_body {
+      max-height: calc(100% - 130px);
       flex: 1;
       padding: 0 32px;
       display: flex;

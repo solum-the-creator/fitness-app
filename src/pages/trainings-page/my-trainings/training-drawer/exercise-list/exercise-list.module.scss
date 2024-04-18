@@ -3,8 +3,8 @@
   flex-direction: column;
   gap: 24px;
 
-  max-height: 400px;
-  overflow-y: auto;
+  max-height: calc(100% - 210px);
+  overflow-y: overlay;
 
   &::-webkit-scrollbar {
     width: 20px;
@@ -23,26 +23,6 @@
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #a8bbbf;
-  }
-
-  @media (min-height: 920px) {
-    max-height: 700px
-  }
-
-  @media (min-height: 1024px) {
-    max-height: 920px
-  }
-
-  @media (min-height: 1124px) {
-    max-height: 920px
-  }
-
-  @media (min-height: 1194px) {
-    max-height: 980px
-  }
-
-  @media (max-width: 680px) {
-    max-height: 315px;
   }
 }
 
