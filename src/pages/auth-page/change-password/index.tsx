@@ -1,14 +1,13 @@
 import { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { push, replace } from 'redux-first-history';
+import { Wrapper } from '@components/result/wrapper';
 import { PATHS_RESULT } from '@constants/paths';
 import { validateConfirm, validatePassword } from '@constants/validation';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useChangePasswordMutation } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Form, Input, Typography } from 'antd';
-
-import { Wrapper } from '../_components/result/wrapper';
 
 import styles from './chage-password.module.scss';
 

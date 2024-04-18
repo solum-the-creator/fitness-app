@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import VerificationInput from 'react-verification-input';
 import { replace } from 'redux-first-history';
+import { WrapperWide } from '@components/result/wrapper-wide';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useConfirmEmailMutation } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
 import { Result } from 'antd';
-
-import { WrapperWide } from '../_components/result/wrapper-wide';
 
 import styles from './confirm-email.module.scss';
 
