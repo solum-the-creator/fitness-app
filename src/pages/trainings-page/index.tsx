@@ -8,6 +8,7 @@ import { useAppSelector } from '@redux/configure-store';
 import { findMostDemandingTrainingType } from '@utils/exercise';
 import { Tabs } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
+import cn from 'classnames';
 import moment from 'moment';
 import { TabItem } from 'src/types/tabs';
 
@@ -71,8 +72,8 @@ export const TrainingsPage = () => {
                 />
             </div>
             <div className={styles.content_wrapper}>
-                <Content className={styles.content}>
-                    <Tabs items={tabsItems} className={styles.tabs} />
+                <Content className={cn(styles.content, 'trainings_content')}>
+                    <Tabs items={tabsItems} className={styles.tabs} destroyInactiveTabPane={true} />
                 </Content>
             </div>
             <ErrorTrainingList isError={isError} refetch={refetch} />

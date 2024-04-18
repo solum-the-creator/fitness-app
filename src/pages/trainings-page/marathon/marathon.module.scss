@@ -19,3 +19,9 @@
     color: var(--character-light-secondary-45);
   }
 }
+
+:global {
+  .marathon {
+    height: 100%;
+  }
+}
