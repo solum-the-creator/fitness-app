@@ -1,4 +1,5 @@
 import { CheckCircleFilled, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { COLORS } from '@constants/styles';
 
 import styles from './tariff-comparison.module.scss';
 
@@ -28,12 +29,22 @@ export const TariffComparison = ({ active }: TariffComparisonProps) => (
             </div>
             <div className={styles.content_col}>
                 <CheckCircleFilled style={{ fontSize: '18px' }} />
-                <CloseCircleOutlined style={{ fontSize: '18px', color: '#bfbfbf' }} />
+                <CloseCircleOutlined
+                    style={{ fontSize: '18px', color: COLORS.characterLightDisable }}
+                />
                 <CheckCircleFilled style={{ fontSize: '18px' }} />
-                <CloseCircleOutlined style={{ fontSize: '18px', color: '#bfbfbf' }} />
-                <CloseCircleOutlined style={{ fontSize: '18px', color: '#bfbfbf' }} />
-                <CloseCircleOutlined style={{ fontSize: '18px', color: '#bfbfbf' }} />
-                <CloseCircleOutlined style={{ fontSize: '18px', color: '#bfbfbf' }} />
+                <CloseCircleOutlined
+                    style={{ fontSize: '18px', color: COLORS.characterLightDisable }}
+                />
+                <CloseCircleOutlined
+                    style={{ fontSize: '18px', color: COLORS.characterLightDisable }}
+                />
+                <CloseCircleOutlined
+                    style={{ fontSize: '18px', color: COLORS.characterLightDisable }}
+                />
+                <CloseCircleOutlined
+                    style={{ fontSize: '18px', color: COLORS.characterLightDisable }}
+                />
             </div>
             <div className={styles.content_col}>
                 <CheckCircleFilled style={{ fontSize: '18px' }} />

@@ -1,5 +1,6 @@
 import { useMediaQuery } from 'react-responsive';
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { COLORS } from '@constants/styles';
 import { Button } from 'antd';
 
 import styles from './upload-button.module.scss';
@@ -17,7 +18,14 @@ export const UploadButton = () => {
     ) : (
         <div>
             <PlusOutlined />
-            <div style={{ marginTop: 8, color: '#8c8c8c', width: 'min-content', lineHeight: 1.3 }}>
+            <div
+                style={{
+                    marginTop: 8,
+                    color: COLORS.characterLightSecondary,
+                    width: 'min-content',
+                    lineHeight: 1.3,
+                }}
+            >
                 Загрузить фото профиля
             </div>
         </div>

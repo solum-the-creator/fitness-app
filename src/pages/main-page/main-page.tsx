@@ -4,6 +4,7 @@ import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons'
 import { Header } from '@components/header';
 import { ErrorModal } from '@components/modals/error-modal';
 import PATHS from '@constants/paths';
+import { COLORS } from '@constants/styles';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Card, Col, Layout, Row } from 'antd';
@@ -102,7 +103,10 @@ export const MainPage: React.FC = () => {
                                                     type='link'
                                                     icon={
                                                         <CalendarTwoTone
-                                                            twoToneColor={['#2F54EB', '#2F54EB']}
+                                                            twoToneColor={[
+                                                                COLORS.primaryLight6,
+                                                                COLORS.primaryLight6,
+                                                            ]}
                                                             style={{ fontSize: '12px' }}
                                                         />
                                                     }

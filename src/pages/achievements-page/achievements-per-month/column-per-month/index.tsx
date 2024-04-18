@@ -1,6 +1,7 @@
 import { useMediaQuery } from 'react-responsive';
 import { Column, ColumnConfig } from '@ant-design/plots';
 import { DATE_SHORT_FORMAT } from '@constants/constants';
+import { COLORS } from '@constants/styles';
 import { ColumnData } from '@utils/trainings';
 import moment from 'moment';
 
@@ -30,7 +31,7 @@ export const ColumnPerMonth = ({ data }: ColumnPerMonthProps) => {
 
                 line: true,
                 lineLineWidth: 1,
-                lineStroke: '#BFBFBF',
+                lineStroke: COLORS.characterLightDisable,
                 lineExtension: [-20, -10],
                 lineLineDash: [2, 4],
             },
@@ -43,7 +44,7 @@ export const ColumnPerMonth = ({ data }: ColumnPerMonthProps) => {
             },
         },
         style: {
-            fill: '#85A5FF',
+            fill: COLORS.primaryLight4,
             margin: 0,
         },
         sizeField: matches ? 18 : 30,

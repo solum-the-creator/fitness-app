@@ -1,5 +1,6 @@
 import { useMediaQuery } from 'react-responsive';
 import { Pie, PieConfig } from '@ant-design/plots';
+import { COLORS } from '@constants/styles';
 import { convertDataForPieChart, PopularExercise } from '@utils/exercise';
 
 type ExercisePieChartProps = {
@@ -26,12 +27,12 @@ export const ExercisePieChart = ({ data }: ExercisePieChartProps) => {
             connector: false,
             style: {
                 fontSize: 14,
-                fill: '#262626',
+                fill: COLORS.primaryTextColor,
                 fillOpacity: 1,
             },
         },
         style: {
-            stroke: '#F0F0F0',
+            stroke: COLORS.characterLightDividers,
         },
         tooltip: false,
         width: matches ? undefined : 520,

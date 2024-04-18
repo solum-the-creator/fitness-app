@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CheckCircleFilled, ExclamationCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
 import { INVITE_STATUS } from '@constants/constants';
-import { avatarStyles } from '@constants/styles';
+import { avatarStyles, COLORS } from '@constants/styles';
 import { useDeleteInviteMutation } from '@redux/api/api-slice';
 import { InviteStatus } from '@redux/api/types';
 import { useAppDispatch } from '@redux/configure-store';
@@ -100,7 +100,8 @@ export const UserJointCard = ({
                 <div className={styles.status}>
                     {isAccepted && (
                         <span className={styles.status_text}>
-                            тренировка одобрена <CheckCircleFilled style={{ color: '#52C41A' }} />
+                            тренировка одобрена{' '}
+                            <CheckCircleFilled style={{ color: COLORS.characterLightSuccess }} />
                         </span>
                     )}
                     {isPending && <span className={styles.status_text}>ожидает подтверждения</span>}
@@ -114,7 +115,10 @@ export const UserJointCard = ({
                                 placement='topRight'
                             >
                                 <ExclamationCircleOutlined
-                                    style={{ fontSize: '12px', color: '#8C8C8C' }}
+                                    style={{
+                                        fontSize: '12px',
+                                        color: COLORS.characterLightSecondary,
+                                    }}
                                 />
                             </Tooltip>
                         </span>

@@ -14,6 +14,7 @@ import { ExitIcon } from '@components/icons/exit-icon';
 import { Logo } from '@components/logo';
 import { ErrorModal } from '@components/modals/error-modal';
 import PATHS from '@constants/paths';
+import { COLORS } from '@constants/styles';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { useLogout } from '@hooks/use-logout';
 import { useAppDispatch, useAppSelector } from '@redux/configure-store';
@@ -124,9 +125,9 @@ export const Sidebar = () => {
                     data-test-id='sider-switch'
                 >
                     {collapsed ? (
-                        <MenuUnfoldOutlined style={{ color: '#8C8C8C' }} />
+                        <MenuUnfoldOutlined style={{ color: COLORS.characterLightSecondary }} />
                     ) : (
-                        <MenuFoldOutlined style={{ color: '#8C8C8C' }} />
+                        <MenuFoldOutlined style={{ color: COLORS.characterLightSecondary }} />
                     )}
                 </Button>
             </div>
