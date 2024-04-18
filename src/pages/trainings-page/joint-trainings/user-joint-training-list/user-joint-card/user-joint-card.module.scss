@@ -19,7 +19,6 @@
 
     .partner_name {
       font-size: 14px;
-      line-height: 130%;
       margin: 0;
       width: min-content;
 
@@ -36,13 +35,11 @@
     .info_label {
       display: flex;
       align-items: center;
-      line-height: 130%;
       font-size: 12px;
       color: var(--character-light-secondary-45);
     }
 
     .info_value {
-      line-height: 130%;
       font-weight: 500;
       color: var(--primary-light-6);
 
@@ -65,7 +62,6 @@
 
     .status_text {
       display: flex;
-      line-height: 130%;
       gap: 8px;
     }
   }

@@ -22,7 +22,6 @@
         .ant-table-cell {
           background-color: var(--neutral-gray-4);
           border: none;
-          line-height: 130%;
           font-size: 12px;
         }
 
@@ -38,7 +37,6 @@
       .ant-table-tbody {
         .ant-table-cell {
           padding: 7px 0;
-          line-height: 130%;
         }
 
         .ant-table-cell:last-child {
@@ -56,6 +54,7 @@
     margin: 0;
     padding: 0;
     border: none;
+
     .edit_icon {
       font-size: 25px;
     }
@@ -79,4 +78,3 @@
     }
   }
 }
-

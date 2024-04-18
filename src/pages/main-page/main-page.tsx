@@ -34,7 +34,7 @@ export const MainPage: React.FC = () => {
                     <Row gutter={[16, 24]}>
                         <Col span={24}>
                             <Card className={styles.card_actions}>
-                                <p>
+                                <p className={styles.card_text}>
                                     С&nbsp;CleverFit ты&nbsp;сможешь:
                                     <br />— планировать свои тренировки на&nbsp;календаре, выбирая
                                     тип и&nbsp;уровень нагрузки;

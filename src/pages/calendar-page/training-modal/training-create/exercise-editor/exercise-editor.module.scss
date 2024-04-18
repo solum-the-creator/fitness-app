@@ -54,13 +54,11 @@
 
       .drawer_icon {
         display: block;
-        line-height: 130%;
         font-size: 14px;
         margin-top: 2px;
       }
 
       .drawer_title {
-        line-height: 130%;
         margin: 0;
         flex: 1;
       }
@@ -87,7 +85,6 @@
       .date {
         font-size: 14px;
         font-weight: 500;
-        line-height: 130%;
         color: var(--character-light-secondary-45);
       }
     }
@@ -161,7 +158,6 @@
           border: none;
           padding: 7px 12px;
           font-size: 14px;
-          line-height: 130%;
           color: var(--primary-light-6);
         }
 
@@ -171,7 +167,6 @@
           border: none;
           padding: 7px 12px;
           font-size: 14px;
-          line-height: 130%;
         }
       }
 

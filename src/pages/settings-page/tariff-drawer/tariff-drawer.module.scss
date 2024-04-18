@@ -56,13 +56,11 @@
 
       .drawer_icon {
         display: block;
-        line-height: 130%;
         font-size: 14px;
         margin-top: 2px;
       }
 
       .drawer_title {
-        line-height: 130%;
         margin: 0;
         flex: 1;
       }
@@ -95,7 +93,6 @@
         color: var(--primary-light-10);
 
         font-weight: 500;
-        line-height: 130%;
 
         @media (max-width: 680px) {
           padding: 16px;
@@ -139,7 +136,6 @@
     margin: 0;
     font-size: 14px;
     font-weight: 700;
-    line-height: 130%;
   }
 
   .periods {
@@ -170,7 +166,6 @@
         align-items: center;
 
         font-size: 14px;
-        line-height: 130%;
         height: 32px;
       }
 

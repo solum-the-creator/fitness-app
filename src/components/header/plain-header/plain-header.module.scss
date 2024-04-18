@@ -2,10 +2,4 @@
   background-color: var(--primary-light-1);
   padding: var(--padding-header);
   height: auto;
-
-  :global {
-    .ant-breadcrumb {
-      line-height: 130%;
-    }
-  }
 }

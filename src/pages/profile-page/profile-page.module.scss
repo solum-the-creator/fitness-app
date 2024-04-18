@@ -65,7 +65,6 @@
       margin: 0;
       font-size: 16px;
       font-weight: 500;
-      line-height: 130%;
     }
 
     .personal_info {
@@ -89,10 +88,6 @@
     .form_input {
       height: 40px;
       font-size: 14px;
-      line-height: 130%;
-      input {
-        line-height: 130%;
-      }
     }
 
     :global {
@@ -107,7 +102,8 @@
       flex-direction: column;
       gap: 16px;
 
-      .form_item_password, .form_item_confirm_password {
+      .form_item_password,
+      .form_item_confirm_password {
         margin-bottom: 30px;
       }
 

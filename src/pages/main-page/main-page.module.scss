@@ -40,10 +40,10 @@
 
             .ant-card-head-title {
               padding: 12px 0;
-              line-height: 130%;
               color: var(--character-light-title-85);
               overflow: hidden;
               white-space: normal;
+              font-size: 16px;
 
               @media (max-width: 1024px) {
                 text-align: left;
@@ -66,6 +66,10 @@
         line-height: 150%;
 
         box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.04);
+
+        .card_text {
+          margin: 0;
+        }
 
         :global {
           .ant-card-body {
@@ -91,10 +95,10 @@
       }
 
       .card_description {
+        margin: 0;
         font-weight: 500;
         color: var(--character-light-title-85);
         font-size: 20px;
-        line-height: 130%;
       }
 
       .card_button {

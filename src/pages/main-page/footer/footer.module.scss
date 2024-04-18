@@ -10,13 +10,11 @@
 
   }
 
-
   :global {
     .ant-card-head-title {
       padding: var(--padding-clear);
     }
   }
-
 
   .card_title {
     background-color: transparent;
@@ -31,7 +29,6 @@
 
     .title_desc {
       font-size: 14px;
-      line-height: 130%;
       color: var(--character-light-secondary-45);
       font-weight: 400;
     }
@@ -39,7 +36,6 @@
     .link_button_title {
       color: var(--primary-light-6);
       font-weight: 400;
-      line-height: 130%;
 
       &:active {
         color: var(--primary-light-7);
@@ -48,11 +44,11 @@
   }
 
   .link_button {
-      color: var(--primary-light-6);
+    color: var(--primary-light-6);
 
-      &:active {
-        color: var(--primary-light-7);
-      }
+    &:active {
+      color: var(--primary-light-7);
+    }
   }
 
   .card_app {

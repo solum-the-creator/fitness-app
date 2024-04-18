@@ -42,6 +42,7 @@
 
       .ant-picker-cell-selected .ant-picker-cell-inner {
         background: var(--neutral-gray-1);
+
         .ant-picker-calendar-date-value {
           color: var(--character-light-primary-85);
         }
@@ -53,31 +54,28 @@
         justify-content: flex-end;
         gap: 8px;
         font-size: 14px;
-        line-height: 130%;
 
         .ant-select {
           .ant-select-selector {
             align-items: center;
             height: 20px;
-            span {
-              line-height: 130%;
-            }
           }
         }
 
         .ant-picker-calendar-mode-switch {
           display: flex;
+
           label {
             display: flex;
             height: 20px;
             align-items: center;
-            line-height: 130%;
           }
         }
 
         .ant-picker-calendar-mode-switch {
           margin: 0;
         }
+
         .ant-picker-calendar-month-select {
           margin: 0;
         }
@@ -109,6 +107,7 @@
 
           thead {
             height: 30px;
+
             th {
               vertical-align: middle;
               font-weight: 500;
@@ -139,6 +138,7 @@
       .ant-picker-panel {
         background-color: transparent;
       }
+
       .ant-picker-cell-inner {
         background: var(--neutral-gray-1);
         pointer-events: auto;
@@ -146,6 +146,7 @@
 
       .ant-picker-cell-selected .ant-picker-cell-inner {
         background: var(--neutral-gray-1);
+
         .ant-picker-calendar-date-value {
           color: var(--character-light-primary-85);
         }

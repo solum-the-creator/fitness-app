@@ -9,7 +9,6 @@
   }
 
   .title {
-    line-height: 130%;
     flex-shrink: 0;
   }
 
@@ -20,7 +19,6 @@
     gap: 8px;
 
     .checkable_tag {
-      line-height: 130%;
       border: 1px solid var(--character-light-dividers);
       border-radius: 2px;
       margin-right: 0;

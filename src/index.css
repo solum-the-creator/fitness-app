@@ -125,7 +125,6 @@ h4,
 h5,
 h6 {
 	font-family: var(--font-family);
-	line-height: 130%;
 	color: var(--character-light-title-85);
 }
 

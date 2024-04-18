@@ -23,12 +23,9 @@
       .ant-result-icon {
         padding: 4px;
       }
+
       .ant-result-title {
         font-weight: 500;
-        line-height: 130%;
-      }
-      .ant-result-subtitle {
-        line-height: 130%;
       }
     }
 
@@ -36,9 +33,9 @@
       display: flex;
       gap: 8px;
 
-      .button_feedback, .button_close {
+      .button_feedback,
+      .button_close {
         font-size: 14px;
-        line-height: 130%;
       }
     }
   }

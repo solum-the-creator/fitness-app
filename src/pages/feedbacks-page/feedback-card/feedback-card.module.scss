@@ -18,13 +18,11 @@
     gap: 12px;
     width: 174px;
 
-
     @media (max-width: 768px) {
       flex-direction: row;
       gap: 16px;
       width: 100%;
     }
-
 
     .name_author {
       margin: 0;
@@ -33,7 +31,6 @@
 
       font-weight: 400;
       font-size: 16px;
-      line-height: 130%;
       color: var(--character-light-title-85);
 
       @media (max-width: 768px) {
@@ -101,7 +98,6 @@
       .date {
         font-size: 12px;
         font-weight: 400;
-        line-height: 130%;
         color: var(--character-light-disable-25);
       }
     }
@@ -111,7 +107,6 @@
 
       font-weight: 400;
       font-size: 14px;
-      line-height: 130%;
       color: var(--character-light-secondary-45);
     }
   }

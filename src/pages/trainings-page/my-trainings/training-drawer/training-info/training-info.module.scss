@@ -14,11 +14,6 @@
     .ant-select-selector {
       align-items: center;
       border-color: transparent;
-
-
-      input {
-        line-height: 130%;
-      }
     }
 
     .ant-select-selection-item {
@@ -34,11 +29,7 @@
 .select_popup {
   :global {
     .ant-select-item {
-      line-height: 130%;
       min-height: 28px;
-    }
-    .ant-select-item-option-content {
-      line-height: 130%;
     }
   }
 }
@@ -46,10 +37,6 @@
 .form_input {
   height: 28px;
   font-size: 14px;
-  line-height: 130%;
-  input {
-    line-height: 130%;
-  }
 }
 
 .training_info {
@@ -78,8 +65,8 @@
       }
 
       :global {
-        .ant-checkbox + span {
-            padding-right: 0;
+        .ant-checkbox+span {
+          padding-right: 0;
         }
       }
     }

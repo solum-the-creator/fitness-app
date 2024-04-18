@@ -27,7 +27,7 @@ export default defineConfig(({ command }) => ({
                     'input-padding-horizontal': '12px',
                     'input-padding-vertical-lg': '10px',
                     'font-size-lg': '14px',
-                    'line-height-bas': '1.3',
+                    'line-height-base': '1.3',
                 },
                 javascriptEnabled: true,
             },
