@@ -54,6 +54,10 @@ export const TrainingModal = ({
         e.stopPropagation();
     };
 
+    const handleOnKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+    };
+
     const handleCreateTraining = () => {
         setEditableTraining(undefined);
         setIsTrainingCreateVisible(true);
@@ -65,12 +69,14 @@ export const TrainingModal = ({
     };
 
     return (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
             className={`${modalClass} ${styles.modal}`}
             style={{ ...positionModal, position: fullscreen ? 'absolute' : 'fixed' }}
             ref={modalRef}
+            onKeyDown={handleOnKeyDown}
             onClick={handleModalClick}
+            role='button'
+            tabIndex={0}
             data-test-id='modal-create-training'
         >
             <div data-test-id='modal-create-exercise'>
