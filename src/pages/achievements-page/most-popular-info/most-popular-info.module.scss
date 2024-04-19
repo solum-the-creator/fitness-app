@@ -1,0 +1,35 @@
+.wrapper {
+  padding: var(--padding-vertical-large);
+
+  @media (max-width: 480px) {
+    padding: 0;
+  }
+
+  .container {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 188px 1fr;
+    gap: 16px;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 150px 1fr;
+      padding: 12px 0;
+
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      font-size: 14px;
+      color: var(--character-light-secondary-45);
+    }
+
+    .value {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      font-size: 24px;
+    }
+  }
+}

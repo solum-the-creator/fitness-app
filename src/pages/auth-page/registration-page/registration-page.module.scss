@@ -2,7 +2,6 @@
   :global {
     .ant-input {
       font-size: 14px;
-      line-height: 130%;
       font-weight: 400;
     }
   }
@@ -16,7 +15,7 @@
       }
 
       .ant-input-group-addon {
-        padding: 0 12px;
+        padding: var(--padding-horizontal-small);
       }
     }
   }
@@ -36,7 +35,6 @@
       .ant-form-item-explain {
         padding-top: 2px;
         font-size: 12px;
-        line-height: 130%;
         min-height: 46px;
       }
     }
@@ -53,7 +51,6 @@
       .ant-form-item-explain {
         margin-top: 2px;
         font-size: 12px;
-        line-height: 130%;
         min-height: 30px;
       }
     }

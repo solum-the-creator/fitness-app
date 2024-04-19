@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { StarFilled, StarOutlined, UserOutlined } from '@ant-design/icons';
+import { CustomRateCharacter } from '@components/custom-rate-character';
 import { DATE_FORMAT_FEEDBACK } from '@constants/constants';
 import { avatarStyles } from '@constants/styles';
 import { Feedback } from '@redux/api/types';
@@ -29,21 +30,14 @@ export const FeedbackCard = ({
                 <div className={styles.image_container}>
                     <Avatar src={imageSrc} icon={<UserOutlined />} style={avatarStyles} size={42} />
                 </div>
-                <p className={styles.name}>{fullName || 'Пользователь'}</p>
+                <p className={styles.name_author}>{fullName || 'Пользователь'}</p>
             </div>
             <div className={styles.comment_content}>
                 <div className={styles.comment_header}>
                     <Rate
                         disabled={true}
                         defaultValue={rating}
-                        // eslint-disable-next-line react/no-unstable-nested-components
-                        character={({ value, index }) =>
-                            value && index !== undefined && index < value ? (
-                                <StarFilled />
-                            ) : (
-                                <StarOutlined />
-                            )
-                        }
+                        character={CustomRateCharacter}
                         style={{ fontSize: '14px' }}
                         className={styles.rating}
                     />

@@ -47,13 +47,12 @@
 
       .period {
         font-weight: 500;
-        line-height: 130%;
         font-size: 16px;
       }
     }
 
     .empty {
-      padding: 16px 0;
+      padding: var(--padding-vertical);
       margin-top: 13px;
       margin-bottom: 14px;
     }
@@ -67,7 +66,6 @@
         display: flex;
         justify-content: space-between;
         color: var(--character-light-secondary-45);
-        line-height: 130%;
 
         .exercise_info {
           color: var(--primary-light-6);

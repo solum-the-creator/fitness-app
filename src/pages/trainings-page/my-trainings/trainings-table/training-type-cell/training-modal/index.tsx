@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { TRAINING_COLORS } from '@constants/constants';
 import { TrainingList, TrainingResponse } from '@redux/api/types';

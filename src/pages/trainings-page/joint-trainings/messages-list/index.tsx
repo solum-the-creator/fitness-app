@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { Invite, TrainingList } from '@redux/api/types';

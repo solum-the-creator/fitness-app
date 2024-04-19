@@ -14,6 +14,7 @@ import { ExitIcon } from '@components/icons/exit-icon';
 import { Logo } from '@components/logo';
 import { ErrorModal } from '@components/modals/error-modal';
 import PATHS from '@constants/paths';
+import { COLORS } from '@constants/styles';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { useLogout } from '@hooks/use-logout';
 import { useAppDispatch, useAppSelector } from '@redux/configure-store';
@@ -28,12 +29,12 @@ export const Sidebar = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
     const matches = useMediaQuery({ query: '(max-width: 768px)' });
+    const logout = useLogout();
+    const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
+
     const [collapsed, setCollapsed] = useState(matches);
 
     const inviteCount = useAppSelector((state) => state.invite);
-
-    const { onGetTraining, closeErrorModal, isErrorModalOpen } = useGetLazyTraining();
-    const logout = useLogout();
 
     useEffect(() => {
         if (matches) {
@@ -64,7 +65,8 @@ export const Sidebar = () => {
         {
             key: PATHS.ACHIEVEMENTS,
             icon: <TrophyFilled style={{ fontSize: '16px' }} />,
-            label: 'Достижения',
+            label: <span data-test-id='sidebar-achievements'>Достижения</span>,
+            onClick: () => onGetTraining(PATHS.ACHIEVEMENTS),
         },
         {
             key: PATHS.PROFILE,
@@ -123,9 +125,9 @@ export const Sidebar = () => {
                     data-test-id='sider-switch'
                 >
                     {collapsed ? (
-                        <MenuUnfoldOutlined style={{ color: '#8C8C8C' }} />
+                        <MenuUnfoldOutlined style={{ color: COLORS.characterLightSecondary }} />
                     ) : (
-                        <MenuFoldOutlined style={{ color: '#8C8C8C' }} />
+                        <MenuFoldOutlined style={{ color: COLORS.characterLightSecondary }} />
                     )}
                 </Button>
             </div>

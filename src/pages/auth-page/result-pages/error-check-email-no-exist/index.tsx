@@ -1,6 +1,6 @@
 import { push } from 'redux-first-history';
+import { WrapperWide } from '@components/result/wrapper-wide';
 import PATHS from '@constants/paths';
-import { WrapperWide } from '@pages/auth-page/_components/result/wrapper-wide';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
 

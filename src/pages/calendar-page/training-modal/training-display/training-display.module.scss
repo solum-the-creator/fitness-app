@@ -1,5 +1,5 @@
 .modal_header {
-  padding: 16px 12px;
+  padding: var(--padding-content-small);
   display: flex;
   justify-content: space-between;
 
@@ -10,13 +10,11 @@
 
     .modal_title {
       margin: 0;
-      line-height: 130%;
       font-size: 14px;
       font-weight: 700;
     }
 
     .modal_subtitle {
-      line-height: 130%;
       font-size: 14px;
       font-weight: 400;
       color: var(--character-light-secondary-45);
@@ -35,7 +33,7 @@
 
 .modal_main {
   .trainings {
-    padding: 16px 0;
+    padding: var(--padding-vertical);
     display: flex;
     flex-direction: column;
     gap: 4px;

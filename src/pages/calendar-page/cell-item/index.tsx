@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { TrainingTypeBadge } from '@components/training-type-badge';

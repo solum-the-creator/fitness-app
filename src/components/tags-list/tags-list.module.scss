@@ -1,0 +1,44 @@
+.container {
+  padding: var(--padding-vertical);
+  display: flex;
+  gap: 24px;
+
+  @media (max-width: 960px) {
+    gap: 16px;
+    padding: 4px 0;
+  }
+
+  .title {
+    flex-shrink: 0;
+  }
+
+  .tags_list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .checkable_tag {
+      border: 1px solid var(--character-light-dividers);
+      border-radius: 2px;
+      margin-right: 0;
+
+      @media (min-width: 960px) {
+        margin-right: 4px;
+      }
+    }
+
+    :global {
+      .ant-tag-checkable-checked {
+        color: var(--primary-light-6);
+        border: 1px solid var(--primary-light-3);
+        background-color: var(--primary-light-1);
+      }
+
+      .ant-tag-checkable:active {
+        background-color: var(--primary-light-1);
+        color: var(--primary-light-6);
+      }
+    }
+  }
+}

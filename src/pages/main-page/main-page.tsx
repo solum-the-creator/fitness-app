@@ -4,6 +4,7 @@ import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons'
 import { Header } from '@components/header';
 import { ErrorModal } from '@components/modals/error-modal';
 import PATHS from '@constants/paths';
+import { COLORS } from '@constants/styles';
 import { useGetLazyTraining } from '@hooks/use-get-training';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Card, Col, Layout, Row } from 'antd';
@@ -34,7 +35,7 @@ export const MainPage: React.FC = () => {
                     <Row gutter={[16, 24]}>
                         <Col span={24}>
                             <Card className={styles.card_actions}>
-                                <p>
+                                <p className={styles.card_text}>
                                     С&nbsp;CleverFit ты&nbsp;сможешь:
                                     <br />— планировать свои тренировки на&nbsp;календаре, выбирая
                                     тип и&nbsp;уровень нагрузки;
@@ -102,7 +103,10 @@ export const MainPage: React.FC = () => {
                                                     type='link'
                                                     icon={
                                                         <CalendarTwoTone
-                                                            twoToneColor={['#2F54EB', '#2F54EB']}
+                                                            twoToneColor={[
+                                                                COLORS.primaryLight6,
+                                                                COLORS.primaryLight6,
+                                                            ]}
                                                             style={{ fontSize: '12px' }}
                                                         />
                                                     }

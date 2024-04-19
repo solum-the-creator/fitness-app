@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { replace } from 'redux-first-history';
-import { Wrapper } from '@pages/auth-page/_components/result/wrapper';
+import { Wrapper } from '@components/result/wrapper';
 import { useAppDispatch } from '@redux/configure-store';
 import { Button, Result } from 'antd';
 

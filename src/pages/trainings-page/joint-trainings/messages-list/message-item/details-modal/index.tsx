@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { useEffect, useRef } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { TrainingTypeBadge } from '@components/training-type-badge';

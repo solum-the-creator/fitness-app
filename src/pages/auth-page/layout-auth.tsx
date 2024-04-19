@@ -3,8 +3,8 @@ import PATHS from '@constants/paths';
 import { Layout } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 
-import { Logo } from './_components/logo';
-import { Navbar } from './_components/navbar';
+import { Logo } from './logo';
+import { Navbar } from './navbar';
 
 import styles from './styles/layout-auth.module.scss';
 

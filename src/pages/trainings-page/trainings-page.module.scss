@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: column;
 
+  @media (min-width: 680px) {
+    max-height: 100vh;
+  }
+
   .header_wrapper {
     padding: var(--padding-header);
     background-color: var(--primary-light-1);
@@ -13,12 +17,11 @@
     display: flex;
     align-items: center;
     gap: 4px;
-
   }
 
   .content_wrapper {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 96px);
     padding: var(--padding-wrapper);
 
     @media (max-width: 480px) {
@@ -30,11 +33,10 @@
       width: 100%;
       border-radius: var(--border-radius-large);
       background-color: var(--neutral-gray-1);
-
       padding: 24px;
 
       @media (max-width: 480px) {
-        padding: 16px 24px;
+        padding: var(--padding-header);
       }
 
       .tabs {
@@ -63,7 +65,6 @@
           }
         }
 
-
         .ant-tabs-nav-list {
 
           @media (min-width: 520px) {
@@ -72,7 +73,7 @@
           }
 
           @media (max-width: 990px) {
-            padding: 0 12px;
+            padding: var(--padding-horizontal-small);
           }
 
           @media (max-width: 480px) {
@@ -82,7 +83,6 @@
           .ant-tabs-tab {
             font-size: 24px;
             font-weight: 500;
-            line-height: 130%;
 
             padding: 0;
             margin: 0 12px;
@@ -96,6 +96,16 @@
             }
           }
         }
+      }
+    }
+
+    :global {
+      .trainings_content:has(.marathon) {
+        background-image: url('/marathon_background.png');
+        background-size: cover;
+        background-position-x: center;
+        background-position-y: center;
+        background-attachment: fixed;
       }
     }
   }

@@ -1,5 +1,6 @@
-import { primaryTextColor } from '@constants/styles';
+import { COLORS } from '@constants/styles';
 import { Badge } from 'antd';
+import cn from 'classnames';
 
 import styles from './training-type.module.scss';
 
@@ -32,8 +33,7 @@ export const TrainingTypeBadge = ({
     className,
 }: TrainingTypeProps) => {
     const sizeClass = size === 'small' ? styles.small : styles.default;
-
-    const badgeColor = disabled ? '#bfbfbf' : color;
+    const badgeColor = disabled ? COLORS.characterLightDisable : color;
 
     return (
         <Badge
@@ -43,8 +43,8 @@ export const TrainingTypeBadge = ({
                     <span style={{ marginLeft: space ? `${space}px` : undefined }}>{text}</span>
                 ) : undefined
             }
-            className={`${styles.badge} ${sizeClass} ${className}`}
-            style={{ color: badgeColor || primaryTextColor }}
+            className={cn(styles.badge, className, sizeClass)}
+            style={{ color: badgeColor || COLORS.primaryTextColor }}
         />
     );
 };

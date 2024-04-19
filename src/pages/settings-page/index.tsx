@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { push } from 'redux-first-history';
 import PATHS from '@constants/paths';

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ErrorTrainingList } from '@components/modals/error-training-list';
+import { ErrorOpenDataModal } from '@components/modals/error-open-data-modal';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useGetInviteQuery, useLazyGetUserJointTrainingListQuery } from '@redux/api/api-slice';
 import { TrainingList } from '@redux/api/types';
@@ -102,7 +102,7 @@ export const JointTrainings = ({
                     <TrainingPartners />
                 </div>
             )}
-            <ErrorTrainingList
+            <ErrorOpenDataModal
                 onClose={() => setIsError(false)}
                 isError={isError}
                 refetch={refetch}

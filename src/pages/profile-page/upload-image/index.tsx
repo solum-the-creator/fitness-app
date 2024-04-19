@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { BASE_IMAGE_URL, STATUS_CODE } from '@constants/constants';
+import { COLORS } from '@constants/styles';
 import { BASE_API_URL } from '@redux/api/api-slice';
 import { UploadImage as UploadImageResponse } from '@redux/api/types';
 import { useAppSelector } from '@redux/configure-store';
@@ -124,7 +125,11 @@ export const UploadImage = ({ imageUrl, onGetValue }: UploadImageProps) => {
                     listType={matches ? 'picture' : 'picture-card'}
                     fileList={defaultFileList}
                     locale={{ uploading: 'Загружаем' }}
-                    progress={{ strokeWidth: 4, strokeColor: '#2F54EB', showInfo: false }}
+                    progress={{
+                        strokeWidth: 4,
+                        strokeColor: COLORS.primaryLightColor6,
+                        showInfo: false,
+                    }}
                 >
                     {defaultFileList.length >= 1 ? null : <UploadButton />}
                 </Upload>

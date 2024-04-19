@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { useMediaQuery } from 'react-responsive';
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { PERIOD_TO_STRING } from '@constants/constants';

@@ -5,15 +5,11 @@
 .modal {
   max-width: 540px;
 
-
   :global {
     .ant-modal-header {
       @media (max-width: 768px) {
         padding: 16px 10px 16px 16px;
       }
-    }
-    .ant-modal-title {
-      line-height: 130%;
     }
 
     .ant-modal-body {
@@ -29,13 +25,10 @@
         padding: 10px 16px;
       }
     }
-
-
   }
 
   .button {
     font-size: 14px;
-    line-height: 130%;
 
     @media (max-width: 768px) {
       width: 100%;
@@ -43,9 +36,7 @@
     }
   }
 
-
   .form {
-
     .message_item {
       margin-bottom: 0;
     }
@@ -78,7 +69,6 @@
             color: var(--character-light-warning);
 
             svg {
-
               &>:first-child {
                 fill: transparent;
               }
@@ -93,9 +83,7 @@
       }
     }
 
-
     .textarea {
-      line-height: 130%;
       box-sizing: border-box;
 
       resize: vertical !important;

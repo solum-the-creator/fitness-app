@@ -1,6 +1,6 @@
 import { Badge } from '@components/badge';
 import { BaseHeader } from '@components/header/base-header';
-import { ErrorTrainingList } from '@components/modals/error-training-list';
+import { ErrorOpenDataModal } from '@components/modals/error-open-data-modal';
 import PATHS from '@constants/paths';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useGetTrainingListQuery, useGetTrainingQuery } from '@redux/api/api-slice';
@@ -8,19 +8,15 @@ import { useAppSelector } from '@redux/configure-store';
 import { findMostDemandingTrainingType } from '@utils/exercise';
 import { Tabs } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
+import cn from 'classnames';
 import moment from 'moment';
+import { TabItem } from 'src/types/tabs';
 
 import { JointTrainings } from './joint-trainings';
 import { Marathon } from './marathon';
 import { MyTrainings } from './my-trainings';
 
 import styles from './trainings-page.module.scss';
-
-type TabItem = {
-    label: React.ReactNode;
-    key: string;
-    children: React.ReactNode;
-};
 
 export const TrainingsPage = () => {
     const { data: trainings = [], isFetching } = useGetTrainingQuery();
@@ -76,11 +72,11 @@ export const TrainingsPage = () => {
                 />
             </div>
             <div className={styles.content_wrapper}>
-                <Content className={styles.content}>
-                    <Tabs items={tabsItems} className={styles.tabs} />
+                <Content className={cn(styles.content, 'trainings_content')}>
+                    <Tabs items={tabsItems} className={styles.tabs} destroyInactiveTabPane={true} />
                 </Content>
             </div>
-            <ErrorTrainingList isError={isError} refetch={refetch} />
+            <ErrorOpenDataModal isError={isError} refetch={refetch} />
         </div>
     );
 };

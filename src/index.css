@@ -90,15 +90,25 @@
 	--font-family: "Inter", sans-serif;
 	--second-family: "Roboto", sans-serif;
 	--padding-header: 16px 24px;
+	--padding-content-small: 16px 12px;
+	--padding-modal-wrapper-large: 64px 85.5px;
+	--padding-drawer: 24px 32px 16px;
+	--padding-drawer-small: 24px 16px 16px;
 	--padding-mobile-wrapper: 32px 16px;
+	--padding-horizontal: 0 16px;
+	--padding-horizontal-small: 0 12px;
+	--padding-vertical: 16px 0;
+	--padding-vertical-large: 24px 0;
 	--padding-wrapper: 24px 24px 42px;
 	--padding-mobile-content-wrapper: 24px 0 42px;
 	--padding-clear: 0;
 	--padding-modal-body: 32px 32px 24px;
 	--padding-modal-wrapper: 16px;
+	--padding-button: 7px 12px;
 	--boreder-radius-left: 8px 0 0 8px;
 	--boreder-radius-top: 24px 24px 0 0;
 	--border-radius-large: 8px;
+	--drawer-box-shadow: 0 9px 28px 8px rgba(0, 0, 0, 0.05), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08);
 }
 
 form {
@@ -125,7 +135,6 @@ h4,
 h5,
 h6 {
 	font-family: var(--font-family);
-	line-height: 130%;
 	color: var(--character-light-title-85);
 }
 

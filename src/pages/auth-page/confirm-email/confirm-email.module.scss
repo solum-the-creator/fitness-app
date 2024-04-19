@@ -33,10 +33,7 @@
       justify-content: center;
 
       font-size: 14px;
-      line-height: 130%;
       color: var(--character-light-title-85);
-
-
 
       &.error {
         border-color: var(--character-light-error);
@@ -52,16 +49,11 @@
       background-color: var(--character-light-primary-inverse);
     }
 
-
-
     .text {
       font-weight: 400;
       font-size: 14px;
-      line-height: 130%;
       color: var(--character-light-secondary-45);
       margin: 0;
     }
   }
 }
-
-

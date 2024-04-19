@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircleFilled, UserOutlined } from '@ant-design/icons';
-import { ErrorTrainingDrawer } from '@components/modals/error-training-drawer';
-import { avatarStyles } from '@constants/styles';
+import { ErrorSaveDataModal } from '@components/modals/error-save-data-modal';
+import { avatarStyles, COLORS } from '@constants/styles';
 import { useLoaderLoading } from '@hooks/use-loader-loading';
 import { useDeleteInviteMutation } from '@redux/api/api-slice';
 import { useAppDispatch } from '@redux/configure-store';
@@ -82,7 +82,8 @@ export const PartnerModal = ({
                         <div className={styles.info_value}>{avgWeightInWeek} кг/нед</div>
                     </div>
                     <div className={styles.status}>
-                        тренировка одобрена <CheckCircleFilled style={{ color: '#52C41A' }} />
+                        тренировка одобрена{' '}
+                        <CheckCircleFilled style={{ color: COLORS.characterLightSuccess }} />
                     </div>
                     <div className={styles.button_wrapper}>
                         <Button
@@ -97,7 +98,7 @@ export const PartnerModal = ({
                     </div>
                 </div>
             </Modal>
-            <ErrorTrainingDrawer isOpen={isErrorOpen} onClose={handleCloseErrorModal} />
+            <ErrorSaveDataModal isOpen={isErrorOpen} onClose={handleCloseErrorModal} />
         </React.Fragment>
     );
 };

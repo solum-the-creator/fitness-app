@@ -20,7 +20,7 @@
       gap: 24px;
 
       @media (max-width: 480px) {
-        padding: 16px 24px;
+        padding: var(--padding-header);
         border-radius: 0;
         gap: 20px;
       }
@@ -34,7 +34,6 @@
 
     .title {
       margin: 0;
-      line-height: 130%;
     }
   }
 
@@ -50,13 +49,13 @@
   }
 
   .switch_block {
-    padding: 24px 0;
+    padding: var(--padding-vertical-large);
     display: flex;
     flex-direction: column;
     gap: 16px;
 
     @media (max-width: 600px) {
-      padding: 16px 0;
+      padding: var(--padding-vertical);
       gap: 24px;
     }
 

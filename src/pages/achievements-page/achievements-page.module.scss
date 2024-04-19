@@ -1,0 +1,98 @@
+.main_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 680px) {
+    max-height: 100vh;
+  }
+
+  .header_wrapper {
+    padding: var(--padding-header);
+    background-color: var(--primary-light-1);
+  }
+
+  .content_wrapper {
+    height: 100%;
+    width: 100%;
+    padding: var(--padding-wrapper);
+
+    @media (max-width: 480px) {
+      padding: var(--padding-mobile-content-wrapper);
+    }
+
+    @media (min-width: 680px) {
+      max-height: calc(100% - 96px);
+    }
+
+    .content {
+      height: 100%;
+      width: 100%;
+      border-radius: var(--border-radius-large);
+      background-color: var(--neutral-gray-1);
+
+      padding: 24px;
+
+      @media (max-width: 480px) {
+        padding: var(--padding-modal-wrapper);
+      }
+
+      .tabs {
+        height: 100%;
+      }
+
+      :global {
+        .ant-tabs-content-holder {
+          height: 100%;
+
+          .ant-tabs-content {
+            height: 100%;
+
+            .ant-tabs-tabpane {
+              height: 100%;
+            }
+          }
+        }
+
+        .ant-tabs-nav {
+          margin: 5px 0;
+
+          @media (min-width: 990px) {
+            margin: 12px 0;
+            margin-right: 32px;
+          }
+        }
+
+        .ant-tabs-nav-list {
+          width: 100%;
+          justify-content: space-between;
+
+          @media (max-width: 990px) {
+            padding: var(--padding-horizontal-small);
+          }
+
+          @media (max-width: 480px) {
+            padding: 0;
+          }
+
+          .ant-tabs-tab {
+            font-size: 24px;
+            font-weight: 500;
+
+            padding: 0;
+            margin: 0 12px;
+
+            @media (max-width: 1040px) {
+              font-size: 14px;
+              font-weight: 400;
+
+              padding: 14px 0;
+              margin: 0 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

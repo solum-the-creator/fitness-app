@@ -1,5 +1,11 @@
 import { Exercise, Training, TrainingList } from '@redux/api/types';
+import { getDay } from 'date-fns';
 import { nanoid } from 'nanoid';
+
+export type PopularExercise = {
+    name: string;
+    count: number;
+};
 
 export const createEmptyExercise = (): Partial<Exercise> => ({
     name: '',
@@ -24,7 +30,101 @@ export const filterExerciseList = (filteringExerciseList: Array<Partial<Exercise
 };
 
 export const calculateWorkload = (exercise: Exercise): number =>
-    exercise.replays * exercise.weight || 1 * exercise.approaches;
+    exercise.replays * exercise.weight * exercise.approaches;
+
+export const getTotalWorkload = (trainings: Training[]): number =>
+    trainings.reduce(
+        (acc, training) =>
+            acc +
+            training.exercises.reduce(
+                (exerciseAcc, exercise) => exerciseAcc + calculateWorkload(exercise),
+                0,
+            ),
+        0,
+    );
+
+export const getTotalReplays = (trainings: Training[]): number =>
+    trainings.reduce(
+        (acc, training) =>
+            acc +
+            training.exercises.reduce((exerciseAcc, exercise) => exerciseAcc + exercise.replays, 0),
+        0,
+    );
+
+export const getTotalApproaches = (trainings: Training[]): number =>
+    trainings.reduce(
+        (acc, training) =>
+            acc +
+            training.exercises.reduce(
+                (exerciseAcc, exercise) => exerciseAcc + exercise.approaches,
+                0,
+            ),
+        0,
+    );
+
+export const getAverageWorkload = (trainings: Training[]): number => {
+    const { totalWorkload, totalExercises } = trainings.reduce(
+        (acc, training) => {
+            training.exercises.forEach((exercise) => {
+                acc.totalWorkload += calculateWorkload(exercise);
+                acc.totalExercises += 1;
+            });
+
+            return acc;
+        },
+        { totalWorkload: 0, totalExercises: 0 },
+    );
+
+    const averageWorkload = totalExercises > 0 ? totalWorkload / totalExercises : 0;
+
+    return Math.round(averageWorkload);
+};
+
+export const getMostPopularExercise = (trainings: Training[]): PopularExercise | null => {
+    const exerciseCounts: { [name: string]: number } = {};
+
+    trainings.forEach((training) => {
+        training.exercises.forEach((exercise) => {
+            exerciseCounts[exercise.name] = (exerciseCounts[exercise.name] || 0) + 1;
+        });
+    });
+
+    const sortedExerciseCounts = Object.entries(exerciseCounts)
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count);
+
+    const mostPopularExercise =
+        sortedExerciseCounts.length > 0
+            ? { name: sortedExerciseCounts[0].name, count: sortedExerciseCounts[0].count }
+            : null;
+
+    return mostPopularExercise;
+};
+
+export const getMostPopularExerciseForEachWeekDay = (
+    data: Array<{ date: Date; trainings: Training[] }>,
+): Array<{ dayOfWeek: number; mostPopularExercise: PopularExercise | null }> => {
+    const groupedTrainings: { [key: number]: Training[] } = {};
+
+    data.forEach(({ date, trainings }) => {
+        const dayOfWeek = getDay(date);
+
+        if (!groupedTrainings[dayOfWeek]) {
+            groupedTrainings[dayOfWeek] = [];
+        }
+        groupedTrainings[dayOfWeek].push(...trainings);
+    });
+
+    const mostPopularExercisesForEachWeekDay = Object.entries(groupedTrainings).map(
+        ([dayOfWeek, trainings]) => {
+            const mostPopularExercise = getMostPopularExercise(trainings);
+
+            return { dayOfWeek: Number(dayOfWeek), mostPopularExercise };
+        },
+    );
+
+    return mostPopularExercisesForEachWeekDay;
+};
 
 export const findMostDemandingTrainingType = (
     trainings: Training[],
@@ -59,4 +159,27 @@ export const findMostDemandingTrainingType = (
     });
 
     return trainingList.find((item) => item.name === mostDemandingTrainingType)?.key || null;
+};
+
+export const convertDataForPieChart = (
+    data: Array<{ dayOfWeek: number; mostPopularExercise: PopularExercise | null }>,
+): PopularExercise[] => {
+    const result: { [name: string]: number } = {};
+
+    data.forEach(({ mostPopularExercise }) => {
+        if (mostPopularExercise) {
+            if (result[mostPopularExercise.name]) {
+                result[mostPopularExercise.name] += mostPopularExercise.count;
+            } else {
+                result[mostPopularExercise.name] = mostPopularExercise.count;
+            }
+        }
+    });
+
+    const formattedData: PopularExercise[] = Object.keys(result).map((name) => ({
+        name,
+        count: result[name],
+    }));
+
+    return formattedData;
 };

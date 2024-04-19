@@ -2,7 +2,6 @@
   :global {
     .ant-input {
       font-size: 14px;
-      line-height: 130%;
       font-weight: 400;
     }
   }
@@ -18,7 +17,6 @@
       .ant-form-item-explain {
         margin-top: 2px;
         font-size: 12px;
-        line-height: 130%;
         min-height: 30px;
       }
     }
@@ -35,7 +33,6 @@
       .ant-form-item-explain {
         margin-top: 2px;
         font-size: 12px;
-        line-height: 130%;
         min-height: 30px;
       }
     }
@@ -63,7 +60,6 @@
       padding: 0 7px;
     }
   }
-
 
   .form_check_area {
     margin-bottom: 26px;
@@ -107,12 +103,11 @@
       .ant-btn {
         @media (max-width: 640px) {
           font-size: 14px;
-
         }
+
         .anticon {
           @media (max-width: 480px) {
             display: none;
-
           }
         }
 
@@ -125,6 +120,3 @@
     }
   }
 }
-
-
-

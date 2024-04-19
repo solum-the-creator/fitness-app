@@ -7,7 +7,7 @@
 
   :global {
     .ant-modal-body {
-      padding: 64px 85.5px;
+      padding: var(--padding-modal-wrapper-large);
 
       @media (max-width: 768px) {
         padding: var(--padding-mobile-wrapper);
@@ -25,15 +25,7 @@
 
       .ant-result-title {
         font-weight: 500;
-        line-height: 130%;
       }
-
     }
-
-    .button {
-      font-size: 14px;
-      line-height: 130%;
-    }
-
   }
 }

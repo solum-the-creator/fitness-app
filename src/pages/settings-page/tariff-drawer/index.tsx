@@ -1,7 +1,7 @@
-/* eslint-disable no-underscore-dangle */
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { CloseOutlined } from '@ant-design/icons';
+import { DATE_SHORT_FORMAT } from '@constants/constants';
 import { useAddTariffMutation } from '@redux/api/api-slice';
 import { Tariff, TariffList } from '@redux/api/types';
 import { Button, Drawer, RadioChangeEvent } from 'antd';
@@ -34,7 +34,8 @@ export const TariffDrawer = ({
 
     const [periodValue, setPeriodValue] = useState<number | undefined>(undefined);
 
-    const formattedDate = currentTariff?.expired && moment(currentTariff.expired).format('DD.MM');
+    const formattedDate =
+        currentTariff?.expired && moment(currentTariff.expired).format(DATE_SHORT_FORMAT);
 
     const onChange = (e: RadioChangeEvent) => {
         setPeriodValue(e.target.value);

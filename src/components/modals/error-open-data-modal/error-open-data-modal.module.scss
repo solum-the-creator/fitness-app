@@ -1,0 +1,37 @@
+.error_modal_wrapper {
+  z-index: 12;
+  padding: var(--padding-modal-wrapper);
+
+  .error_modal {
+    max-width: 384px;
+
+    :global {
+      .ant-modal-body {
+        padding: var(--padding-header);
+        padding-bottom: var(--padding-modal-wrapper);
+
+        .ant-modal-confirm-title {
+          max-width: 250px;
+          font-weight: 400;
+        }
+
+        .ant-modal-confirm-content {
+          color: var(--character-light-secondary-45);
+        }
+
+        .ant-modal-confirm-btns {
+          margin-top: 16px;
+
+          button {
+            height: 28px;
+          }
+        }
+
+        .anticon-close-circle {
+          color: var(--primary-light-6);
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}

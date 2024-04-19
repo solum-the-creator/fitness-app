@@ -4,10 +4,12 @@ import { Breadcrumb, Layout } from 'antd';
 import styles from './plain-header.module.scss';
 
 type PlainHeaderProps = {
-    breadCrumbs: Array<{
-        title: string;
-        link: string;
-    }>;
+    breadCrumbs: BreadcrumbItem[];
+};
+
+type BreadcrumbItem = {
+    title: string;
+    link: string;
 };
 
 export const PlainHeader = ({ breadCrumbs }: PlainHeaderProps) => (

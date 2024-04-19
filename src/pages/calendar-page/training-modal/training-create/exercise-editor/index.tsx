@@ -3,6 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import { CloseOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { TrainingTypeBadge } from '@components/training-type-badge';
 import { DATE_FORMAT } from '@constants/constants';
+import { COLORS } from '@constants/styles';
 import { Exercise, TrainingList } from '@redux/api/types';
 import { Button, Drawer } from 'antd';
 import { Moment } from 'moment';
@@ -147,7 +148,7 @@ export const ExerciseEditor = ({
                     <TrainingTypeBadge
                         type={trainingType.key}
                         text={trainingType.name}
-                        color='#8c8c8c'
+                        color={COLORS.characterLightSecondary}
                     />
 
                     <div className={styles.date}>{date.format(DATE_FORMAT)}</div>

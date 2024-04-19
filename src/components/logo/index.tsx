@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import PATHS from '@constants/paths';
 import { Image } from 'antd';
+import cn from 'classnames';
 
 import styles from './logo.module.scss';
 
@@ -14,11 +15,10 @@ type LogoProps = {
 
 export const Logo = ({ collapsed, matches }: LogoProps) => {
     const logoUrl = collapsed && !matches ? logoCollapsed : logo;
-    const styleClass = collapsed ? styles.logo_collapsed : styles.logo;
 
     return (
         <Link to={PATHS.ROOT}>
-            <div className={`${styleClass}`}>
+            <div className={cn({ [styles.logo_collapsed]: collapsed, [styles.logo]: !collapsed })}>
                 <Image alt='CleverFit' preview={false} src={logoUrl} />
             </div>
         </Link>

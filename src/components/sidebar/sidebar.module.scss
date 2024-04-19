@@ -4,7 +4,6 @@
 
   position: relative;
 
-
   @media (max-width: 768px) {
     position: fixed;
     left: 0;
@@ -12,19 +11,16 @@
     z-index: 8;
   }
 
-
   :global {
     .ant-layout-sider-children {
       display: flex;
       flex-direction: column;
-
     }
 
     .ant-menu-inline-collapsed {
       border: none;
 
       .ant-menu-item {
-
         width: auto;
         margin: 0;
 
@@ -33,21 +29,17 @@
 
         color: var(--character-light-title-85);
 
-
-
         &:not(:last-child) {
           margin-bottom: 16px;
         }
       }
-
-
     }
 
     .ant-menu-inline {
       border: none;
 
       .ant-menu-item {
-        padding: 0 16px;
+        padding: var(--padding-horizontal);
         width: auto;
         margin: 0;
 
@@ -227,8 +219,6 @@
       width: 100%;
       height: 100%;
 
-
-
       &:hover {
         background-color: transparent;
       }
@@ -252,8 +242,6 @@
 
     filter: drop-shadow(3px 0 2px rgba(0, 0, 0, 0.15));
 
-
-
     .trapezoid {
       position: relative;
       left: -1px;
@@ -275,6 +263,4 @@
   .icon_badge {
     display: flex;
   }
-
-
 }

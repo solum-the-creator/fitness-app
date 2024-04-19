@@ -1,3 +1,4 @@
+import { TagData } from '@components/tags-list';
 import { InviteStatus } from '@redux/api/types';
 import ru_RU from 'antd/es/calendar/locale/ru_RU';
 
@@ -27,6 +28,8 @@ export const RU_CALENDAR_LOCALE = {
 export const DATE_FORMAT = 'DD.MM.YYYY';
 
 export const DATE_FORMAT_FEEDBACK = 'dd.MM.yyyy';
+
+export const DATE_SHORT_FORMAT = 'DD.MM';
 
 export const STATUS_CODE = {
     SUCCESS: 200,
@@ -113,6 +116,16 @@ export const DAY_OF_WEEK_OPTIONS: OptionDayOfWeek[] = [
     },
 ];
 
+export const NUMBER_TO_WEEKDAY: Record<number, string> = {
+    1: 'Понедельник',
+    2: 'Вторник',
+    3: 'Среда',
+    4: 'Четверг',
+    5: 'Пятница',
+    6: 'Суббота',
+    7: 'Воскресенье',
+};
+
 export const PERIOD_TO_STRING: Record<number, string> = {
     1: 'Через 1 день',
     2: 'Через 2 дня',
@@ -136,4 +149,9 @@ export const INVITE_STATUS: Record<InviteStatus, InviteStatus> = {
     accepted: 'accepted',
     pending: 'pending',
     rejected: 'rejected',
+};
+
+export const TAG_ALL: TagData = {
+    name: 'Все',
+    key: 'all',
 };
