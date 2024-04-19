@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 
-import styles from './error-open-data-modal.scss';
+import styles from './error-open-data-modal.module.scss';
 
 type ErrorOpenDataModalProps = {
     isError: boolean;
